@@ -81,7 +81,21 @@ sub image {
 
 # move is always possible
 sub is_move_possible { 1 }
-sub is_flight_possible {}
+
+=method my $bool = $player->is_flight_possible;
+
+Return true if C<$player> can fly (regular flight) starting from her current
+location.
+
+=cut
+
+sub is_flight_possible {
+    my $self = shift;
+    my @cards =
+        grep { $_->city ne $self->location }
+        $self->all_cards;
+    return scalar @cards;
+}
 sub is_charter_possible {}
 sub is_shuttle_possible {}
 sub is_join_possible {}

@@ -5,25 +5,20 @@ use 5.010;
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::SemiAffordanceAccessor;
-
+use Moose::Role;
 use Games::Pandemic::Utils;
 
-extends 'Games::Pandemic::Role';
+
+around can_join_others => sub { 1 };
+around can_move_others => sub { 1 };
+sub color     { '#af4377' }
+sub _image    { 'dispatcher' }
+sub role_name { T('Dispatcher') }
 
 
-# -- default builders
-
-sub _build_can_join_others { 1 }
-sub _build_can_move_others { 1 }
-sub _build_color           { '#af4377' }
-sub _build__image          { 'dispatcher' }
-sub _build_role_name       { T('Dispatcher') }
-
-
-no Moose;
-__PACKAGE__->meta->make_immutable;
+no Moose::Role;
+# moose::role cannot be made immutable
+#__PACKAGE__->meta->make_immutable;
 
 1;
 __END__

@@ -69,7 +69,7 @@ sub _build__frame {
     my $f = $parent->Frame;
 
     my $but = $f->Button(
-        -image => $parent->Photo( -file=>$self->player->role->image('icon', 32) ),
+        -image => $parent->Photo( -file=>$self->player->image('icon', 32) ),
         -command => sub { $self->_toggle_visibility },
     )->pack(@LEFT);
     $self->_set_button($but);

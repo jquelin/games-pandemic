@@ -5,24 +5,19 @@ use 5.010;
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::SemiAffordanceAccessor;
-
+use Moose::Role;
 use Games::Pandemic::Utils;
 
-extends 'Games::Pandemic::Role';
+
+around can_share => sub { 1 };
+sub color     { '#aa7826' }
+sub _image    { 'researcher' }
+sub role_name { T('Researcher') }
 
 
-# -- default builders
-
-sub _build_can_share    { 1 }
-sub _build_color        { '#aa7826' }
-sub _build__image       { 'researcher' }
-sub _build_role_name    { T('Researcher') }
-
-
-no Moose;
-__PACKAGE__->meta->make_immutable;
+no Moose::Role;
+# moose::role cannot be made immutable
+#__PACKAGE__->meta->make_immutable;
 
 1;
 __END__

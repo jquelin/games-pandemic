@@ -190,7 +190,7 @@ event new_player => sub {
     my $y = $city->y + $offsets->[1];
     $c->createImage(
         $x, $y,
-        -image  => $mw->Photo( -file => $player->role->image('pawn',16) ),
+        -image  => $mw->Photo( -file => $player->image('pawn',16) ),
         -anchor => 's',
         -tags   => ['player', $player],
     );

@@ -140,7 +140,8 @@ event _new_player => sub {
     my ($role, $nbcards) = @_[ARG0..$#_];
     my $game = Games::Pandemic->instance;
 
-    my $player = Games::Pandemic::Player->new(role_class=>$role);
+    $role = "Games::Pandemic::Role::$role";
+    my $player = Games::Pandemic::Player->new_with_traits(traits=>[$role]);
     $game->add_player($player);
     $K->post( main => 'new_player', $player );
     $K->yield( '_deal_card', $player, $nbcards );

@@ -5,16 +5,19 @@ use 5.010;
 use strict;
 use warnings;
 
+use File::Spec::Functions qw{ catfile };
 use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 use UNIVERSAL::require;
 
+with 'MooseX::Traits';
+
+use Games::Pandemic::Utils;
+
 
 # -- accessors
 
-has role_class => ( is=>'ro', isa=>'Str', required => 1, );
-has role       => ( is=>'rw', isa=>'Games::Pandemic::Role', lazy_build=>1 );
 has _cards => (
     metaclass  => 'Collection::Array',
     is         => 'ro',
@@ -36,15 +39,34 @@ sub _build_location {
     return Games::Pandemic->instance->map->start_city;
 }
 
-sub _build_role {
-    my $self = shift;
 
-    # load the wanted role module
-    my $class = 'Games::Pandemic::Role::' . $self->role_class;
-    $class->require;
+# -- public methods
 
-    # create the new role and return it
-    return $class->new;
+# default role attribute, superseded by the various roles
+sub auto_clean_on_cure { 0 }
+sub can_build          { 0 }
+sub can_join_others    { 0 }
+sub can_move_others    { 0 }
+sub can_share          { 0 }
+sub cards_needed       { 5 }
+sub cure_all           { 0 }
+sub max_cards          { 7 }
+
+
+=method my $path = $player->image( $what, $size );
+
+Return the C$<path> to an image for the player role. C<$what> can be either
+C<icon> or C<pawn>. C<$size> can be one of C<orig>, or 32 or 16. Note that not
+all combinations are possible.
+
+=cut
+
+sub image {
+    my ($self, $what, $size) = @_;
+    return catfile(
+        $SHAREDIR, 'roles',
+        join('-', $self->_image, $what, $size) . '.png'
+    );
 }
 
 

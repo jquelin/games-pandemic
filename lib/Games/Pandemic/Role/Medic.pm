@@ -5,25 +5,20 @@ use 5.010;
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::SemiAffordanceAccessor;
-
+use Moose::Role;
 use Games::Pandemic::Utils;
 
-extends 'Games::Pandemic::Role';
+
+around auto_clean_on_cure => sub { 1 };
+around cure_all           => sub { 1 };
+sub color              { '#e48006' }
+sub _image             { 'medic' }
+sub role_name          { T('Medic') }
 
 
-# -- default builders
-
-sub _build_auto_clean_on_cure { 1 }
-sub _build_color              { '#e48006' }
-sub _build_cure_all           { 1 }
-sub _build__image             { 'medic' }
-sub _build_role_name          { T('Medic') }
-
-
-no Moose;
-__PACKAGE__->meta->make_immutable;
+no Moose::Role;
+# moose::role cannot be made immutable
+#__PACKAGE__->meta->make_immutable;
 
 1;
 __END__

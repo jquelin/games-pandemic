@@ -5,24 +5,19 @@ use 5.010;
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::SemiAffordanceAccessor;
-
+use Moose::Role;
 use Games::Pandemic::Utils;
 
-extends 'Games::Pandemic::Role';
+
+around cards_needed => sub { 4 };
+sub color     { '#d1d0c2' }
+sub _image    { 'scientist' }
+sub role_name { T('Scientist') }
 
 
-# -- default builders
-
-sub _build_cards_needed { 4 }
-sub _build_color        { '#d1d0c2' }
-sub _build__image       { 'scientist' }
-sub _build_role_name    { T('Scientist') }
-
-
-no Moose;
-__PACKAGE__->meta->make_immutable;
+no Moose::Role;
+# moose::role cannot be made immutable
+#__PACKAGE__->meta->make_immutable;
 
 1;
 __END__

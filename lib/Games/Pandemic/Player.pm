@@ -79,13 +79,22 @@ sub image {
     );
 }
 
-# move is always possible
+
+=method my $bool = $player->is_move_possible;
+
+Return true if C<$player> can move, starting from her current location. Always
+true. Included here for the sake of completeness.
+
+=cut
+
 sub is_move_possible { 1 }
+
 
 =method my $bool = $player->is_flight_possible;
 
 Return true if C<$player> can fly (regular flight) starting from her current
-location.
+location. Flight is possible if the player has at least one city card, which is
+not the card representing the city in which the player is.
 
 =cut
 
@@ -96,6 +105,8 @@ sub is_flight_possible {
         $self->all_cards;
     return scalar @cards;
 }
+
+
 sub is_charter_possible {}
 sub is_shuttle_possible {}
 sub is_join_possible {}
@@ -103,7 +114,15 @@ sub is_build_possible {}
 sub is_discover_possible {}
 sub is_cure_possible {}
 sub is_share_possible {}
-# pass is always possible
+
+
+=method my $bool = $player->is_pass_possible;
+
+Return true if C<$player> can pass. Always true. Included here for the sake of
+completeness.
+
+=cut
+
 sub is_pass_possible { 1 }
 
 

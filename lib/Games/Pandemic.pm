@@ -60,6 +60,19 @@ has _players => (
         push     => 'add_player',        # $game->add_player( $player );
     }
 );
+# list of players waiting for their turn
+has _players_in_turn => (
+    metaclass  => 'Collection::Array',
+    is         => 'ro',
+    isa        => 'ArrayRef[Games::Pandemic::Player]',
+    default    => sub { [] },
+    auto_deref => 1,
+    provides   => {
+        push     => 'reinit_players',    # $game->reinit_players( $player );
+        shift    => 'next_player',       # my $p = $game->next_player;
+    }
+);
+
 
 # number of research stations remaining to be build
 has stations => (

@@ -38,8 +38,7 @@ event action => sub {
     my $player = $game->curplayer;
 
     # FIXME: check src vs current player
-    $player->action_done;
-    # FIXME: update gui
+
     $K->yield("_action_$action");
  };
 
@@ -98,17 +97,32 @@ event new_game => sub {
 # -- private event
 
 #
-# event: _action_pass()
+# event: _action_done()
 #
-# User wishes to pass.
-# 
-event _action_pass => sub {
+# action is finished.
+#
+event _action_done => sub {
     my $game = Games::Pandemic->instance;
     my $player = $game->curplayer;
+
+    $player->action_done;
+    # FIXME: update gui
 
    my $event = $player->actions_left == 0 ? '_draw_card' : '_next_action';
     $K->yield( $event );
 };
+
+
+#
+# event: _action_pass()
+#
+# user wishes to pass.
+# 
+event _action_pass => sub {
+    # nothing to do - user is just passing
+    $K->yield('_action_done');
+};
+
 
 #
 # _deal_card( $player, $nb );

@@ -79,6 +79,18 @@ sub image {
     );
 }
 
+# move is always possible
+sub is_move_possible { 1 }
+sub is_flight_possible {}
+sub is_charter_possible {}
+sub is_shuttle_possible {}
+sub is_join_possible {}
+sub is_build_possible {}
+sub is_discover_possible {}
+sub is_cure_possible {}
+sub is_share_possible {}
+# pass is always possible
+sub is_pass_possible { 1 }
 
 
 no Moose;

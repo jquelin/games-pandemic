@@ -239,6 +239,16 @@ event _decay => sub {
 # -- gui events
 
 #
+# event: _action_pass()
+#
+# user wishes to pass.
+#
+event _action_pass => sub {
+    $K->post( controller => "action_pass" );
+};
+
+
+#
 # _new()
 #
 # request a new game to the controller

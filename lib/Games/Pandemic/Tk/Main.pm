@@ -463,6 +463,11 @@ sub _build_status_bar {
     $finfection->Label(
         -text => $infection->nbcards . '-' . $infection->nbdiscards,
     )->pack(@LEFT);
+
+    # player information
+    my $fplayer = $sb->Frame->pack(@LEFT, @PADX10);
+    $fplayer->Label( -text => T('actions left: ') )->pack(@LEFT);
+    $fplayer->Label( -text => 4 )->pack(@LEFT);
 }
 
 

@@ -257,7 +257,7 @@ event _decay => sub {
 # user wishes to pass.
 #
 event _action_pass => sub {
-    $K->post( controller => "action_pass" );
+    $K->post( controller => 'action', 'pass' );
 };
 
 

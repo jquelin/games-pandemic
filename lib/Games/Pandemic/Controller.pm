@@ -32,22 +32,16 @@ sub START {
 
 # -- public events
 
-=method event: action_pass()
-
-User wishes to pass.
-
-=cut
-
-event action_pass => sub {
+event action => sub {
+    my $action = $_[ARG0];
     my $game = Games::Pandemic->instance;
     my $player = $game->curplayer;
 
     # FIXME: check src vs current player
     $player->action_done;
     # FIXME: update gui
-    my $event = $player->actions_left == 0 ? '_draw_card' : '_next_action';
-    $K->yield( $event );
-};
+    $K->yield("_action_$action");
+ };
 
 
 =method event: new_game()
@@ -102,6 +96,19 @@ event new_game => sub {
 
 
 # -- private event
+
+#
+# event: _action_pass()
+#
+# User wishes to pass.
+# 
+event _action_pass => sub {
+    my $game = Games::Pandemic->instance;
+    my $player = $game->curplayer;
+
+   my $event = $player->actions_left == 0 ? '_draw_card' : '_next_action';
+    $K->yield( $event );
+};
 
 #
 # _deal_card( $player, $nb );

@@ -209,6 +209,7 @@ event new_turn => sub {
 
     $self->_w('lab_curplayer')->configure(-image=>$mw->Photo(-file=>$player->image('icon', 32)));
     $self->_w('lab_nbactions')->configure(-text=>$player->actions_left);
+    $self->_update_actions;
 };
 
 
@@ -622,6 +623,25 @@ sub _draw_station {
         -image => $c->Photo( -file => catfile($SHAREDIR, 'research-station-32.png') ),
         -tags  => $tags,
     );
+}
+
+#
+# $main->_update_actions;
+#
+# update action buttons state depending on player.
+#
+sub _update_actions {
+    my $self = shift;
+    my $game = Games::Pandemic->instance;
+    my $player = $game->curplayer;
+
+    my @actions = qw{ move flight charter shuttle join build discover cure share pass };
+    foreach my $action ( @actions ) {
+        my $method = "is_${action}_possible";
+        $self->_w("but_action_$action")->configure(
+            $player->$method ? @ENON : @ENOFF );
+    }
+
 }
 
 

@@ -197,13 +197,13 @@ event new_player => sub {
 };
 
 
-=method event: new_turn( $player )
+=method event: next_player( $player )
 
 Received when C<$player> starts its turn.
 
 =cut
 
-event new_turn => sub {
+event next_player => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
     my $game = Games::Pandemic->instance;
 

@@ -97,28 +97,7 @@ event new_game => sub {
     $K->post( 'main' => 'new_game' );
 
     # start the game
-    $K->yield( 'new_turn' );
-};
-
-
-=method event: new_turn( $player )
-
-Sent when C<$player> should start to play its turn.
-
-=cut
-
-event new_turn => sub {
-    my $game = Games::Pandemic->instance;
-
-    my $player = $game->next_player;
-    if ( not defined $player ) {
-        $game->reinit_players( $game->all_players );
-        $player = $game->next_player;
-    }
-    $game->set_curplayer( $player );
-
-    $player->set_actions_left(4);
-    $K->post( main => 'new_turn', $player );
+    $K->yield( '_next_player' );
 };
 
 
@@ -188,6 +167,28 @@ event _new_player => sub {
     $K->post( main => 'new_player', $player );
     $K->yield( '_deal_card', $player, $nbcards );
 };
+
+
+#
+# event: _next_player( $player )
+#
+# sent when $player should start to play its turn.
+#
+event _next_player => sub {
+    my $game = Games::Pandemic->instance;
+
+    my $player = $game->next_player;
+    if ( not defined $player ) {
+        $game->reinit_players( $game->all_players );
+        $player = $game->next_player;
+    }
+    $game->set_curplayer( $player );
+
+    $player->set_actions_left(4);
+    $K->post( main => 'next_player', $player );
+};
+
+
 
 
 no Moose;

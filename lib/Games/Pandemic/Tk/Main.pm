@@ -280,7 +280,8 @@ sub _build_action_bar {
     foreach my $action ( @actions ) {
         my $image = $mw->Photo(-file=> catfile($SHAREDIR, 'actions', "$action.png"));
         my $but = $f->Button(
-            -image => $image,
+            -image   => $image,
+            -command => $self->_session->postback("_action_$action"),
         )->pack(@LEFT);
         $self->_set_w("but_action_$action", $but);
     }

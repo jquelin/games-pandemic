@@ -30,6 +30,16 @@ has _cards => (
     }
 );
 
+has actions_left => (
+    metaclass => 'Counter',
+    is        => 'rw',
+    isa       => 'Int',
+    provides  => {
+        dec => 'action_done',
+        set => 'set_actions_left',
+    },
+);
+
 has location => ( is=>'rw', isa=>'Games::Pandemic::City', lazy_build => 1 );
 
 

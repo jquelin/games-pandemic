@@ -32,6 +32,24 @@ sub START {
 
 # -- public events
 
+=method event: action_pass()
+
+User wishes to pass.
+
+=cut
+
+event action_pass => sub {
+    my $game = Games::Pandemic->instance;
+    my $player = $game->curplayer;
+
+    # FIXME: check src vs current player
+    $player->action_done;
+    # FIXME: update gui
+    my $event = $player->actions_left == 0 ? '_draw_card' : '_next_action';
+    $K->yield( $event );
+};
+
+
 =method event: new_game()
 
 Create a new game: (re-)initialize the map, and various internal states.

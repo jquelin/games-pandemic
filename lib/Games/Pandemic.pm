@@ -72,6 +72,7 @@ has _players_in_turn => (
         shift    => 'next_player',       # my $p = $game->next_player;
     }
 );
+has curplayer => ( is=>'rw', isa=>'Games::Pandemic::Player', weak_ref=>1 );
 
 
 # number of research stations remaining to be build

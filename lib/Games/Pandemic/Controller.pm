@@ -77,6 +77,30 @@ event new_game => sub {
 
     # signal main window that we have started a new game
     $K->post( 'main' => 'new_game' );
+
+    # start the game
+    $K->yield( 'new_turn' );
+};
+
+
+=method event: new_turn( $player )
+
+Sent when C<$player> should start to play its turn.
+
+=cut
+
+event new_turn => sub {
+    my $game = Games::Pandemic->instance;
+
+    my $player = $game->next_player;
+    if ( not defined $player ) {
+        $game->reinit_players( $game->all_players );
+        $player = $game->next_player;
+    }
+    $game->set_curplayer( $player );
+
+    $player->set_actions_left(4);
+    $K->post( main => 'new_turn', $player );
 };
 
 

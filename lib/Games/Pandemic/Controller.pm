@@ -170,6 +170,16 @@ event _new_player => sub {
 
 
 #
+# event: _next_action()
+#
+# sent for player to continue its turn
+#
+event _next_action => sub {
+    $K->post( main => 'next_action' );
+};
+
+
+#
 # event: _next_player( $player )
 #
 # sent when $player should start to play its turn.
@@ -186,6 +196,7 @@ event _next_player => sub {
 
     $player->set_actions_left(4);
     $K->post( main => 'next_player', $player );
+    $K->yield( '_next_action' );
 };
 
 

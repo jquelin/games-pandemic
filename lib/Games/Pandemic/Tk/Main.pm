@@ -276,9 +276,10 @@ sub _build_action_bar {
     my @actions = qw{ move flight charter shuttle join build discover cure share pass };
     foreach my $action ( @actions ) {
         my $image = $mw->Photo(-file=> catfile($SHAREDIR, 'actions', "$action.png"));
-        $f->Button(
+        my $but = $f->Button(
             -image => $image,
         )->pack(@LEFT);
+        $self->_set_w("but_action_$action", $but);
     }
 }
 

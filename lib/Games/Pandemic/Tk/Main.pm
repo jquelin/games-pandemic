@@ -197,6 +197,21 @@ event new_player => sub {
 };
 
 
+=method event: next_action
+
+Received when player needs to do its next action.
+
+=cut
+
+event next_action => sub {
+    my $self = $_[OBJECT];
+    my $game = Games::Pandemic->instance;
+    my $player = $game->curplayer;
+    $self->_w('lab_nbactions')->configure(-text=>$player->actions_left);
+    $self->_update_actions;
+};
+
+
 =method event: next_player( $player )
 
 Received when C<$player> starts its turn.
@@ -208,8 +223,6 @@ event next_player => sub {
     my $game = Games::Pandemic->instance;
 
     $self->_w('lab_curplayer')->configure(-image=>$mw->Photo(-file=>$player->image('icon', 32)));
-    $self->_w('lab_nbactions')->configure(-text=>$player->actions_left);
-    $self->_update_actions;
 };
 
 

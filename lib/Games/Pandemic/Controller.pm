@@ -108,7 +108,7 @@ event _action_done => sub {
     $player->action_done;
     # FIXME: update gui
 
-   my $event = $player->actions_left == 0 ? '_draw_card' : '_next_action';
+   my $event = $player->actions_left == 0 ? '_draw_cards' : '_next_action';
     $K->yield( $event );
 };
 
@@ -144,6 +144,15 @@ event _deal_card => sub {
 
     # FIXME: game over if no more card
     # FIXME: if player has too much cards
+};
+
+#
+# event: _draw_cards()
+#
+# sent when player needs to draw her cards.
+#
+event _draw_cards => sub {
+    $K->yield( '_propagate' );
 };
 
 

@@ -230,6 +230,14 @@ event _next_player => sub {
 };
 
 
+#
+# event: _propagate()
+#
+# sent to do the regular disease propagation.
+#
+event _propagate => sub {
+    $K->yield( '_next_player' );
+};
 
 
 no Moose;

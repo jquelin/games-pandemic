@@ -197,6 +197,21 @@ event new_player => sub {
 };
 
 
+=method event: new_turn( $player )
+
+Received when C<$player> starts its turn.
+
+=cut
+
+event new_turn => sub {
+    my ($self, $player) = @_[OBJECT, ARG0];
+    my $game = Games::Pandemic->instance;
+
+    $self->_w('lab_curplayer')->configure(-image=>$mw->Photo(-file=>$player->image('icon', 32)));
+    $self->_w('lab_nbactions')->configure(-text=>$player->actions_left);
+};
+
+
 # -- private events
 
 #
@@ -466,8 +481,11 @@ sub _build_status_bar {
 
     # player information
     my $fplayer = $sb->Frame->pack(@LEFT, @PADX10);
+    my $labcurp = $fplayer->Label->pack(@LEFT); # for current player image
     $fplayer->Label( -text => T('actions left: ') )->pack(@LEFT);
-    $fplayer->Label( -text => 4 )->pack(@LEFT);
+    my $labturn = $fplayer->Label->pack(@LEFT);
+    $self->_set_w('lab_curplayer', $labcurp);
+    $self->_set_w('lab_nbactions', $labturn);
 }
 
 

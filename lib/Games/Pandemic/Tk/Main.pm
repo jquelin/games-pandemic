@@ -236,6 +236,8 @@ event _decay => sub {
 };
 
 
+# -- gui events
+
 #
 # _new()
 #

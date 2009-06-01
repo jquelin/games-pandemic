@@ -37,8 +37,7 @@ sub BUILD {
     # build the cities
     my @cities;
     foreach my $d ( $self->_raw_cities ) {
-        my ($name, $disid, $coords, $neighbours) = @$d;
-        my ($x, $y) = @$coords;
+        my ($name, $disid, $x, $y, $neighbours) = @$d;
         my $disease = $diseases[$disid];
         my $city = Games::Pandemic::City->new(
             name    => $name,

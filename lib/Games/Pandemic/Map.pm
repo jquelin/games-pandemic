@@ -52,6 +52,13 @@ sub BUILD {
     $self->_set_cities( \@cities );
 }
 
+
+sub city_from_id {
+    my ($self, $id) = @_;
+    return $self->_cities->[$id];
+}
+
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

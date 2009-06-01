@@ -1,12 +1,12 @@
 package Games::Pandemic::Map::Pandemic;
 
-use strict;
-use warnings;
-
 use Locale::TextDomain 'Games-Pandemic';
+use Moose;
+
+extends 'Games::Pandemic::Map';
 
 
-sub get_diseases {
+sub _raw_diseases {
     return (
         # name, main color, max nb of disease
         [ __( "Cholera"        ) , 'blue',   24, ],
@@ -16,7 +16,7 @@ sub get_diseases {
     );
 }
 
-sub get_cities {
+sub _raw_cities {
     return (
     # name, disease id, [lat,lon], [connections]
     [ __( "San Francisco"    ), 0, [ -37.79, -122.46], [1, 6, 39, 46           ] ],
@@ -70,9 +70,13 @@ sub get_cities {
     );
 }
 
-sub get_start_city {
+sub _raw_start_city {
     return 4; # start at atlanta
 }
+
+
+no Moose;
+__PACKAGE__->meta->make_immutable;
 
 1;
 

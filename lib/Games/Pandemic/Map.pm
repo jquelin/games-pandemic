@@ -46,6 +46,7 @@ sub BUILD {
             y       => $y,
             disease => $disease,
             _map    => $self,
+            neighbour_ids => $neighbours,
         );
         push @cities, $city;
     }

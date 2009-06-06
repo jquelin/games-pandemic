@@ -14,6 +14,7 @@ has '_diseases' => (
     is      => 'ro',
     isa     => 'ArrayRef',
     default => sub { [] },
+    reader  => '_get_diseases',
     writer  => '_set_diseases',
 );
 
@@ -23,12 +24,12 @@ sub BUILD {
     # build the diseases
     my @diseases;
     foreach my $d ( $self->_raw_diseases ) {
-        my ($name, $color, $nb) = @$d;
+        my ($name, $colors, $nb) = @$d;
         my $disease = Games::Pandemic::Disease->new(
-            name  => $name,
-            color => $color,
-            nbmax => $nb,
-            _map  => $self,
+            name   => $name,
+            colors => $colors,
+            nbmax  => $nb,
+            _map   => $self,
         );
         push @diseases, $disease;
     }

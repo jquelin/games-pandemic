@@ -8,17 +8,17 @@ extends 'Games::Pandemic::Map';
 
 
 sub _raw_diseases {
-    return (
-        # name, main color, max nb of disease
-        [ __( "Cholera"        ) , 'blue',   24, ],
-        [ __( "Yellow fever"   ) , 'yellow', 24, ],
-        [ __( "Bubonic plague" ) , 'black',  24, ],
-        [ __( "SARS"           ) , 'red',    24, ],
-    );
+return (
+# name, main color, max nb of disease
+[ __( "Cholera"        ) , ['#3e82cf','#2956df','#152Bef','#0000ff'], 24, ],
+[ __( "Yellow fever"   ) , ['#fff999','#fffb66','#fffd33','#ffff00'], 24, ],
+[ __( "Bubonic plague" ) , ['#666666','#444444','#222222','#000000'], 24, ],
+[ __( "SARS"           ) , ['#ff5252','#ff3636','#ff2121','#ff0000'], 24, ],
+);
 }
 
 sub _raw_cities {
-    return (
+return (
 # name, disease id, xreal, yreal, x, y, [connections]
 [ __( "San Francisco"    ), 0, _lat2px(-37.79,-122.46), _lat2px(-38,-122), [ 1,  6, 39, 46        ] ],
 [ __( "Chicago"          ), 0, _lat2px(-41.78, -87.77), _lat2px(-44, -95), [ 0,  6,  7,  4,  2    ] ],

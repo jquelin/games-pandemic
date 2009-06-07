@@ -1,6 +1,7 @@
 package Games::Pandemic::Config;
 
 use 5.010;
+use Games::Pandemic::Utils;
 use MooseX::Singleton;
 use MooseX::AttributeHelpers;
 use YAML::Tiny qw{ LoadFile };
@@ -31,7 +32,7 @@ sub get {
 # -- Private subs
 
 sub _build_options {
-    my $yaml = eval { LoadFile( "/home/jquelin/.pandemic/config.yaml" ) };
+    my $yaml = eval { LoadFile( "$CONFIG_DIR/config.yaml" ) };
     return $@ ? {} : $yaml;
 }
 

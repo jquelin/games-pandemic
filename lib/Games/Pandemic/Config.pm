@@ -1,4 +1,5 @@
 package Games::Pandemic::Config;
+# ABSTRACT: local configuration for Games::Pandemic
 
 use 5.010;
 use Games::Pandemic::Utils;

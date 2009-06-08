@@ -1,4 +1,5 @@
 package Games::Pandemic::City;
+# ABSTRACT: city object for Games::Pandemic
 
 use Moose;
 use MooseX::AttributeHelpers;

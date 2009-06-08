@@ -1,4 +1,5 @@
 package Games::Pandemic::Disease;
+# ABSTRACT: disease object for Games::Pandemic
 
 use Moose;
 use MooseX::AttributeHelpers;

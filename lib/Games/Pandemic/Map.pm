@@ -1,4 +1,5 @@
 package Games::Pandemic::Map;
+# ABSTRACT: map information for Games::Pandemic
 
 use Games::Pandemic::City;
 use Games::Pandemic::Disease;

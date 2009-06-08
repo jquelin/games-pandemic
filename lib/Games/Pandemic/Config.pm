@@ -9,7 +9,7 @@ use YAML::Tiny qw{ LoadFile };
 
 my $default = {foo => 'bar'};
 
-# -- Accessors
+# -- accessors
 
 has '_options' => (
     metaclass => 'Collection::Hash',
@@ -23,14 +23,14 @@ has '_options' => (
     }
 );
 
-# -- Public methods
+# -- public methods
 
 sub get {
     my ($self, $key) = @_;
     my $val = $self->_get($key) // $default->{$key}; # /FIXME padre highlight
 }
 
-# -- Private subs
+# -- private subs
 
 sub _build_options {
     my $yaml = eval { LoadFile( "$CONFIGDIR/config.yaml" ) };

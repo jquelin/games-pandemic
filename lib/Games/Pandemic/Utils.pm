@@ -12,18 +12,23 @@ use Readonly;
 extends 'Exporter';
 our @EXPORT = qw{ $CONFIGDIR $SHAREDIR };
 
-Readonly our $CONFIGDIR => rel2abs( catdir(
-    my_data(),
-    ( os_is('MicrosoftWindows' ) ? 'Perl' : '.perl' ),
-    'Games-Pandemic',
-) );
-
-
-Readonly our $SHAREDIR => _find_share_dir();
+Readonly our $CONFIGDIR => _find_config_dir();
+Readonly our $SHAREDIR  => _find_share_dir();
 
 
 
 # -- private subs
+
+#
+# my $path = _find_config_dir();
+#
+# return the absolute path where local customization will be saved.
+#
+sub _find_config_dir {
+    my $subdir = os_is('MicrosoftWindows' ) ? 'Perl' : '.perl';
+    return rel2abs( catdir( my_data(), $subdir, 'Games-Pandemic' ) );
+}
+
 
 #
 # my $path = _find_share_dir();

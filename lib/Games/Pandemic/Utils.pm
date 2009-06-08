@@ -44,3 +44,4 @@ sub _find_share_dir {
 
 
 1;
+__END__

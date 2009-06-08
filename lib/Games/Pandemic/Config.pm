@@ -32,7 +32,7 @@ sub get {
 # -- Private subs
 
 sub _build_options {
-    my $yaml = eval { LoadFile( "$CONFIG_DIR/config.yaml" ) };
+    my $yaml = eval { LoadFile( "$CONFIGDIR/config.yaml" ) };
     return $@ ? {} : $yaml;
 }
 

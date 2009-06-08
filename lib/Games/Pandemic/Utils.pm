@@ -10,9 +10,9 @@ use Module::Util          qw{ find_installed };
 use Readonly;
  
 extends 'Exporter';
-our @EXPORT = qw{ $CONFIG_DIR $SHAREDIR };
+our @EXPORT = qw{ $CONFIGDIR $SHAREDIR };
 
-Readonly our $CONFIG_DIR => rel2abs( catdir(
+Readonly our $CONFIGDIR => rel2abs( catdir(
     my_data(),
     ( os_is('MicrosoftWindows' ) ? 'Perl' : '.perl' ),
     'Games-Pandemic',

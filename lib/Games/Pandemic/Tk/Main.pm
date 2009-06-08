@@ -22,6 +22,18 @@ sub START {
 
 # -- public events
 
+# -- private events
+
+#
+# _quit()
+#
+# user requested to quit the application.
+#
+event _quit => sub {
+    exit; # FIXME: do better than that...
+};
+
+
 # -- gui creation
 
 

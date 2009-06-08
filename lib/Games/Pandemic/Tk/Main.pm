@@ -7,7 +7,8 @@ use MooseX::POE;
 use Readonly;
 use Tk;
 
-Readonly my $K => $poe_kernel;
+Readonly my $K  => $poe_kernel;
+Readonly my $mw => $poe_main_window; # already created by poe
 
 # -- accessors
 

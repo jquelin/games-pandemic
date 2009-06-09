@@ -70,6 +70,48 @@ sub _build_canvas {
     my $bg = $c->Photo( -file => $bgpath );
     $c->createImage(0, 0, -anchor=>'nw', -image=>$bg, -tags=>['background']);
     $c->lower('background', 'all');
+
+    # place the cities on the map
+    my @smooth = ( -smooth => 1, -splinesteps => 5 );
+    foreach my $city ( $map->all_cities ) {
+        my $name  = $city->get_name;
+        my $xreal = $city->get_xreal;
+        my $yreal = $city->get_yreal;
+        my $x = $city->get_x;
+        my $y = $city->get_y;
+        my ($rreal, $r) = (2, 12);
+        my $color = $city->get_disease->color(0);
+        $c->createOval(
+            $xreal-$rreal, $yreal-$rreal, $xreal+$rreal, $yreal+$rreal,
+            -fill => $color,
+            -tags => ['city', $name],
+        );
+        $c->createOval(
+            $x-$r, $y-$r, $x+$r, $y+$r,
+            -fill => $color,
+            -tags => ['city', $name ],
+        );
+        $c->createLine( $xreal, $yreal, $x, $y,
+            -width => 2,
+            -fill  => $color,
+            -tags  => [ $name ],
+            @smooth,
+        );
+
+        # draw connections between cities
+        foreach my $n ( $city->neighbours ) {
+            my $xn = $n->get_x;
+            my $yn = $n->get_y;
+            next if $xn < $x; # line already drawn
+            if ( ($xn-$x) > $xmax/2 ) {
+                $c->createLine( $x, $y, 0, ($y+$yn)/2, -fill => 'red', -tags=>['line'], @smooth );
+                $c->createLine( $xn, $yn, $xmax, ($y+$yn)/2, -fill => 'red', -tags=>['line'], @smooth );
+            } else {
+                $c->createLine( $x, $y, $xn, $yn, -fill => 'red', -tags=>['line'], @smooth );
+            }
+        }
+    }
+    $c->raise('city', 'all');
 }
 
 

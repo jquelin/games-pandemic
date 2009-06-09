@@ -4,6 +4,7 @@ package Games::Pandemic::Tk::Main;
 use 5.010;
 use Encode;
 use Image::Size;
+use Locale::TextDomain 'Games-Pandemic';
 use Moose;
 use MooseX::FollowPBP;
 use MooseX::POE;
@@ -144,6 +145,10 @@ sub _build_canvas {
 
 sub _build_gui {
     my ($self, $session) = @_;
+
+    # set windowtitle
+    $mw->title(decode('utf8', __('Pandemic') ));
+
     $self->_build_menu($session);
     $self->_build_action_bar($session);
     $self->_build_canvas($session);

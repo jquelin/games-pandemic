@@ -3,7 +3,7 @@ package Games::Pandemic::Config;
 
 use 5.010;
 use Games::Pandemic::Utils;
-use MooseX::Singleton;
+use MooseX::Singleton;          # should come before any other moose
 use MooseX::AttributeHelpers;
 use MooseX::FollowPBP;
 use YAML::Tiny qw{ LoadFile };

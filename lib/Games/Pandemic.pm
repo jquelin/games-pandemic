@@ -11,9 +11,9 @@ use 5.010;
 # explicitly is always better.
 use POE::Kernel { loop => 'Tk' };
 
+use MooseX::Singleton;  # should come before any other moose
 use MooseX::FollowPBP;
 use MooseX::POE;
-use MooseX::Singleton;
 
 use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Main;

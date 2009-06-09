@@ -7,6 +7,11 @@ use Moose;
 extends 'Games::Pandemic::Map';
 
 
+# -- default builders
+
+sub _build_name { 'pandemic' }
+
+
 sub _raw_diseases {
 return (
 # name, main color, max nb of disease

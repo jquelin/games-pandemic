@@ -19,6 +19,12 @@ has '_diseases' => (
     writer  => '_set_diseases',
 );
 
+has name => (
+    is      => 'ro',
+    isa     => 'Str',
+    builder => '_build_name',
+);
+
 sub BUILD {
     my $self = shift;
 

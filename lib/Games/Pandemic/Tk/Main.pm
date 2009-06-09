@@ -2,6 +2,7 @@ package Games::Pandemic::Tk::Main;
 # ABSTRACT: main window for Games::Pandemic
 
 use 5.010;
+use Encode;
 use Image::Size;
 use Moose;
 use MooseX::FollowPBP;
@@ -74,7 +75,7 @@ sub _build_canvas {
     # place the cities on the map
     my @smooth = ( -smooth => 1, -splinesteps => 5 );
     foreach my $city ( $map->all_cities ) {
-        my $name  = $city->get_name;
+        my $name  = decode( 'utf-8', $city->get_name );
         my $xreal = $city->get_xreal;
         my $yreal = $city->get_yreal;
         my $x = $city->get_x;

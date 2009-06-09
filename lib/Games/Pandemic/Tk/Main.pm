@@ -2,10 +2,12 @@ package Games::Pandemic::Tk::Main;
 # ABSTRACT: main window for Games::Pandemic
 
 use 5.010;
+use Games::Pandemic::Utils;
 use Moose;
 use MooseX::POE;
 use Readonly;
 use Tk;
+use Tk::PNG;
 
 Readonly my $K  => $poe_kernel;
 Readonly my $mw => $poe_main_window; # already created by poe
@@ -36,10 +38,23 @@ event _quit => sub {
 
 # -- gui creation
 
+sub _build_action_bar {
+    my ($self, $session) = @_;
+    my $f = $mw->Frame->pack;
+
+    my @actions = qw{ move flight charter shuttle build discover cure share };
+    foreach my $action ( @actions ) {
+        my $image = $mw->Photo(-file=> "$SHAREDIR/action-$action.png");
+        $f->Button(
+            -image => $image,
+        )->pack(-side=>'left');
+    }
+}
 
 sub _build_gui {
     my ($self, $session) = @_;
     $self->_build_menu($session);
+    $self->_build_action_bar($session);
 }
 
 sub _build_menu {

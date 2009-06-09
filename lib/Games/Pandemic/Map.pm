@@ -9,18 +9,18 @@ use Games::Pandemic::City;
 use Games::Pandemic::Disease;
 use Games::Pandemic::Utils;
 
+# -- accessors
+
 has '_cities' => (
     is      => 'ro',
     isa     => 'ArrayRef',
     default => sub { [] },
     writer  => '_set_cities',
 );
-has '_diseases' => (
+has _diseases => (
     is      => 'ro',
     isa     => 'ArrayRef',
-    default => sub { [] },
-    reader  => '_get_diseases',
-    writer  => '_set_diseases',
+    builder => '_diseases_builder',
 );
 
 has name => (
@@ -29,10 +29,11 @@ has name => (
     builder => '_build_name',
 );
 
-sub BUILD {
+# -- default builders
+
+sub _diseases_builder {
     my $self = shift;
 
-    # build the diseases
     my @diseases;
     foreach my $d ( $self->_raw_diseases ) {
         my ($name, $colors, $nb) = @$d;
@@ -44,7 +45,13 @@ sub BUILD {
         );
         push @diseases, $disease;
     }
-    $self->_set_diseases( \@diseases );
+    return \@diseases;
+}
+
+
+sub BUILD {
+    my $self = shift;
+
 
     # build the cities
     my @cities;
@@ -66,6 +73,7 @@ sub BUILD {
     $self->_set_cities( \@cities );
 }
 
+# -- public methods
 
 sub city_from_id {
     my ($self, $id) = @_;

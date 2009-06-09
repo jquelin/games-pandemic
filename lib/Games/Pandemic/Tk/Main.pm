@@ -43,7 +43,7 @@ event _quit => sub {
 
 sub _build_action_bar {
     my ($self, $session) = @_;
-    my $f = $mw->Frame->pack;
+    my $f = $mw->Frame->pack(@BOTTOM, @FILLX);
 
     my @actions = qw{ move flight charter shuttle build discover cure share };
     foreach my $action ( @actions ) {

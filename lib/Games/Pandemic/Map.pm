@@ -50,7 +50,7 @@ sub BUILD {
     my @cities;
     foreach my $d ( $self->_raw_cities ) {
         my ($name, $disid, $xreal, $yreal, $x, $y, $neighbours) = @$d;
-        my $disease = $diseases[$disid];
+        my $disease = $self->disease_from_id($disid);
         my $city = Games::Pandemic::City->new(
             name    => $name,
             xreal   => $xreal,
@@ -70,6 +70,11 @@ sub BUILD {
 sub city_from_id {
     my ($self, $id) = @_;
     return $self->_cities->[$id];
+}
+
+sub disease_from_id {
+    my ($self, $id) = @_;
+    return $self->_get_diseases->[$id];
 }
 
 =method my $bgpath = $map->background_path;

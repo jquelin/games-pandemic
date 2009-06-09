@@ -112,6 +112,20 @@ sub _build_canvas {
         }
     }
     $c->raise('city', 'all');
+
+    my $start = $map->get_start_city;
+    my $x = $start->get_x;
+    my $y = $start->get_y;
+    $c->createPolygon(
+        $x-6, $y-6,
+        $x-6, $y+6,
+        $x+6, $y+6,
+        $x+6, $y-6,
+        -fill => 'white',
+        -outline =>'black',
+    );
+    $c->createLine( $x-2, $y, $x+3, $y, -width=>1, -fill=> '#007c00' );
+    $c->createLine( $x, $y-3, $x, $y+3, -width=>1, -fill=> '#007c00' );
 }
 
 

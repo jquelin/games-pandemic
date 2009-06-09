@@ -97,6 +97,7 @@ sub _build_canvas {
             -tags  => [ $name ],
             @smooth,
         );
+        $c->createText( $x, $y - $r-6, -text=>$name, -fill=>'black', -anchor=>'center', -tag=>['name'] );
 
         # draw connections between cities
         foreach my $n ( $city->neighbours ) {
@@ -111,6 +112,7 @@ sub _build_canvas {
             }
         }
     }
+    $c->raise('name', 'all');
     $c->raise('city', 'all');
 
     my $start = $map->get_start_city;

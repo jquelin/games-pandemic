@@ -2,14 +2,15 @@ package Games::Pandemic::Tk::Main;
 # ABSTRACT: main window for Games::Pandemic
 
 use 5.010;
-use Games::Pandemic::Utils;
 use Moose;
+use MooseX::FollowPBP;
 use MooseX::POE;
 use Readonly;
 use Tk;
 use Tk::PNG;
 
 use Games::Pandemic::Tk::Constants;
+use Games::Pandemic::Utils;
 
 Readonly my $K  => $poe_kernel;
 Readonly my $mw => $poe_main_window; # already created by poe

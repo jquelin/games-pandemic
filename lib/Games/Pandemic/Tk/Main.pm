@@ -2,6 +2,7 @@ package Games::Pandemic::Tk::Main;
 # ABSTRACT: main window for Games::Pandemic
 
 use 5.010;
+use Image::Size;
 use Moose;
 use MooseX::FollowPBP;
 use MooseX::POE;
@@ -9,6 +10,7 @@ use Readonly;
 use Tk;
 use Tk::PNG;
 
+use Games::Pandemic;
 use Games::Pandemic::Tk::Constants;
 use Games::Pandemic::Utils;
 
@@ -54,10 +56,27 @@ sub _build_action_bar {
     }
 }
 
+sub _build_canvas {
+    my ($self, $session) = @_;
+
+    # the background image
+    my $map    = Games::Pandemic->instance->get_map;
+    my $bgpath = $map->background_path;
+    my ($xmax, $ymax) = imgsize($bgpath);
+
+    # creating the canvas
+    my $c  = $mw->Canvas(-width=>$xmax,-height=>$ymax)->pack(@XFILL2);
+    my $bg = $c->Photo( -file => $bgpath );
+    $c->createImage(0, 0, -anchor=>'nw', -image=>$bg, -tags=>['background']);
+    $c->lower('background', 'all');
+}
+
+
 sub _build_gui {
     my ($self, $session) = @_;
     $self->_build_menu($session);
     $self->_build_action_bar($session);
+    $self->_build_canvas($session);
 }
 
 sub _build_menu {

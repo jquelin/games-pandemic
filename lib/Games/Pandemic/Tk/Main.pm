@@ -9,6 +9,8 @@ use Readonly;
 use Tk;
 use Tk::PNG;
 
+use Games::Pandemic::Tk::Constants;
+
 Readonly my $K  => $poe_kernel;
 Readonly my $mw => $poe_main_window; # already created by poe
 
@@ -47,7 +49,7 @@ sub _build_action_bar {
         my $image = $mw->Photo(-file=> "$SHAREDIR/action-$action.png");
         $f->Button(
             -image => $image,
-        )->pack(-side=>'left');
+        )->pack(@LEFT);
     }
 }
 

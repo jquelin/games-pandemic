@@ -8,6 +8,7 @@ use MooseX::FollowPBP;
 use MooseX::POE;
 use Readonly;
 use Tk;
+use Tk::JPEG;
 use Tk::PNG;
 
 use Games::Pandemic;

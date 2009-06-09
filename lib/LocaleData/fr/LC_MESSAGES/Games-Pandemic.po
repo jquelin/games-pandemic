@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Games-Pandemic\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-09 15:15+0200\n"
+"POT-Creation-Date: 2009-06-09 20:14+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jérôme Quelin <jquelin@gmail.com>\n"
 "Language-Team: Jérôme Quelin <jquelin@gmail.com>\n"
@@ -219,6 +219,10 @@ msgstr "Tokyo"
 #: lib/Games/Pandemic/Map/Pandemic.pm:76
 msgid "Osaka"
 msgstr "Osaka"
+
+#: lib/Games/Pandemic/Tk/Main.pm:150
+msgid "Pandemic"
+msgstr "Pandémie"
 
 #~ msgid "Ho Chi Minh City"
 #~ msgstr ""

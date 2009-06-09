@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-09 15:15+0200\n"
+"POT-Creation-Date: 2009-06-09 20:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -222,4 +222,8 @@ msgstr ""
 
 #: lib/Games/Pandemic/Map/Pandemic.pm:76
 msgid "Osaka"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:150
+msgid "Pandemic"
 msgstr ""

@@ -14,6 +14,17 @@ has disease => ( is => 'ro', required => 1, isa => 'Games::Pandemic::Disease', w
 has _map    => ( is => 'ro', required => 1, isa => 'Games::Pandemic::Map', weak_ref => 1 );
 has nb      => ( is => 'rw', default  => 0, isa => 'Int' );
 
+has has_station => (
+    metaclass => 'Bool',
+    is        => 'rw',
+    isa       => 'Bool',
+    default   => 0,
+    provides  => {
+        set     => 'build_station',
+        unset   => 'quash_station',
+    }
+);
+
 has neighbour_ids => (
     metaclass => 'Collection::Array',
     is        => 'ro',

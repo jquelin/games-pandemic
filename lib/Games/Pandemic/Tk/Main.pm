@@ -113,8 +113,8 @@ sub _build_canvas {
             }
         }
     }
-    $c->raise('name', 'all');
     $c->raise('city', 'all');
+    $c->raise('name', 'all');
 
     my $start = $map->get_start_city;
     my $x = $start->get_x;

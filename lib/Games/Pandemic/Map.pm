@@ -3,6 +3,7 @@ package Games::Pandemic::Map;
 
 use File::Spec::Functions qw{ catfile rel2abs };
 use Moose;
+use MooseX::AttributeHelpers;
 use MooseX::FollowPBP;
 
 use Games::Pandemic::City;
@@ -12,10 +13,15 @@ use Games::Pandemic::Utils;
 # -- accessors
 
 has _cities => (
-    is      => 'ro',
-    isa     => 'ArrayRef',
-    builder => '_cities_builder',
-    lazy    => 1,  # _diseases() needs to be built before
+    metaclass  => 'Collection::List',
+    is         => 'ro',
+    isa        => 'ArrayRef[Games::Pandemic::City]',
+    builder    => '_cities_builder',
+    lazy       => 1,  # _diseases() needs to be built before
+    auto_deref => 1,
+    provides   => {
+        elements => 'all_cities',
+    }
 );
 
 has _diseases => (

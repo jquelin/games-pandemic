@@ -1,10 +1,13 @@
 package Games::Pandemic::Map;
 # ABSTRACT: map information for Games::Pandemic
 
-use Games::Pandemic::City;
-use Games::Pandemic::Disease;
+use File::Spec::Functions qw{ catfile rel2abs };
 use Moose;
 use MooseX::FollowPBP;
+
+use Games::Pandemic::City;
+use Games::Pandemic::Disease;
+use Games::Pandemic::Utils;
 
 has '_cities' => (
     is      => 'ro',
@@ -68,6 +71,18 @@ sub city_from_id {
     my ($self, $id) = @_;
     return $self->_cities->[$id];
 }
+
+=method my $bgpath = $map->background_path;
+
+Return the path the background image of the map.
+
+=cut
+
+sub background_path {
+    my $self = shift;
+    return rel2abs( catfile( $SHAREDIR, 'maps', $self->get_name, 'background.jpg' ) );
+}
+
 
 
 no Moose;

@@ -19,6 +19,8 @@ use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Main;
 use Games::Pandemic::Utils;
 
+# -- accessors
+
 has config => (
     is       => 'ro',
     writer   => '_set_config',
@@ -26,9 +28,29 @@ has config => (
     isa      => 'Games::Pandemic::Config'
 );
 
+has map => (
+    is  => 'rw',
+    isa => 'Games::Pandemic::Map',
+);
+
+
+# -- public methods
 
 sub run {
+    my $self = shift;
+
+    # fetch the singleton if called as a class method
+    $self = $self->instance unless ref($self);
+
+    # create the initial map
+    # FIXME: does it really belong here?
+    my $map = Games::Pandemic::Map::Pandemic->new;
+    $self->set_map( $map );
+
+    # build the gui
     Games::Pandemic::Tk::Main->new;
+
+    # and let's start the fun!
     POE::Kernel->run;
 }
 

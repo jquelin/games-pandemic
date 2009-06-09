@@ -5,6 +5,7 @@ use 5.010;
 use Games::Pandemic::Utils;
 use MooseX::Singleton;
 use MooseX::AttributeHelpers;
+use MooseX::FollowPBP;
 use YAML::Tiny qw{ LoadFile };
 
 my $default = {foo => 'bar'};

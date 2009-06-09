@@ -4,6 +4,7 @@ package Games::Pandemic::Map;
 use Games::Pandemic::City;
 use Games::Pandemic::Disease;
 use Moose;
+use MooseX::FollowPBP;
 
 has '_cities' => (
     is      => 'ro',

@@ -3,6 +3,7 @@ package Games::Pandemic::City;
 
 use Moose;
 use MooseX::AttributeHelpers;
+use MooseX::FollowPBP;
 
 has 'name'    => ( is => 'ro', required => 1, isa => 'Str' );
 has 'x'       => ( is => 'ro', required => 1, isa => 'Num' );

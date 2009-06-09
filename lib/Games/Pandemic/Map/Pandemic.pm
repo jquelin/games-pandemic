@@ -3,6 +3,7 @@ package Games::Pandemic::Map::Pandemic;
 use Geo::Mercator;
 use Locale::TextDomain 'Games-Pandemic';
 use Moose;
+use MooseX::FollowPBP;
 
 extends 'Games::Pandemic::Map';
 

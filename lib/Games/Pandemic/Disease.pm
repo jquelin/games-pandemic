@@ -3,6 +3,7 @@ package Games::Pandemic::Disease;
 
 use Moose;
 use MooseX::AttributeHelpers;
+use MooseX::FollowPBP;
 
 has 'colors' => (
     metaclass  => 'Collection::List',

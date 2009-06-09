@@ -22,6 +22,13 @@ Readonly my $mw => $poe_main_window; # already created by poe
 
 # -- accessors
 
+has _canvas => (
+    is       => 'rw',
+    isa      => 'Tk::Canvas',
+    weak_ref => 1,
+);
+
+
 # -- initialization
 
 sub START {
@@ -69,6 +76,8 @@ sub _build_canvas {
 
     # creating the canvas
     my $c  = $mw->Canvas(-width=>$xmax,-height=>$ymax)->pack(@XFILL2);
+    $self->_set_canvas($c);
+
     my $bg = $c->Photo( -file => $bgpath );
     $c->createImage(0, 0, -anchor=>'nw', -image=>$bg, -tags=>['background']);
     $c->lower('background', 'all');

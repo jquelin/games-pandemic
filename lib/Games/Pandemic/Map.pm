@@ -36,6 +36,15 @@ has name => (
     builder => '_build_name',
 );
 
+has start_city => (
+    is       => 'ro',
+    isa      => 'Games::Pandemic::City',
+    builder  => '_start_city_builder',
+    lazy     => 1, # _cities needs to be built before
+    weak_ref => 1,
+);
+
+
 # -- default builders
 
 sub _cities_builder {
@@ -77,6 +86,14 @@ sub _diseases_builder {
     return \@diseases;
 }
 
+
+sub _start_city_builder {
+    my $self = shift;
+    my $id   = $self->_raw_start_city;
+    my $city = $self->city_from_id($id);
+    $city->build_station;
+    return $city;
+}
 
 # -- public methods
 

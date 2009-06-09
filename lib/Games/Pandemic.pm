@@ -16,6 +16,7 @@ use MooseX::FollowPBP;
 use MooseX::POE;
 
 use Games::Pandemic::Config;
+use Games::Pandemic::Map::Pandemic;
 use Games::Pandemic::Tk::Main;
 use Games::Pandemic::Utils;
 

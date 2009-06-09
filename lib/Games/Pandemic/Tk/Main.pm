@@ -80,7 +80,7 @@ sub _build_canvas {
         my $yreal = $city->get_yreal;
         my $x = $city->get_x;
         my $y = $city->get_y;
-        my ($rreal, $r) = (2, 12);
+        my ($rreal, $r) = (2, 10);
         my $color = $city->get_disease->color(0);
         $c->createOval(
             $xreal-$rreal, $yreal-$rreal, $xreal+$rreal, $yreal+$rreal,
@@ -98,7 +98,7 @@ sub _build_canvas {
             -tags  => [ $name ],
             @smooth,
         );
-        $c->createText( $x, $y - $r-6, -text=>$name, -fill=>'black', -anchor=>'center', -tag=>['name'] );
+        $c->createText( $x, $y - $r-5, -text=>$name, -fill=>'black', -anchor=>'center', -tag=>['name'] );
 
         # draw connections between cities
         foreach my $n ( $city->neighbours ) {

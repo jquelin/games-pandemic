@@ -92,5 +92,8 @@ sub _build_menu {
     $mw->bind('<Control-Q>', $s->postback('_quit'));
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
+
 1;
 __END__

@@ -42,6 +42,8 @@ sub _find_share_dir {
     return rel2abs( catdir($dirname, 'share') );
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
 
 1;
 __END__

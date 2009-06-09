@@ -95,30 +95,9 @@ sub _build_canvas {
     # place the cities on the map
     my @smooth = ( -smooth => 1, -splinesteps => 5 );
     foreach my $city ( $map->all_cities ) {
-        my $name  = decode( 'utf-8', $city->get_name );
-        my $xreal = $city->get_xreal;
-        my $yreal = $city->get_yreal;
+        $self->_draw_city($city);
         my $x = $city->get_x;
         my $y = $city->get_y;
-        my ($rreal, $r) = (2, 10);
-        my $color = $city->get_disease->color(0);
-        $c->createOval(
-            $xreal-$rreal, $yreal-$rreal, $xreal+$rreal, $yreal+$rreal,
-            -fill => $color,
-            -tags => ['city', $name],
-        );
-        $c->createOval(
-            $x-$r, $y-$r, $x+$r, $y+$r,
-            -fill => $color,
-            -tags => ['city', $name ],
-        );
-        $c->createLine( $xreal, $yreal, $x, $y,
-            -width => 2,
-            -fill  => $color,
-            -tags  => [ $name ],
-            @smooth,
-        );
-        $c->createText( $x, $y - $r-5, -text=>$name, -fill=>'black', -anchor=>'center', -tag=>['name'] );
 
         # draw connections between cities
         foreach my $n ( $city->neighbours ) {
@@ -133,22 +112,14 @@ sub _build_canvas {
             }
         }
     }
-    $c->raise('city', 'all');
-    $c->raise('name', 'all');
 
+    $c->raise('city',    'all');
+    $c->raise('station', 'all');
+    $c->raise('name',    'all');
+
+    # draw the starting station
     my $start = $map->get_start_city;
-    my $x = $start->get_x;
-    my $y = $start->get_y;
-    $c->createPolygon(
-        $x-6, $y-6,
-        $x-6, $y+6,
-        $x+6, $y+6,
-        $x+6, $y-6,
-        -fill => 'white',
-        -outline =>'black',
-    );
-    $c->createLine( $x-2, $y, $x+3, $y, -width=>1, -fill=> '#007c00' );
-    $c->createLine( $x, $y-3, $x, $y+3, -width=>1, -fill=> '#007c00' );
+    $self->_draw_station($start);
 }
 
 
@@ -194,6 +165,78 @@ sub _build_menu {
     );
     $mw->bind('<Control-q>', $s->postback('_quit'));
     $mw->bind('<Control-Q>', $s->postback('_quit'));
+}
+
+# -- private subs
+
+sub _draw_city {
+    my ($self, $city) = @_;
+    my $c = $self->_get_canvas;
+
+    # fetch city information
+    my $name  = decode( 'utf-8', $city->get_name );
+    my $color = $city->get_disease->color(0);
+    my $xreal = $city->get_xreal;
+    my $yreal = $city->get_yreal;
+    my $x     = $city->get_x;
+    my $y     = $city->get_y;
+
+    # join the 2 circles. this is done first in order to be overwritten
+    # by other drawings on the canvas, such as the circles themselves.
+    $c->createLine( $xreal, $yreal, $x, $y,
+        -width       => 2,
+        -fill        => $color,
+        -tags        => [ $name ],
+        -smooth      => 1,
+        -splinesteps => 5,
+    );
+
+    # draw the small circle with real position on map
+    my $rreal = 2; # 4 pixels diameter
+    $c->createOval(
+        $xreal-$rreal, $yreal-$rreal, $xreal+$rreal, $yreal+$rreal,
+        -fill => $color,
+        -tags => ['city', $name],
+    );
+
+    # draw the big circle that user can click
+    my $r = 10;
+    $c->createOval(
+        $x-$r, $y-$r, $x+$r, $y+$r,
+        -fill => $color,
+        -tags => ['city', $name],
+    );
+
+    # write the city name
+    $c->createText(
+        $x, $y - $r - 5,
+        -text   => $name,
+        -fill   => 'black',
+        -anchor => 'center',
+        -tag    => ['city', $name],
+    );
+}
+
+
+sub _draw_station {
+    my ($self, $city) = @_;
+    my $c = $self->_get_canvas;
+
+    my $x = $city->get_x;
+    my $y = $city->get_y;
+    my $name = $city->get_name;
+    my $tags = [ 'station', $name ];
+    $c->createPolygon(
+        $x-6, $y-6,
+        $x-6, $y+6,
+        $x+6, $y+6,
+        $x+6, $y-6,
+        -fill    => 'white',
+        -outline => 'black',
+        -tags    => $tags,
+    );
+    $c->createLine( $x-2, $y, $x+3, $y, -width=>1, -fill=> '#007c00', -tags=>$tags );
+    $c->createLine( $x, $y-3, $x, $y+3, -width=>1, -fill=> '#007c00', -tags=>$tags );
 }
 
 no Moose;

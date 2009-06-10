@@ -19,6 +19,9 @@ sub START {
 
 # -- public events
 
+event new_game => sub {
+    say "new game!";
+};
 
 
 no Moose;

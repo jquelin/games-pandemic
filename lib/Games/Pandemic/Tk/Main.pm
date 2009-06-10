@@ -111,6 +111,14 @@ event new_game => sub {
 # -- private events
 
 #
+# _new()
+#
+# request a new game to the controller
+#
+event _new => sub { $K->post('controller' => 'new_game'); };
+
+
+#
 # _quit()
 #
 # user requested to quit the application.

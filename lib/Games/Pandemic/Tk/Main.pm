@@ -152,6 +152,7 @@ sub _build_gui {
 
     # set windowtitle
     $mw->title(T('Pandemic'));
+    $mw->iconimage( $mw->Photo(-file=>"$SHAREDIR/icon.png") );
 
     $self->_build_menu;
     $self->_build_action_bar;

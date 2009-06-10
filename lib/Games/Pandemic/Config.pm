@@ -8,7 +8,10 @@ use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 use YAML::Tiny qw{ LoadFile };
 
-my $default = {foo => 'bar'};
+my $default = {
+    canvas_height => 600,
+    canvas_width  => 1024,
+};
 
 # -- accessors
 

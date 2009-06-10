@@ -11,7 +11,6 @@ use Tk;
 use Tk::JPEG;
 use Tk::PNG;
 
-use Games::Pandemic;
 use Games::Pandemic::Tk::Constants;
 use Games::Pandemic::Utils;
 

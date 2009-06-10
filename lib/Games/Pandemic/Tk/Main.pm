@@ -26,13 +26,20 @@ has _canvas => (
     weak_ref => 1,
 );
 
+# it's not usually a good idea to retain a reference on a poe session,
+# since poe is already taking care of the references for us. however, we
+# need the session to call ->postback() to set the various gui callbacks
+# that will be fired upon gui events.
+has _session => ( is=>'rw', isa=>'POE::Session', weak_ref=>1 );
+
 
 # -- initialization
 
 sub START {
     my ($self, $session) = @_[OBJECT, SESSION];
     $K->alias_set('main');
-    $self->_build_gui($session);
+    $self->_set_session($session);
+    $self->_build_gui;
 }
 
 # -- public events
@@ -58,7 +65,8 @@ event _quit => sub {
 # action buttons that a player can press when it's her turn.
 #
 sub _build_action_bar {
-    my ($self, $session) = @_;
+    my $self = shift;
+    my $s = $self->_session;
     my $f = $mw->Frame->pack(@BOTTOM, @FILLX);
 
     my @actions = qw{ move flight charter shuttle join build discover cure share pass };
@@ -78,7 +86,8 @@ sub _build_action_bar {
 # take place.
 #
 sub _build_canvas {
-    my ($self, $session) = @_;
+    my $self = shift;
+    my $s = $self->_session;
 
     # the background image
     my $map    = Games::Pandemic->instance->map;
@@ -140,14 +149,14 @@ sub _build_canvas {
 # create the various gui elements.
 #
 sub _build_gui {
-    my ($self, $session) = @_;
+    my $self = shift;
 
     # set windowtitle
     $mw->title(T('Pandemic'));
 
-    $self->_build_menu($session);
-    $self->_build_action_bar($session);
-    $self->_build_canvas($session);
+    $self->_build_menu;
+    $self->_build_action_bar;
+    $self->_build_canvas;
 }
 
 
@@ -157,7 +166,8 @@ sub _build_gui {
 # create the window's menu.
 #
 sub _build_menu {
-    my ($self, $s) = @_;
+    my $self = shift;
+    my $s = $self->_session;
 
     # no tear-off menus
     $mw->optionAdd('*tearOff', 'false');

@@ -2,9 +2,10 @@ package Games::Pandemic::Role::Scientist;
 # ABSTRACT: scientist pandemic role
 
 use 5.010;
-use Locale::TextDomain 'Games-Pandemic';
 use Moose;
 use MooseX::SemiAffordanceAccessor;
+
+use Games::Pandemic::Utils;
 
 extends 'Games::Pandemic::Role';
 
@@ -13,7 +14,7 @@ extends 'Games::Pandemic::Role';
 
 sub _cards_needed_builder { 4 }
 sub _color_builder        { '#d1d0c2' }
-sub _role_name_builder    { __('Scientist') }
+sub _role_name_builder    { T('Scientist') }
 
 
 no Moose;

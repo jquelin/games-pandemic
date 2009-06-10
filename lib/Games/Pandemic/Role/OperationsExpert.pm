@@ -2,9 +2,10 @@ package Games::Pandemic::Role::OperationsExpert;
 # ABSTRACT: operations expert pandemic role
 
 use 5.010;
-use Locale::TextDomain 'Games-Pandemic';
 use Moose;
 use MooseX::SemiAffordanceAccessor;
+
+use Games::Pandemic::Utils;
 
 extends 'Games::Pandemic::Role';
 
@@ -13,7 +14,7 @@ extends 'Games::Pandemic::Role';
 
 sub _can_build_builder    { 1 }
 sub _color_builder        { '#79af00' }
-sub _role_name_builder    { __('Operations Expert') }
+sub _role_name_builder    { T('Operations Expert') }
 
 
 no Moose;

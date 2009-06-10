@@ -2,9 +2,10 @@ package Games::Pandemic::Role::Researcher;
 # ABSTRACT: researcher pandemic role
 
 use 5.010;
-use Locale::TextDomain 'Games-Pandemic';
 use Moose;
 use MooseX::SemiAffordanceAccessor;
+
+use Games::Pandemic::Utils;
 
 extends 'Games::Pandemic::Role';
 
@@ -13,7 +14,7 @@ extends 'Games::Pandemic::Role';
 
 sub _can_share_builder    { 1 }
 sub _color_builder        { '#aa7826' }
-sub _role_name_builder    { __('Researcher') }
+sub _role_name_builder    { T('Researcher') }
 
 
 no Moose;

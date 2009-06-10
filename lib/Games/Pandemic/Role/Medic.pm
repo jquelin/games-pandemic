@@ -2,9 +2,10 @@ package Games::Pandemic::Role::Medic;
 # ABSTRACT: medic pandemic role
 
 use 5.010;
-use Locale::TextDomain 'Games-Pandemic';
 use Moose;
 use MooseX::SemiAffordanceAccessor;
+
+use Games::Pandemic::Utils;
 
 extends 'Games::Pandemic::Role';
 
@@ -14,7 +15,7 @@ extends 'Games::Pandemic::Role';
 sub _auto_clean_on_cure_builder { 1 }
 sub _color_builder              { '#e48006' }
 sub _cure_all_builder           { 1 }
-sub _role_name_builder          { __('Medic') }
+sub _role_name_builder          { T('Medic') }
 
 
 no Moose;

@@ -2,9 +2,7 @@ package Games::Pandemic::Tk::Main;
 # ABSTRACT: main window for Games::Pandemic
 
 use 5.010;
-use Encode;
 use Image::Size;
-use Locale::TextDomain 'Games-Pandemic';
 use Moose;
 use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
@@ -127,7 +125,7 @@ sub _build_gui {
     my ($self, $session) = @_;
 
     # set windowtitle
-    $mw->title(decode('utf8', __('Pandemic') ));
+    $mw->title(T('Pandemic'));
 
     $self->_build_menu($session);
     $self->_build_action_bar($session);
@@ -174,7 +172,7 @@ sub _draw_city {
     my $c = $self->_canvas;
 
     # fetch city information
-    my $name  = decode( 'utf-8', $city->name );
+    my $name  = $city->name;
     my $color = $city->disease->color(0);
     my $xreal = $city->xreal;
     my $yreal = $city->yreal;

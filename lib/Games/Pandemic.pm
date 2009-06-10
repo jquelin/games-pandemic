@@ -16,6 +16,7 @@ use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Config;
+use Games::Pandemic::Controller;
 use Games::Pandemic::Map::Pandemic;
 use Games::Pandemic::Tk::Main;
 use Games::Pandemic::Utils;
@@ -48,7 +49,8 @@ sub run {
     my $map = Games::Pandemic::Map::Pandemic->new;
     $self->set_map( $map );
 
-    # build the gui
+    # create the poe sessions
+    Games::Pandemic::Controller->new;
     Games::Pandemic::Tk::Main->new;
 
     # and let's start the fun!

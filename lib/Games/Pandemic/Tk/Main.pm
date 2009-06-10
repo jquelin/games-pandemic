@@ -51,6 +51,12 @@ event _quit => sub {
 
 # -- gui creation
 
+#
+# $main->_build_action_bar;
+#
+# create the action bar at the bottom of the window, with the various
+# action buttons that a player can press when it's her turn.
+#
 sub _build_action_bar {
     my ($self, $session) = @_;
     my $f = $mw->Frame->pack(@BOTTOM, @FILLX);
@@ -64,6 +70,13 @@ sub _build_action_bar {
     }
 }
 
+
+#
+# $main->_build_canvas;
+#
+# create the canvas, where the map will be drawn and the action
+# take place.
+#
 sub _build_canvas {
     my ($self, $session) = @_;
 
@@ -121,6 +134,11 @@ sub _build_canvas {
 }
 
 
+#
+# $main->_build_gui;
+#
+# create the various gui elements.
+#
 sub _build_gui {
     my ($self, $session) = @_;
 
@@ -132,6 +150,12 @@ sub _build_gui {
     $self->_build_canvas($session);
 }
 
+
+#
+# $main->_build_menu;
+#
+# create the window's menu.
+#
 sub _build_menu {
     my ($self, $s) = @_;
 
@@ -167,6 +191,12 @@ sub _build_menu {
 
 # -- private subs
 
+#
+# $main->_draw_city($city);
+#
+# draw $city on the canvas.
+# note: this does not draw the diseases, players and research stations.
+#
 sub _draw_city {
     my ($self, $city) = @_;
     my $c = $self->_canvas;
@@ -216,6 +246,11 @@ sub _draw_city {
 }
 
 
+#
+# $main->_draw_station($city);
+#
+# draw a research station on the canvas for the given $city.
+#
 sub _draw_station {
     my ($self, $city) = @_;
     my $c = $self->_canvas;

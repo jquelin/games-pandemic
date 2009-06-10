@@ -12,6 +12,7 @@ extends 'Games::Pandemic::Role';
 # -- default builders
 
 sub _can_build_builder    { 1 }
+sub _color_builder        { '#79af00' }
 sub _role_name_builder    { __('Operations Expert') }
 
 

@@ -12,6 +12,7 @@ extends 'Games::Pandemic::Role';
 # -- default builders
 
 sub _can_share_builder    { 1 }
+sub _color_builder        { '#aa7826' }
 sub _role_name_builder    { __('Researcher') }
 
 

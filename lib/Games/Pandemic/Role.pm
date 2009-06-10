@@ -11,6 +11,7 @@ has can_build    => ( is=>'ro', isa=>'Bool', builder=>'_can_build_builder'    );
 has can_share    => ( is=>'ro', isa=>'Bool', builder=>'_can_share_builder'    );
 has cards_needed => ( is=>'ro', isa=>'Int',  builder=>'_cards_needed_builder' );
 has max_cards    => ( is=>'ro', isa=>'Int',  builder=>'_max_cards_builder'    );
+has role_name    => ( is=>'ro', isa=>'Str',  builder=>'_role_name_builder'    );
 
 
 # -- default builders

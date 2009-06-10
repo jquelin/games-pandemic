@@ -12,7 +12,7 @@ extends 'Games::Pandemic::Role';
 # -- default builders
 
 sub _auto_clean_on_cure_builder { 1 }
-sub _color_builder              { '#79af00' }
+sub _color_builder              { '#e48006' }
 sub _cure_all_builder           { 1 }
 sub _role_name_builder          { __('Medic') }
 

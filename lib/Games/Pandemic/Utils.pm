@@ -3,19 +3,25 @@ package Games::Pandemic::Utils;
 
 use 5.010;
 use Devel::CheckOS        qw{ os_is };
+use Encode;
 use File::Basename        qw{ fileparse };
 use File::HomeDir         qw{ my_data };
 use File::Spec::Functions qw{ catdir rel2abs };
+use Locale::TextDomain    'Games-Pandemic';
 use Module::Util          qw{ find_installed };
 use Moose;
 use Readonly;
  
 extends 'Exporter';
-our @EXPORT = qw{ $CONFIGDIR $SHAREDIR };
+our @EXPORT = qw{ $CONFIGDIR $SHAREDIR T };
 
 Readonly our $CONFIGDIR => _find_config_dir();
 Readonly our $SHAREDIR  => _find_share_dir();
 
+
+# -- public subs
+
+sub T { return decode('utf8', __($_[0])); }
 
 
 # -- private subs

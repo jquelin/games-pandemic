@@ -143,9 +143,9 @@ sub _build_menu {
     $mw->configure(-menu => $menubar );
 
     # menu game
-    my $game = $menubar->cascade(-label => '~Game');
+    my $game = $menubar->cascade(-label => T('~Game'));
     $game->command(
-        -label       => '~Close',
+        -label       => T('~Close'),
         -accelerator => 'Ctrl+W',
         -command     => $s->postback('_window_close'),
         -image       => $mw->Photo('fileclose16'),
@@ -155,7 +155,7 @@ sub _build_menu {
     $mw->bind('<Control-W>', $s->postback('_window_close'));
 
     $game->command(
-        -label       => '~Quit',
+        -label       => T('~Quit'),
         -accelerator => 'Ctrl+Q',
         -command     => $s->postback('_quit'),
         -image       => $mw->Photo('actexit16'),

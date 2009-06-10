@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Games-Pandemic\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-09 20:14+0200\n"
+"POT-Creation-Date: 2009-06-10 15:22+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jérôme Quelin <jquelin@gmail.com>\n"
 "Language-Team: Jérôme Quelin <jquelin@gmail.com>\n"
@@ -12,217 +12,249 @@ msgstr ""
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: FRANCE\n"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:19
+#: lib/Games/Pandemic/Role/Researcher.pm:17
+msgid "Researcher"
+msgstr "Chercheur"
+
+#: lib/Games/Pandemic/Role/Medic.pm:18
+msgid "Medic"
+msgstr "Médecin"
+
+#: lib/Games/Pandemic/Role/Scientist.pm:17
+msgid "Scientist"
+msgstr "Scientifique"
+
+#: lib/Games/Pandemic/Role/OperationsExpert.pm:17
+msgid "Operations Expert"
+msgstr "Expert aux opérations"
+
+#: lib/Games/Pandemic/Role/Dispatcher.pm:18
+msgid "Dispatcher"
+msgstr "Dispatcheur"
+
+#: lib/Games/Pandemic/Map/Pandemic.pm:20
 msgid "Cholera"
 msgstr "Choléra"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:20
+#: lib/Games/Pandemic/Map/Pandemic.pm:21
 msgid "Yellow fever"
 msgstr "Fièvre jaune"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:21
+#: lib/Games/Pandemic/Map/Pandemic.pm:22
 msgid "Bubonic plague"
 msgstr "Peste bubonique"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:22
+#: lib/Games/Pandemic/Map/Pandemic.pm:23
 msgid "SARS"
 msgstr "SRAS"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:29
+#: lib/Games/Pandemic/Map/Pandemic.pm:30
 msgid "San Francisco"
 msgstr "San Francisco"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:30
+#: lib/Games/Pandemic/Map/Pandemic.pm:31
 msgid "Chicago"
 msgstr "Chicago"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:31
+#: lib/Games/Pandemic/Map/Pandemic.pm:32
 msgid "Montreal"
 msgstr "Montréal"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:32
+#: lib/Games/Pandemic/Map/Pandemic.pm:33
 msgid "New York"
 msgstr "New York"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:33
+#: lib/Games/Pandemic/Map/Pandemic.pm:34
 msgid "Atlanta"
 msgstr "Atlanta"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:34
+#: lib/Games/Pandemic/Map/Pandemic.pm:35
 msgid "Washington"
 msgstr "Washington"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:35
+#: lib/Games/Pandemic/Map/Pandemic.pm:36
 msgid "Los Angeles"
 msgstr "Los Angeles"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:36
+#: lib/Games/Pandemic/Map/Pandemic.pm:37
 msgid "Mexico City"
 msgstr "Mexico"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:37
+#: lib/Games/Pandemic/Map/Pandemic.pm:38
 msgid "Miami"
 msgstr "Miami"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:38
+#: lib/Games/Pandemic/Map/Pandemic.pm:39
 msgid "Bogota"
 msgstr "Bogota"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:39
+#: lib/Games/Pandemic/Map/Pandemic.pm:40
 msgid "Lima"
 msgstr "Lima"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:40
+#: lib/Games/Pandemic/Map/Pandemic.pm:41
 msgid "Sao Paulo"
 msgstr "Sao Paulo"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:41
+#: lib/Games/Pandemic/Map/Pandemic.pm:42
 msgid "Santiago"
 msgstr "Santiago"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:42
+#: lib/Games/Pandemic/Map/Pandemic.pm:43
 msgid "Buenos Aires"
 msgstr "Buenos Aires"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:43
+#: lib/Games/Pandemic/Map/Pandemic.pm:44
 msgid "London"
 msgstr "Londres"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:44
+#: lib/Games/Pandemic/Map/Pandemic.pm:45
 msgid "Essen"
 msgstr "Essen"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:45
+#: lib/Games/Pandemic/Map/Pandemic.pm:46
 msgid "Saint-Petersburg"
 msgstr "Saint Pétersbourg"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:46
+#: lib/Games/Pandemic/Map/Pandemic.pm:47
 msgid "Madrid"
 msgstr "Madrid"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:47
+#: lib/Games/Pandemic/Map/Pandemic.pm:48
 msgid "Paris"
 msgstr "Paris"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:48
+#: lib/Games/Pandemic/Map/Pandemic.pm:49
 msgid "Milano"
 msgstr "Milan"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:49
+#: lib/Games/Pandemic/Map/Pandemic.pm:50
 msgid "Moscow"
 msgstr "Moscou"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:50
+#: lib/Games/Pandemic/Map/Pandemic.pm:51
 msgid "Istanbul"
 msgstr "Istanbul"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:51
+#: lib/Games/Pandemic/Map/Pandemic.pm:52
 msgid "Algiers"
 msgstr "Alger"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:52
+#: lib/Games/Pandemic/Map/Pandemic.pm:53
 msgid "Tehran"
 msgstr "Téhéran"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:53
+#: lib/Games/Pandemic/Map/Pandemic.pm:54
 msgid "Baghdad"
 msgstr "Bagdad"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:54
+#: lib/Games/Pandemic/Map/Pandemic.pm:55
 msgid "Cairo"
 msgstr "Le Caire"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:55
+#: lib/Games/Pandemic/Map/Pandemic.pm:56
 msgid "Lagos"
 msgstr "Lagos"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:56
+#: lib/Games/Pandemic/Map/Pandemic.pm:57
 msgid "Khartoum"
 msgstr "Khartoum"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:57
+#: lib/Games/Pandemic/Map/Pandemic.pm:58
 msgid "Kinshasa"
 msgstr "Kinshasa"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:58
+#: lib/Games/Pandemic/Map/Pandemic.pm:59
 msgid "Johannesburg"
 msgstr "Johannesbourg"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:59
+#: lib/Games/Pandemic/Map/Pandemic.pm:60
 msgid "Delhi"
 msgstr "Delhi"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:60
+#: lib/Games/Pandemic/Map/Pandemic.pm:61
 msgid "Karachi"
 msgstr "Karachi"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:61
+#: lib/Games/Pandemic/Map/Pandemic.pm:62
 msgid "Riyadh"
 msgstr "Riyadh"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:62
+#: lib/Games/Pandemic/Map/Pandemic.pm:63
 msgid "Mumbai"
 msgstr "Mumbai"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:63
+#: lib/Games/Pandemic/Map/Pandemic.pm:64
 msgid "Kolkata"
 msgstr "Kolkata"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:64
+#: lib/Games/Pandemic/Map/Pandemic.pm:65
 msgid "Chennai"
 msgstr "Chennai"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:65
+#: lib/Games/Pandemic/Map/Pandemic.pm:66
 msgid "Bangkok"
 msgstr "Bangkok"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:66
+#: lib/Games/Pandemic/Map/Pandemic.pm:67
 msgid "Jakarta"
 msgstr "Jakarta"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:67
+#: lib/Games/Pandemic/Map/Pandemic.pm:68
 msgid "Sydney"
 msgstr "Sydney"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:68
+#: lib/Games/Pandemic/Map/Pandemic.pm:69
 msgid "Manila"
 msgstr "Manille"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:69
+#: lib/Games/Pandemic/Map/Pandemic.pm:70
 msgid "Hanoi"
 msgstr "Hanoï"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:70
+#: lib/Games/Pandemic/Map/Pandemic.pm:71
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:71
+#: lib/Games/Pandemic/Map/Pandemic.pm:72
 msgid "Taipei"
 msgstr "Taipei"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:72
+#: lib/Games/Pandemic/Map/Pandemic.pm:73
 msgid "Shanghai"
 msgstr "Shanghaï"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:73
+#: lib/Games/Pandemic/Map/Pandemic.pm:74
 msgid "Beijing"
 msgstr "Pékin"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:74
+#: lib/Games/Pandemic/Map/Pandemic.pm:75
 msgid "Seoul"
 msgstr "Séoul"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:75
+#: lib/Games/Pandemic/Map/Pandemic.pm:76
 msgid "Tokyo"
 msgstr "Tokyo"
 
-#: lib/Games/Pandemic/Map/Pandemic.pm:76
+#: lib/Games/Pandemic/Map/Pandemic.pm:77
 msgid "Osaka"
 msgstr "Osaka"
 
-#: lib/Games/Pandemic/Tk/Main.pm:150
+#: lib/Games/Pandemic/Tk/Main.pm:128
 msgid "Pandemic"
 msgstr "Pandémie"
+
+#: lib/Games/Pandemic/Tk/Main.pm:146
+msgid "~Game"
+msgstr "~Jeu"
+
+#: lib/Games/Pandemic/Tk/Main.pm:148
+msgid "~Close"
+msgstr "~Fermer"
+
+#: lib/Games/Pandemic/Tk/Main.pm:158
+msgid "~Quit"
+msgstr "~Quitter"
 
 #~ msgid "Ho Chi Minh City"
 #~ msgstr ""

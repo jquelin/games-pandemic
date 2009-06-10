@@ -2,12 +2,12 @@ package Games::Pandemic::Utils;
 # ABSTRACT: various utilities for Games::Pandemic
 
 use 5.010;
-use Moose;
 use Devel::CheckOS        qw{ os_is };
 use File::Basename        qw{ fileparse };
 use File::HomeDir         qw{ my_data };
 use File::Spec::Functions qw{ catdir rel2abs };
 use Module::Util          qw{ find_installed };
+use Moose;
 use Readonly;
  
 extends 'Exporter';

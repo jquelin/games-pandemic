@@ -6,8 +6,8 @@ use Encode;
 use Image::Size;
 use Locale::TextDomain 'Games-Pandemic';
 use Moose;
-use MooseX::FollowPBP;
 use MooseX::POE;
+use MooseX::SemiAffordanceAccessor;
 use Readonly;
 use Tk;
 use Tk::JPEG;
@@ -70,7 +70,7 @@ sub _build_canvas {
     my ($self, $session) = @_;
 
     # the background image
-    my $map    = Games::Pandemic->instance->get_map;
+    my $map    = Games::Pandemic->instance->map;
     my $bgpath = $map->background_path;
     my ($xmax, $ymax) = imgsize($bgpath);
 
@@ -96,13 +96,13 @@ sub _build_canvas {
     my @smooth = ( -smooth => 1, -splinesteps => 5 );
     foreach my $city ( $map->all_cities ) {
         $self->_draw_city($city);
-        my $x = $city->get_x;
-        my $y = $city->get_y;
+        my $x = $city->x;
+        my $y = $city->y;
 
         # draw connections between cities
         foreach my $n ( $city->neighbours ) {
-            my $xn = $n->get_x;
-            my $yn = $n->get_y;
+            my $xn = $n->x;
+            my $yn = $n->y;
             next if $xn < $x; # line already drawn
             if ( ($xn-$x) > $xmax/2 ) {
                 $c->createLine( $x, $y, 0, ($y+$yn)/2, -fill => 'red', -tags=>['line'], @smooth );
@@ -118,7 +118,7 @@ sub _build_canvas {
     $c->raise('name',    'all');
 
     # draw the starting station
-    my $start = $map->get_start_city;
+    my $start = $map->start_city;
     $self->_draw_station($start);
 }
 
@@ -171,15 +171,15 @@ sub _build_menu {
 
 sub _draw_city {
     my ($self, $city) = @_;
-    my $c = $self->_get_canvas;
+    my $c = $self->_canvas;
 
     # fetch city information
-    my $name  = decode( 'utf-8', $city->get_name );
-    my $color = $city->get_disease->get_color(0);
-    my $xreal = $city->get_xreal;
-    my $yreal = $city->get_yreal;
-    my $x     = $city->get_x;
-    my $y     = $city->get_y;
+    my $name  = decode( 'utf-8', $city->name );
+    my $color = $city->disease->color(0);
+    my $xreal = $city->xreal;
+    my $yreal = $city->yreal;
+    my $x     = $city->x;
+    my $y     = $city->y;
 
     # join the 2 circles. this is done first in order to be overwritten
     # by other drawings on the canvas, such as the circles themselves.
@@ -220,11 +220,11 @@ sub _draw_city {
 
 sub _draw_station {
     my ($self, $city) = @_;
-    my $c = $self->_get_canvas;
+    my $c = $self->_canvas;
 
-    my $x = $city->get_x;
-    my $y = $city->get_y;
-    my $name = $city->get_name;
+    my $x = $city->x;
+    my $y = $city->y;
+    my $name = $city->name;
     my $tags = [ 'station', $name ];
     $c->createPolygon(
         $x-6, $y-6,

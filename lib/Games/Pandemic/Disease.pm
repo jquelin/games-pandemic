@@ -3,14 +3,14 @@ package Games::Pandemic::Disease;
 
 use Moose;
 use MooseX::AttributeHelpers;
-use MooseX::FollowPBP;
+use MooseX::SemiAffordanceAccessor;
 
 has 'colors' => (
     metaclass  => 'Collection::List',
     is         => 'ro',
     isa        => 'ArrayRef[Str]',
     required   => 1,
-    provides   => { get => 'get_color' },
+    provides   => { get => 'color' },
 );
 has 'name'  => ( is => 'ro', required => 1 );
 has 'nb'    => ( is => 'rw', default  => 0, isa => 'Int' );

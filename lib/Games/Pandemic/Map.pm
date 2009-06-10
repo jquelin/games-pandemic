@@ -4,7 +4,7 @@ package Games::Pandemic::Map;
 use File::Spec::Functions qw{ catfile rel2abs };
 use Moose;
 use MooseX::AttributeHelpers;
-use MooseX::FollowPBP;
+use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::City;
 use Games::Pandemic::Disease;
@@ -104,7 +104,7 @@ sub city_from_id {
 
 sub disease_from_id {
     my ($self, $id) = @_;
-    return $self->_get_diseases->[$id];
+    return $self->_diseases->[$id];
 }
 
 =method my $bgpath = $map->background_path;
@@ -115,7 +115,7 @@ Return the path the background image of the map.
 
 sub background_path {
     my $self = shift;
-    return rel2abs( catfile( $SHAREDIR, 'maps', $self->get_name, 'background.jpg' ) );
+    return rel2abs( catfile( $SHAREDIR, 'maps', $self->name, 'background.jpg' ) );
 }
 
 

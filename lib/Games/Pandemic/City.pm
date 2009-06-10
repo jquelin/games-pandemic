@@ -3,7 +3,7 @@ package Games::Pandemic::City;
 
 use Moose;
 use MooseX::AttributeHelpers;
-use MooseX::FollowPBP;
+use MooseX::SemiAffordanceAccessor;
 
 has name    => ( is => 'ro', required => 1, isa => 'Str' );
 has x       => ( is => 'ro', required => 1, isa => 'Num' );
@@ -37,7 +37,7 @@ has neighbour_ids => (
 
 sub neighbours {
     my $self = shift;
-    my $map = $self->_get_map;
+    my $map = $self->_map;
     return map { $map->city_from_id($_) } $self->_neighbour_ids;
 }
 

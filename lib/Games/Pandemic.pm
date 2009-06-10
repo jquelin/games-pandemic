@@ -12,8 +12,8 @@ use 5.010;
 use POE::Kernel { loop => 'Tk' };
 
 use MooseX::Singleton;  # should come before any other moose
-use MooseX::FollowPBP;
 use MooseX::POE;
+use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Config;
 use Games::Pandemic::Map::Pandemic;

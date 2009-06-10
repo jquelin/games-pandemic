@@ -3,7 +3,7 @@ package Games::Pandemic::Role;
 
 use 5.010;
 use Moose;
-use MooseX::FollowPBP;
+use MooseX::SemiAffordanceAccessor;
 
 # -- accessors
 

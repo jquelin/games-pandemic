@@ -4,7 +4,7 @@ package Games::Pandemic::Role::OperationsExpert;
 use 5.010;
 use Locale::TextDomain 'Games-Pandemic';
 use Moose;
-use MooseX::FollowPBP;
+use MooseX::SemiAffordanceAccessor;
 
 extends 'Games::Pandemic::Role';
 

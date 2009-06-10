@@ -10,7 +10,7 @@ has 'colors' => (
     is         => 'ro',
     isa        => 'ArrayRef[Str]',
     required   => 1,
-    provides   => { get => 'color' },
+    provides   => { get => 'get_color' },
 );
 has 'name'  => ( is => 'ro', required => 1 );
 has 'nb'    => ( is => 'rw', default  => 0, isa => 'Int' );

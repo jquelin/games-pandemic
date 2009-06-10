@@ -175,7 +175,7 @@ sub _draw_city {
 
     # fetch city information
     my $name  = decode( 'utf-8', $city->get_name );
-    my $color = $city->get_disease->color(0);
+    my $color = $city->get_disease->get_color(0);
     my $xreal = $city->get_xreal;
     my $yreal = $city->get_yreal;
     my $x     = $city->get_x;

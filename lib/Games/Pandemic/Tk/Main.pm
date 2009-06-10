@@ -57,7 +57,7 @@ sub _build_action_bar {
     my ($self, $session) = @_;
     my $f = $mw->Frame->pack(@BOTTOM, @FILLX);
 
-    my @actions = qw{ move flight charter shuttle join build discover cure share };
+    my @actions = qw{ move flight charter shuttle join build discover cure share pass };
     foreach my $action ( @actions ) {
         my $image = $mw->Photo(-file=> "$SHAREDIR/actions/$action.png");
         $f->Button(

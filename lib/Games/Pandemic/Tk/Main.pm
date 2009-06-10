@@ -8,9 +8,11 @@ use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
 use Readonly;
 use Tk;
+use Tk::Font;
 use Tk::JPEG;
 use Tk::PNG;
 
+use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Constants;
 use Games::Pandemic::Utils;
 
@@ -43,50 +45,11 @@ sub START {
 
 # -- public events
 
-# -- private events
-
-#
-# _quit()
-#
-# user requested to quit the application.
-#
-event _quit => sub {
-    exit; # FIXME: do better than that...
-};
-
-
-# -- gui creation
-
-#
-# $main->_build_action_bar;
-#
-# create the action bar at the bottom of the window, with the various
-# action buttons that a player can press when it's her turn.
-#
-sub _build_action_bar {
+event new_game => sub {
     my $self = shift;
     my $s = $self->_session;
-    my $f = $mw->Frame->pack(@BOTTOM, @FILLX);
 
-    my @actions = qw{ move flight charter shuttle join build discover cure share pass };
-    foreach my $action ( @actions ) {
-        my $image = $mw->Photo(-file=> "$SHAREDIR/actions/$action.png");
-        $f->Button(
-            -image => $image,
-        )->pack(@LEFT);
-    }
-}
-
-
-#
-# $main->_build_canvas;
-#
-# create the canvas, where the map will be drawn and the action
-# take place.
-#
-sub _build_canvas {
-    my $self = shift;
-    my $s = $self->_session;
+=pod
 
     # the background image
     my $map    = Games::Pandemic->instance->map;
@@ -139,6 +102,108 @@ sub _build_canvas {
     # draw the starting station
     my $start = $map->start_city;
     $self->_draw_station($start);
+
+=cut
+
+};
+
+
+# -- private events
+
+#
+# _quit()
+#
+# user requested to quit the application.
+#
+event _quit => sub {
+    exit; # FIXME: do better than that...
+};
+
+
+# -- gui creation
+
+#
+# $main->_build_action_bar;
+#
+# create the action bar at the bottom of the window, with the various
+# action buttons that a player can press when it's her turn.
+#
+sub _build_action_bar {
+    my $self = shift;
+    my $s = $self->_session;
+    my $f = $mw->Frame->pack(@BOTTOM, @FILLX);
+
+    my @actions = qw{ move flight charter shuttle join build discover cure share pass };
+    foreach my $action ( @actions ) {
+        my $image = $mw->Photo(-file=> "$SHAREDIR/actions/$action.png");
+        $f->Button(
+            -image => $image,
+        )->pack(@LEFT);
+    }
+}
+
+
+#
+# $main->_build_canvas;
+#
+# create the canvas, where the map will be drawn and the action
+# take place.
+#
+sub _build_canvas {
+    my $self = shift;
+    my $s = $self->_session;
+
+    my $config = Games::Pandemic::Config->instance;
+    my $width  = $config->get( 'canvas_width' );
+    my $height = $config->get( 'canvas_height' );
+
+    # creating the canvas
+    my $c  = $mw->Canvas(-width=>$width,-height=>$height)->pack(@XFILL2);
+    $self->_set_canvas($c);
+
+    # removing class bindings
+    foreach my $button ( qw{ 4 5 6 7 } ) {
+        $mw->bind('Tk::Canvas', "<Button-$button>",       undef);
+        $mw->bind('Tk::Canvas', "<Shift-Button-$button>", undef);
+    }
+    foreach my $key ( qw{ Down End Home Left Next Prior Right Up } ) {
+        $mw->bind('Tk::Canvas', "<Key-$key>", undef);
+        $mw->bind('Tk::Canvas', "<Control-Key-$key>", undef);
+    }
+
+    # create the initial welcome screen
+    my @tags = ( -tags => ['startup'] );
+    # first a background image...
+    $c->createImage (
+        $width/2, $height/2,
+        -anchor => 'center',
+        -image  => $mw->Photo(-file=>"$SHAREDIR/background.png"),
+        @tags,
+    );
+    # ... then some basic actions
+    my @buttons = (
+        [ T('New game'),    1, '_new'  ],
+        [ T('Join a game'), 0, '_join' ],
+        [ T('Load a game'), 0, '_load' ],
+    );
+    my $pad = 25;
+    my $font = $mw->Font(-weight=>'bold');
+    foreach my $i ( 0 .. $#buttons ) {
+        my ($text, $active, $event) = @{ $buttons[$i] };
+        # create the 'button' (really a clickable text)
+        my $id = $c->createText(
+            $width/2, $height/2 - (@buttons)/2*$pad + $i*$pad,
+            $active ? @ENON : @ENOFF,
+            -text         => $text,
+            -fill         => '#dddddd',
+            -activefill   => 'white',
+            -disabledfill => '#999999',
+            -font         => $font,
+            @tags,
+        );
+        # now bind click on this text
+        $c->bind( $id, '<1>', $s->postback($event) );
+    }
 }
 
 

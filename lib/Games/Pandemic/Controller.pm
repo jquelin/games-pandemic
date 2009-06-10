@@ -2,13 +2,23 @@ package Games::Pandemic::Controller;
 # ABSTRACT: controller for a pandemic game
 
 use 5.010;
-use Moose;
+use MooseX::Singleton;  # should come before any other moose
 use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
+use Readonly;
+
+Readonly my $K  => $poe_kernel;
 
 # -- accessors
 
+# -- initialization
+
+sub START {
+    $K->alias_set('controller');
+}
+
 # -- public events
+
 
 
 no Moose;

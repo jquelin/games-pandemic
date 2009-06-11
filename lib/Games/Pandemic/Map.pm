@@ -13,14 +13,15 @@ use Games::Pandemic::Utils;
 # -- accessors
 
 has _cities => (
-    metaclass  => 'Collection::List',
+    metaclass  => 'Collection::Array',
     is         => 'ro',
     isa        => 'ArrayRef[Games::Pandemic::City]',
     builder    => '_cities_builder',
     lazy       => 1,  # _diseases() needs to be built before
     auto_deref => 1,
     provides   => {
-        elements => 'all_cities',
+        elements => 'all_cities',       # my @c = $map->all_cities;
+        get      => 'city',             # my $c = $map->city(23);
     }
 );
 
@@ -97,18 +98,13 @@ sub _diseases_builder {
 sub _start_city_builder {
     my $self = shift;
     my $id   = $self->_raw_start_city;
-    my $city = $self->city_from_id($id);
+    my $city = $self->city($id);
     $city->build_station;
     return $city;
 }
 
+
 # -- public methods
-
-sub city_from_id {
-    my ($self, $id) = @_;
-    return $self->_cities->[$id];
-}
-
 
 =method my $bgpath = $map->background_path;
 

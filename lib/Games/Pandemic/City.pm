@@ -38,7 +38,7 @@ has neighbour_ids => (
 sub neighbours {
     my $self = shift;
     my $map = $self->_map;
-    return map { $map->city_from_id($_) } $self->_neighbour_ids;
+    return map { $map->city($_) } $self->_neighbour_ids;
 }
 
 no Moose;

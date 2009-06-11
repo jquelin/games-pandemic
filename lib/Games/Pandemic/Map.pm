@@ -1,7 +1,7 @@
 package Games::Pandemic::Map;
 # ABSTRACT: map information for Games::Pandemic
 
-use File::Spec::Functions qw{ catfile rel2abs };
+use File::Spec::Functions qw{ catdir catfile rel2abs };
 use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
@@ -118,6 +118,18 @@ sub background_path {
     return rel2abs( catfile( $SHAREDIR, 'maps', $self->name, 'background.jpg' ) );
 }
 
+
+=method my $dir = $map->sharedir;
+
+Return the path to the private directory C<$dir> where C<$map> stores
+various files.
+
+=cut
+
+sub sharedir {
+    my $self = shift;
+    return rel2abs( catdir( $SHAREDIR, 'maps', $self->name ) );
+}
 
 
 no Moose;

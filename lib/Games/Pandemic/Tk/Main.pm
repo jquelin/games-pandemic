@@ -276,6 +276,12 @@ sub _build_status_bar {
     my $fcures    = $sb->Frame->pack(@RIGHT);
 
     foreach my $disease ( $map->all_diseases ) {
+        $fdiseases->Label(
+            -image => $mw->Photo( -file => $disease->image('cube') ),
+        )->pack(@LEFT);
+        $fdiseases->Label(
+            -text => $disease->nb . '/' . $disease->nbmax,
+        )->pack(@LEFT);
         $fcures->Label(
             -image => $mw->Photo( -file => $disease->image('cure') ),
             @ENOFF,

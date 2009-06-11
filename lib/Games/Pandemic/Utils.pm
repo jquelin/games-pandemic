@@ -6,7 +6,7 @@ use Devel::CheckOS        qw{ os_is };
 use Encode;
 use File::Basename        qw{ fileparse };
 use File::HomeDir         qw{ my_data };
-use File::Spec::Functions qw{ catdir rel2abs };
+use File::Spec::Functions qw{ catdir };
 use Locale::TextDomain    'Games-Pandemic';
 use Module::Util          qw{ find_installed };
 use Moose;
@@ -33,7 +33,7 @@ sub T { return decode('utf8', __($_[0])); }
 #
 sub _find_config_dir {
     my $subdir = os_is('MicrosoftWindows' ) ? 'Perl' : '.perl';
-    return rel2abs( catdir( my_data(), $subdir, 'Games-Pandemic' ) );
+    return catdir( my_data(), $subdir, 'Games-Pandemic' );
 }
 
 
@@ -45,7 +45,7 @@ sub _find_config_dir {
 sub _find_share_dir {
     my $path = find_installed(__PACKAGE__);
     my ($undef, $dirname) = fileparse($path);
-    return rel2abs( catdir($dirname, 'share') );
+    return catdir($dirname, 'share');
 }
 
 no Moose;

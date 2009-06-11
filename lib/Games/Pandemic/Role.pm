@@ -2,7 +2,7 @@ package Games::Pandemic::Role;
 # ABSTRACT: base class for pandemic roles
 
 use 5.010;
-use File::Spec::Functions qw{ catfile rel2abs };
+use File::Spec::Functions qw{ catfile };
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 
@@ -46,7 +46,7 @@ Return the C$<path> to an image of the role.
 
 sub image {
     my $self = shift;
-    return rel2abs( catfile( $SHAREDIR, 'roles', $self->_image ) );
+    return catfile( $SHAREDIR, 'roles', $self->_image );
 }
 
 no Moose;

@@ -12,6 +12,7 @@ has 'colors' => (
     required   => 1,
     provides   => { get => 'color' },
 );
+has _image  => ( is => 'ro', required => 1, isa => 'Str' );
 has 'name'  => ( is => 'ro', required => 1 );
 has 'nb'    => ( is => 'rw', default  => 0, isa => 'Int' );
 has 'nbmax' => ( is => 'ro', required => 1, isa => 'Int' );

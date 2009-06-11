@@ -7,6 +7,8 @@ use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
 use Readonly;
 
+use Games::Pandemic::Map::Pandemic;
+
 Readonly my $K  => $poe_kernel;
 
 # -- accessors
@@ -19,8 +21,15 @@ sub START {
 
 # -- public events
 
+#
+# new_game()
+#
 event new_game => sub {
-    say "new game!";
+    my $game = Games::Pandemic->instance;
+
+    # create the map
+    my $map = Games::Pandemic::Map::Pandemic->new;
+    $game->set_map( $map );
 };
 
 

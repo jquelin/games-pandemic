@@ -17,9 +17,8 @@ use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Config;
 use Games::Pandemic::Controller;
-use Games::Pandemic::Map::Pandemic;
 use Games::Pandemic::Tk::Main;
-use Games::Pandemic::Utils;
+
 
 # -- accessors
 
@@ -43,11 +42,6 @@ sub run {
 
     # fetch the singleton if called as a class method
     $self = $self->instance unless ref($self);
-
-    # create the initial map
-    # FIXME: does it really belong here?
-    my $map = Games::Pandemic::Map::Pandemic->new;
-    $self->set_map( $map );
 
     # create the poe sessions
     Games::Pandemic::Controller->new;

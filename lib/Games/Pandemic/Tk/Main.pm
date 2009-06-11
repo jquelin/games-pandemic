@@ -47,32 +47,19 @@ sub START {
 
 event new_game => sub {
     my $self = shift;
+    my $c = $self->_canvas;
     my $s = $self->_session;
 
-=pod
+    # remove everything on the canvas
+    $c->delete('all');
 
     # the background image
     my $map    = Games::Pandemic->instance->map;
     my $bgpath = $map->background_path;
     my ($xmax, $ymax) = imgsize($bgpath);
-
-    # creating the canvas
-    my $c  = $mw->Canvas(-width=>$xmax,-height=>$ymax)->pack(@XFILL2);
-    $self->_set_canvas($c);
-
     my $bg = $c->Photo( -file => $bgpath );
     $c->createImage(0, 0, -anchor=>'nw', -image=>$bg, -tags=>['background']);
     $c->lower('background', 'all');
-
-    # removing class bindings
-    foreach my $button ( qw{ 4 5 6 7 } ) {
-        $mw->bind('Tk::Canvas', "<Button-$button>",       undef);
-        $mw->bind('Tk::Canvas', "<Shift-Button-$button>", undef);
-    }
-    foreach my $key ( qw{ Down End Home Left Next Prior Right Up } ) {
-        $mw->bind('Tk::Canvas', "<Key-$key>", undef);
-        $mw->bind('Tk::Canvas', "<Control-Key-$key>", undef);
-    }
 
     # place the cities on the map
     my @smooth = ( -smooth => 1, -splinesteps => 5 );
@@ -102,9 +89,6 @@ event new_game => sub {
     # draw the starting station
     my $start = $map->start_city;
     $self->_draw_station($start);
-
-=cut
-
 };
 
 

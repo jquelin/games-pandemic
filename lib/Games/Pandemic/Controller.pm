@@ -30,6 +30,8 @@ event new_game => sub {
     # create the map
     my $map = Games::Pandemic::Map::Pandemic->new;
     $game->set_map( $map );
+
+    $K->post( 'main' => 'new_game' );
 };
 
 

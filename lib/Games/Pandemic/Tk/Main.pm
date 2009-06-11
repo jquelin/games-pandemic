@@ -2,6 +2,7 @@ package Games::Pandemic::Tk::Main;
 # ABSTRACT: main window for Games::Pandemic
 
 use 5.010;
+use File::Spec::Functions qw{ catfile };
 use Image::Size;
 use Moose;
 use MooseX::POE;
@@ -132,7 +133,7 @@ sub _build_action_bar {
 
     my @actions = qw{ move flight charter shuttle join build discover cure share pass };
     foreach my $action ( @actions ) {
-        my $image = $mw->Photo(-file=> "$SHAREDIR/actions/$action.png");
+        my $image = $mw->Photo(-file=> catfile($SHAREDIR, 'actions', "$action.png"));
         $f->Button(
             -image => $image,
         )->pack(@LEFT);
@@ -174,7 +175,7 @@ sub _build_canvas {
     $c->createImage (
         $width/2, $height/2,
         -anchor => 'center',
-        -image  => $mw->Photo(-file=>"$SHAREDIR/background.png"),
+        -image  => $mw->Photo(-file=>catfile($SHAREDIR, "background.png")),
         @tags,
     );
     # ... then some basic actions
@@ -218,7 +219,7 @@ sub _build_gui {
 
     # set windowtitle
     $mw->title(T('Pandemic'));
-    $mw->iconimage( $mw->Photo(-file=>"$SHAREDIR/icon.png") );
+    $mw->iconimage( $mw->Photo(-file=>catfile($SHAREDIR, 'icon.png')) );
 
     $self->_build_menu;
     $self->_build_canvas;

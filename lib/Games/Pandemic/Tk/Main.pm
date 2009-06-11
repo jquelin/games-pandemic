@@ -123,7 +123,7 @@ event _quit => sub {
 sub _build_action_bar {
     my $self = shift;
     my $s = $self->_session;
-    my $f = $mw->Frame->pack(@BOTTOM, @FILLX);
+    my $f = $mw->Frame->pack(@BOTTOM);
 
     my @actions = qw{ move flight charter shuttle join build discover cure share pass };
     foreach my $action ( @actions ) {

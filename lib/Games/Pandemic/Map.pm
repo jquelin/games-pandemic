@@ -25,13 +25,14 @@ has _cities => (
 );
 
 has _diseases => (
-    metaclass  => 'Collection::List',
+    metaclass  => 'Collection::Array',
     is         => 'ro',
     isa        => 'ArrayRef[Games::Pandemic::Disease]',
     builder    => '_diseases_builder',
     auto_deref => 1,
     provides   => {
-        elements => 'all_diseases',
+        elements => 'all_diseases',     # my @d = $map->all_diseases;
+        get      => 'disease',          # my $d = $map->disease(0);
     },
 );
 
@@ -58,7 +59,7 @@ sub _cities_builder {
     my @cities;
     foreach my $d ( $self->_raw_cities ) {
         my ($name, $disid, $xreal, $yreal, $x, $y, $neighbours) = @$d;
-        my $disease = $self->disease_from_id($disid);
+        my $disease = $self->disease($disid);
         my $city = Games::Pandemic::City->new(
             name    => $name,
             xreal   => $xreal,
@@ -108,10 +109,6 @@ sub city_from_id {
     return $self->_cities->[$id];
 }
 
-sub disease_from_id {
-    my ($self, $id) = @_;
-    return $self->_diseases->[$id];
-}
 
 =method my $bgpath = $map->background_path;
 

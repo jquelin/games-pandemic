@@ -270,7 +270,7 @@ sub _build_status_bar {
     my $self = shift;
     my $map = Games::Pandemic->instance->map;
     my $f = $mw->Frame->pack(@BOTTOM, -before=>$self->_canvas);
-    foreach my $disease ( @{ $map->_diseases } ) {
+    foreach my $disease ( $map->all_diseases ) {
         my $image = $mw->Photo(-file=> $disease->image);
         $f->Label(
             -image => $image,

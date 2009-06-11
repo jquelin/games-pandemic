@@ -25,9 +25,14 @@ has _cities => (
 );
 
 has _diseases => (
-    is      => 'ro',
-    isa     => 'ArrayRef',
-    builder => '_diseases_builder',
+    metaclass  => 'Collection::List',
+    is         => 'ro',
+    isa        => 'ArrayRef[Games::Pandemic::Disease]',
+    builder    => '_diseases_builder',
+    auto_deref => 1,
+    provides   => {
+        elements => 'all_diseases',
+    },
 );
 
 has name => (

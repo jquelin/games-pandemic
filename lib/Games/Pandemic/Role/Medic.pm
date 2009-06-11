@@ -15,6 +15,7 @@ extends 'Games::Pandemic::Role';
 sub _auto_clean_on_cure_builder { 1 }
 sub _color_builder              { '#e48006' }
 sub _cure_all_builder           { 1 }
+sub _image_builder              { 'medic.png' }
 sub _role_name_builder          { T('Medic') }
 
 

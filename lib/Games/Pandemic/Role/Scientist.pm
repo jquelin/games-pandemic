@@ -14,6 +14,7 @@ extends 'Games::Pandemic::Role';
 
 sub _cards_needed_builder { 4 }
 sub _color_builder        { '#d1d0c2' }
+sub _image_builder        { 'scientist.png' }
 sub _role_name_builder    { T('Scientist') }
 
 

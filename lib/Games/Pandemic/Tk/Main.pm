@@ -50,6 +50,11 @@ event new_game => sub {
     my $c = $self->_canvas;
     my $s = $self->_session;
 
+
+    #
+    $self->_build_action_bar;
+    $self->_build_status_bar;
+
     # remove everything on the canvas
     $c->delete('all');
 
@@ -123,7 +128,7 @@ event _quit => sub {
 sub _build_action_bar {
     my $self = shift;
     my $s = $self->_session;
-    my $f = $mw->Frame->pack(@BOTTOM);
+    my $f = $mw->Frame->pack(@TOP, -before=>$self->_canvas);
 
     my @actions = qw{ move flight charter shuttle join build discover cure share pass };
     foreach my $action ( @actions ) {
@@ -150,7 +155,7 @@ sub _build_canvas {
     my $height = $config->get( 'canvas_height' );
 
     # creating the canvas
-    my $c  = $mw->Canvas(-width=>$width,-height=>$height)->pack(@XFILL2);
+    my $c  = $mw->Canvas(-width=>$width,-height=>$height)->pack(@TOP, @XFILL2);
     $self->_set_canvas($c);
 
     # removing class bindings
@@ -216,7 +221,6 @@ sub _build_gui {
     $mw->iconimage( $mw->Photo(-file=>"$SHAREDIR/icon.png") );
 
     $self->_build_menu;
-    $self->_build_action_bar;
     $self->_build_canvas;
 }
 
@@ -259,6 +263,20 @@ sub _build_menu {
     $mw->bind('<Control-q>', $s->postback('_quit'));
     $mw->bind('<Control-Q>', $s->postback('_quit'));
 }
+
+
+sub _build_status_bar {
+    my $self = shift;
+    my $f = $mw->Frame->pack(@BOTTOM, -before=>$self->_canvas);
+    foreach my $c ( qw{ black blue red yellow } ) {
+        my $image = $mw->Photo(-file=> "$SHAREDIR/disease/$c.png");
+        $f->Label(
+            -image => $image,
+            @ENOFF,
+        )->pack(@LEFT);
+   }
+}
+
 
 # -- private subs
 

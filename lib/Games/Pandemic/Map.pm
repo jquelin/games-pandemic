@@ -115,7 +115,7 @@ Return the path the background image of the map.
 
 sub background_path {
     my $self = shift;
-    return rel2abs( catfile( $SHAREDIR, 'maps', $self->name, 'background.jpg' ) );
+    return rel2abs( catfile( $self->sharedir, 'background.jpg' ) );
 }
 
 

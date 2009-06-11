@@ -81,12 +81,12 @@ sub _diseases_builder {
 
     my @diseases;
     foreach my $d ( $self->_raw_diseases ) {
-        my ($name, $colors, $nb, $image) = @$d;
+        my ($id, $name, $colors, $nb) = @$d;
         my $disease = Games::Pandemic::Disease->new(
             name   => $name,
             colors => $colors,
             nbmax  => $nb,
-            _image => $image,
+            id     => $id,
             _map   => $self,
         );
         push @diseases, $disease;

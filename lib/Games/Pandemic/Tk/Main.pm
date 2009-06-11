@@ -269,11 +269,15 @@ sub _build_menu {
 sub _build_status_bar {
     my $self = shift;
     my $map = Games::Pandemic->instance->map;
-    my $f = $mw->Frame->pack(@BOTTOM, -before=>$self->_canvas);
+
+    my $sb = $mw->Frame->pack(@BOTTOM, @FILLX, -before=>$self->_canvas);
+
+    my $fdiseases = $sb->Frame->pack(@LEFT);
+    my $fcures    = $sb->Frame->pack(@RIGHT);
+
     foreach my $disease ( $map->all_diseases ) {
-        my $image = $mw->Photo(-file=> $disease->image);
-        $f->Label(
-            -image => $image,
+        $fcures->Label(
+            -image => $mw->Photo( -file => $disease->image('cure') ),
             @ENOFF,
         )->pack(@LEFT);
    }

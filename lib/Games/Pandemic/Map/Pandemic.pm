@@ -16,11 +16,11 @@ sub _build_name { 'pandemic' }
 
 sub _raw_diseases {
 return (
-# name, main color, max nb of disease, image
-[ T( "Cholera"        ) , ['#3e82cf','#2956df','#152Bef','#0000ff'], 24, 'cure-blue.png'   ],
-[ T( "Yellow fever"   ) , ['#fff999','#fffb66','#fffd33','#ffff00'], 24, 'cure-yellow.png' ],
-[ T( "Bubonic plague" ) , ['#666666','#444444','#222222','#000000'], 24, 'cure-black.png'  ],
-[ T( "SARS"           ) , ['#ff5252','#ff3636','#ff2121','#ff0000'], 24, 'cure-red.png'    ],
+# id, name, main color, max nb of disease
+[ 0, T( "Cholera"        ) , ['#3e82cf','#2956df','#152Bef','#0000ff'], 24, ],
+[ 1, T( "Yellow fever"   ) , ['#fff999','#fffb66','#fffd33','#ffff00'], 24, ],
+[ 2, T( "Bubonic plague" ) , ['#666666','#444444','#222222','#000000'], 24, ],
+[ 3, T( "SARS"           ) , ['#ff5252','#ff3636','#ff2121','#ff0000'], 24, ],
 );
 }
 

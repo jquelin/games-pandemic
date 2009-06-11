@@ -15,7 +15,7 @@ has 'colors' => (
     required   => 1,
     provides   => { get => 'color' },
 );
-has _image  => ( is => 'ro', required => 1, isa => 'Str' );
+has id      => ( is => 'ro', required => 1, isa => 'Int' );
 has 'name'  => ( is => 'ro', required => 1 );
 has 'nb'    => ( is => 'rw', default  => 0, isa => 'Int' );
 has 'nbmax' => ( is => 'ro', required => 1, isa => 'Int' );
@@ -24,15 +24,16 @@ has '_map'  => ( is => 'ro', required => 1, isa => 'Games::Pandemic::Map', weak_
 
 # -- public methods
 
-=method my $path = $disease->image;
+=method my $path = $disease->image($what);
 
-Return the C<$path> to an image for the disease B<cure>.
+Return the C<$path> to an image for the disease. C<$what> can be either
+C<cube> or C<cure>.
 
 =cut
 
 sub image {
-    my $self = shift;
-    return catfile( $self->_map->sharedir, $self->_image );
+    my ($self, $what) = @_;
+    return catfile( $self->_map->sharedir, $what . '-' . $self->id . '.png' );
 }
 
 

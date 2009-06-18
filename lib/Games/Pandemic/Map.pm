@@ -6,6 +6,7 @@ use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 
+use Games::Pandemic::Card::City;
 use Games::Pandemic::City;
 use Games::Pandemic::Disease;
 use Games::Pandemic::Utils;
@@ -130,6 +131,21 @@ sub sharedir {
     return catdir( $SHAREDIR, 'maps', $self->name );
 }
 
+
+=method my @cards = $map->disease_cards;
+
+Return a list of C<Games::Pandemic::Card::City>, one per city defined in
+the map. They will be used for the infection deck. Note that the cards
+will B<not> be shuffled.
+
+=cut
+
+sub disease_cards {
+    my $self = shift;
+    return
+        map { Games::Pandemic::Card::City->new(city=>$_) }
+        $self->all_cities;
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

@@ -274,6 +274,15 @@ sub _build_status_bar {
     # the status bar itself is a frame
     my $sb = $mw->Frame->pack(@BOTTOM, @FILLX, -before=>$self->_canvas);
 
+    # research stations
+    my $fstations = $sb->Frame->pack(@LEFT, @PADX10);
+    $fstations->Label(
+        -image => $mw->Photo( -file => catfile( $SHAREDIR, 'research-station.png' ) ),
+    )->pack(@LEFT);
+    $fstations->Label(
+        -text => $game->stations,
+    )->pack(@LEFT);
+
     # diseases information
     my $fdiseases = $sb->Frame->pack(@LEFT, @PADX10);
     my $fcures    = $sb->Frame->pack(@LEFT, @PADX10);

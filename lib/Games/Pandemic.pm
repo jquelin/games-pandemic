@@ -34,6 +34,13 @@ has map => (
     isa => 'Games::Pandemic::Map',
 );
 
+# player cards deck
+has cards => (
+    is  => 'rw',
+    isa => 'Games::Pandemic::Deck',
+);
+
+# infection cards deck
 has infection => (
     is  => 'rw',
     isa => 'Games::Pandemic::Deck',

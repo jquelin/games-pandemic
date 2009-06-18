@@ -290,6 +290,16 @@ sub _build_status_bar {
         )->pack(@LEFT);
     }
 
+    # player cards information
+    my $cards  = $game->cards;
+    my $fcards = $sb->Frame->pack(@LEFT, @PADX10);
+    $fcards->Label(
+        -image => $mw->Photo( -file => catfile( $SHAREDIR, 'card-player.png' ) ),
+    )->pack(@LEFT);
+    $fcards->Label(
+        -text => $cards->nbcards . '-' . $cards->nbdiscards,
+    )->pack(@LEFT);
+
     # infection information
     my $infection = $game->infection;
     my $finfection = $sb->Frame->pack(@LEFT, @PADX10);

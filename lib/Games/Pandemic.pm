@@ -46,6 +46,11 @@ has infection => (
     isa => 'Games::Pandemic::Deck',
 );
 
+# number of research stations remaining to be build
+has stations => (
+    is  => 'rw',
+    isa => 'Int',
+);
 
 # -- public methods
 

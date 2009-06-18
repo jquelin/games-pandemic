@@ -15,6 +15,7 @@ has cards => (
     required   => 1,
     auto_deref => 1,
     provides   => {
+        count => 'nbcards',
         pop   => 'next',
         shift => 'last',
     },
@@ -27,6 +28,7 @@ has _pile => (
     auto_deref => 1,
     provides   => {
         clear    => '_clear_pile',
+        count    => 'nbdiscards',
         push     => 'discard',
         elements => 'past',
     },

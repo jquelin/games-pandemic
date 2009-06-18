@@ -35,6 +35,9 @@ event new_game => sub {
     my $map = Games::Pandemic::Map::Pandemic->new;
     $game->set_map( $map );
 
+    # 5 research stations available. FIXME: should it be part of the map?
+    $game->set_stations( 5 );
+
     # create the infection deck
     my @pcards = shuffle $map->disease_cards;
     my $cards  = Games::Pandemic::Deck->new( cards => \@pcards );

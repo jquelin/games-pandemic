@@ -8,7 +8,7 @@ our @EXPORT = qw{
     @TOP @BOTTOM @LEFT @RIGHT
     @FILLX  @FILL2
     @XFILLX @XFILL2
-    @PAD1   @PAD20
+    @PAD1   @PAD20 @PADX10
     @ENON   @ENOFF
 };
 
@@ -27,6 +27,7 @@ our @XFILL2  = ( -expand => 1, -fill => 'both' );
 # padding
 our @PAD1    = ( -padx => 1, -pady => 1);
 our @PAD20   = ( -padx => 20, -pady => 20);
+our @PADX10  = ( -padx => 10 );
 
 # enabled state
 our @ENON    = ( -state => 'normal' );

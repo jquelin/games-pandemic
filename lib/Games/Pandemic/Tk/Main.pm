@@ -268,7 +268,8 @@ sub _build_menu {
 
 sub _build_status_bar {
     my $self = shift;
-    my $map = Games::Pandemic->instance->map;
+    my $game = Games::Pandemic->instance;
+    my $map  = $game->map;
 
     my $sb = $mw->Frame->pack(@BOTTOM, @FILLX, -before=>$self->_canvas);
 

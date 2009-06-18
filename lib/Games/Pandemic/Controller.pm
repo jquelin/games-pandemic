@@ -36,8 +36,13 @@ event new_game => sub {
     $game->set_map( $map );
 
     # create the infection deck
-    my @cards = shuffle $map->disease_cards;
-    my $infection = Games::Pandemic::Deck->new( cards => \@cards );
+    my @pcards = shuffle $map->disease_cards;
+    my $cards  = Games::Pandemic::Deck->new( cards => \@pcards );
+    $game->set_cards( $cards );
+
+    # create the infection deck
+    my @icards = shuffle $map->disease_cards;
+    my $infection = Games::Pandemic::Deck->new( cards => \@icards );
     $game->set_infection( $infection );
 
     # signal main window that we have started a new game

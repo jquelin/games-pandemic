@@ -271,11 +271,12 @@ sub _build_status_bar {
     my $game = Games::Pandemic->instance;
     my $map  = $game->map;
 
+    # the status bar itself is a frame
     my $sb = $mw->Frame->pack(@BOTTOM, @FILLX, -before=>$self->_canvas);
 
+    # diseases information
     my $fdiseases = $sb->Frame->pack(@LEFT, @PADX10);
     my $fcures    = $sb->Frame->pack(@LEFT, @PADX10);
-
     foreach my $disease ( $map->all_diseases ) {
         $fdiseases->Label(
             -image => $mw->Photo( -file => $disease->image('cube') ),

@@ -26,6 +26,8 @@ sub START {
 #
 # new_game()
 #
+# create a new game: (re-)initialize the map, and various internal states.
+#
 event new_game => sub {
     my $game = Games::Pandemic->instance;
 
@@ -38,6 +40,7 @@ event new_game => sub {
     my $infection = Games::Pandemic::Deck->new( cards => \@cards );
     $game->set_infection( $infection );
 
+    # signal main window that we have started a new game
     $K->post( 'main' => 'new_game' );
 };
 

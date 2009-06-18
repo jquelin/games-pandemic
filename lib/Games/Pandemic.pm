@@ -34,6 +34,11 @@ has map => (
     isa => 'Games::Pandemic::Map',
 );
 
+has infection => (
+    is  => 'rw',
+    isa => 'Games::Pandemic::Deck',
+);
+
 
 # -- public methods
 

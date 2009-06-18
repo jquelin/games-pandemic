@@ -287,7 +287,17 @@ sub _build_status_bar {
             -image => $mw->Photo( -file => $disease->image('cure') ),
             @ENOFF,
         )->pack(@LEFT);
-   }
+    }
+
+    # infection information
+    my $infection = $game->infection;
+    my $finfection = $sb->Frame->pack(@LEFT, @PADX10);
+    $finfection->Label(
+        -image => $mw->Photo( -file => catfile( $SHAREDIR, 'card-infection.png' ) ),
+    )->pack(@LEFT);
+    $finfection->Label(
+        -text => $infection->nbcards . '-' . $infection->nbdiscards,
+    )->pack(@LEFT);
 }
 
 

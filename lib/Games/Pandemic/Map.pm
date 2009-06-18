@@ -132,6 +132,22 @@ sub sharedir {
 }
 
 
+=method my @cards = $map->cards;
+
+Return a list of C<Games::Pandemic::Card>: specific cards depending on
+the map, plus one card per city defined in the map. They will be used
+for the regular deck. Note that the cards will B<not> be shuffled.
+
+=cut
+
+sub cards {
+    my $self = shift;
+    return
+        map { Games::Pandemic::Card::City->new(city=>$_) }
+        $self->all_cities;
+}
+
+
 =method my @cards = $map->disease_cards;
 
 Return a list of C<Games::Pandemic::Card::City>, one per city defined in

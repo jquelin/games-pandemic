@@ -10,18 +10,11 @@ use MooseX::SemiAffordanceAccessor;
 # -- accessors
 
 has cards => (
-    is => 'rw',
-    isa => 'ArrayRef[Games::Pandemic::Card]',
-    auto_deref => 1,
-);
-
-has _deck => (
     metaclass  => 'Collection::Array',
     isa        => 'ArrayRef[Games::Pandemic::Card]',
-    default    => sub { [] },
+    required   => 1,
     auto_deref => 1,
     provides   => {
-        clear => '_clear_deck',
         pop   => 'next',
         shift => 'last',
     },

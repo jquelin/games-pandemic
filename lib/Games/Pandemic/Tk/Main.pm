@@ -7,6 +7,7 @@ use warnings;
 
 use File::Spec::Functions qw{ catfile };
 use Image::Size;
+use List::Util            qw{ min };
 use Moose;
 use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
@@ -59,6 +60,19 @@ event infection => sub {
 
     # draw city infections
     $self->_draw_infection($city);
+
+    # compute decay colors
+    my @from = (0, 255, 0);
+    my @to   = (0, 0, 0);
+    my $steps = 20;
+    my @colors;
+    foreach my $i ( 0 .. $steps ) {
+        my $r = $from[0] + int( ($to[0] - $from[0]) / $steps * $i );
+        my $g = $from[1] + int( ($to[1] - $from[1]) / $steps * $i );
+        my $b = $from[2] + int( ($to[2] - $from[2]) / $steps * $i );
+        push @colors, sprintf( "#%02x%02x%02x", $r, $g, $b );
+    }
+    $self->yield( _decay => $city, \@colors );
 };
 
 event new_game => sub {
@@ -114,6 +128,27 @@ event new_game => sub {
 
 
 # -- private events
+
+#
+# _decay( $city, \@colors )
+#
+# change $city outline color to the first element of @colors, and
+# schedule another _decay event with the rest of @colors if it's still
+# not empty.
+#
+event _decay => sub {
+    my ($self, $city, $colors) = @_[OBJECT, ARG0, ARG1];
+    my $c    = $self->_canvas;
+    my $name = $city->name;
+    my $col  = shift @$colors;
+    $c->itemconfigure(
+        "$name&&spot",
+        -outline => $col,
+        -width   => min(5, $#$colors+1),
+    );
+    $K->delay_add( _decay => 0.150, $city, $colors ) if $#$colors;
+};
+
 
 #
 # _new()

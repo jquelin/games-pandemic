@@ -31,11 +31,12 @@ sub START {
 
 # -- public events
 
-#
-# new_game()
-#
-# create a new game: (re-)initialize the map, and various internal states.
-#
+=method event: new_game()
+
+Create a new game: (re-)initialize the map, and various internal states.
+
+=cut
+
 event new_game => sub {
     my $game = Games::Pandemic->instance;
 

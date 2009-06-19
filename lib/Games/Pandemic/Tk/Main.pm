@@ -60,7 +60,15 @@ sub START {
     $self->_build_gui;
 }
 
+
 # -- public events
+
+=method event: infection($city, $outbreak)
+
+Received when C<$city> gets infected. C<$outbreak> is true if this
+infection lead to a disease outbreak.
+
+=cut
 
 event infection => sub {
     my ($self, $city, $outbreak) = @_[OBJECT, ARG0, ARG1];
@@ -84,6 +92,14 @@ event infection => sub {
     }
     $self->yield( _decay => $city, \@colors );
 };
+
+
+=method event: new_game()
+
+Received when the controller started a new game. Display the new map
+(incl. cities), action & statusbar
+
+=cut
 
 event new_game => sub {
     my $self = shift;
@@ -326,6 +342,11 @@ sub _build_menu {
 }
 
 
+#
+# $main->_build_status_bar;
+#
+# create the status bar at the bottom of the window.
+#
 sub _build_status_bar {
     my $self = shift;
     my $game = Games::Pandemic->instance;
@@ -381,7 +402,7 @@ sub _build_status_bar {
 }
 
 
-# -- private subs
+# -- private methods
 
 #
 # $main->_draw_city($city);
@@ -519,6 +540,7 @@ sub _draw_station {
     $c->createLine( $x-2, $y, $x+3, $y, -width=>1, -fill=> '#007c00', -tags=>$tags );
     $c->createLine( $x, $y-3, $x, $y+3, -width=>1, -fill=> '#007c00', -tags=>$tags );
 }
+
 
 #
 # $main->_update_status;

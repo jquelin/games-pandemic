@@ -24,6 +24,14 @@ Readonly our $SHAREDIR  => _find_share_dir();
 
 # -- public subs
 
+=method my $locstr = T( $string )
+
+Performs a call to C<gettext> on C<$string>, convert it from utf8 and
+return the result. Note that i18n is using C<Locale::TextDomain>
+underneath, so refer to this module for more information.
+
+=cut
+
 sub T { return decode('utf8', __($_[0])); }
 
 

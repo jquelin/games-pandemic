@@ -83,6 +83,10 @@ event _infect => sub {
     $nb      //= 1;
     $disease //= $city->disease;
 
+    # update the disease
+    $disease->take($nb);
+    #if ( $disease->nbleft <= 0 ) { # FIXME: gameover }
+
     # perform the infection & update the gui
     my $outbreak = $city->infect($nb, $disease);
     $K->post( main => 'infection', $city, $outbreak );

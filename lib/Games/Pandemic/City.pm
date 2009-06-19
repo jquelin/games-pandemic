@@ -18,7 +18,21 @@ has xreal   => ( is => 'ro', required => 1, isa => 'Num' );
 has yreal   => ( is => 'ro', required => 1, isa => 'Num' );
 has disease => ( is => 'ro', required => 1, isa => 'Games::Pandemic::Disease', weak_ref => 1 );
 has _map    => ( is => 'ro', required => 1, isa => 'Games::Pandemic::Map', weak_ref => 1 );
-has nb      => ( is => 'rw', default  => 0, isa => 'Int' );
+
+
+=method $city->build_station;
+
+Create a research station in the city.
+
+=method $city->quash_station;
+
+Remove the research station that was in the city.
+
+=method my $bool = $city->has_station;
+
+Return true if the city has a research station.
+
+=cut
 
 has has_station => (
     metaclass => 'Bool',
@@ -34,6 +48,16 @@ has has_station => (
 #
 # _infections is an array of integer. the indexes are the disease ids,
 # and the values are the number of disease items on the city.
+#
+# private methods provided:
+#  . my $nb = $city->_get_infection($id);
+#    return the number of item for disease $id in the $city.
+#    see public method get_infection()
+#
+#  . $city->_set_infection($id, $nb);
+#    set the new number $nb of items for disease $id in the $city.
+#    see public method infect()
+#
 has _infections => (
     metaclass => 'Collection::Array',
     is        => 'ro',
@@ -122,3 +146,25 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=head1 DESCRIPTION
+
+This module implements a class for city objects, used in Pandemic. They
+have different attributes:
+
+=over 4
+
+=item * name: the city name
+
+=item * xreal: the x coord of the city
+
+=item * yreal: the y coord of the city
+
+=item * x: the x coord where city information will be put
+
+=item * y: the y coord where city information will be put
+
+=item * disease: a ref to a C<Games::Pandemic::Disease> object, which is
+the disease which will infect the city by default
+
+=back

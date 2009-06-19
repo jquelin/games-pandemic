@@ -47,15 +47,15 @@ event new_game => sub {
     # 5 research stations available. FIXME: should it be part of the map?
     $game->set_stations( 5 );
 
-    # create the infection deck
-    my @pcards = shuffle $map->disease_cards;
-    my $cards  = Games::Pandemic::Deck->new( cards => \@pcards );
-    $game->set_cards( $cards );
+    # create the player cards deck
+    my @pcards = shuffle $map->cards;
+    my $pcards = Games::Pandemic::Deck->new( cards => \@pcards );
+    $game->set_cards( $pcards );
 
     # create the infection deck
     my @icards = shuffle $map->disease_cards;
-    my $infection = Games::Pandemic::Deck->new( cards => \@icards );
-    $game->set_infection( $infection );
+    my $icards = Games::Pandemic::Deck->new( cards => \@icards );
+    $game->set_infection( $icards );
 
     # signal main window that we have started a new game
     $K->post( 'main' => 'new_game' );

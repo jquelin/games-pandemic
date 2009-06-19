@@ -21,9 +21,14 @@ has 'colors' => (
 );
 has id      => ( is => 'ro', required => 1, isa => 'Int' );
 has 'name'  => ( is => 'ro', required => 1 );
-has 'nb'    => ( is => 'rw', default  => 0, isa => 'Int' );
+has nb    => ( is => 'rw', lazy_build => 1, isa => 'Int' );
 has 'nbmax' => ( is => 'ro', required => 1, isa => 'Int' );
 has '_map'  => ( is => 'ro', required => 1, isa => 'Games::Pandemic::Map', weak_ref => 1 );
+
+
+# -- default builders
+
+sub _build_nb { $_[0]->nbmax }
 
 
 # -- public methods

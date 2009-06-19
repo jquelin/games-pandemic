@@ -20,6 +20,11 @@ Readonly my $K  => $poe_kernel;
 
 # -- initialization
 
+#
+# START()
+#
+# called as poe session initialization.
+#
 sub START {
     $K->alias_set('controller');
 }
@@ -61,3 +66,9 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=begin Pod::Coverage
+
+START
+
+=end Pod::Coverage

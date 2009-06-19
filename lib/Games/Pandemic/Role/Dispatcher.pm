@@ -15,11 +15,11 @@ extends 'Games::Pandemic::Role';
 
 # -- default builders
 
-sub _can_join_others_builder { 1 }
-sub _can_move_others_builder { 1 }
-sub _color_builder           { '#af4377' }
-sub _image_builder           { 'dispatcher.png' }
-sub _role_name_builder       { T('Dispatcher') }
+sub _build_can_join_others { 1 }
+sub _build_can_move_others { 1 }
+sub _build_color           { '#af4377' }
+sub _build_image           { 'dispatcher.png' }
+sub _build_role_name       { T('Dispatcher') }
 
 
 no Moose;

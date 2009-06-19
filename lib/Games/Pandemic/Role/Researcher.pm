@@ -15,10 +15,10 @@ extends 'Games::Pandemic::Role';
 
 # -- default builders
 
-sub _can_share_builder    { 1 }
-sub _color_builder        { '#aa7826' }
-sub _image_builder        { 'researcher.png' }
-sub _role_name_builder    { T('Researcher') }
+sub _build_can_share    { 1 }
+sub _build_color        { '#aa7826' }
+sub _build_image        { 'researcher.png' }
+sub _build_role_name    { T('Researcher') }
 
 
 no Moose;

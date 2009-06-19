@@ -15,11 +15,11 @@ extends 'Games::Pandemic::Role';
 
 # -- default builders
 
-sub _auto_clean_on_cure_builder { 1 }
-sub _color_builder              { '#e48006' }
-sub _cure_all_builder           { 1 }
-sub _image_builder              { 'medic.png' }
-sub _role_name_builder          { T('Medic') }
+sub _build_auto_clean_on_cure { 1 }
+sub _build_color              { '#e48006' }
+sub _build_cure_all           { 1 }
+sub _build_image              { 'medic.png' }
+sub _build_role_name          { T('Medic') }
 
 
 no Moose;

@@ -14,29 +14,29 @@ use Games::Pandemic::Utils;
 
 # -- accessors
 
-has auto_clean_on_cure => ( is=>'ro', isa=>'Bool', builder=>'_auto_clean_on_cure_builder' );
-has can_build          => ( is=>'ro', isa=>'Bool', builder=>'_can_build_builder'          );
-has can_join_others    => ( is=>'ro', isa=>'Bool', builder=>'_can_join_others_builder'    );
-has can_move_others    => ( is=>'ro', isa=>'Bool', builder=>'_can_move_others_builder'    );
-has can_share          => ( is=>'ro', isa=>'Bool', builder=>'_can_share_builder'          );
-has cards_needed       => ( is=>'ro', isa=>'Int',  builder=>'_cards_needed_builder'       );
-has color              => ( is=>'ro', isa=>'Str',  builder=>'_color_builder'              );
-has cure_all           => ( is=>'ro', isa=>'Bool', builder=>'_cure_all_builder'           );
-has _image             => ( is=>'ro', isa=>'Str',  builder=>'_imager_builder'             );
-has max_cards          => ( is=>'ro', isa=>'Int',  builder=>'_max_cards_builder'          );
-has role_name          => ( is=>'ro', isa=>'Str',  builder=>'_role_name_builder'          );
+has auto_clean_on_cure => ( is=>'ro', isa=>'Bool', lazy_build=>1 );
+has can_build          => ( is=>'ro', isa=>'Bool', lazy_build=>1 );
+has can_join_others    => ( is=>'ro', isa=>'Bool', lazy_build=>1 );
+has can_move_others    => ( is=>'ro', isa=>'Bool', lazy_build=>1 );
+has can_share          => ( is=>'ro', isa=>'Bool', lazy_build=>1 );
+has cards_needed       => ( is=>'ro', isa=>'Int',  lazy_build=>1 );
+has color              => ( is=>'ro', isa=>'Str',  lazy_build=>1 );
+has cure_all           => ( is=>'ro', isa=>'Bool', lazy_build=>1 );
+has _image             => ( is=>'ro', isa=>'Str',  lazy_build=>1 );
+has max_cards          => ( is=>'ro', isa=>'Int',  lazy_build=>1 );
+has role_name          => ( is=>'ro', isa=>'Str',  lazy_build=>1 );
 
 
 # -- default builders
 
-sub _auto_clean_on_cure_builder { 0 }
-sub _can_build_builder          { 0 }
-sub _can_join_others_builder    { 0 }
-sub _can_move_others_builder    { 0 }
-sub _can_share_builder          { 0 }
-sub _cards_needed_builder       { 5 }
-sub _cure_all_builder           { 0 }
-sub _max_cards_builder          { 7 }
+sub _build_auto_clean_on_cure { 0 }
+sub _build_can_build          { 0 }
+sub _build_can_join_others    { 0 }
+sub _build_can_move_others    { 0 }
+sub _build_can_share          { 0 }
+sub _build_cards_needed       { 5 }
+sub _build_cure_all           { 0 }
+sub _build_max_cards          { 7 }
 
 
 # -- public methods

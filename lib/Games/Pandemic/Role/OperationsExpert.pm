@@ -15,10 +15,10 @@ extends 'Games::Pandemic::Role';
 
 # -- default builders
 
-sub _can_build_builder    { 1 }
-sub _color_builder        { '#79af00' }
-sub _image_builder        { 'ops-expert.png' }
-sub _role_name_builder    { T('Operations Expert') }
+sub _build_can_build    { 1 }
+sub _build_color        { '#79af00' }
+sub _build_image        { 'ops-expert.png' }
+sub _build_role_name    { T('Operations Expert') }
 
 
 no Moose;

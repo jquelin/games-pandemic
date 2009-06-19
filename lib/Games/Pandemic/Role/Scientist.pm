@@ -15,10 +15,10 @@ extends 'Games::Pandemic::Role';
 
 # -- default builders
 
-sub _cards_needed_builder { 4 }
-sub _color_builder        { '#d1d0c2' }
-sub _image_builder        { 'scientist.png' }
-sub _role_name_builder    { T('Scientist') }
+sub _build_cards_needed { 4 }
+sub _build_color        { '#d1d0c2' }
+sub _build_image        { 'scientist.png' }
+sub _build_role_name    { T('Scientist') }
 
 
 no Moose;

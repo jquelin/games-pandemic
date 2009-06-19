@@ -56,6 +56,12 @@ has stations => (
 
 # -- public methods
 
+=method Games::Pandemic->run;
+
+Create the various POE sessions, and start the POE kernel.
+
+=cut
+
 sub run {
     my $self = shift;
 
@@ -75,3 +81,21 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=head1 SYNOPSIS
+
+    use Games::Pandemic;
+    Games::Pandemic->new;
+    Games::Pandemic->run;
+
+=head1 DESCRIPTION
+
+Pandemic is a cooperative game where the players are united to beat the
+game. The goal is to find the cures for various diseases striking
+cities, before they propagate too much.
+
+This distribution implements a graphical interface for this game. I
+definitely recommend you to buy a C<pandemic> board game and play with
+friends, you'll have an exciting time - much more than with this poor
+electronic copy.
+

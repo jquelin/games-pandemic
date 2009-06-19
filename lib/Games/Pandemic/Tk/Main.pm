@@ -26,11 +26,18 @@ Readonly my $mw => $poe_main_window; # already created by poe
 
 # -- accessors
 
-has _canvas => (
-    is       => 'rw',
-    isa      => 'Tk::Canvas',
-    weak_ref => 1,
+# a hash with all the widgets, for easier reference.
+has _widgets => (
+    metaclass => 'Collection::Hash',
+    is        => 'ro',
+    isa       => 'HashRef[Tk::Widget]',
+    default   => sub { {} },
+    provides  => {
+        'set' => '_set_w',
+        'get' => '_w',
+    },
 );
+
 
 # it's not usually a good idea to retain a reference on a poe session,
 # since poe is already taking care of the references for us. however, we
@@ -80,7 +87,7 @@ event infection => sub {
 
 event new_game => sub {
     my $self = shift;
-    my $c = $self->_canvas;
+    my $c = $self->_w('canvas');
     my $s = $self->_session;
 
 
@@ -141,7 +148,7 @@ event new_game => sub {
 #
 event _decay => sub {
     my ($self, $city, $colors) = @_[OBJECT, ARG0, ARG1];
-    my $c    = $self->_canvas;
+    my $c    = $self->_w('canvas');
     my $name = $city->name;
     my $col  = shift @$colors;
     $c->itemconfigure(
@@ -182,7 +189,7 @@ event _quit => sub {
 sub _build_action_bar {
     my $self = shift;
     my $s = $self->_session;
-    my $f = $mw->Frame->pack(@TOP, -before=>$self->_canvas);
+    my $f = $mw->Frame->pack(@TOP, -before=>$self->_w('canvas'));
 
     my @actions = qw{ move flight charter shuttle join build discover cure share pass };
     foreach my $action ( @actions ) {
@@ -210,7 +217,7 @@ sub _build_canvas {
 
     # creating the canvas
     my $c  = $mw->Canvas(-width=>$width,-height=>$height)->pack(@TOP, @XFILL2);
-    $self->_set_canvas($c);
+    $self->_set_w('canvas', $c);
 
     # removing class bindings
     foreach my $button ( qw{ 4 5 6 7 } ) {
@@ -325,7 +332,7 @@ sub _build_status_bar {
     my $map  = $game->map;
 
     # the status bar itself is a frame
-    my $sb = $mw->Frame->pack(@BOTTOM, @FILLX, -before=>$self->_canvas);
+    my $sb = $mw->Frame->pack(@BOTTOM, @FILLX, -before=>$self->_w('canvas'));
 
     # research stations
     my $fstations = $sb->Frame->pack(@LEFT, @PADX10);
@@ -384,7 +391,7 @@ sub _build_status_bar {
 #
 sub _draw_city {
     my ($self, $city) = @_;
-    my $c = $self->_canvas;
+    my $c = $self->_w('canvas');
 
     # fetch city information
     my $name  = $city->name;
@@ -448,7 +455,7 @@ sub _draw_infection {
     my @infections = ( $color ) x $mainnb;
 
     # update city color
-    my $c    = $self->_canvas;
+    my $c    = $self->_w('canvas');
     my $name = $city->name;
     $c->itemconfigure( "$name&&draw", -fill => $color );
 
@@ -494,7 +501,7 @@ sub _draw_infection {
 #
 sub _draw_station {
     my ($self, $city) = @_;
-    my $c = $self->_canvas;
+    my $c = $self->_w('canvas');
 
     my $x = $city->x;
     my $y = $city->y;

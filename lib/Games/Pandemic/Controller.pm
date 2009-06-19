@@ -57,6 +57,13 @@ event new_game => sub {
     my $icards = Games::Pandemic::Deck->new( cards => \@icards );
     $game->set_infection( $icards );
 
+    # do the initial infections
+    foreach my $nb ( $map->start_diseases ) {
+        my $card = $icards->next;
+        $K->yield( _infect => $card->city, $nb );
+        $icards->discard( $card );
+    }
+
     # signal main window that we have started a new game
     $K->post( 'main' => 'new_game' );
 };

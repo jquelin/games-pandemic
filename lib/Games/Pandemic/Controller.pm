@@ -69,6 +69,29 @@ event new_game => sub {
 };
 
 
+# -- private event
+
+#
+# _infect( $city [, $nb [, $disease ] ] );
+#
+# infect $city with $nb items of $disease. perform an outbreak on
+# neighbour cities if needed. $nb defaults to 1, $disease defaults to
+# the city default disease.
+#
+event _infect => sub {
+    my ($city, $nb, $disease) = @_[ARG0..$#_];
+    $nb      //= 1;
+    $disease //= $city->disease;
+
+    # perform the infection & update the gui
+    my $outbreak = $city->infect($nb, $disease);
+    $K->post( main => 'infection', $city, $outbreak );
+
+    return unless $outbreak;
+    # FIXME: outbreak!
+};
+
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

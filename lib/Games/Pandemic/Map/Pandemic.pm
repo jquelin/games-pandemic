@@ -15,6 +15,8 @@ extends 'Games::Pandemic::Map';
 
 # -- default builders
 
+sub _build_max_infections { 3 }
+
 sub _build_name { 'pandemic' }
 
 sub _build_start_diseases { [ map { ($_) x 3 } reverse 1..3 ] }

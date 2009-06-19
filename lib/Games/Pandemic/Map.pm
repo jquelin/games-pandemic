@@ -42,6 +42,8 @@ has _diseases => (
     },
 );
 
+has max_infections => ( is => 'ro', isa => 'Int', lazy_build => 1 );
+
 has name => (
     is      => 'ro',
     isa     => 'Str',

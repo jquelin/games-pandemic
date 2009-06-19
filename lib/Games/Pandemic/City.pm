@@ -72,6 +72,38 @@ sub neighbours {
 }
 
 
+=method my $outbreak = $city->infect( [ $nb [, $disease] ] )
+
+Infect C<$city> with C<$nb> items of C<$disease>. Return true if an
+outbreak happened following this infection, false otherwise.
+
+C<$nb> defaults to 1, and C<$disease> to the city disease.
+
+=cut
+
+sub infect {
+    my ($self, $nb, $disease) = @_;
+    $nb      //= 1;
+    $disease //= $self->disease;
+
+    # perform the infection
+    my $id  = $disease->id;
+    my $old = $self->_get_infection($id) // 0; # FIXME//padre
+    my $new = $old + $nb;
+    my $max = $self->_map->max_infections;
+
+    # check for outbreak
+    my $outbreak = 0;
+    if ( $new > $max ) {
+        $new      = $max;
+        $outbreak = 1;
+    }
+
+    # store new infection state & return outbreak status
+    $self->_set_infection( $id, $new );
+    return $outbreak;
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

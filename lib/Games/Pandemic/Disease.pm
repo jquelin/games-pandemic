@@ -21,7 +21,17 @@ has 'colors' => (
 );
 has id    => ( is => 'ro', isa => 'Int', required   => 1 );
 has name  => ( is => 'ro', isa => 'Str', required   => 1 );
-has nb    => ( is => 'rw', isa => 'Int', lazy_build => 1 );
+has nbleft => (
+    metaclass  => 'Number',
+    is         => 'ro',
+    isa        => 'Int',
+    lazy       => 1,
+    builder    => '_build_nb',
+    provides   => {
+        add => 'return',
+        sub => 'take',
+    },
+);
 has nbmax => ( is => 'ro', isa => 'Int', required   => 1 );
 has _map  => ( is => 'ro', isa => 'Games::Pandemic::Map',required => 1, weak_ref => 1 );
 

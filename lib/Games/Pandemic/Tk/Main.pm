@@ -341,7 +341,7 @@ sub _build_status_bar {
             -image => $mw->Photo( -file => $disease->image('cube') ),
         )->pack(@LEFT);
         $fdiseases->Label(
-            -text => $disease->nb,
+            -text => $disease->nbleft,
         )->pack(@LEFT);
         $fcures->Label(
             -image => $mw->Photo( -file => $disease->image('cure') ),

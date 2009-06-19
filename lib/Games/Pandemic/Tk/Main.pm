@@ -354,7 +354,7 @@ sub _draw_city {
     $c->createLine( $xreal, $yreal, $x, $y,
         -width       => 2,
         -fill        => $color,
-        -tags        => [ $name ],
+        -tags        => [ 'city', 'draw', $name ],
         -smooth      => 1,
         -splinesteps => 5,
     );
@@ -364,7 +364,7 @@ sub _draw_city {
     $c->createOval(
         $xreal-$rreal, $yreal-$rreal, $xreal+$rreal, $yreal+$rreal,
         -fill => $color,
-        -tags => ['city', $name],
+        -tags => ['city', 'draw', $name],
     );
 
     # draw the big circle that user can click
@@ -372,7 +372,7 @@ sub _draw_city {
     $c->createOval(
         $x-$r, $y-$r, $x+$r, $y+$r,
         -fill => $color,
-        -tags => ['city', $name],
+        -tags => ['city', 'draw', 'spot', $name],
     );
 
     # write the city name

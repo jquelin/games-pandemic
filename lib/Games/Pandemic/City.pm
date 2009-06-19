@@ -9,6 +9,8 @@ use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 
+# -- accessors
+
 has name    => ( is => 'ro', required => 1, isa => 'Str' );
 has x       => ( is => 'ro', required => 1, isa => 'Num' );
 has y       => ( is => 'ro', required => 1, isa => 'Num' );
@@ -39,11 +41,22 @@ has neighbour_ids => (
     },
 );
 
+
+# -- public methods
+
+=method my @cities = $city->neighbours;
+
+Return a list of C<Games::Pandemic::City>, which are the direct
+neighbours of C<$city>.
+
+=cut
+
 sub neighbours {
     my $self = shift;
     my $map = $self->_map;
     return map { $map->city($_) } $self->_neighbour_ids;
 }
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

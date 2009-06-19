@@ -61,6 +61,9 @@ event infection => sub {
     # draw city infections
     $self->_draw_infection($city);
 
+    # update status bar
+    $self->_update_status;
+
     # compute decay colors
     my @from = (0, 255, 0);
     my @to   = (0, 0, 0);
@@ -509,6 +512,16 @@ sub _draw_station {
     $c->createLine( $x-2, $y, $x+3, $y, -width=>1, -fill=> '#007c00', -tags=>$tags );
     $c->createLine( $x, $y-3, $x, $y+3, -width=>1, -fill=> '#007c00', -tags=>$tags );
 }
+
+#
+# $main->_update_status;
+#
+# update the status bar with relevant information.
+#
+sub _update_status {
+    my $self = shift;
+}
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

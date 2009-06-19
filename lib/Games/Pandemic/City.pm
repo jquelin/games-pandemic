@@ -104,6 +104,19 @@ sub infect {
     return $outbreak;
 }
 
+
+=method my $nb = $city->get_infection( $disease );
+
+Return the number of C<$disease> items for the C<$city>.
+
+=cut
+
+sub get_infection {
+    my ($self, $disease) = @_;
+    return $self->_get_infection( $disease->id ) // 0; # FIXME//padre
+}
+
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

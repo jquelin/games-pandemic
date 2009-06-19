@@ -40,6 +40,11 @@ has _session => ( is=>'rw', isa=>'POE::Session', weak_ref=>1 );
 
 # -- initialization
 
+#
+# START()
+#
+# called as poe session initialization.
+#
 sub START {
     my ($self, $session) = @_[OBJECT, SESSION];
     $K->alias_set('main');
@@ -412,3 +417,9 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=begin Pod::Coverage
+
+START
+
+=end Pod::Coverage

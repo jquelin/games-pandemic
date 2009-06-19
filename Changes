@@ -3,13 +3,13 @@ Revision history for Games::Pandemic.
 High-level changelog
 ====================
 
-0.0.x    initial work, with basic capabilities
+0.1.x    initial work, with basic capabilities
 
 
 Low-level changelog
 ===================
 
-0.0.1  
+0.1.0 Fri Jun 19 18:11:39 CEST 2009
  - original version
  - main window + basic startup
 

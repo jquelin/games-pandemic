@@ -1,4 +1,5 @@
 package Games::Pandemic::Map::Pandemic;
+# ABSTRACT: standard pandemic map from real game
 
 use 5.010;
 use strict;

@@ -31,6 +31,20 @@ has has_station => (
     }
 );
 
+#
+# _infections is an array of integer. the indexes are the disease ids,
+# and the values are the number of disease items on the city.
+has _infections => (
+    metaclass => 'Collection::Array',
+    is        => 'ro',
+    isa       => 'ArrayRef[Int]',
+    default   => sub { [] },
+    provides  => {
+        get => '_get_infection',
+        set => '_set_infection',
+    },
+);
+
 has neighbour_ids => (
     metaclass => 'Collection::Array',
     is        => 'ro',

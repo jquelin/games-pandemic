@@ -54,6 +54,13 @@ sub START {
 
 # -- public events
 
+event infection => sub {
+    my ($self, $city, $outbreak) = @_[OBJECT, ARG0, ARG1];
+
+    # draw city infections
+    $self->_draw_infection($city);
+};
+
 event new_game => sub {
     my $self = shift;
     my $c = $self->_canvas;
@@ -383,6 +390,62 @@ sub _draw_city {
         -anchor => 'center',
         -tag    => ['city', $name],
     );
+}
+
+
+#
+# $main->_draw_infection($city);
+#
+# re-draw the infection squares on the canvas for the given $city.
+#
+sub _draw_infection {
+    my ($self, $city) = @_;
+    my $game = Games::Pandemic->instance;
+    my $map  = $game->map;
+
+    # get number of main infection
+    my $maindis = $city->disease;
+    my $mainnb  = $city->get_infection( $maindis );
+    my $color   = $maindis->color($mainnb);
+    my @infections = ( $color ) x $mainnb;
+
+    # update city color
+    my $c    = $self->_canvas;
+    my $name = $city->name;
+    $c->itemconfigure( "$name&&draw", -fill => $color );
+
+    # get list of disease items, with their color
+    my @diseases =
+        sort { $a->id <=> $b->id }
+        grep { $_ ne $maindis }
+        $map->all_diseases;
+    foreach my $disease ( @diseases ) {
+        my $nb  = $city->get_infection( $disease );
+        my $col = $disease->color($nb);
+        push @infections, ( $col ) x $nb;
+    }
+
+    # remove all infection items for the city
+    $c->delete( "$name&&disease" );
+
+    # draw the infection items
+    my $x = $city->x;
+    my $y = $city->y;
+    my $tags = [ $name, 'disease' ];
+
+    my $len = 8;
+    my $pad = 4;
+    foreach my $i ( 0 .. $#infections ) {
+        my $xorig = $x + ($#infections/2 -$i) * $len + (($#infections-$i)/2-1) * $pad;
+        my $yorig = $y + 10 + $pad;
+        $c->createRectangle(
+            $xorig, $yorig,
+            $xorig+$len, $yorig+$len,
+            -fill    => $infections[$i],
+            #-outline => undef,
+            -tags    => $tags,
+        );
+    }
 }
 
 

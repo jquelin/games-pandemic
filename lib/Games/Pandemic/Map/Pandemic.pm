@@ -17,6 +17,7 @@ extends 'Games::Pandemic::Map';
 
 sub _build_name { 'pandemic' }
 
+sub _build_start_diseases { [ map { ($_) x 3 } reverse 1..3 ] }
 
 sub _raw_diseases {
 return (

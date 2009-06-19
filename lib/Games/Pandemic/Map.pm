@@ -56,6 +56,8 @@ has start_city => (
     weak_ref => 1,
 );
 
+has start_diseases => ( is=>'ro', isa=>'ArrayRef[Int]', auto_deref=>1, lazy_build => 1 );
+
 
 # -- default builders
 

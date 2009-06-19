@@ -19,11 +19,11 @@ has 'colors' => (
     required   => 1,
     provides   => { get => 'color' },
 );
-has id      => ( is => 'ro', required => 1, isa => 'Int' );
-has 'name'  => ( is => 'ro', required => 1 );
-has nb    => ( is => 'rw', lazy_build => 1, isa => 'Int' );
-has 'nbmax' => ( is => 'ro', required => 1, isa => 'Int' );
-has '_map'  => ( is => 'ro', required => 1, isa => 'Games::Pandemic::Map', weak_ref => 1 );
+has id    => ( is => 'ro', isa => 'Int', required   => 1 );
+has name  => ( is => 'ro', isa => 'Str', required   => 1 );
+has nb    => ( is => 'rw', isa => 'Int', lazy_build => 1 );
+has nbmax => ( is => 'ro', isa => 'Int', required   => 1 );
+has _map  => ( is => 'ro', isa => 'Games::Pandemic::Map',required => 1, weak_ref => 1 );
 
 
 # -- default builders

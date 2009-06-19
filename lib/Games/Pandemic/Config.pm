@@ -32,6 +32,14 @@ has '_options' => (
 
 # -- public methods
 
+=method my $value = $config->get( $key )
+
+Return the C<$value> associated to C<$key> in the configuration.
+Note that if there's no local configuration defined, a default will
+be provided.
+
+=cut
+
 sub get {
     my ($self, $key) = @_;
     my $val = $self->_get($key) // $default->{$key}; # /FIXME padre highlight
@@ -50,3 +58,17 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=head1 SYNOPSIS
+
+    use Games::Pandemic::Config;
+    my $config = Games::Pandemic::Config->instance;
+    my $width  = $config->get( 'canvas_width' );
+
+=head1 DESCRIPTION
+
+This module implements a basic persistant configuration, using key /
+value pairs.
+
+The module itself is implemented as a singleton, available with the
+C<instance()> class method.

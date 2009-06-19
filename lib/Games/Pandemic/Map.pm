@@ -1,6 +1,10 @@
 package Games::Pandemic::Map;
 # ABSTRACT: map information for Games::Pandemic
 
+use 5.010;
+use strict;
+use warnings;
+
 use File::Spec::Functions qw{ catdir catfile };
 use Moose;
 use MooseX::AttributeHelpers;

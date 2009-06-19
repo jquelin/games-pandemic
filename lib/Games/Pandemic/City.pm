@@ -1,6 +1,10 @@
 package Games::Pandemic::City;
 # ABSTRACT: city object for Games::Pandemic
 
+use 5.010;
+use strict;
+use warnings;
+
 use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;

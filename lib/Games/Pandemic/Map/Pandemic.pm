@@ -1,5 +1,9 @@
 package Games::Pandemic::Map::Pandemic;
 
+use 5.010;
+use strict;
+use warnings;
+
 use Geo::Mercator;
 use Moose;
 use MooseX::SemiAffordanceAccessor;

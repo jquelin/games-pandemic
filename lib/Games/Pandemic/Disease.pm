@@ -1,6 +1,10 @@
 package Games::Pandemic::Disease;
 # ABSTRACT: disease object for Games::Pandemic
 
+use 5.010;
+use strict;
+use warnings;
+
 use File::Spec::Functions qw{ catfile };
 use Moose;
 use MooseX::AttributeHelpers;

@@ -1,6 +1,10 @@
 package Games::Pandemic::Tk::Constants;
 # ABSTRACT: Tk constants for gui building
 
+use 5.010;
+use strict;
+use warnings;
+
 use Moose;
 extends 'Exporter';
 

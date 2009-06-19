@@ -2,6 +2,9 @@ package Games::Pandemic::Card;
 # ABSTRACT: base class for pandemic cards
 
 use 5.010;
+use strict;
+use warnings;
+
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 

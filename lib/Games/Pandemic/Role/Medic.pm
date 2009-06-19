@@ -2,6 +2,9 @@ package Games::Pandemic::Role::Medic;
 # ABSTRACT: medic pandemic role
 
 use 5.010;
+use strict;
+use warnings;
+
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 

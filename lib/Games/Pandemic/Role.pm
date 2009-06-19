@@ -2,6 +2,9 @@ package Games::Pandemic::Role;
 # ABSTRACT: base class for pandemic roles
 
 use 5.010;
+use strict;
+use warnings;
+
 use File::Spec::Functions qw{ catfile };
 use Moose;
 use MooseX::SemiAffordanceAccessor;

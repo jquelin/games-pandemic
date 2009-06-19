@@ -2,6 +2,9 @@ package Games::Pandemic::Controller;
 # ABSTRACT: controller for a pandemic game
 
 use 5.010;
+use strict;
+use warnings;
+
 use List::Util qw{ shuffle };
 use MooseX::Singleton;  # should come before any other moose
 use MooseX::POE;

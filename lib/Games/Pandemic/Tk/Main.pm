@@ -2,6 +2,9 @@ package Games::Pandemic::Tk::Main;
 # ABSTRACT: main window for Games::Pandemic
 
 use 5.010;
+use strict;
+use warnings;
+
 use File::Spec::Functions qw{ catfile };
 use Image::Size;
 use Moose;

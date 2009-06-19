@@ -2,6 +2,9 @@ package Games::Pandemic::Deck;
 # ABSTRACT: pandemic card deck
 
 use 5.010;
+use strict;
+use warnings;
+
 use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;

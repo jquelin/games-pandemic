@@ -72,6 +72,9 @@ event new_game => sub {
     my $p2 = Games::Pandemic::Player->new(role_class=>'OperationsExpert');
     $game->add_player($p1);
     $game->add_player($p2);
+    # FIXME: initial number of card depends of map / number of players
+    $K->yield( '_deal_card', $p1, 4 );
+    $K->yield( '_deal_card', $p2, 4 );
 
     # signal main window that we have started a new game
     $K->post( 'main' => 'new_game' );
@@ -79,6 +82,29 @@ event new_game => sub {
 
 
 # -- private event
+
+#
+# _deal_card( $player, $nb );
+#
+# deal $nb cards to $player. check whether player has too much cards in
+# her hands, and also for game over condition.
+#
+event _deal_card => sub {
+    my ($player, $nb) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
+    my $deck = $game->cards;
+
+    # deal some cards to the players
+    foreach my $i ( 1 .. $nb ) {
+        my $card = $deck->next;
+        $player->give_card($card);
+        $K->post(main=>'got_card', $player, $card);
+    }
+
+    # FIXME: game over if no more card
+    # FIXME: if player has too much cards
+};
+
 
 #
 # _infect( $city [, $nb [, $disease ] ] );

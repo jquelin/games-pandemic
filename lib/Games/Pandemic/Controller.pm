@@ -13,6 +13,7 @@ use Readonly;
 
 use Games::Pandemic::Deck;
 use Games::Pandemic::Map::Pandemic;
+use Games::Pandemic::Player;
 
 Readonly my $K  => $poe_kernel;
 
@@ -63,6 +64,14 @@ event new_game => sub {
         $K->yield( _infect => $card->city, $nb );
         $icards->discard( $card );
     }
+
+    # create the players
+    # FIXME: by now we're creating a fixed set of players, should be
+    # configurable
+    my $p1 = Games::Pandemic::Player->new(role_class=>'Scientist');
+    my $p2 = Games::Pandemic::Player->new(role_class=>'OperationsExpert');
+    $game->add_player($p1);
+    $game->add_player($p2);
 
     # signal main window that we have started a new game
     $K->post( 'main' => 'new_game' );

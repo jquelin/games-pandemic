@@ -19,6 +19,7 @@ use Tk::PNG;
 
 use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Constants;
+use Games::Pandemic::Tk::PlayerFrame;
 use Games::Pandemic::Utils;
 
 Readonly my $K  => $poe_kernel;
@@ -110,6 +111,7 @@ event new_game => sub {
     #
     $self->_build_action_bar;
     $self->_build_status_bar;
+    $self->_build_players_bar;
 
     # remove everything on the canvas
     $c->delete('all');
@@ -339,6 +341,26 @@ sub _build_menu {
     );
     $mw->bind('<Control-q>', $s->postback('_quit'));
     $mw->bind('<Control-Q>', $s->postback('_quit'));
+}
+
+
+#
+# $main->_build_players_bar;
+#
+# create the players bar, with the various players and their cards.
+#
+sub _build_players_bar {
+    my $self = shift;
+    my $game = Games::Pandemic->instance;
+    my $map  = $game->map;
+
+    my $s = $self->_session;
+    my $f = $mw->Frame->pack(@RIGHT, -before=>$self->_w('canvas'));
+
+    foreach my $player ( $game->all_players ) {
+        my $f = Games::Pandemic::Tk::PlayerFrame->new(player=>$player, parent=>$f);
+        $f->pack(@TOP);
+    }
 }
 
 

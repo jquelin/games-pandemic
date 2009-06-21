@@ -18,7 +18,7 @@ extends 'Games::Pandemic::Role';
 sub _build_can_join_others { 1 }
 sub _build_can_move_others { 1 }
 sub _build_color           { '#af4377' }
-sub _build_image           { 'dispatcher.png' }
+sub _build__image          { 'dispatcher.png' }
 sub _build_role_name       { T('Dispatcher') }
 
 

@@ -17,7 +17,7 @@ extends 'Games::Pandemic::Role';
 
 sub _build_can_share    { 1 }
 sub _build_color        { '#aa7826' }
-sub _build_image        { 'researcher.png' }
+sub _build__image       { 'researcher.png' }
 sub _build_role_name    { T('Researcher') }
 
 

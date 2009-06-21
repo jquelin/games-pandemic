@@ -21,6 +21,11 @@ has city => (
 
 # -- default builders
 
+sub _build_icon {
+    my $self = shift;
+    return $self->city->disease->image('cube',16);
+}
+
 sub _build_label {
     my $self = shift;
     return $self->city->name;

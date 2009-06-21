@@ -11,7 +11,7 @@ use MooseX::SemiAffordanceAccessor;
 # -- accessors
 
 has label => ( is => 'ro', isa => 'Str', lazy_build => 1 );
-
+has icon  => ( is => 'ro', isa => 'Str', lazy_build => 1 );
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

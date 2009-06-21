@@ -17,7 +17,7 @@ extends 'Games::Pandemic::Role';
 
 sub _build_can_build    { 1 }
 sub _build_color        { '#79af00' }
-sub _build__image       { 'ops-expert.png' }
+sub _build__image       { 'ops-expert' }
 sub _build_role_name    { T('Operations Expert') }
 
 

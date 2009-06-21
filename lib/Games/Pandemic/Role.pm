@@ -41,6 +41,17 @@ sub _build_max_cards          { 7 }
 
 # -- public methods
 
+=method my $path = $self->icon;
+
+Return the C$<path> to an 32x32 icon of the role.
+
+=cut
+
+sub icon {
+    my $self = shift;
+    return catfile( $SHAREDIR, 'roles', $self->_image . '-32.png' );
+}
+
 =method my $path = $self->image;
 
 Return the C$<path> to an image of the role.
@@ -49,7 +60,7 @@ Return the C$<path> to an image of the role.
 
 sub image {
     my $self = shift;
-    return catfile( $SHAREDIR, 'roles', $self->_image );
+    return catfile( $SHAREDIR, 'roles', $self->_image . '.png' );
 }
 
 no Moose;

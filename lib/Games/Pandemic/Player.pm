@@ -14,7 +14,17 @@ use UNIVERSAL::require;
 
 has role_class => ( is=>'ro', isa=>'Str', required => 1, );
 has role       => ( is=>'rw', isa=>'Games::Pandemic::Role', lazy_build=>1 );
-
+has _cards => (
+    metaclass  => 'Collection::Array',
+    is         => 'ro',
+    isa        => 'ArrayRef[Games::Pandemic::Card]',
+    default    => sub { [] },
+    auto_deref => 1,
+    provides   => {
+        elements => 'all_cards',       # my @c = $player->all_cards;
+        push     => 'give_card',       # $player->give_card( $card );
+    }
+);
 
 # -- default builders
 

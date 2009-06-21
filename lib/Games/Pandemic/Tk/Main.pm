@@ -31,7 +31,7 @@ Readonly my $mw => $poe_main_window; # already created by poe
 has _widgets => (
     metaclass => 'Collection::Hash',
     is        => 'ro',
-    isa       => 'HashRef[Tk::Widget]',
+    isa       => 'HashRef',
     default   => sub { {} },
     provides  => {
         'set' => '_set_w',
@@ -359,6 +359,7 @@ sub _build_players_bar {
 
     foreach my $player ( $game->all_players ) {
         my $f = Games::Pandemic::Tk::PlayerFrame->new(player=>$player, parent=>$f);
+        $self->_set_w( "f$player", $f );
         $f->pack(@LEFT);
     }
 }

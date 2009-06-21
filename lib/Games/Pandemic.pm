@@ -48,6 +48,19 @@ has infection => (
     isa => 'Games::Pandemic::Deck',
 );
 
+# current players
+has _players => (
+    metaclass  => 'Collection::Array',
+    is         => 'ro',
+    isa        => 'ArrayRef[Games::Pandemic::Player]',
+    default    => sub { [] },
+    auto_deref => 1,
+    provides   => {
+        elements => 'all_players',       # my @p = $game->all_players;
+        push     => 'add_player',        # $game->add_player( $player );
+    }
+);
+
 # number of research stations remaining to be build
 has stations => (
     is  => 'rw',

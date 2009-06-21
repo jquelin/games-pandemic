@@ -5,16 +5,11 @@ use 5.010;
 use strict;
 use warnings;
 
-#use File::Spec::Functions qw{ catfile };
-#use Image::Size;
-#use List::Util            qw{ min };
 use Moose;
 use MooseX::SemiAffordanceAccessor;
-#use Readonly;
 use Tk;
-#use Tk::Font;
-#use Tk::JPEG;
-#use Tk::PNG;
+
+use Games::Pandemic::Tk::Constants;
 
 # -- attributes
 
@@ -45,13 +40,13 @@ has _frame => (
 
 sub _build__frame {
     my $self = shift;
-
     my $parent = $self->parent;
     my $f = $parent->Frame;
 
     $f->Label(
-        -image => $parent->Photo( -file=>$self->player->role->image ),
-    )->pack;
+        -image => $parent->Photo( -file=>$self->player->role->icon ),
+    )->pack(@LEFT);
+
     return $f;
 }
 

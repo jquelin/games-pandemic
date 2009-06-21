@@ -355,11 +355,11 @@ sub _build_players_bar {
     my $map  = $game->map;
 
     my $s = $self->_session;
-    my $f = $mw->Frame->pack(@RIGHT, -before=>$self->_w('canvas'));
+    my $f = $mw->Frame->pack(@BOTTOM, @FILLX, -before=>$self->_w('canvas'));
 
     foreach my $player ( $game->all_players ) {
         my $f = Games::Pandemic::Tk::PlayerFrame->new(player=>$player, parent=>$f);
-        $f->pack(@TOP);
+        $f->pack(@LEFT);
     }
 }
 

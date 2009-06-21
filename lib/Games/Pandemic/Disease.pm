@@ -51,8 +51,8 @@ C<cube> or C<cure>.
 =cut
 
 sub image {
-    my ($self, $what) = @_;
-    return catfile( $self->_map->sharedir, $what . '-' . $self->id . '.png' );
+    my ($self, $what, $size) = @_;
+    return catfile( $self->_map->sharedir, $what . '-' . $self->id . "-$size.png" );
 }
 
 

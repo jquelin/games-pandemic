@@ -391,13 +391,13 @@ sub _build_status_bar {
     my $fcures    = $sb->Frame->pack(@LEFT, @PADX10);
     foreach my $disease ( $map->all_diseases ) {
         $fdiseases->Label(
-            -image => $mw->Photo( -file => $disease->image('cube') ),
+            -image => $mw->Photo( -file => $disease->image('cube', 32) ),
         )->pack(@LEFT);
         $fdiseases->Label(
             -text => $disease->nbleft,
         )->pack(@LEFT);
         $fcures->Label(
-            -image => $mw->Photo( -file => $disease->image('cure') ),
+            -image => $mw->Photo( -file => $disease->image('cure', 32) ),
             @ENOFF,
         )->pack(@LEFT);
     }

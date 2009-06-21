@@ -64,6 +64,13 @@ sub START {
 
 # -- public events
 
+event got_card => sub {
+    my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
+
+    $self->_w("f$player")->add_card($card);
+};
+
+
 =method event: infection($city, $outbreak)
 
 Received when C<$city> gets infected. C<$outbreak> is true if this

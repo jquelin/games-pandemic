@@ -51,6 +51,17 @@ sub _build__frame {
 }
 
 
+# -- public methods
+
+sub add_card {
+    my ($self, $card) = @_;
+
+    my $f = $self->_frame->Frame->pack(@LEFT);
+    $f->Label(-image => $self->parent->Photo(-file=>($card->icon)))->pack(@LEFT);
+    $f->Label(-text => $card->label, -anchor=>'w')->pack(@LEFT);
+}
+
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

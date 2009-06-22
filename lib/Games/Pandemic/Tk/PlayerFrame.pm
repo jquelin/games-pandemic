@@ -44,7 +44,7 @@ sub _build__frame {
     my $f = $parent->Frame;
 
     $f->Label(
-        -image => $parent->Photo( -file=>$self->player->role->icon ),
+        -image => $parent->Photo( -file=>$self->player->role->image('icon', 32) ),
     )->pack(@LEFT);
 
     return $f;

@@ -41,26 +41,20 @@ sub _build_max_cards          { 7 }
 
 # -- public methods
 
-=method my $path = $self->icon;
+=method my $path = $self->image( $what, $size );
 
-Return the C$<path> to an 32x32 icon of the role.
-
-=cut
-
-sub icon {
-    my $self = shift;
-    return catfile( $SHAREDIR, 'roles', $self->_image . '-32.png' );
-}
-
-=method my $path = $self->image;
-
-Return the C$<path> to an image of the role.
+Return the C$<path> to an image for the role. C<$what> can be either
+C<icon> or C<pawn>. C<$size> can be one of C<orig>, or 32 or 16. Note
+that not all combinations are possible.
 
 =cut
 
 sub image {
-    my $self = shift;
-    return catfile( $SHAREDIR, 'roles', $self->_image . '.png' );
+    my ($self, $what, $size) = @_;
+    return catfile(
+        $SHAREDIR, 'roles',
+        join('-', $self->_image, $what, $size) . '.png'
+    );
 }
 
 no Moose;

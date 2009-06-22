@@ -71,6 +71,9 @@ event new_game => sub {
     # FIXME: initial number of card depends of map / number of players
     $K->yield( _new_player => 'Scientist', 4 );
     $K->yield( _new_player => 'OperationsExpert', 4 );
+#    $K->yield( _new_player => 'Medic', 4 );
+#    $K->yield( _new_player => 'Researcher', 4 );
+#    $K->yield( _new_player => 'Dispatcher', 4 );
 
     # signal main window that we have started a new game
     $K->post( 'main' => 'new_game' );

@@ -162,6 +162,22 @@ event new_game => sub {
 };
 
 
+=method event: new_player( $player )
+
+Received when the controller has just created a new player.
+
+=cut
+
+event new_player => sub {
+    my ($self, $player) = @_[OBJECT, ARG0];
+
+    my $fplayers = $self->_w( 'fplayers' );
+    my $f = Games::Pandemic::Tk::PlayerFrame->new(player=>$player, parent=>$fplayers);
+    $self->_set_w( "f$player", $f );
+    $f->pack(@LEFT);
+};
+
+
 # -- private events
 
 #
@@ -358,17 +374,9 @@ sub _build_menu {
 #
 sub _build_players_bar {
     my $self = shift;
-    my $game = Games::Pandemic->instance;
-    my $map  = $game->map;
 
-    my $s = $self->_session;
     my $f = $mw->Frame->pack(@BOTTOM, @FILLX, -before=>$self->_w('canvas'));
-
-    foreach my $player ( $game->all_players ) {
-        my $f = Games::Pandemic::Tk::PlayerFrame->new(player=>$player, parent=>$f);
-        $self->_set_w( "f$player", $f );
-        $f->pack(@LEFT);
-    }
+    $self->_set_w( fplayers => $f );
 }
 
 

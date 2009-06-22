@@ -171,10 +171,28 @@ Received when the controller has just created a new player.
 event new_player => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
 
+    # creating the frame holding the player cards
     my $fplayers = $self->_w( 'fplayers' );
     my $f = Games::Pandemic::Tk::PlayerFrame->new(player=>$player, parent=>$fplayers);
     $self->_set_w( "f$player", $f );
     $f->pack(@LEFT);
+
+    # drawing the pawn on the canvas
+    my $c = $self->_w('canvas');
+    my @placed = $c->find( withtag => 'player' );
+    # each player will be located at a given offset of the city center,
+    # in order not to overlap each other.
+    my @offsets = ( [-8, -10], [8, -10], [  0, -20], [-15, -20], [ 15, -20] );
+    my $offsets = $offsets[ scalar(@placed) ];
+    my $city = $player->location;
+    my $x = $city->x + $offsets->[0];
+    my $y = $city->y + $offsets->[1];
+    $c->createImage(
+        $x, $y,
+        -image  => $mw->Photo( -file => $player->role->image('pawn',16) ),
+        -anchor => 's',
+        -tags   => ['player', $player],
+    );
 };
 
 

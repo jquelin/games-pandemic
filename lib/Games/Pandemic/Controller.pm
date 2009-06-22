@@ -68,13 +68,9 @@ event new_game => sub {
     # create the players
     # FIXME: by now we're creating a fixed set of players, should be
     # configurable
-    my $p1 = Games::Pandemic::Player->new(role_class=>'Scientist');
-    my $p2 = Games::Pandemic::Player->new(role_class=>'OperationsExpert');
-    $game->add_player($p1);
-    $game->add_player($p2);
     # FIXME: initial number of card depends of map / number of players
-    $K->yield( '_deal_card', $p1, 4 );
-    $K->yield( '_deal_card', $p2, 4 );
+    $K->yield( _new_player => 'Scientist', 4 );
+    $K->yield( _new_player => 'OperationsExpert', 4 );
 
     # signal main window that we have started a new game
     $K->post( 'main' => 'new_game' );
@@ -128,6 +124,23 @@ event _infect => sub {
 
     return unless $outbreak;
     # FIXME: outbreak!
+};
+
+
+#
+# event: _new_player( $role, $nb )
+#
+# request to create & store a new player, having $role and starting with
+# $nb cards.
+#
+event _new_player => sub {
+    my ($role, $nbcards) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
+
+    my $player = Games::Pandemic::Player->new(role_class=>$role);
+    $game->add_player($player);
+    $K->post( main => 'new_player', $player );
+    $K->yield( '_deal_card', $player, $nbcards );
 };
 
 

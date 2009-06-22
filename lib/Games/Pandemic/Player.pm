@@ -26,7 +26,14 @@ has _cards => (
     }
 );
 
+has location => ( is=>'rw', isa=>'Games::Pandemic::City', lazy_build => 1 );
+
+
 # -- default builders
+
+sub _build_location {
+    return Games::Pandemic->instance->map->start_city;
+}
 
 sub _build_role {
     my $self = shift;

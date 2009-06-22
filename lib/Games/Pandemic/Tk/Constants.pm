@@ -10,8 +10,8 @@ extends 'Exporter';
 
 our @EXPORT = qw{
     @TOP @BOTTOM @LEFT @RIGHT
-    @FILLX  @FILL2
-    @XFILLX @XFILL2
+    @FILLX  @FILLY  @FILL2
+    @XFILLX @XFILLY @XFILL2
     @PAD1   @PAD20 @PADX10
     @ENON   @ENOFF
 };
@@ -24,8 +24,10 @@ our @RIGHT   = ( -side => 'right'  );
 
 # pack fill / expand
 our @FILLX   = ( -fill => 'x'    );
+our @FILLY   = ( -fill => 'y'    );
 our @FILL2   = ( -fill => 'both' );
 our @XFILLX  = ( -expand => 1, -fill => 'x'    );
+our @XFILLY  = ( -expand => 1, -fill => 'y'    );
 our @XFILL2  = ( -expand => 1, -fill => 'both' );
 
 # padding

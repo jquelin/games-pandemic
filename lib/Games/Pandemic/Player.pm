@@ -35,10 +35,10 @@ sub _build_role {
     my $class = 'Games::Pandemic::Role::' . $self->role_class;
     $class->require;
 
-    # create the new role and store it
-    my $role = $class->new;
-    $self->set_role($role);
+    # create the new role and return it
+    return $class->new;
 }
+
 
 
 no Moose;

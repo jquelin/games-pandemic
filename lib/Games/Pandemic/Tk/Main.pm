@@ -342,7 +342,7 @@ sub _build_gui {
 
     # prettyfying tk app.
     # see http://www.perltk.org/index.php?option=com_content&task=view&id=43&Itemid=37
-    $poe_main_window->optionAdd('*BorderWidth' => 1);
+    $mw->optionAdd('*BorderWidth' => 1);
 
     # set windowtitle
     $mw->title(T('Pandemic'));

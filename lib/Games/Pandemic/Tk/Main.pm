@@ -16,6 +16,7 @@ use Tk;
 use Tk::Font;
 use Tk::JPEG;
 use Tk::PNG;
+use Tk::ToolBar;
 
 use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Constants;
@@ -249,6 +250,13 @@ sub _build_action_bar {
     my $self = shift;
     my $s = $self->_session;
     my $f = $mw->Frame->pack(@TOP, -before=>$self->_w('canvas'));
+
+    # creating toolbar
+
+    # FIXME: we need to create at least one toolbar object for the icons
+    # to be loaded. currently we're not using the toolbar, so we're
+    # destroying it immediately, but later on we'll use a real toolbar.
+    my $tb = $mw->ToolBar( -movable =>0, @TOP ); $tb->destroy;
 
     my @actions = qw{ move flight charter shuttle join build discover cure share pass };
     foreach my $action ( @actions ) {

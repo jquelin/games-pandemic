@@ -422,7 +422,7 @@ sub _build_status_bar {
     # research stations
     my $fstations = $sb->Frame->pack(@LEFT, @PADX10);
     $fstations->Label(
-        -image => $mw->Photo( -file => catfile( $SHAREDIR, 'research-station.png' ) ),
+        -image => $mw->Photo( -file => catfile( $SHAREDIR, 'research-station-32.png' ) ),
     )->pack(@LEFT);
     $fstations->Label(
         -text => $game->stations,
@@ -592,17 +592,12 @@ sub _draw_station {
     my $y = $city->y;
     my $name = $city->name;
     my $tags = [ 'station', $name ];
-    $c->createPolygon(
-        $x-6, $y-6,
-        $x-6, $y+6,
-        $x+6, $y+6,
-        $x+6, $y-6,
-        -fill    => 'white',
-        -outline => 'black',
-        -tags    => $tags,
+    $c->createImage(
+        $x, $y,
+        -anchor=>'e',
+        -image => $c->Photo( -file => catfile($SHAREDIR, 'research-station-32.png') ),
+        -tags  => $tags,
     );
-    $c->createLine( $x-2, $y, $x+3, $y, -width=>1, -fill=> '#007c00', -tags=>$tags );
-    $c->createLine( $x, $y-3, $x, $y+3, -width=>1, -fill=> '#007c00', -tags=>$tags );
 }
 
 

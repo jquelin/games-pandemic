@@ -6,6 +6,7 @@ use strict;
 use warnings;
 
 use Moose;
+use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 use UNIVERSAL::require;
 

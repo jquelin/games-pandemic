@@ -379,9 +379,9 @@ sub _build_canvas {
     );
     # ... then some basic actions
     my @buttons = (
-        [ T('New game'),    1, '_new'  ],
-        [ T('Join a game'), 0, '_join' ],
-        [ T('Load a game'), 0, '_load' ],
+        [ T('New game'),  1, '_new'  ],
+        [ T('Join game'), 0, '_join' ],
+        [ T('Load game'), 0, '_load' ],
     );
     my $pad = 25;
     my $font = $mw->Font(-weight=>'bold');
@@ -566,11 +566,11 @@ sub _build_toolbar {
 
     # the toolbar widgets
     my @tb = (
-        [ 'Button', 'filenew22',   'tbut_new',   '_new',   T('start a new game')   ],
-        [ 'Button', 'fileopen22',  'tbut_load',  '_load',  T('load a game')        ],
-        [ 'Button', 'fileclose22', 'tbut_close', '_close', T('close current game') ],
-        [ 'Button', 'actexit22',   'tbut_quit',  '_quit',  T('quit application')   ],
-        #[ 'separator'                                                             ],
+        [ 'Button', 'filenew22',   'tbut_new',   '_new',   T('New game')   ],
+        [ 'Button', 'fileopen22',  'tbut_load',  '_load',  T('Load game')  ],
+        [ 'Button', 'fileclose22', 'tbut_close', '_close', T('Close game') ],
+        [ 'Button', 'actexit22',   'tbut_quit',  '_quit',  T('Quit')       ],
+        #[ 'separator'                                                     ],
     );
 
     # create the widgets

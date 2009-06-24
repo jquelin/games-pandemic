@@ -293,12 +293,6 @@ sub _build_action_bar {
     my $f = $mw->Frame->pack(@TOP, -before=>$self->_w('canvas'));
 
     # creating toolbar
-
-    # FIXME: we need to create at least one toolbar object for the icons
-    # to be loaded. currently we're not using the toolbar, so we're
-    # destroying it immediately, but later on we'll use a real toolbar.
-    my $tb = $mw->ToolBar( -movable =>0, @TOP ); $tb->destroy;
-
     my @actions = qw{ move flight charter shuttle join build discover cure share pass };
     foreach my $action ( @actions ) {
         my $image = image( catfile($SHAREDIR, 'actions', "$action.png") );
@@ -391,6 +385,11 @@ sub _build_gui {
     $mw->title(T('Pandemic'));
     $mw->iconimage( image( catfile($SHAREDIR, 'icon.png') ) );
 
+    # WARNING: we need to create the toolbar object before anything
+    # else. indeed, tk::toolbar loads the embedded icons in classinit,
+    # that is when the first object of the class is created - and not
+    # during compile time.
+    $self->_build_toolbar;
     $self->_build_menu;
     $self->_build_canvas;
 }
@@ -418,7 +417,7 @@ sub _build_menu {
         -label       => T('~Close'),
         -accelerator => 'Ctrl+W',
         -command     => $s->postback('_window_close'),
-        -image       => $mw->Photo('fileclose16'),
+        -image       => 'fileclose16',
         -compound    => 'left',
     );
     $mw->bind('<Control-w>', $s->postback('_window_close'));
@@ -428,7 +427,7 @@ sub _build_menu {
         -label       => T('~Quit'),
         -accelerator => 'Ctrl+Q',
         -command     => $s->postback('_quit'),
-        -image       => $mw->Photo('actexit16'),
+        -image       => 'actexit16',
         -compound    => 'left',
     );
     $mw->bind('<Control-q>', $s->postback('_quit'));
@@ -514,6 +513,46 @@ sub _build_status_bar {
     my $labturn = $fplayer->Label->pack(@LEFT);
     $self->_set_w('lab_curplayer', $labcurp);
     $self->_set_w('lab_nbactions', $labturn);
+}
+
+
+#
+# $main->_build_toolbar;
+#
+# create the window toolbar (the one just below the menu).
+#
+sub _build_toolbar {
+    my $self = shift;
+    my $session = $self->_session;
+
+    # create the toolbar
+    my $tb = $mw->ToolBar( -movable => 0, @TOP );
+
+    # the toolbar widgets
+    my @tb = (
+        [ 'Button', 'filenew22',   'tbut_new',   '_new',   T('start a new game')   ],
+        [ 'Button', 'fileopen22',  'tbut_load',  '_load',  T('load a game')        ],
+        [ 'Button', 'fileclose22', 'tbut_close', '_close', T('close current game') ],
+        [ 'Button', 'actexit22',   'tbut_quit',  '_quit',  T('quit application')   ],
+        #[ 'separator'                                                             ],
+    );
+
+    # create the widgets
+    foreach my $item ( @tb ) {
+        my ($type, $image, $name, $event, $tip) = @$item;
+
+        # separator is a special case
+        $tb->separator( -movable => 0 ), next if $type eq 'separator';
+
+        # regular toolbar widgets
+        my $widget = $tb->$type(
+            -image       => $image,
+            -tip         => $tip,
+            #-accelerator => $item->[2],
+            -command     => $session->postback($event),
+        );
+        $self->_set_w( $name, $widget );
+    }
 }
 
 

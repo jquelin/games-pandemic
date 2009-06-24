@@ -10,7 +10,7 @@ use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 use Tk;
 
-use Games::Pandemic::Tk::Constants;
+use Games::Pandemic::Tk::Utils;
 
 # -- attributes
 

@@ -19,7 +19,7 @@ use Tk::PNG;
 use Tk::ToolBar;
 
 use Games::Pandemic::Config;
-use Games::Pandemic::Tk::Constants;
+use Games::Pandemic::Tk::Utils;
 use Games::Pandemic::Tk::PlayerFrame;
 use Games::Pandemic::Utils;
 

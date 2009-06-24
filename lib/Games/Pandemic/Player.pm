@@ -57,14 +57,14 @@ sub _build_location {
 Return the C<$color> (html notation) to be used for this player.
 
 
-=method my $role = $player->role_name;
+=method my $role = $player->role;
 
 Return the (localized) name of C<$player>'s role.
 
 =cut
 
 #
-# my $name = $player->_image;
+# my $name = $player->_role;
 #
 # return the internal, non-localized name of the role, used to name the
 # various images associated to the role.
@@ -96,7 +96,7 @@ sub image {
     my ($self, $what, $size) = @_;
     return catfile(
         $SHAREDIR, 'roles',
-        join('-', $self->_image, $what, $size) . '.png'
+        join('-', $self->_role, $what, $size) . '.png'
     );
 }
 

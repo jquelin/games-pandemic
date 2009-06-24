@@ -10,9 +10,9 @@ use Games::Pandemic::Utils;
 
 
 around can_share => sub { 1 };
-sub color     { '#aa7826' }
-sub _image    { 'researcher' }
-sub role_name { T('Researcher') }
+sub color { '#aa7826'       }
+sub role  { T('Researcher') }
+sub _role { 'researcher'    }
 
 
 no Moose::Role;
@@ -25,6 +25,6 @@ __END__
 =begin Pod::Coverage
 
 color
-role_name
+role
 
 =end Pod::Coverage

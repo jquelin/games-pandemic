@@ -10,9 +10,9 @@ use Games::Pandemic::Utils;
 
 
 around cards_needed => sub { 4 };
-sub color     { '#d1d0c2' }
-sub _image    { 'scientist' }
-sub role_name { T('Scientist') }
+sub color { '#d1d0c2'      }
+sub role  { T('Scientist') }
+sub _role { 'scientist'    }
 
 
 no Moose::Role;
@@ -25,6 +25,6 @@ __END__
 =begin Pod::Coverage
 
 color
-role_name
+role
 
 =end Pod::Coverage

@@ -11,9 +11,9 @@ use Games::Pandemic::Utils;
 
 around can_join_others => sub { 1 };
 around can_move_others => sub { 1 };
-sub color     { '#af4377' }
-sub _image    { 'dispatcher' }
-sub role_name { T('Dispatcher') }
+sub color { '#af4377' }
+sub role  { T('Dispatcher') }
+sub _role { 'dispatcher' }
 
 
 no Moose::Role;
@@ -26,6 +26,6 @@ __END__
 =begin Pod::Coverage
 
 color
-role_name
+role
 
 =end Pod::Coverage

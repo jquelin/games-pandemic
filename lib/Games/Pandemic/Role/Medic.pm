@@ -11,9 +11,9 @@ use Games::Pandemic::Utils;
 
 around auto_clean_on_cure => sub { 1 };
 around cure_all           => sub { 1 };
-sub color              { '#e48006' }
-sub _image             { 'medic' }
-sub role_name          { T('Medic') }
+sub color { '#e48006'  }
+sub role  { T('Medic') }
+sub _role { 'medic'    }
 
 
 no Moose::Role;
@@ -26,6 +26,6 @@ __END__
 =begin Pod::Coverage
 
 color
-role_name
+role
 
 =end Pod::Coverage

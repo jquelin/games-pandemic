@@ -10,9 +10,9 @@ use Games::Pandemic::Utils;
 
 
 around can_build => sub { 1 };
-sub color     { '#79af00' }
-sub _image    { 'ops-expert' }
-sub role_name { T('Operations Expert') }
+sub color { '#79af00'              }
+sub role  { T('Operations Expert') }
+sub _role { 'ops-expert'           }
 
 
 no Moose::Role;
@@ -25,6 +25,6 @@ __END__
 =begin Pod::Coverage
 
 color
-role_name
+role
 
 =end Pod::Coverage

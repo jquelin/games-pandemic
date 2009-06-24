@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+
+use 5.010;
+use strict;
+use warnings;
+use List::Util qw{ max };
+
+my %seen;
+my @uses =
+    sort
+    grep { ! /^(5.010|lib|strict|warnings)$|^Games::Pandemic/ }
+    grep { ! $seen{$_}++ }                           # remove duplicates
+    map  { chomp; s/^use\s+([^\s;]+).*$/$1/; $_ }    # extract prereqs
+    qx{ ack -h '^use' };                             # browse files for use
+my $max = max map { length } @uses;
+
+say sprintf("%-${max}s = 0", $_) for @uses;

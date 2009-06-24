@@ -6,6 +6,7 @@ use strict;
 use warnings;
 
 use Moose;
+use POE;
 extends 'Exporter';
 
 our @EXPORT = qw{
@@ -14,7 +15,10 @@ our @EXPORT = qw{
     @XFILLX @XFILLY @XFILL2
     @PAD1   @PAD20 @PADX10
     @ENON   @ENOFF
+    image
 };
+
+# -- exported constants (variables, since tk doesn't play nice with readonly)
 
 # pack sides
 our @TOP     = ( -side => 'top'    );
@@ -39,6 +43,23 @@ our @PADX10  = ( -padx => 10 );
 our @ENON    = ( -state => 'normal' );
 our @ENOFF   = ( -state => 'disabled' );
 
+
+# -- public subs
+
+=method my $img = image( $path );
+
+Return a tk image loaded from C<$path>. If the photo has already been
+loaded, return a handle on it.
+
+=cut
+
+sub image {
+    my $path = shift;
+    my $img = $poe_main_window->Photo($path);
+    return $img if $img->width;
+    return $poe_main_window->Photo($path, -file=>$path);
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
@@ -48,10 +69,9 @@ __END__
 
 =head1 DESCRIPTION
 
-This module just exports easy to use constants for Tk, such as C<@TOP>
-to be used in place of C<-side => 'top'>. Since those are quite common,
-it's easier to use those constants.
+This module exports easy to use constants for Tk, such as C<@TOP> to be
+used in place of C<-side => 'top'>. Since those are quite common, it's
+easier to use those constants.
 
-Other than that, the module does nothing.
-
+It also provides some useful subs for tk guis.
 

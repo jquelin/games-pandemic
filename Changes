@@ -9,6 +9,14 @@ High-level changelog
 Low-level changelog
 ===================
 
+0.2.0 Wed Jun 24 17:36:24 2009
+ - introducing player class
+ - creating 2 players, displaying them on gui
+ - dealing cards to players, displaying them
+ - pass action implemented
+ - basic stubs for turn events complete
+ - trimming cruft in archive
+
 0.1.0 Fri Jun 19 18:11:39 CEST 2009
  - original version
  - main window + basic startup

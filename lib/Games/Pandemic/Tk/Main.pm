@@ -527,6 +527,7 @@ sub _build_toolbar {
 
     # create the toolbar
     my $tb = $mw->ToolBar( -movable => 0, @TOP );
+    $self->_set_w('toolbar', $tb);
 
     # the toolbar widgets
     my @tb = (

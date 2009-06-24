@@ -11,9 +11,13 @@ use MooseX::SemiAffordanceAccessor;
 
 # -- accessors
 
+# WARNING: do not use y as an attribute name, since it confuses the
+# hell out of xgettext when one tries to access $foo->y. indeed, it
+# will skip random portions of your file, without any warning.
+# therefore, i'm using coordx / coordy.
 has name    => ( is => 'ro', required => 1, isa => 'Str' );
-has x       => ( is => 'ro', required => 1, isa => 'Num' );
-has y       => ( is => 'ro', required => 1, isa => 'Num' );
+has coordx  => ( is => 'ro', required => 1, isa => 'Num' );
+has coordy  => ( is => 'ro', required => 1, isa => 'Num' );
 has xreal   => ( is => 'ro', required => 1, isa => 'Num' );
 has yreal   => ( is => 'ro', required => 1, isa => 'Num' );
 has disease => ( is => 'ro', required => 1, isa => 'Games::Pandemic::Disease', weak_ref => 1 );
@@ -160,9 +164,9 @@ have different attributes:
 
 =item * yreal: the y coord of the city
 
-=item * x: the x coord where city information will be put
+=item * coordx: the x coord where city information will be put
 
-=item * y: the y coord where city information will be put
+=item * coordy: the y coord where city information will be put
 
 =item * disease: a ref to a C<Games::Pandemic::Disease> object, which is
 the disease which will infect the city by default

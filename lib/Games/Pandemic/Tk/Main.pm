@@ -136,13 +136,13 @@ event new_game => sub {
     my @smooth = ( -smooth => 1, -splinesteps => 5 );
     foreach my $city ( $map->all_cities ) {
         $self->_draw_city($city);
-        my $x = $city->x;
-        my $y = $city->y;
+        my $x = $city->coordx;
+        my $y = $city->coordy;
 
         # draw connections between cities
         foreach my $n ( $city->neighbours ) {
-            my $xn = $n->x;
-            my $yn = $n->y;
+            my $xn = $n->coordx;
+            my $yn = $n->coordy;
             next if $xn < $x; # line already drawn
             if ( ($xn-$x) > $xmax/2 ) {
                 $c->createLine( $x, $y, 0, ($y+$yn)/2, -fill => 'red', -tags=>['line'], @smooth );
@@ -186,8 +186,8 @@ event new_player => sub {
     my @offsets = ( [-8, -10], [8, -10], [  0, -20], [-15, -20], [ 15, -20] );
     my $offsets = $offsets[ scalar(@placed) ];
     my $city = $player->location;
-    my $x = $city->x + $offsets->[0];
-    my $y = $city->y + $offsets->[1];
+    my $x = $city->coordx + $offsets->[0];
+    my $y = $city->coordy + $offsets->[1];
     $c->createImage(
         $x, $y,
         -image  => image( $player->image('pawn',16) ),
@@ -379,9 +379,9 @@ sub _build_canvas {
     );
     # ... then some basic actions
     my @buttons = (
-        [ T('New game'),  1, '_new'  ],
-        [ T('Join game'), 0, '_join' ],
-        [ T('Load game'), 0, '_load' ],
+        [ T('New game') ,  1, '_new'  ],
+        [ T('Join game') , 0, '_join' ],
+        [ T('Load game') , 0, '_load' ],
     );
     my $pad = 25;
     my $font = $mw->Font(-weight=>'bold');
@@ -609,8 +609,8 @@ sub _draw_city {
     my $color = $city->disease->color(0);
     my $xreal = $city->xreal;
     my $yreal = $city->yreal;
-    my $x     = $city->x;
-    my $y     = $city->y;
+    my $x     = $city->coordx;
+    my $y     = $city->coordy;
 
     # join the 2 circles. this is done first in order to be overwritten
     # by other drawings on the canvas, such as the circles themselves.
@@ -685,8 +685,8 @@ sub _draw_infection {
     $c->delete( "$name&&disease" );
 
     # draw the infection items
-    my $x = $city->x;
-    my $y = $city->y;
+    my $x = $city->coordx;
+    my $y = $city->coordy;
     my $tags = [ $name, 'disease' ];
 
     my $len = 8;
@@ -714,8 +714,8 @@ sub _draw_station {
     my ($self, $city) = @_;
     my $c = $self->_w('canvas');
 
-    my $x = $city->x;
-    my $y = $city->y;
+    my $x = $city->coordx;
+    my $y = $city->coordy;
     my $name = $city->name;
     my $tags = [ 'station', $name ];
     $c->createImage(

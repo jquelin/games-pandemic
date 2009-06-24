@@ -33,6 +33,13 @@ has _button => (
     isa => 'Tk::Button',
     weak_ref => 1,
 );
+
+=method $pframe->pack(...);
+
+Regular call to C<Tk::pack> for the player frame.
+
+=cut
+
 has _frame => (
     is => 'rw',
     isa => 'Tk::Frame',
@@ -83,6 +90,12 @@ sub _build__frame {
 
 # -- public methods
 
+=method $pframe->add_card( $card );
+
+Draw the new C<$card> in the card frame.
+
+=cut
+
 sub add_card {
     my ($self, $card) = @_;
     my $f = $self->_fcards;
@@ -93,6 +106,11 @@ sub add_card {
 
 # -- private methods
 
+#
+# $pframe->_toggle_visibility;
+#
+# hide/show the cards visibility, depending on its current state.
+#
 sub _toggle_visibility {
     my $self = shift;
     if ( $self->_is_opened ) {
@@ -108,3 +126,11 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=head1 DESCRIPTION
+
+This module implements a frame displaying a player icon with her cards
+available. Clicking on the icon hides or shows her cards.
+
+
+

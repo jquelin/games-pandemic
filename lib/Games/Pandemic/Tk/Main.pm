@@ -289,18 +289,53 @@ event _quit => sub {
 #
 sub _build_action_bar {
     my $self = shift;
-    my $s = $self->_session;
-    my $f = $mw->Frame->pack(@TOP, -before=>$self->_w('canvas'));
+    my $session = $self->_session;
 
-    # creating toolbar
-    my @actions = qw{ move flight charter shuttle join build discover cure share pass };
-    foreach my $action ( @actions ) {
-        my $image = image( catfile($SHAREDIR, 'actions', "$action.png") );
-        my $but = $f->Button(
-            -image   => $image,
-            -command => $self->_session->postback("_action_$action"),
-        )->pack(@LEFT);
-        $self->_set_w("but_action_$action", $but);
+    # create the toolbar
+    my $tb = $self->_w('toolbar');
+
+    # the toolbar widgets
+    my @actions = (
+        [ 'move',     T('move to adjacent city')                   ],
+        [ 'flight',   T('move to a city for which you own a card') ],
+        [ 'charter',  T('move to whatever city you want')          ],
+        [ 'shuttle',  T('move to another research station')        ],
+        [ 'join',     T('move to another player location')         ],
+        [ 'build',    T('build a research station')                ],
+        [ 'discover', T('discover a cure')                         ],
+        [ 'cure',     T('treat a disease')                         ],
+        [ 'share',    T('give a card')                             ],
+        [ 'pass',     T('pass your turn')                          ],
+    );
+    my @items = map {
+        my ($action, $tip) = @$_;
+        [
+            'Button',
+            image( catfile($SHAREDIR, 'actions', "$action.png") ),
+            "but_action_$action",
+            "_action_$action",
+            $tip,
+        ]
+        } @actions;
+
+    # add a separator
+    unshift @items, ['separator'];
+
+    # create the widgets
+    foreach my $item ( @items ) {
+        my ($type, $image, $name, $event, $tip) = @$item;
+
+        # separator is a special case
+        $tb->separator( -movable => 0 ), next if $type eq 'separator';
+
+        # regular toolbar widgets
+        my $widget = $tb->$type(
+            -image       => $image,
+            -tip         => $tip,
+            #-accelerator => $item->[2],
+            -command     => $session->postback($event),
+        );
+        $self->_set_w( $name, $widget );
     }
 }
 

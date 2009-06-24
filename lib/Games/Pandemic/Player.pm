@@ -74,6 +74,48 @@ Return the (localized) name of C<$player>'s role.
 # -- public methods
 
 # default role attribute, superseded by the various roles
+
+=method my $bool = $player->auto_clean_on_cure;
+
+Return true if the C<$player> applies automatically a cure by just being
+in the city.
+
+=method my $bool = $player->can_build;
+
+Return true if the C<$player> can build a research station in a city
+even if she doesn't have the city card.
+
+=method my $bool = $player->can_join_others;
+
+Return true if the C<$player> can move till a city where there's
+another player.
+
+=method my $bool = $player->can_move_others;
+
+Return true if the C<$player> can move the other's pawns during her
+turn.
+
+=method my $bool = $player->can_share;
+
+Return true if the C<$player> can give a card to another player even if
+it isn't the card of the city in which they are.
+
+=method my $nb = $player->cards_needed;
+
+Return the number of cards of the same color that the C<$player> needs
+to find a cure for a disease.
+
+=method my $bool = $player->cure_all;
+
+Return true if the C<$player> cures all the disease cubes in a city in
+one go, even if the cure the city disease has not been discovered yet.
+
+=method my $max = $player->max_cards;
+
+Return the maximum number of cards that a player can have in her hands.
+
+=cut
+
 sub auto_clean_on_cure { 0 }
 sub can_build          { 0 }
 sub can_join_others    { 0 }

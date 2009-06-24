@@ -14,25 +14,11 @@ use Games::Pandemic::Tk::Constants;
 
 # -- attributes
 
-has parent => (
-    is => 'ro',
-    isa => 'Tk::Widget',
-    required => 1,
-    weak_ref => 1,
-);
+has parent => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
+has player => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Games::Pandemic::Player' );
 
-has player => (
-    is       => 'ro',
-    isa      => 'Games::Pandemic::Player',
-    required => 1,
-    weak_ref => 1,
-);
-
-has _button => (
-    is => 'rw',
-    isa => 'Tk::Button',
-    weak_ref => 1,
-);
+has _button => ( is=>'rw', weak_ref=>1, isa=>'Tk::Button' ); # player icon
+has _fcards => ( is=>'rw', weak_ref=>1, isa=>'Tk::Frame'  ); # cards frame
 
 =method $pframe->pack(...);
 
@@ -40,32 +26,26 @@ Regular call to C<Tk::pack> for the player frame.
 
 =cut
 
+# the main object frame
 has _frame => (
-    is => 'rw',
-    isa => 'Tk::Frame',
-    weak_ref => 1,
+    is         => 'rw',
+    isa        => 'Tk::Frame',
+    weak_ref   => 1,
     lazy_build => 1,
-    handles => [ qw{ pack } ],
-);
-has _fcards => (
-    is => 'rw',
-    isa => 'Tk::Frame',
-    weak_ref => 1,
+    handles    => [ qw{ pack } ],
 );
 
+
+# whether the card frame is visible or not
 has _is_opened => (
       metaclass => 'Bool',
       is        => 'rw',
       isa       => 'Bool',
       default   => 1,
       provides  => {
-          #set     => 'illuminate',
-          #unset   => 'darken',
           toggle  => '_switch_open',
-          #not     => 'is_dark'
       }
 );
-
 
 
 # -- initialization
@@ -127,10 +107,26 @@ __PACKAGE__->meta->make_immutable;
 1;
 __END__
 
+=head1 SYNOPSIS
+
+    my $pframe = Games::Pandemic::Tk::PlayerFrame->new(
+        parent => $f,
+        player => $player,
+    )->pack(@LEFT);
+    $pframe->add_card($card);
+
 =head1 DESCRIPTION
 
 This module implements a frame displaying a player icon with her cards
 available. Clicking on the icon hides or shows her cards.
 
+The constructor accepts the following arguments:
 
+=over 4
+
+=item * parent => $widget - the parent widget
+
+=item * player => $player - the player to display
+
+=back
 

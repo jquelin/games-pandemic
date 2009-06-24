@@ -52,11 +52,10 @@ has _is_opened => (
 
 sub _build__frame {
     my $self = shift;
-    my $parent = $self->parent;
-    my $f = $parent->Frame;
+    my $f = $self->parent->Frame;
 
     my $but = $f->Button(
-        -image => $parent->Photo( -file=>$self->player->image('icon', 32) ),
+        -image => image( $self->player->image('icon', 32) ),
         -command => sub { $self->_toggle_visibility },
     )->pack(@LEFT);
     $self->_set_button($but);
@@ -79,8 +78,8 @@ Draw the new C<$card> in the card frame.
 sub add_card {
     my ($self, $card) = @_;
     my $f = $self->_fcards;
-    $f->Label(-image => $self->parent->Photo(-file=>($card->icon)))->pack(@LEFT);
-    $f->Label(-text => $card->label, -anchor=>'w')->pack(@LEFT);
+    $f->Label( -image => image( $card->icon ) )->pack(@LEFT);
+    $f->Label( -text => $card->label, -anchor=>'w' )->pack(@LEFT);
 }
 
 

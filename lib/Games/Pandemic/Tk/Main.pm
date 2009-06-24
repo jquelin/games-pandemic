@@ -128,7 +128,7 @@ event new_game => sub {
     my $map    = Games::Pandemic->instance->map;
     my $bgpath = $map->background_path;
     my ($xmax, $ymax) = imgsize($bgpath);
-    my $bg = $c->Photo( -file => $bgpath );
+    my $bg = image($bgpath);
     $c->createImage(0, 0, -anchor=>'nw', -image=>$bg, -tags=>['background']);
     $c->lower('background', 'all');
 
@@ -190,7 +190,7 @@ event new_player => sub {
     my $y = $city->y + $offsets->[1];
     $c->createImage(
         $x, $y,
-        -image  => $mw->Photo( -file => $player->image('pawn',16) ),
+        -image  => image( $player->image('pawn',16) ),
         -anchor => 's',
         -tags   => ['player', $player],
     );
@@ -222,7 +222,7 @@ event next_player => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
     my $game = Games::Pandemic->instance;
 
-    $self->_w('lab_curplayer')->configure(-image=>$mw->Photo(-file=>$player->image('icon', 32)));
+    $self->_w('lab_curplayer')->configure(-image=>image($player->image('icon', 32)));
 };
 
 
@@ -301,7 +301,7 @@ sub _build_action_bar {
 
     my @actions = qw{ move flight charter shuttle join build discover cure share pass };
     foreach my $action ( @actions ) {
-        my $image = $mw->Photo(-file=> catfile($SHAREDIR, 'actions', "$action.png"));
+        my $image = image( catfile($SHAREDIR, 'actions', "$action.png") );
         my $but = $f->Button(
             -image   => $image,
             -command => $self->_session->postback("_action_$action"),
@@ -345,7 +345,7 @@ sub _build_canvas {
     $c->createImage (
         $width/2, $height/2,
         -anchor => 'center',
-        -image  => $mw->Photo(-file=>catfile($SHAREDIR, "background.png")),
+        -image  => image( catfile($SHAREDIR, "background.png") ),
         @tags,
     );
     # ... then some basic actions
@@ -389,7 +389,7 @@ sub _build_gui {
 
     # set windowtitle
     $mw->title(T('Pandemic'));
-    $mw->iconimage( $mw->Photo(-file=>catfile($SHAREDIR, 'icon.png')) );
+    $mw->iconimage( image( catfile($SHAREDIR, 'icon.png') ) );
 
     $self->_build_menu;
     $self->_build_canvas;
@@ -465,7 +465,7 @@ sub _build_status_bar {
     # research stations
     my $fstations = $sb->Frame->pack(@LEFT, @PADX10);
     $fstations->Label(
-        -image => $mw->Photo( -file => catfile( $SHAREDIR, 'research-station-32.png' ) ),
+        -image => image( catfile( $SHAREDIR, 'research-station-32.png' ) ),
     )->pack(@LEFT);
     $fstations->Label(
         -text => $game->stations,
@@ -476,13 +476,13 @@ sub _build_status_bar {
     my $fcures    = $sb->Frame->pack(@LEFT, @PADX10);
     foreach my $disease ( $map->all_diseases ) {
         $fdiseases->Label(
-            -image => $mw->Photo( -file => $disease->image('cube', 32) ),
+            -image => image( $disease->image('cube', 32) ),
         )->pack(@LEFT);
         $fdiseases->Label(
             -text => $disease->nbleft,
         )->pack(@LEFT);
         $fcures->Label(
-            -image => $mw->Photo( -file => $disease->image('cure', 32) ),
+            -image => image( $disease->image('cure', 32) ),
             @ENOFF,
         )->pack(@LEFT);
     }
@@ -491,7 +491,7 @@ sub _build_status_bar {
     my $cards  = $game->cards;
     my $fcards = $sb->Frame->pack(@LEFT, @PADX10);
     $fcards->Label(
-        -image => $mw->Photo( -file => catfile( $SHAREDIR, 'card-player.png' ) ),
+        -image => image( catfile( $SHAREDIR, 'card-player.png' ) ),
     )->pack(@LEFT);
     $fcards->Label(
         -text => $cards->nbcards . '-' . $cards->nbdiscards,
@@ -501,7 +501,7 @@ sub _build_status_bar {
     my $infection = $game->infection;
     my $finfection = $sb->Frame->pack(@LEFT, @PADX10);
     $finfection->Label(
-        -image => $mw->Photo( -file => catfile( $SHAREDIR, 'card-infection.png' ) ),
+        -image => image( catfile( $SHAREDIR, 'card-infection.png' ) ),
     )->pack(@LEFT);
     $finfection->Label(
         -text => $infection->nbcards . '-' . $infection->nbdiscards,
@@ -646,7 +646,7 @@ sub _draw_station {
     $c->createImage(
         $x, $y,
         -anchor=>'e',
-        -image => $c->Photo( -file => catfile($SHAREDIR, 'research-station-32.png') ),
+        -image => image( catfile($SHAREDIR, 'research-station-32.png') ),
         -tags  => $tags,
     );
 }

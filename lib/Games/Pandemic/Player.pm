@@ -169,13 +169,46 @@ sub is_flight_possible {
     return scalar @cards;
 }
 
+=method my $bool = $player->is_charter_possible;
+
+=cut
 
 sub is_charter_possible {}
+
+=method my $bool = $player->is_shuttle_possible;
+
+=cut
+
 sub is_shuttle_possible {}
+
+=method my $bool = $player->is_join_possible;
+
+=cut
+
 sub is_join_possible {}
+
+=method my $bool = $player->is_build_possible;
+
+=cut
+
 sub is_build_possible {}
+
+=method my $bool = $player->is_discover_possible;
+
+=cut
+
 sub is_discover_possible {}
+
+=method my $bool = $player->is_cure_possible;
+
+=cut
+
 sub is_cure_possible {}
+
+=method my $bool = $player->is_share_possible;
+
+=cut
+
 sub is_share_possible {}
 
 

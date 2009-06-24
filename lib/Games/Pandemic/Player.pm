@@ -50,6 +50,27 @@ sub _build_location {
 }
 
 
+# -- methods given by the games::pandemic::role::*
+
+=method my $color = $player->color;
+
+Return the C<$color> (html notation) to be used for this player.
+
+
+=method my $role = $player->role_name;
+
+Return the (localized) name of C<$player>'s role.
+
+=cut
+
+#
+# my $name = $player->_image;
+#
+# return the internal, non-localized name of the role, used to name the
+# various images associated to the role.
+#
+
+
 # -- public methods
 
 # default role attribute, superseded by the various roles
@@ -132,8 +153,22 @@ __PACKAGE__->meta->make_immutable;
 1;
 __END__
 
+=head1 SYNOPSIS
+
+    use Games::Pandemic::Player;
+    my $role = 'Games::Pandemic::Role::Medic';
+    my $player = Games::Pandemic::Player->new_with_traits(traits=>[$role]);
+
 =head1 DESCRIPTION
 
-This is a class implementing a player. Note that the player role in the
-game is described in a C<Games::Pandemic::Role> subclass.
+This is a class implementing a player.
+
+Among other things, a player has a role. In fact, it is consuming one of
+the C<Games::Pandemic::Role::*> roles, which is applied as a trait
+during object construction.
+
+Therefore, to create a player, use the C<new_with_traits()> method (as
+is done in the synopsis section).
+
+
 

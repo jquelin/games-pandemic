@@ -25,6 +25,9 @@ cover_db
 *.swp
 *.tmp
 
+# avoid compiled gettext files
+*.mo
+
 # avoid archives of this distribution
 Games-Pandemic-*
 

@@ -114,6 +114,30 @@ event _action_done => sub {
 
 
 #
+# event: _action_move($player, $city)
+#
+# request to move $player to $city by proximity.
+#
+event _action_move => sub {
+    my ($player, $city) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+
+    return $K->yield('_next_action')
+        if $player ne $curp; # FIXME: dispatcher
+
+    if ( $player->can_travel_to($city) ) {
+        my $from = $player->location;
+        $player->set_location($city);
+        $K->post( main => 'player_move', $player, $from, $city );
+        $K->yield('_action_done');
+    } else {
+        # invalid move
+        $K->yield('_next_action');
+    }
+};
+
+#
 # event: _action_pass()
 #
 # user wishes to pass.

@@ -9,14 +9,15 @@ use Devel::CheckOS        qw{ os_is };
 use Encode;
 use File::Basename        qw{ fileparse };
 use File::HomeDir         qw{ my_data };
-use File::Spec::Functions qw{ catdir };
+use File::Spec::Functions qw{ catdir updir };
+use FindBin               qw{ $Bin };
 use Locale::TextDomain    'Games-Pandemic';
 use Module::Util          qw{ find_installed };
 use Moose;
 use Readonly;
  
 extends 'Exporter';
-our @EXPORT = qw{ $CONFIGDIR $SHAREDIR T };
+our @EXPORT = qw{ $CONFIGDIR $SHAREDIR T debug };
 
 Readonly our $CONFIGDIR => _find_config_dir();
 Readonly our $SHAREDIR  => _find_share_dir();
@@ -33,6 +34,20 @@ underneath, so refer to this module for more information.
 =cut
 
 sub T { return decode('utf8', __($_[0])); }
+
+
+=method debug( @stuff );
+
+Output C<@stuff> on stderr if we're in a local git checkout. Do nothing
+in regular builds.
+
+=cut
+
+my $debug = -d catdir( $Bin, updir(), '.git' );
+sub debug {
+    return unless $debug;
+    warn "@_";
+}
 
 
 # -- private subs
@@ -64,3 +79,9 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=head1 DESCRIPTION
+
+This module provides some helper variables and subs, to be used on
+various occasions throughout the code.
+

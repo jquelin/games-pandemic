@@ -227,6 +227,22 @@ event next_player => sub {
 };
 
 
+=method event: player_move( $player, $from ,$to )
+
+Received when C<$player> has moved between C<$from> and C<$to> cities.
+
+=cut
+
+event player_move => sub {
+    my ($self, $player, $from, $to) = @_[OBJECT, ARG0..$#_];
+
+    # canvas uses delta for move()
+    my $dx = $to->coordx - $from->coordx;
+    my $dy = $to->coordy - $from->coordy;
+    $self->_w('canvas')->move( $player, $dx, $dy );
+};
+
+
 # -- private events
 
 #

@@ -243,10 +243,10 @@ event _city_click => sub {
 
     # find city clicked
     my $item = $canvas->find( withtag => 'current' );
-    my ($name) = grep { s/^c-(.*)/$1/ } $canvas->gettags($item);
-    my $city = $map->find_city($name);
+    my ($id) = grep { s/^c-(.*)/$1/ } $canvas->gettags($item);
+    my $city = $map->city($id);
 
-    #say $city . " " . $city->name;
+    say $city . " " . $city->name;
 };
 
 
@@ -642,6 +642,7 @@ sub _draw_city {
     my $c = $self->_w('canvas');
 
     # fetch city information
+    my $id    = $city->id;
     my $name  = $city->name;
     my $color = $city->disease->color(0);
     my $xreal = $city->xreal;
@@ -672,7 +673,7 @@ sub _draw_city {
     $c->createOval(
         $x-$r, $y-$r, $x+$r, $y+$r,
         -fill => $color,
-        -tags => ['city', 'draw', 'spot', $name, "c-$name"],
+        -tags => ['city', 'draw', 'spot', $name, "c-$id"],
     );
 
     # write the city name

@@ -33,13 +33,13 @@ sub START {
 # -- public events
 
 event action => sub {
-    my $action = $_[ARG0];
+    my ($action, @params) = @_[ARG0..$#_];
     my $game = Games::Pandemic->instance;
     my $player = $game->curplayer;
 
     # FIXME: check src vs current player
 
-    $K->yield("_action_$action");
+    $K->yield("_action_$action", @params);
  };
 
 

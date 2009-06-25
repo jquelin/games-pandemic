@@ -10,6 +10,9 @@ use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 
+use Games::Pandemic::Utils;
+
+
 # -- attributes
 
 has 'colors' => (
@@ -36,7 +39,12 @@ has nbmax => ( is => 'ro', isa => 'Int', required   => 1 );
 has _map  => ( is => 'ro', isa => 'Games::Pandemic::Map',required => 1, weak_ref => 1 );
 
 
-# -- default builders
+# -- default builders / finishers
+
+sub DEMOLISH {
+    my $self = shift;
+    debug( "~disease: " . $self->name . "\n" );
+}
 
 sub _build_nb { $_[0]->nbmax }
 
@@ -61,3 +69,10 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=begin Pod::Coverage
+
+DEMOLISH
+
+=end Pod::Coverage
+

@@ -9,6 +9,9 @@ use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 
+use Games::Pandemic::Utils;
+
+
 # -- accessors
 
 # WARNING: do not use y as an attribute name, since it confuses the
@@ -84,6 +87,14 @@ has neighbour_ids => (
 );
 
 
+# -- default builders / finishers
+
+sub DEMOLISH {
+    my $self = shift;
+    debug( "~city: " . $self->name . "\n" );
+}
+
+
 # -- public methods
 
 =method my @cities = $city->neighbours;
@@ -150,6 +161,14 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+
+=begin Pod::Coverage
+
+DEMOLISH
+
+=end Pod::Coverage
+
 
 =head1 DESCRIPTION
 

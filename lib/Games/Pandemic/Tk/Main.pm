@@ -250,7 +250,7 @@ event _city_click => sub {
     if ( $city eq $player->location ) {
         # FIXME: hilight possible travel destinations
     } else {
-        return $K->post( controller=>'action', 'move', $city )
+        return $K->post( controller=>'action', 'move', $player, $city )
             if $player->can_travel_to($city);
     }
 };

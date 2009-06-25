@@ -18,6 +18,7 @@ use Games::Pandemic::Utils;
 # hell out of xgettext when one tries to access $foo->y. indeed, it
 # will skip random portions of your file, without any warning.
 # therefore, i'm using coordx / coordy.
+has id      => ( is => 'ro', required => 1, isa => 'Int' );
 has name    => ( is => 'ro', required => 1, isa => 'Str' );
 has coordx  => ( is => 'ro', required => 1, isa => 'Num' );
 has coordy  => ( is => 'ro', required => 1, isa => 'Num' );

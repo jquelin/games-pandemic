@@ -72,6 +72,7 @@ sub _cities_builder {
         my ($name, $disid, $xreal, $yreal, $x, $y, $neighbours) = @$d;
         my $disease = $self->disease($disid);
         my $city = Games::Pandemic::City->new(
+            id      => scalar(@cities),
             name    => $name,
             xreal   => $xreal,
             yreal   => $yreal,

@@ -442,31 +442,46 @@ sub _build_menu {
     # no tear-off menus
     $mw->optionAdd('*tearOff', 'false');
 
-    # create the menu for the window
+    #$h->{w}{mnu_run} = $menubar->entrycget(1, '-menu');
+
     my $menubar = $mw->Menu;
     $mw->configure(-menu => $menubar );
 
     # menu game
-    my $game = $menubar->cascade(-label => T('~Game'));
-    $game->command(
-        -label       => T('~Close'),
-        -accelerator => 'Ctrl+W',
-        -command     => $s->postback('_window_close'),
-        -image       => 'fileclose16',
-        -compound    => 'left',
+    my @mnu_game = (
+    [ '_new',   'filenew16',   'Ctrl+N', T('~New game')   ],
+    [ '_open',  'fileopen16',  'Ctrl+O', T('~Open game')  ],
+    [ '_close', 'fileclose16', 'Ctrl+W', T('~Close game') ],
+    [ '---'                                               ],
+    [ '_quit',  'actexit16',   'Ctrl+Q', T('~Quit')       ],
     );
-    $mw->bind('<Control-w>', $s->postback('_window_close'));
-    $mw->bind('<Control-W>', $s->postback('_window_close'));
 
-    $game->command(
-        -label       => T('~Quit'),
-        -accelerator => 'Ctrl+Q',
-        -command     => $s->postback('_quit'),
-        -image       => 'actexit16',
-        -compound    => 'left',
-    );
-    $mw->bind('<Control-q>', $s->postback('_quit'));
-    $mw->bind('<Control-Q>', $s->postback('_quit'));
+    my $game = $menubar->cascade(-label => T('~Game'));
+    foreach my $item ( @mnu_game ) {
+        my ($action, $icon, $accel, $label) = @$item;
+
+        # separators are easier
+        if ( $action eq '---' ) {
+            $game->separator;
+            next;
+        }
+
+        # regular buttons
+        $game->command(
+            -label       => $label,
+            -image       => $icon,
+            -compound    => 'left',
+            -accelerator => $accel,
+            -command     => $s->postback($action),
+        );
+
+        # create the bindings. note: we also need to bind the lowercase
+        # letter too!
+        $accel =~ s/Ctrl\+/Control-/;
+        $mw->bind("<$accel>", $s->postback($action));
+        $accel =~ s/Control-(\w)/"Control-" . lc($1)/e;
+        $mw->bind("<$accel>", $s->postback($action));
+    }
 }
 
 

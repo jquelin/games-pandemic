@@ -27,6 +27,7 @@ has _cities => (
     provides   => {
         elements => 'all_cities',       # my @c = $map->all_cities;
         get      => 'city',             # my $c = $map->city(23);
+        find     => '_find_city',
     }
 );
 
@@ -170,6 +171,17 @@ sub disease_cards {
         map { Games::Pandemic::Card::City->new(city=>$_) }
         $self->all_cities;
 }
+
+
+=method my $city = $map->find_city( $name );
+
+=cut
+
+sub find_city {
+    my ($self, $name) = @_;
+    return $self->_find_city( sub { $_[0]->name eq $name } );
+}
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

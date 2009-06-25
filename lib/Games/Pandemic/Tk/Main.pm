@@ -240,13 +240,19 @@ event _city_click => sub {
 
     my $game = Games::Pandemic->instance;
     my $map  = $game->map;
+    my $player = $game->curplayer;
 
     # find city clicked
     my $item = $canvas->find( withtag => 'current' );
     my ($id) = grep { s/^c-(.*)/$1/ } $canvas->gettags($item);
     my $city = $map->city($id);
 
-    say $city . " " . $city->name;
+    if ( $city eq $player->location ) {
+        # FIXME: hilight possible travel destinations
+    } else {
+        return $K->post( controller=>'action', 'move', $city )
+            if $player->can_travel_to($city);
+    }
 };
 
 

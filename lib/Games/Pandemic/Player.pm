@@ -6,6 +6,7 @@ use strict;
 use warnings;
 
 use File::Spec::Functions qw{ catfile };
+use List::MoreUtils       qw{ any };
 use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
@@ -220,6 +221,46 @@ completeness.
 =cut
 
 sub is_pass_possible { 1 }
+
+
+=method my $bool = $player->can_travel_to($city);
+
+Return true if C<$player> can travel to C<$city> by proximity. This
+means that C<$player> is in a location next to C<$city>.
+
+=cut
+
+sub can_travel_to {
+    my ($self, $city) = @_;
+    return any { $_ eq $city } $self->location->neighbours;
+}
+
+
+=method my $bool = $player->can_fly_to($city);
+
+=cut
+
+sub can_fly_to {}
+
+=method my $bool = $player->can_charter_to($city);
+
+=cut
+
+sub can_charter_to {}
+
+=method my $bool = $player->can_shuttle_to($city);
+
+=cut
+
+sub can_shuttle_to {}
+
+=method my $bool = $player->can_join_to($city);
+
+=cut
+
+sub can_join_to {}
+
+
 
 
 no Moose;

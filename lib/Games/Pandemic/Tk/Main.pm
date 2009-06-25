@@ -156,6 +156,7 @@ event new_game => sub {
     $c->raise('city',    'all');
     $c->raise('station', 'all');
     $c->raise('name',    'all');
+    $c->bind( 'city', '<1>', $s->postback('_city_click') );
 
     # draw the starting station
     my $start = $map->start_city;
@@ -227,6 +228,27 @@ event next_player => sub {
 
 
 # -- private events
+
+#
+# event: _city_click( undef, [ $canvas ] )
+#
+# called when used clicked on a city on the canvas.
+#
+event _city_click => sub {
+    my $args = $_[ARG1];
+    my ($canvas) = @$args;
+
+    my $game = Games::Pandemic->instance;
+    my $map  = $game->map;
+
+    # find city clicked
+    my $item = $canvas->find( withtag => 'current' );
+    my ($name) = grep { s/^c-(.*)/$1/ } $canvas->gettags($item);
+    my $city = $map->find_city($name);
+
+    #say $city . " " . $city->name;
+};
+
 
 #
 # _decay( $city, \@colors )
@@ -650,7 +672,7 @@ sub _draw_city {
     $c->createOval(
         $x-$r, $y-$r, $x+$r, $y+$r,
         -fill => $color,
-        -tags => ['city', 'draw', 'spot', $name],
+        -tags => ['city', 'draw', 'spot', $name, "c-$name"],
     );
 
     # write the city name

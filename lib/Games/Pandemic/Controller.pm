@@ -97,6 +97,30 @@ event new_game => sub {
 # -- private event
 
 #
+# event: _action_build()
+#
+# request to build a research station.
+#
+event _action_build => sub {
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+
+    # invalid request
+    return $K->yield('_next_action')
+        unless $curp->is_build_possible;
+    # FIXME: check research station count
+
+    my $city = $curp->location;
+    $city->build_station;
+    $K->post( main => 'build_station', $city );
+
+    # FIXME: update research station count
+
+    $K->yield('_action_done');
+};
+
+
+#
 # event: _action_done()
 #
 # action is finished.

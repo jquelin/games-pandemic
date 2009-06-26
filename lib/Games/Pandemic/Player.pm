@@ -144,6 +144,23 @@ sub image {
 }
 
 
+=method my $bool = $player->owns_city_card( $city );
+
+Return true if the C<$player> owns a card representing C<$city>.
+
+=cut
+
+sub owns_city_card {
+    my ($self, $city) = @_;
+    return
+        any { $_->city eq $city }
+        grep { $_->can('city') }
+        $self->all_cards;
+}
+
+
+#- methods to check what actions are currently possible *now*
+
 =method my $bool = $player->is_move_possible;
 
 Return true if C<$player> can move, starting from her current location. Always

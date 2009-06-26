@@ -207,6 +207,7 @@ sub is_shuttle_possible {}
 
 sub is_join_possible {}
 
+
 =method my $bool = $player->is_build_possible;
 
 Return true if C<$player> can build a research station in her current
@@ -218,6 +219,7 @@ the operation expert.
 sub is_build_possible {
     my $self = shift;
     return 1 if $self->can_build_anywhere;
+    return $self->owns_city_card( $self->location);
 }
 
 =method my $bool = $player->is_discover_possible;

@@ -19,6 +19,17 @@ has player => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Games::Pandemic::Playe
 
 has _button => ( is=>'rw', weak_ref=>1, isa=>'Tk::Button' ); # player icon
 has _fcards => ( is=>'rw', weak_ref=>1, isa=>'Tk::Frame'  ); # cards frame
+has _cards => (
+    metaclass  => 'Collection::Hash',
+    is         => 'ro',
+    isa        => 'HashRef[Tk::Frame]',
+    default    => sub { {} },
+    auto_deref => 1,
+    provides   => {
+        delete  => '_rm_fcard',       # $pframe->_rm_fcard( $card );
+        set     => '_add_fcard',      # $pframe->_add_fcard( $card, $frame );
+    }
+);
 
 =method $pframe->pack(...);
 
@@ -77,9 +88,11 @@ Draw the new C<$card> in the card frame.
 
 sub add_card {
     my ($self, $card) = @_;
-    my $f = $self->_fcards;
+    my $fcards = $self->_fcards;
+    my $f = $fcards->Frame->pack(@LEFT);
     $f->Label( -image => image( $card->icon ) )->pack(@LEFT);
     $f->Label( -text => $card->label, -anchor=>'w' )->pack(@LEFT);
+    $self->_add_fcard( $card, $f );
 }
 
 

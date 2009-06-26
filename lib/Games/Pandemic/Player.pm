@@ -290,11 +290,22 @@ sub can_travel_to {
 
 sub can_charter_to {}
 
+
 =method my $bool = $player->can_shuttle_to($city);
+
+Return true if C<$player> can shuttle through research station to
+C<$city>. This means that both current player location and remote
+C<$city> have a research station. Of course, return value is false if
+C<$player> is currently located in <$city>.
 
 =cut
 
-sub can_shuttle_to {}
+sub can_shuttle_to {
+    my ($self, $city) = @_;
+    my $location = $self->location;
+    return $city ne $location && $location->has_station && $city->has_station;
+}
+
 
 =method my $bool = $player->can_join_to($city);
 

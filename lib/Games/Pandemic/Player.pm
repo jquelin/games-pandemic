@@ -82,7 +82,7 @@ Return the (localized) name of C<$player>'s role.
 Return true if the C<$player> applies automatically a cure by just being
 in the city.
 
-=method my $bool = $player->can_build;
+=method my $bool = $player->can_build_anywhere;
 
 Return true if the C<$player> can build a research station in a city
 even if she doesn't have the city card.

@@ -95,6 +95,18 @@ sub add_card {
     $self->_add_fcard( $card, $f );
 }
 
+=method $pframe->rm_card( $card );
+
+Remove the C<$card> in the card frame.
+
+=cut
+
+sub rm_card {
+    my ($self, $card) = @_;
+    my $frame = $self->_rm_fcard( $card );
+    $frame->destroy;
+}
+
 
 # -- private methods
 

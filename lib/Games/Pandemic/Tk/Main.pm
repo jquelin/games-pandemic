@@ -187,7 +187,7 @@ event new_game => sub {
     $c->raise('city',    'all');
     $c->raise('station', 'all');
     $c->raise('name',    'all');
-    $c->bind( 'city', '<1>', $s->postback('_city_click') );
+    $c->bind( 'spot', '<1>', $s->postback('_city_click') );
 
     # draw the starting station
     my $start = $map->start_city;

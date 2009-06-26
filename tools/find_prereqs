@@ -11,7 +11,7 @@ my @uses =
     grep { ! /^(5.010|lib|strict|warnings)$|^Games::Pandemic/ }
     grep { ! $seen{$_}++ }                           # remove duplicates
     map  { chomp; s/^use\s+([^\s;]+).*$/$1/; $_ }    # extract prereqs
-    qx{ ack -h '^use' };                             # browse files for use
+    qx{ ack -h '^use\\s' };                          # browse files for use
 my $max = max map { length } @uses;
 
 say sprintf("%-${max}s = 0", $_) for @uses;

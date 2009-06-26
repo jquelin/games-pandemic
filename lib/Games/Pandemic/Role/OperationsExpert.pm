@@ -9,7 +9,7 @@ use Moose::Role;
 use Games::Pandemic::Utils;
 
 
-around can_build => sub { 1 };
+around can_build_anywhere => sub { 1 };
 sub color { '#79af00'              }
 sub role  { T('Operations Expert') }
 sub _role { 'ops-expert'           }

@@ -118,7 +118,7 @@ Return the maximum number of cards that a player can have in her hands.
 =cut
 
 sub auto_clean_on_cure { 0 }
-sub can_build          { 0 }
+sub can_build_anywhere { 0 }
 sub can_join_others    { 0 }
 sub can_move_others    { 0 }
 sub can_share          { 0 }
@@ -190,9 +190,16 @@ sub is_join_possible {}
 
 =method my $bool = $player->is_build_possible;
 
+Return true if C<$player> can build a research station in her current
+location. It is possible if she owns the card of the city, or if she is
+the operation expert.
+
 =cut
 
-sub is_build_possible {}
+sub is_build_possible {
+    my $self = shift;
+    return 1 if $self->can_build_anywhere;
+}
 
 =method my $bool = $player->is_discover_possible;
 

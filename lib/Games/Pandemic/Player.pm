@@ -27,6 +27,7 @@ has _cards => (
     auto_deref => 1,
     provides   => {
         values  => 'all_cards',       # my @c = $player->all_cards;
+        delete  => 'drop_card',       # $player->drop_card( $card );
         set     => '_add_card',       # $player->_add_card( $card, $card );
     }
 );

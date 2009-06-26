@@ -114,6 +114,14 @@ event _action_build => sub {
     $city->build_station;
     $K->post( main => 'build_station', $city );
 
+    # player loose a card
+    if ( not $curp->can_build_anywhere ) {
+        my $card = $curp->owns_city_card($city);
+        $curp->drop_card( $card );
+        $game->cards->discard( $card );
+        $K->post( main => 'drop_card', $curp, $card );
+    }
+
     # FIXME: update research station count
 
     $K->yield('_action_done');

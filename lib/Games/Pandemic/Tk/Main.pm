@@ -73,7 +73,6 @@ Received when C<$city> gained a research station.
 
 event build_station => sub {
     my ($self, $city) = @_[OBJECT, ARG0];
-    say "ici";
     $self->_draw_station($city);
 };
 

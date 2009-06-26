@@ -212,14 +212,18 @@ sub is_join_possible {}
 
 Return true if C<$player> can build a research station in her current
 location. It is possible if she owns the card of the city, or if she is
-the operation expert.
+the operation expert. Of course it is impossible if there's already a
+station in the city.
 
 =cut
 
 sub is_build_possible {
     my $self = shift;
+    my $city = $self->location;
+
+    return 0 if $city->has_station;
     return 1 if $self->can_build_anywhere;
-    return $self->owns_city_card( $self->location);
+    return $self->owns_city_card( $city );
 }
 
 =method my $bool = $player->is_discover_possible;

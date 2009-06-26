@@ -78,6 +78,12 @@ event build_station => sub {
 };
 
 
+=method event: got_card($player, $card)
+
+Received when C<$player> got a new C<$card>.
+
+=cut
+
 event got_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
 
@@ -119,7 +125,7 @@ event infection => sub {
 =method event: new_game()
 
 Received when the controller started a new game. Display the new map
-(incl. cities), action & statusbar
+(incl. cities), action & statusbar.
 
 =cut
 
@@ -286,7 +292,7 @@ event _city_click => sub {
 
 
 #
-# _decay( $city, \@colors )
+# event: _decay( $city, \@colors )
 #
 # change $city outline color to the first element of @colors, and
 # schedule another _decay event with the rest of @colors if it's still
@@ -329,7 +335,7 @@ event _action_pass => sub {
 
 
 #
-# _new()
+# event: _new()
 #
 # request a new game to the controller
 #
@@ -337,7 +343,7 @@ event _new => sub { $K->post('controller' => 'new_game'); };
 
 
 #
-# _quit()
+# event: _quit()
 #
 # user requested to quit the application.
 #

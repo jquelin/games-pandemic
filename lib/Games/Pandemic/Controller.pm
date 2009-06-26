@@ -199,6 +199,7 @@ event _action_move => sub {
     }
 };
 
+
 #
 # event: _action_pass()
 #
@@ -206,6 +207,30 @@ event _action_move => sub {
 # 
 event _action_pass => sub {
     # nothing to do - user is just passing
+    $K->yield('_action_done');
+};
+
+
+#
+# event: _action_shuttle($player, $city)
+#
+# request to move $player to $city by research station shuttle.
+#
+event _action_shuttle => sub {
+    my ($player, $city) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+
+    return $K->yield('_next_action')
+        if $player ne $curp; # FIXME: dispatcher
+
+    # get the card
+    return $K->yield('_next_action') unless $player->can_shuttle_to($city);
+
+    # move the player
+    my $from = $player->location;
+    $player->set_location($city);
+    $K->post( main => 'player_move', $player, $from, $city );
     $K->yield('_action_done');
 };
 

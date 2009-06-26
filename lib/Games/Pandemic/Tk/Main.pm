@@ -287,7 +287,7 @@ event _city_click => sub {
 
     my $game = Games::Pandemic->instance;
     my $map  = $game->map;
-    my $player = $game->curplayer;
+    my $player = $game->curplayer; # FIXME: dispatcher
 
     # find city clicked
     my $item = $canvas->find( withtag => 'current' );
@@ -299,6 +299,8 @@ event _city_click => sub {
     } else {
         return $K->post( controller => 'action', 'move', $player, $city )
             if $player->can_travel_to($city);
+        return $K->post( controller => 'action', 'shuttle', $player, $city )
+            if $player->can_shuttle_to($city);
         return $K->post( controller => 'action', 'fly', $player, $city )
             if $player->owns_city_card($city);
     }

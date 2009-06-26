@@ -369,11 +369,6 @@ sub _build_action_bar {
 
     # the toolbar widgets
     my @actions = (
-        [ 'move',     T('move to adjacent city')                   ],
-        [ 'flight',   T('move to a city for which you own a card') ],
-        [ 'charter',  T('move to whatever city you want')          ],
-        [ 'shuttle',  T('move to another research station')        ],
-        [ 'join',     T('move to another player location')         ],
         [ 'build',    T('build a research station')                ],
         [ 'discover', T('discover a cure')                         ],
         [ 'cure',     T('treat a disease')                         ],
@@ -825,7 +820,7 @@ sub _update_actions {
     my $game = Games::Pandemic->instance;
     my $player = $game->curplayer;
 
-    my @actions = qw{ move flight charter shuttle join build discover cure share pass };
+    my @actions = qw{ build discover cure share pass };
     foreach my $action ( @actions ) {
         my $method = "is_${action}_possible";
         $self->_w("but_action_$action")->configure(

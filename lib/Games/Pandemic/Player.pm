@@ -284,13 +284,6 @@ sub can_travel_to {
 }
 
 
-=method my $bool = $player->can_charter_to($city);
-
-=cut
-
-sub can_charter_to {}
-
-
 =method my $bool = $player->can_shuttle_to($city);
 
 Return true if C<$player> can shuttle through research station to

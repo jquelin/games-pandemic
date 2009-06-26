@@ -77,6 +77,19 @@ event build_station => sub {
 };
 
 
+=method event: drop_card($player, $card)
+
+Received when C<$player> drops a C<$card>.
+
+=cut
+
+event drop_card => sub {
+    my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
+    $self->_w("f$player")->rm_card($card);
+    $self->_update_status; # deck count
+};
+
+
 =method event: got_card($player, $card)
 
 Received when C<$player> got a new C<$card>.

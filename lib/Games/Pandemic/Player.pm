@@ -74,7 +74,7 @@ Return the (localized) name of C<$player>'s role.
 
 # -- public methods
 
-# default role attribute, superseded by the various roles
+#- default role attributes, superseded by the various roles
 
 =method my $bool = $player->auto_clean_on_cure;
 
@@ -126,6 +126,8 @@ sub cards_needed       { 5 }
 sub cure_all           { 0 }
 sub max_cards          { 7 }
 
+
+#- misc methods
 
 =method my $path = $player->image( $what, $size );
 
@@ -246,6 +248,8 @@ completeness.
 
 sub is_pass_possible { 1 }
 
+
+#- methods to control whether an action (with all params) is valid
 
 =method my $bool = $player->can_travel_to($city);
 

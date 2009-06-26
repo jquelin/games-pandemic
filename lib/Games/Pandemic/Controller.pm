@@ -186,7 +186,7 @@ event _deal_card => sub {
     # deal some cards to the players
     foreach my $i ( 1 .. $nb ) {
         my $card = $deck->next;
-        $player->give_card($card);
+        $player->gain_card($card);
         $K->post(main=>'got_card', $player, $card);
     }
 

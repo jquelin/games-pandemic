@@ -20,14 +20,14 @@ use Games::Pandemic::Utils;
 # -- accessors
 
 has _cards => (
-    metaclass  => 'Collection::Array',
+    metaclass  => 'Collection::Hash',
     is         => 'ro',
-    isa        => 'ArrayRef[Games::Pandemic::Card]',
-    default    => sub { [] },
+    isa        => 'HashRef[Games::Pandemic::Card]',
+    default    => sub { {} },
     auto_deref => 1,
     provides   => {
-        elements => 'all_cards',       # my @c = $player->all_cards;
-        push     => 'give_card',       # $player->give_card( $card );
+        values  => 'all_cards',       # my @c = $player->all_cards;
+        set     => '_add_card',       # $player->_add_card( $card, $card );
     }
 );
 
@@ -158,6 +158,18 @@ sub owns_city_card {
         any { $_->city eq $city }
         grep { $_->can('city') }
         $self->all_cards;
+}
+
+
+=method $player->gain_card( $card )
+
+C<$player> gains a new C<$card>.
+
+=cut
+
+sub gain_card {
+    my ($self, $card) = @_;
+    $self->_add_card( $card, $card );
 }
 
 

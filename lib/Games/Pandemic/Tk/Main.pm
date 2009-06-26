@@ -65,6 +65,19 @@ sub START {
 
 # -- public events
 
+=method event: build_station($city)
+
+Received when C<$city> gained a research station.
+
+=cut
+
+event build_station => sub {
+    my ($self, $city) = @_[OBJECT, ARG0];
+    say "ici";
+    $self->_draw_station($city);
+};
+
+
 event got_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
 

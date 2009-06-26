@@ -129,6 +129,36 @@ event _action_build => sub {
 
 
 #
+# event: _action_charter($player, $city)
+#
+# request to charter $player to $city.
+#
+event _action_charter => sub {
+    my ($player, $city) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+
+    return $K->yield('_next_action')
+        if $player ne $curp; # FIXME: dispatcher
+
+    # get the card
+    my $card = $curp->owns_city_card($player->location);
+    return $K->yield('_next_action') unless defined $card;
+
+    # move the player
+    my $from = $player->location;
+    $player->set_location($city);
+    $K->post( main => 'player_move', $player, $from, $city );
+    $K->yield('_action_done');
+
+    # drop the card
+    $curp->drop_card( $card );
+    $game->cards->discard( $card );
+    $K->post( main => 'drop_card', $curp, $card );
+};
+
+
+#
 # event: _action_done()
 #
 # action is finished.

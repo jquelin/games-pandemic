@@ -301,6 +301,8 @@ event _city_click => sub {
             if $player->can_travel_to($city);
         return $K->post( controller => 'action', 'shuttle', $player, $city )
             if $player->can_shuttle_to($city);
+        return $K->post( controller => 'action', 'charter', $player, $city )
+            if $player->owns_city_card($player->location);
         return $K->post( controller => 'action', 'fly', $player, $city )
             if $player->owns_city_card($city);
     }

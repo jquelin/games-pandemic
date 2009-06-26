@@ -146,18 +146,19 @@ sub image {
 }
 
 
-=method my $bool = $player->owns_city_card( $city );
+=method my $card = $player->owns_city_card( $city );
 
-Return true if the C<$player> owns a card representing C<$city>.
+Return the C<$card> representing C<$city> if the C<$player> owns it,
+undef otherwise.
 
 =cut
 
 sub owns_city_card {
     my ($self, $city) = @_;
-    return
-        any { $_->city eq $city }
-        grep { $_->can('city') }
+    my ($card) =
+        grep { $_->can('city') && $_->city eq $city }
         $self->all_cards;
+    return $card;
 }
 
 

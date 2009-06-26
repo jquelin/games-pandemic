@@ -284,12 +284,6 @@ sub can_travel_to {
 }
 
 
-=method my $bool = $player->can_fly_to($city);
-
-=cut
-
-sub can_fly_to {}
-
 =method my $bool = $player->can_charter_to($city);
 
 =cut

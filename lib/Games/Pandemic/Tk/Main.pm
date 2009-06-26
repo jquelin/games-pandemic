@@ -296,6 +296,16 @@ event _decay => sub {
 # -- gui events
 
 #
+# event: _action_build()
+#
+# user wishes to build a research station.
+#
+event _action_build => sub {
+    $K->post( controller => 'action', 'build' );
+};
+
+
+#
 # event: _action_pass()
 #
 # user wishes to pass.

@@ -387,11 +387,11 @@ sub _build_action_bar {
 
     # the toolbar widgets
     my @actions = (
-        [ 'build',    T('build a research station')                ],
-        [ 'discover', T('discover a cure')                         ],
-        [ 'cure',     T('treat a disease')                         ],
-        [ 'share',    T('give a card')                             ],
-        [ 'pass',     T('pass your turn')                          ],
+        [ 'build',    T('Build a research station')                ],
+        [ 'discover', T('Discover a cure')                         ],
+        [ 'cure',     T('Treat a disease')                         ],
+        [ 'share',    T('Give a card')                             ],
+        [ 'pass',     T('Pass your turn')                          ],
     );
     my @items = map {
         my ($action, $tip) = @$_;
@@ -536,7 +536,7 @@ sub _build_menu {
     # menu game
     my @mnu_game = (
     [ '_new',   'filenew16',   'Ctrl+N', T('~New game')   ],
-    [ '_open',  'fileopen16',  'Ctrl+O', T('~Open game')  ],
+    [ '_load',  'fileopen16',  'Ctrl+O', T('~Load game')  ],
     [ '_close', 'fileclose16', 'Ctrl+W', T('~Close game') ],
     [ '---'                                               ],
     [ '_quit',  'actexit16',   'Ctrl+Q', T('~Quit')       ],

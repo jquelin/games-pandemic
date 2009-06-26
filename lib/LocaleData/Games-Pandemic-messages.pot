@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) YEAR 'Jerome Quelin'
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-24 21:45+0200\n"
+"Project-Id-Version: Games-Pandemic\n"
+"Report-Msgid-Bugs-To: bug-games-pandemic@rt.cpan.org\n"
+"POT-Creation-Date: 2009-06-26 12:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -244,82 +244,70 @@ msgstr ""
 msgid "Osaka"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:299
-msgid "move to adjacent city"
+#: lib/Games/Pandemic/Tk/Main.pm:390
+msgid "Build a research station"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:300
-msgid "move to a city for which you own a card"
+#: lib/Games/Pandemic/Tk/Main.pm:391
+msgid "Discover a cure"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:301
-msgid "move to whatever city you want"
+#: lib/Games/Pandemic/Tk/Main.pm:392
+msgid "Treat a disease"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:302
-msgid "move to another research station"
+#: lib/Games/Pandemic/Tk/Main.pm:393
+msgid "Give a card"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:303
-msgid "move to another player location"
+#: lib/Games/Pandemic/Tk/Main.pm:394
+msgid "Pass your turn"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:304
-msgid "build a research station"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:305
-msgid "discover a cure"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:306
-msgid "treat a disease"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:307
-msgid "give a card"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:308
-msgid "pass your turn"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:382 lib/Games/Pandemic/Tk/Main.pm:569
+#: lib/Games/Pandemic/Tk/Main.pm:468 lib/Games/Pandemic/Tk/Main.pm:670
 msgid "New game"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:383
+#: lib/Games/Pandemic/Tk/Main.pm:469
 msgid "Join game"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:384 lib/Games/Pandemic/Tk/Main.pm:570
+#: lib/Games/Pandemic/Tk/Main.pm:470 lib/Games/Pandemic/Tk/Main.pm:671
 msgid "Load game"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:420
+#: lib/Games/Pandemic/Tk/Main.pm:506
 msgid "Pandemic"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:450
-msgid "~Game"
+#: lib/Games/Pandemic/Tk/Main.pm:538
+msgid "~New game"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:452
-msgid "~Close"
+#: lib/Games/Pandemic/Tk/Main.pm:539
+msgid "~Load game"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:462
+#: lib/Games/Pandemic/Tk/Main.pm:540
+msgid "~Close game"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:542
 msgid "~Quit"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:547
+#: lib/Games/Pandemic/Tk/Main.pm:545
+msgid "~Game"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:648
 msgid "actions left: "
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:571
+#: lib/Games/Pandemic/Tk/Main.pm:672
 msgid "Close game"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:572
+#: lib/Games/Pandemic/Tk/Main.pm:673
 msgid "Quit"
 msgstr ""

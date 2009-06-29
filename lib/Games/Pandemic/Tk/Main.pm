@@ -27,6 +27,7 @@ Readonly my $K  => $poe_kernel;
 Readonly my $mw => $poe_main_window; # already created by poe
 Readonly my $RADIUS     => 10;
 Readonly my $TIME_BLINK => 0.5;
+Readonly my $TIME_DECAY => 0.150;
 
 
 # -- accessors
@@ -352,7 +353,7 @@ event _decay => sub {
         -outline => $col,
         -width   => min(5, $#$colors+1),
     );
-    $K->delay_add( _decay => 0.150, $city, $colors ) if $#$colors;
+    $K->delay_add( _decay => $TIME_DECAY, $city, $colors ) if $#$colors;
 };
 
 

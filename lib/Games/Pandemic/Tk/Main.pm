@@ -25,6 +25,7 @@ use Games::Pandemic::Utils;
 
 Readonly my $K  => $poe_kernel;
 Readonly my $mw => $poe_main_window; # already created by poe
+Readonly my $RADIUS => 10;
 
 # -- accessors
 
@@ -733,16 +734,15 @@ sub _draw_city {
     );
 
     # draw the big circle that user can click
-    my $r = 10;
     $c->createOval(
-        $x-$r, $y-$r, $x+$r, $y+$r,
+        $x-$RADIUS, $y-$RADIUS, $x+$RADIUS, $y+$RADIUS,
         -fill => $color,
         -tags => ['city', 'draw', 'spot', $name, "c-$id"],
     );
 
     # write the city name
     $c->createText(
-        $x, $y - $r - 5,
+        $x, $y - $RADIUS * 1.5,
         -text   => $name,
         -fill   => 'black',
         -anchor => 'center',
@@ -795,7 +795,7 @@ sub _draw_infection {
     my $pad = 4;
     foreach my $i ( 0 .. $#infections ) {
         my $xorig = $x + ($#infections/2 -$i) * $len + (($#infections-$i)/2-1) * $pad;
-        my $yorig = $y + 10 + $pad;
+        my $yorig = $y + $RADIUS + $pad;
         $c->createRectangle(
             $xorig, $yorig,
             $xorig+$len, $yorig+$len,

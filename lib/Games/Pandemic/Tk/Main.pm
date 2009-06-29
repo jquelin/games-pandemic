@@ -25,7 +25,9 @@ use Games::Pandemic::Utils;
 
 Readonly my $K  => $poe_kernel;
 Readonly my $mw => $poe_main_window; # already created by poe
-Readonly my $RADIUS => 10;
+Readonly my $RADIUS     => 10;
+Readonly my $TIME_BLINK => 0.5;
+
 
 # -- accessors
 
@@ -41,6 +43,8 @@ has _widgets => (
     },
 );
 
+# currently selected player
+has _selplayer => ( is => 'rw', weak_ref => 1, isa => 'Games::Pandemic::Player' );
 
 # it's not usually a good idea to retain a reference on a poe session,
 # since poe is already taking care of the references for us. however, we
@@ -255,6 +259,11 @@ event next_player => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
     my $game = Games::Pandemic->instance;
 
+    # raise back current selected player
+    $self->_w('canvas')->raise( $self->_selplayer );
+    $self->_set_selplayer( $player );
+    $K->delay( _blink_player => $TIME_BLINK, 0 );
+
     $self->_w('lab_curplayer')->configure(-image=>image($player->image('icon', 32)));
 };
 
@@ -307,6 +316,22 @@ event _city_click => sub {
         return $K->post( controller => 'action', 'fly', $player, $city )
             if $player->owns_city_card($city);
     }
+};
+
+
+#
+# event: _blink_player( $bool )
+#
+# make current selected player blink on the map, depending on previous $bool
+# visibility satus.  schedule another _blink_player event.
+#
+event _blink_player => sub {
+    my ($self, $lit) = @_[OBJECT, ARG0];
+    my $c    = $self->_w('canvas');
+    my $curp = $self->_selplayer;
+    my $method = $lit ? 'raise' : 'lower';
+    $c->$method( $curp );
+    $K->delay( _blink_player => $TIME_BLINK, !$lit );
 };
 
 

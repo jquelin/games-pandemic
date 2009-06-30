@@ -15,6 +15,7 @@ use Readonly;
 use Tk;
 use Tk::Font;
 use Tk::JPEG;
+use Tk::Pane;
 use Tk::PNG;
 use Tk::ToolBar;
 
@@ -606,8 +607,12 @@ sub _build_menu {
 sub _build_players_bar {
     my $self = shift;
 
-    my $f = $mw->Frame->pack(@BOTTOM, @FILLX, -before=>$self->_w('canvas'));
-    $self->_set_w( fplayers => $f );
+    my $fplayers = $mw->Scrolled(
+        'Frame',
+        -scrollbars => 's',
+        -height     => 40,  # 32 pixels + border
+    )->pack(@BOTTOM, @FILLX, -before=>$self->_w('canvas'));
+    $self->_set_w( fplayers => $fplayers );
 }
 
 

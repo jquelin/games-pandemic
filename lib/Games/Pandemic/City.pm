@@ -157,13 +157,13 @@ sub get_infection {
 }
 
 
-=method $city->cure( $disease, $nb );
+=method $city->treat( $disease, $nb );
 
 Remove C<$nb> items from C<$disease> in C<$city>.
 
 =cut
 
-sub cure {
+sub treat {
     my ($self, $disease, $nb) = @_;
     my $before = $self->get_infection($disease);
     $self->_set_infection( $disease->id, $before-$nb );

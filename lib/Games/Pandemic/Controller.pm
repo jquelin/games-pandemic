@@ -176,7 +176,7 @@ event _action_treat => sub {
         ? $nb
         : 1;
 
-    $city->cure($disease, $nbtreat);
+    $city->treat($disease, $nbtreat);
     $disease->return($nbtreat);
 
     $K->post( main => 'treatment', $city );

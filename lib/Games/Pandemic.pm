@@ -128,19 +128,4 @@ friends, you'll have an exciting time - much more than with this poor
 electronic copy.
 
 
-=head1 ACKNOWLEDGEMENT
-
-Thanks to the various artists that provide their work for free, we need
-them just as much we need coders.
-
-I used the following icons:
-
-=over 4
-
-=item * pass icon by Zeus Box Studio L<http://www.zeusboxstudio.com/>,
-cc-by, see L<http://www.iconfinder.net/icondetails/12788/32>
-
-
-=back
-
 

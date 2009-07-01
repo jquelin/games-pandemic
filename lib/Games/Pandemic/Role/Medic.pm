@@ -10,7 +10,7 @@ use Games::Pandemic::Utils;
 
 
 around auto_clean_on_cure => sub { 1 };
-around cure_all           => sub { 1 };
+around treat_all          => sub { 1 };
 sub color { '#e48006'  }
 sub role  { T('Medic') }
 sub _role { 'medic'    }

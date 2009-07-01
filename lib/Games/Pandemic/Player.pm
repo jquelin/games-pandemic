@@ -108,10 +108,10 @@ it isn't the card of the city in which they are.
 Return the number of cards of the same color that the C<$player> needs
 to find a cure for a disease.
 
-=method my $bool = $player->cure_all;
+=method my $bool = $player->treat_all;
 
-Return true if the C<$player> cures all the disease cubes in a city in
-one go, even if the cure the city disease has not been discovered yet.
+Return true if the C<$player> treats all the disease cubes in a city in
+one go, even if the cure for the disease has not been discovered yet.
 
 =method my $max = $player->max_cards;
 
@@ -125,7 +125,7 @@ sub can_join_others    { 0 }
 sub can_move_others    { 0 }
 sub can_share_anywhere { 0 }
 sub cards_needed       { 5 }
-sub cure_all           { 0 }
+sub treat_all          { 0 }
 sub max_cards          { 7 }
 
 

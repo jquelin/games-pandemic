@@ -172,7 +172,7 @@ event _action_cure => sub {
     my $nb = $city->get_infection($disease);
     return $K->yield('_next_action') if $nb == 0;
 
-    my $nbcure = $curp->cure_all # FIXME: cure discovered
+    my $nbcure = $curp->treat_all # FIXME: cure discovered
         ? $nb
         : 1;
 

@@ -87,6 +87,7 @@ sub _build_gui {
 
     # center window & make it appear
     $top->Popup( -popover => $parent);
+    $top->grab; # make it modal
 }
 
 

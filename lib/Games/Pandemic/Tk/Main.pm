@@ -20,8 +20,9 @@ use Tk::PNG;
 use Tk::ToolBar;
 
 use Games::Pandemic::Config;
-use Games::Pandemic::Tk::Utils;
+use Games::Pandemic::Tk::GiveCard;
 use Games::Pandemic::Tk::PlayerFrame;
+use Games::Pandemic::Tk::Utils;
 use Games::Pandemic::Utils;
 
 Readonly my $K  => $poe_kernel;
@@ -334,6 +335,40 @@ event _decay => sub {
 #
 event _action_build => sub {
     $K->post( controller => 'action', 'build' );
+};
+
+
+#
+# event: _action_share()
+#
+# user wishes to give a card to another player.
+#
+event _action_share => sub {
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+    my $city = $curp->location;
+
+    # get list of players to whom the card can be given
+    my @players =
+        grep { $_->location eq $city }
+        grep { $_ ne $curp }
+        $game->all_players;
+
+    # get list of cards to be shared
+    my @cards = $curp->can_share_anywhere
+        ? $curp->all_cards
+        : $curp->owns_city_card($city);
+
+    if ( @players == 1 && @cards == 1 ) {
+        $K->post( controller => 'action', 'share', @cards, @players );
+
+    } else {
+        Games::Pandemic::Tk::GiveCard->new(
+            parent  => $mw,
+            cards   => \@cards,
+            players => \@players,
+        );
+    }
 };
 
 

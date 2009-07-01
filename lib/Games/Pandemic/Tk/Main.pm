@@ -339,6 +339,33 @@ event _action_build => sub {
 
 
 #
+# event: _action_cure()
+#
+# user wishes to cure a disease in her location.
+#
+event _action_cure => sub {
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+    my $map  = $game->map;
+    my $city = $curp->location;
+
+    # find the city infections
+    my @diseases;
+    foreach my $disease ( $map->all_diseases ) {
+        next if $city->get_infection($disease) == 0;
+        push @diseases, $disease;
+    }
+
+    # check if city is multi-infected
+    if ( scalar @diseases == 1 ) {
+        $K->post( controller => 'action', 'cure', $diseases[0] );
+    } else {
+        # FIXME: ask user which disease to cure
+    }
+};
+
+
+#
 # event: _action_share()
 #
 # user wishes to give a card to another player.

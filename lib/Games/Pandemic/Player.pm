@@ -247,11 +247,26 @@ sub is_build_possible {
 
 sub is_discover_possible {}
 
+
 =method my $bool = $player->is_cure_possible;
+
+Return true if C<$player> can cure a disease. It is possible if her current
+location is infected by one (or more) disease.
 
 =cut
 
-sub is_cure_possible {}
+sub is_cure_possible {
+    my $self = shift;
+    my $city = $self->location;
+    my $game = Games::Pandemic->instance;
+    my $map  = $game->map;
+
+    foreach my $disease ( $map->all_diseases ) {
+        return 1 if $city->get_infection($disease);
+    }
+    return 0;
+}
+
 
 =method my $bool = $player->is_share_possible;
 

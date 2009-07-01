@@ -561,6 +561,9 @@ sub _build_canvas {
 sub _build_gui {
     my $self = shift;
 
+    # hide window during its creation to avoid flickering
+    $mw->withdraw;
+
     # prettyfying tk app.
     # see http://www.perltk.org/index.php?option=com_content&task=view&id=43&Itemid=37
     $mw->optionAdd('*BorderWidth' => 1);
@@ -576,6 +579,10 @@ sub _build_gui {
     $self->_build_toolbar;
     $self->_build_menu;
     $self->_build_canvas;
+
+    # center & show the window
+    # FIXME: restore last position saved?
+    $mw->Popup;
 }
 
 

@@ -242,6 +242,33 @@ event _action_pass => sub {
 
 
 #
+# event: _action_share($card, $player)
+#
+# request to give $card to $player.
+#
+event _action_share => sub {
+    my ($card, $player) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+    my $city = $curp->location;
+
+    return $K->yield('_next_action') if $player eq $curp;
+    return $K->yield('_next_action') if $player->location ne $city;
+    return $K->yield('_next_action') unless $curp->owns_card($card);
+    return $K->yield('_next_action') unless $card->isa('Games::Pandemic::Card::City');
+    return $K->yield('_next_action') unless $card->city eq $city || $curp->can_share_anywhere;
+
+    # give the card
+    $curp->drop_card( $card );
+    $player->gain_card( $card );
+    $K->post( main => 'drop_card', $curp, $card );
+    $K->post( main => 'got_card', $player, $card );
+
+    $K->yield('_action_done');
+};
+
+
+#
 # event: _action_shuttle($player, $city)
 #
 # request to move $player to $city by research station shuttle.

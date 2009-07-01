@@ -157,6 +157,21 @@ sub get_infection {
 }
 
 
+=method $city->cure( $disease, $nb );
+
+Remove C<$nb> items from C<$disease> in C<$city>.
+
+=cut
+
+sub cure {
+    my ($self, $disease, $nb) = @_;
+    my $before = $self->get_infection($disease);
+    $self->_set_infection( $disease->id, $before-$nb );
+}
+
+
+
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

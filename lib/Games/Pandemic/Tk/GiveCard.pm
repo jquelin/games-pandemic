@@ -82,7 +82,7 @@ sub _build_gui {
     $top->withdraw;
 
     # set windowtitle
-    $top->title(T('Sharing knowledge...'));
+    $top->title(T('Sharing...'));
     $top->iconimage( pandemic_icon($top) );
 
     # center window & make it appear

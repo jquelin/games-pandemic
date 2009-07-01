@@ -16,7 +16,7 @@ our @EXPORT = qw{
     @TOP @BOTTOM @LEFT @RIGHT
     @FILLX  @FILLY  @FILL2
     @XFILLX @XFILLY @XFILL2
-    @PAD1   @PAD20 @PADX10
+    @PAD1   @PAD10 @PAD20 @PADX10
     @ENON   @ENOFF
     image   pandemic_icon
 };
@@ -39,6 +39,7 @@ our @XFILL2  = ( -expand => 1, -fill => 'both' );
 
 # padding
 our @PAD1    = ( -padx => 1, -pady => 1);
+our @PAD10   = ( -padx => 10, -pady => 10);
 our @PAD20   = ( -padx => 20, -pady => 20);
 our @PADX10  = ( -padx => 10 );
 

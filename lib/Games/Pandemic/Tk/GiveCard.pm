@@ -73,6 +73,18 @@ sub _cancel {
 }
 
 
+#
+# $dialog->_give;
+#
+# request to give a card & destroy the dialog.
+#
+sub _give {
+    my $self = shift;
+    $K->post( controller => 'action', 'share', $self->_card, $self->_player );
+    $self->_toplevel->destroy;
+}
+
+
 # -- private methods
 
 #
@@ -167,8 +179,9 @@ sub _build_gui {
     # proportional to their english text.
     my $fbuttons = $top->Frame->pack(@TOP, @FILLX);
     $fbuttons->Button(
-        -text  => T('Give'),
-        -width => 10,
+        -text    => T('Give'),
+        -width   => 10,
+        -command => sub { $self->_give },
     )->pack(@LEFT, @XFILL2);
     $fbuttons->Button(
         -text    => T('Cancel'),

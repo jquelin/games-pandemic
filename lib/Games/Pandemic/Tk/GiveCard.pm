@@ -6,7 +6,6 @@ use strict;
 use warnings;
 
 use Moose;
-use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
 use POE;
 use Readonly;
@@ -54,14 +53,12 @@ has _session => ( is=>'rw', isa=>'POE::Session', weak_ref=>1 );
 # -- initialization
 
 #
-# START()
+# BUILD()
 #
-# called as poe session initialization.
+# called as constructor initialization
 #
-sub START {
-    my ($self, $session) = @_[OBJECT, SESSION];
-    $K->alias_set('give_card');
-    $self->_set_session($session);
+sub BUILD {
+    my $self = shift;
     $self->_build_gui;
 }
 
@@ -197,7 +194,7 @@ __END__
 
 =begin Pod::Coverage
 
-START
+BUILD
 
 =end Pod::Coverage
 

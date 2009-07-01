@@ -9,7 +9,7 @@ use Moose::Role;
 use Games::Pandemic::Utils;
 
 
-around can_share => sub { 1 };
+around can_share_anywhere => sub { 1 };
 sub color { '#aa7826'       }
 sub role  { T('Researcher') }
 sub _role { 'researcher'    }

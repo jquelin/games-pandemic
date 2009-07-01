@@ -97,7 +97,7 @@ another player.
 Return true if the C<$player> can move the other's pawns during her
 turn.
 
-=method my $bool = $player->can_share;
+=method my $bool = $player->can_share_anywhere;
 
 Return true if the C<$player> can give a card to another player even if
 it isn't the card of the city in which they are.
@@ -122,7 +122,7 @@ sub auto_clean_on_cure { 0 }
 sub can_build_anywhere { 0 }
 sub can_join_others    { 0 }
 sub can_move_others    { 0 }
-sub can_share          { 0 }
+sub can_share_anywhere { 0 }
 sub cards_needed       { 5 }
 sub cure_all           { 0 }
 sub max_cards          { 7 }

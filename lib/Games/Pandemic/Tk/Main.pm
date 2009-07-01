@@ -289,7 +289,7 @@ event player_move => sub {
 
 =method event: treatment( $city )
 
-Received when C<$city> has been cured.
+Received when C<$city> has been treated.
 
 =cut
 
@@ -371,9 +371,9 @@ event _action_treat => sub {
 
     # check if city is multi-infected
     if ( scalar @diseases == 1 ) {
-        $K->post( controller => 'action', 'cure', $diseases[0] );
+        $K->post( controller => 'action', 'treat', $diseases[0] );
     } else {
-        # FIXME: ask user which disease to cure
+        # FIXME: ask user which disease to treat
     }
 };
 

@@ -159,11 +159,11 @@ event _action_charter => sub {
 
 
 #
-# event: _action_cure($disease)
+# event: _action_treat($disease)
 #
-# request to cure $disease from current player location.
+# request to treat $disease from current player location.
 #
-event _action_cure => sub {
+event _action_treat => sub {
     my $disease = $_[ARG0];
     my $game = Games::Pandemic->instance;
     my $curp = $game->curplayer;
@@ -172,12 +172,12 @@ event _action_cure => sub {
     my $nb = $city->get_infection($disease);
     return $K->yield('_next_action') if $nb == 0;
 
-    my $nbcure = $curp->treat_all # FIXME: cure discovered
+    my $nbtreat = $curp->treat_all # FIXME: cure discovered
         ? $nb
         : 1;
 
-    $city->cure($disease, $nbcure);
-    $disease->return($nbcure);
+    $city->cure($disease, $nbtreat);
+    $disease->return($nbtreat);
 
     $K->post( main => 'treatment', $city );
     $K->yield('_action_done');

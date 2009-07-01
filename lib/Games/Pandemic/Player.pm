@@ -241,11 +241,32 @@ sub is_build_possible {
     return $self->owns_city_card( $city );
 }
 
+
 =method my $bool = $player->is_discover_possible;
+
+Return true if C<$player> can discover a cure. She can do so if she owns enough
+city cards of the right disease.
 
 =cut
 
-sub is_discover_possible {}
+sub is_discover_possible {
+    my $self = shift;
+
+    # get list of city cards
+    my @cards =
+        grep { $_->isa('Games::Pandemic::Card::City') }
+        $self->all_cards;
+
+    # check if we have enough cards
+    my %seen;
+    foreach my $card ( @cards ) {
+        my $name = $card->city->disease->name;
+        $seen{$name}++;
+        return 1 if $seen{$name} == $self->cards_needed;
+    }
+
+    return 0;
+}
 
 
 =method my $bool = $player->is_treat_possible;

@@ -35,6 +35,8 @@ has cards => (
 
 has parent => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
 
+has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
+
 has players => (
     is         => 'ro',
     isa        => 'ArrayRef',
@@ -64,16 +66,20 @@ sub START {
 }
 
 
-# -- public events
+# -- gui methods
+
+#
+# $dialog->_cancel;
+#
+# destroy the dialog without performing any action.
+#
+sub _cancel {
+    my $self = shift;
+    $self->_toplevel->destroy;
+}
 
 
-
-# -- private events
-
-# -- gui events
-
-
-# -- gui creation
+# -- private methods
 
 #
 # $main->_build_gui;
@@ -85,6 +91,7 @@ sub _build_gui {
     my $parent = $self->parent;
 
     my $top = $parent->Toplevel;
+    $self->_set_toplevel($top);
     $top->withdraw;
 
     # set windowtitle
@@ -172,7 +179,7 @@ sub _build_gui {
     $fbuttons->Button(
         -text    => T('Cancel'),
         -width   => 10,
-        -command => sub { $top->destroy },
+        -command => sub { $self->_cancel },
     )->pack(@LEFT, @XFILL2);
 
     # center window & make it appear

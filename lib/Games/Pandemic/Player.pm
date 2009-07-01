@@ -29,6 +29,7 @@ has _cards => (
         values  => 'all_cards',       # my @c = $player->all_cards;
         delete  => 'drop_card',       # $player->drop_card( $card );
         set     => '_add_card',       # $player->_add_card( $card, $card );
+        exists  => 'owns_card',       # my $bool = $player->owns_card($card);
     }
 );
 

@@ -5,9 +5,12 @@ use 5.010;
 use strict;
 use warnings;
 
+use File::Spec::Functions qw{ catfile };
 use Moose;
 use POE;
 extends 'Exporter';
+
+use Games::Pandemic::Utils;
 
 our @EXPORT = qw{
     @TOP @BOTTOM @LEFT @RIGHT
@@ -15,7 +18,7 @@ our @EXPORT = qw{
     @XFILLX @XFILLY @XFILL2
     @PAD1   @PAD20 @PADX10
     @ENON   @ENOFF
-    image
+    image   pandemic_icon
 };
 
 # -- exported constants (variables, since tk doesn't play nice with readonly)
@@ -61,6 +64,18 @@ sub image {
     return $img if $img->width;
     return $toplevel->Photo("$toplevel-$path", -file=>$path);
 }
+
+
+=method my $img = pandemic_icon( [$toplevel] );
+
+Return a tk image to be used as C<$toplevel> icon throughout the game.
+
+=cut
+
+sub pandemic_icon {
+    return image( catfile($SHAREDIR, 'icon.png'), @_ );
+}
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

@@ -17,12 +17,6 @@ use Games::Pandemic::Tk::Utils;
 Readonly my $K  => $poe_kernel;
 
 
-# -- global variables
-
-my $selcard;     # card selected in the dialog
-my $selplayer;   # player selected in the dialog
-
-
 # -- accessors
 
 has cards => (
@@ -42,6 +36,9 @@ has players => (
     required   => 1,
     auto_deref => 1,
 );
+
+has _card   => ( is=>'rw', weak_ref=>1, isa=>'Games::Pandemic::Card::City' );
+has _player => ( is=>'rw', weak_ref=>1, isa=>'Games::Pandemic::Player' );
 
 # it's not usually a good idea to retain a reference on a poe session,
 # since poe is already taking care of the references for us. however, we
@@ -101,6 +98,7 @@ sub _build_gui {
 
     # if more than one player, select which one will receive the card
     my @players = $self->players;
+    $self->_set_player( $players[0] );
     if ( @players > 1 ) {
         # enclose players in their own frame
         my $f = $fcenter->Frame->pack(@LEFT, @PAD10, -anchor=>'nw');
@@ -110,6 +108,7 @@ sub _build_gui {
         )->pack(@TOP, @FILLX);
 
         # display cards
+        my $selplayer = $self->_player->role;
         foreach my $player ( @players ) {
             # to display a radiobutton with image + text, we need to
             # create a radiobutton with a label just next to it.
@@ -119,19 +118,18 @@ sub _build_gui {
                 -variable => \$selplayer,
                 -value    => $player->role,
                 -anchor   => 'w',
+                -command  => sub{ $self->_set_player($player); },
             )->pack(@LEFT, @XFILLX);
             my $lab = $fplayer->Label(
                 -image    => image( $player->image('icon', 32), $top ),
             )->pack(@LEFT);
-            $lab->bind( '<1>', sub { $selplayer = $player->role } );
+            $lab->bind( '<1>', sub { $self->_set_player($player); $selplayer=$player->role; } );
         }
-
-        # select first player
-        $selplayer = $players[0]->role;
     }
 
     # if more than one card, select which one to give
     my @cards = $self->cards;
+    $self->_set_card( $cards[0] );
     if ( @cards > 1 ) {
         # enclosed cards in their own frame
         my $f = $fcenter->Frame->pack(@LEFT, @FILLX, @PAD10, -anchor=>'nw');
@@ -141,6 +139,7 @@ sub _build_gui {
         )->pack(@TOP, @FILLX);
 
         # display cards
+        my $selcard = $self->_card->label;
         foreach my $card ( @cards ) {
             # to display a radiobutton with image + text, we need to
             # create a radiobutton with a label just next to it.
@@ -149,16 +148,14 @@ sub _build_gui {
                 -image    => image($card->icon, $top),
                 -variable => \$selcard,
                 -value    => $card->label,
+                -command  => sub { $self->_set_card($card); },
             )->pack(@LEFT);
             my $lab = $fcity->Label(
                 -text   => $card->label,
                 -anchor => 'w',
             )->pack(@LEFT, @FILLX);
-            $lab->bind( '<1>', sub { $selcard = $card->label } );
+            $lab->bind( '<1>', sub { $self->_set_card($card); $selcard=$card->label; } );
         }
-
-        # select first card
-        $selcard = $cards[0]->label;
     }
 
 

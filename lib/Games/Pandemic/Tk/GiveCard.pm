@@ -92,42 +92,14 @@ sub _build_gui {
     $top->iconimage( pandemic_icon($top) );
 
 
-    # if more than one card, select which one to give
-    my @cards = $self->cards;
-    if ( @cards > 1 ) {
-        # enclosed cards in their own frame
-        my $f = $top->Frame->pack(@TOP, @FILLX, @PAD10);
-        $f->Label(
-            -text   => T('Select city card to give:'),
-            -anchor => 'w',
-        )->pack(@TOP, @FILLX);
+    my $fcenter = $top->Frame->pack(@TOP, @XFILL2);
 
-        # display cards
-        foreach my $card ( @cards ) {
-            # to display a radiobutton with image + text, we need to
-            # create a radiobutton with a label just next to it.
-            my $fcity = $f->Frame->pack(@TOP, @FILLX);
-            $fcity->Radiobutton(
-                -image    => image($card->icon, $top),
-                -variable => \$selcard,
-                -value    => $card->label,
-            )->pack(@LEFT);
-            my $lab = $fcity->Label(
-                -text   => $card->label,
-                -anchor => 'w',
-            )->pack(@LEFT, @FILLX);
-            $lab->bind( '<1>', sub { $selcard = $card->label } );
-        }
-
-        # select first card
-        $selcard = $cards[0]->label;
-    }
 
     # if more than one player, select which one will receive the card
     my @players = $self->players;
     if ( @players > 1 ) {
         # enclose players in their own frame
-        my $f = $top->Frame->pack(@TOP, @PAD10, -anchor=>'w');
+        my $f = $fcenter->Frame->pack(@LEFT, @PAD10, -anchor=>'nw');
         $f->Label(
             -text   => T('Select player receiving the card:'),
             -anchor => 'w',
@@ -152,6 +124,37 @@ sub _build_gui {
 
         # select first player
         $selplayer = $players[0]->role;
+    }
+
+    # if more than one card, select which one to give
+    my @cards = $self->cards;
+    if ( @cards > 1 ) {
+        # enclosed cards in their own frame
+        my $f = $fcenter->Frame->pack(@LEFT, @FILLX, @PAD10, -anchor=>'nw');
+        $f->Label(
+            -text   => T('Select city card to give:'),
+            -anchor => 'w',
+        )->pack(@TOP, @FILLX);
+
+        # display cards
+        foreach my $card ( @cards ) {
+            # to display a radiobutton with image + text, we need to
+            # create a radiobutton with a label just next to it.
+            my $fcity = $f->Frame->pack(@TOP, @FILLX);
+            $fcity->Radiobutton(
+                -image    => image($card->icon, $top),
+                -variable => \$selcard,
+                -value    => $card->label,
+            )->pack(@LEFT);
+            my $lab = $fcity->Label(
+                -text   => $card->label,
+                -anchor => 'w',
+            )->pack(@LEFT, @FILLX);
+            $lab->bind( '<1>', sub { $selcard = $card->label } );
+        }
+
+        # select first card
+        $selcard = $cards[0]->label;
     }
 
     # center window & make it appear

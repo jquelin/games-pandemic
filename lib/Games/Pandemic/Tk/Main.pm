@@ -98,13 +98,13 @@ event drop_card => sub {
 };
 
 
-=method event: got_card($player, $card)
+=method event: gain_card($player, $card)
 
 Received when C<$player> got a new C<$card>.
 
 =cut
 
-event got_card => sub {
+event gain_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
 
     $self->_w("f$player")->add_card($card);

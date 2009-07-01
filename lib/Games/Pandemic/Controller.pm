@@ -262,7 +262,7 @@ event _action_share => sub {
     $curp->drop_card( $card );
     $player->gain_card( $card );
     $K->post( main => 'drop_card', $curp, $card );
-    $K->post( main => 'got_card', $player, $card );
+    $K->post( main => 'gain_card', $player, $card );
 
     $K->yield('_action_done');
 };
@@ -307,7 +307,7 @@ event _deal_card => sub {
     foreach my $i ( 1 .. $nb ) {
         my $card = $deck->next;
         $player->gain_card($card);
-        $K->post(main=>'got_card', $player, $card);
+        $K->post(main=>'gain_card', $player, $card);
     }
 
     # FIXME: game over if no more card

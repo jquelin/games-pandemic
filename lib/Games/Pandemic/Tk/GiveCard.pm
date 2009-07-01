@@ -76,13 +76,17 @@ sub START {
 #
 sub _build_gui {
     my $self = shift;
+    my $parent = $self->parent;
 
-    my $top = $self->parent->Toplevel;
+    my $top = $parent->Toplevel;
+    $top->withdraw;
 
     # set windowtitle
     $top->title(T('Sharing knowledge...'));
     $top->iconimage( pandemic_icon($top) );
 
+    # center window & make it appear
+    $top->Popup( -popover => $parent);
 }
 
 

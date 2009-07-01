@@ -18,6 +18,11 @@ use Games::Pandemic::Tk::Utils;
 Readonly my $K  => $poe_kernel;
 
 
+# -- global variables
+
+my $selcard;    # card selected in the dialog
+
+
 # -- accessors
 
 has cards => (
@@ -84,6 +89,38 @@ sub _build_gui {
     # set windowtitle
     $top->title(T('Sharing...'));
     $top->iconimage( pandemic_icon($top) );
+
+
+    # if more than one card, select which one to give
+    my @cards = $self->cards;
+    if ( @cards > 1 ) {
+        # enclosed cards in their own frame
+        my $f = $top->Frame->pack(@TOP, @FILLX, @PAD10);
+        $f->Label(
+            -text   => T('Select city card to give:'),
+            -anchor => 'w',
+        )->pack(@TOP, @FILLX);
+
+        # display cards
+        foreach my $card ( @cards ) {
+            # to display a radiobutton with image + text, we need to
+            # create a radiobutton with a label just next to it.
+            my $fcity = $f->Frame->pack(@TOP, @FILLX);
+            $fcity->Radiobutton(
+                -image    => image($card->icon, $top),
+                -variable => \$selcard,
+                -value    => $card->label,
+            )->pack(@LEFT);
+            my $lab = $fcity->Label(
+                -text   => $card->label,
+                -anchor => 'w',
+            )->pack(@LEFT, @FILLX);
+            $lab->bind( '<1>', sub { $selcard = $card->label } );
+        }
+
+        # select first card
+        $selcard = $cards[0]->label;
+    }
 
     # center window & make it appear
     $top->Popup( -popover => $parent);

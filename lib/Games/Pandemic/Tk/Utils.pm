@@ -46,18 +46,20 @@ our @ENOFF   = ( -state => 'disabled' );
 
 # -- public subs
 
-=method my $img = image( $path );
+=method my $img = image( $path [, $toplevel ] );
 
 Return a tk image loaded from C<$path>. If the photo has already been
-loaded, return a handle on it.
+loaded, return a handle on it. If C<$toplevel> is given, it is used as
+base window to load the image.
 
 =cut
 
 sub image {
-    my $path = shift;
+    my ($path, $toplevel) = @_;
+    $toplevel //= $poe_main_window; # //FIXME: padre
     my $img = $poe_main_window->Photo($path);
     return $img if $img->width;
-    return $poe_main_window->Photo($path, -file=>$path);
+    return $toplevel->Photo("$toplevel-$path", -file=>$path);
 }
 
 no Moose;

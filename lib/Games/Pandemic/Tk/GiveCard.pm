@@ -81,7 +81,7 @@ sub _build_gui {
 
     # set windowtitle
     $top->title(T('Sharing knowledge...'));
-    #$top->iconimage( image( catfile($SHAREDIR, 'icon.png') ) );
+    $top->iconimage( pandemic_icon($top) );
 
 }
 

@@ -567,7 +567,7 @@ sub _build_gui {
 
     # set windowtitle
     $mw->title(T('Pandemic'));
-    $mw->iconimage( image( catfile($SHAREDIR, 'icon.png') ) );
+    $mw->iconimage( pandemic_icon() );
 
     # WARNING: we need to create the toolbar object before anything
     # else. indeed, tk::toolbar loads the embedded icons in classinit,

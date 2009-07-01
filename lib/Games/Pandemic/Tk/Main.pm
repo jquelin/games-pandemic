@@ -352,11 +352,11 @@ event _action_build => sub {
 
 
 #
-# event: _action_cure()
+# event: _action_treat()
 #
-# user wishes to cure a disease in her location.
+# user wishes to treat a disease in her location.
 #
-event _action_cure => sub {
+event _action_treat => sub {
     my $game = Games::Pandemic->instance;
     my $curp = $game->curplayer;
     my $map  = $game->map;
@@ -492,7 +492,7 @@ sub _build_action_bar {
     my @actions = (
         [ 'build',    T('Build a research station')                ],
         [ 'discover', T('Discover a cure')                         ],
-        [ 'cure',     T('Treat a disease')                         ],
+        [ 'treat',    T('Treat a disease')                         ],
         [ 'share',    T('Give a card')                             ],
         [ 'pass',     T('Pass your turn')                          ],
     );
@@ -951,7 +951,7 @@ sub _update_actions {
     my $game = Games::Pandemic->instance;
     my $player = $game->curplayer;
 
-    my @actions = qw{ build discover cure share pass };
+    my @actions = qw{ build discover treat share pass };
     foreach my $action ( @actions ) {
         my $method = "is_${action}_possible";
         $self->_w("but_action_$action")->configure(

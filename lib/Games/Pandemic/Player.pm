@@ -248,14 +248,14 @@ sub is_build_possible {
 sub is_discover_possible {}
 
 
-=method my $bool = $player->is_cure_possible;
+=method my $bool = $player->is_treat_possible;
 
-Return true if C<$player> can cure a disease. It is possible if her current
+Return true if C<$player> can treat a disease. It is possible if her current
 location is infected by one (or more) disease.
 
 =cut
 
-sub is_cure_possible {
+sub is_treat_possible {
     my $self = shift;
     my $city = $self->location;
     my $game = Games::Pandemic->instance;

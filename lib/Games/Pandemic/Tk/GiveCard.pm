@@ -157,6 +157,24 @@ sub _build_gui {
         $selcard = $cards[0]->label;
     }
 
+
+
+    # the dialog buttons.
+    # note that we specify a bogus width in order for both buttons to be
+    # the same width. since we pack them with expand set to true, their
+    # width will grow - but equally. otherwise, their size would be
+    # proportional to their english text.
+    my $fbuttons = $top->Frame->pack(@TOP, @FILLX);
+    $fbuttons->Button(
+        -text  => T('Give'),
+        -width => 10,
+    )->pack(@LEFT, @XFILL2);
+    $fbuttons->Button(
+        -text    => T('Cancel'),
+        -width   => 10,
+        -command => sub { $top->destroy },
+    )->pack(@LEFT, @XFILL2);
+
     # center window & make it appear
     $top->Popup( -popover => $parent);
     $top->grab; # make it modal

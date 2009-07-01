@@ -254,9 +254,21 @@ sub is_cure_possible {}
 
 =method my $bool = $player->is_share_possible;
 
+Return true if C<$player> can share a card in her current location. It is
+possible if she owns the card of the city, or if she is the researcher. Of
+course it is impossible if player's alone in the city.
+
 =cut
 
-sub is_share_possible {}
+sub is_share_possible {
+    my $self = shift;
+    my $city = $self->location;
+    my $game = Games::Pandemic->instance;
+
+    return 0 unless grep { $_ ne $self && $_->location eq $city } $game->all_players;
+    return 1 if $self->can_share_anywhere;
+    return $self->owns_city_card( $city );
+}
 
 
 =method my $bool = $player->is_pass_possible;

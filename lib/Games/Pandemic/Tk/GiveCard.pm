@@ -20,7 +20,8 @@ Readonly my $K  => $poe_kernel;
 
 # -- global variables
 
-my $selcard;    # card selected in the dialog
+my $selcard;     # card selected in the dialog
+my $selplayer;   # player selected in the dialog
 
 
 # -- accessors
@@ -120,6 +121,37 @@ sub _build_gui {
 
         # select first card
         $selcard = $cards[0]->label;
+    }
+
+    # if more than one player, select which one will receive the card
+    my @players = $self->players;
+    if ( @players > 1 ) {
+        # enclose players in their own frame
+        my $f = $top->Frame->pack(@TOP, @PAD10, -anchor=>'w');
+        $f->Label(
+            -text   => T('Select player receiving the card:'),
+            -anchor => 'w',
+        )->pack(@TOP, @FILLX);
+
+        # display cards
+        foreach my $player ( @players ) {
+            # to display a radiobutton with image + text, we need to
+            # create a radiobutton with a label just next to it.
+            my $fplayer = $f->Frame->pack(@TOP, @FILLX);
+            $fplayer->Radiobutton(
+                -text     => $player->role,
+                -variable => \$selplayer,
+                -value    => $player->role,
+                -anchor   => 'w',
+            )->pack(@LEFT, @XFILLX);
+            my $lab = $fplayer->Label(
+                -image    => image( $player->image('icon', 32), $top ),
+            )->pack(@LEFT);
+            $lab->bind( '<1>', sub { $selplayer = $player->role } );
+        }
+
+        # select first player
+        $selplayer = $players[0]->role;
     }
 
     # center window & make it appear

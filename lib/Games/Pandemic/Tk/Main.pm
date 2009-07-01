@@ -287,6 +287,19 @@ event player_move => sub {
 };
 
 
+=method event: treatment( $city )
+
+Received when C<$city> has been cured.
+
+=cut
+
+event treatment => sub {
+    my ($self, $city) = @_[OBJECT, ARG0];
+    $self->_draw_infection($city);
+    $self->_update_status;
+};
+
+
 # -- private events
 
 #
@@ -955,6 +968,7 @@ sub _update_actions {
 #
 sub _update_status {
     my $self = shift;
+    # FIXME: implement
 }
 
 

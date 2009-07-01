@@ -289,39 +289,6 @@ event player_move => sub {
 # -- private events
 
 #
-# event: _city_click( undef, [ $canvas ] )
-#
-# called when used clicked on a city on the canvas.
-#
-event _city_click => sub {
-    my $args = $_[ARG1];
-    my ($canvas) = @$args;
-
-    my $game = Games::Pandemic->instance;
-    my $map  = $game->map;
-    my $player = $game->curplayer; # FIXME: dispatcher
-
-    # find city clicked
-    my $item = $canvas->find( withtag => 'current' );
-    my ($id) = grep { s/^c-(.*)/$1/ } $canvas->gettags($item);
-    my $city = $map->city($id);
-
-    if ( $city eq $player->location ) {
-        # FIXME: hilight possible travel destinations
-    } else {
-        return $K->post( controller => 'action', 'move', $player, $city )
-            if $player->can_travel_to($city);
-        return $K->post( controller => 'action', 'shuttle', $player, $city )
-            if $player->can_shuttle_to($city);
-        return $K->post( controller => 'action', 'charter', $player, $city )
-            if $player->owns_city_card($player->location);
-        return $K->post( controller => 'action', 'fly', $player, $city )
-            if $player->owns_city_card($city);
-    }
-};
-
-
-#
 # event: _blink_player( $bool )
 #
 # make current selected player blink on the map, depending on previous $bool
@@ -377,6 +344,39 @@ event _action_build => sub {
 #
 event _action_pass => sub {
     $K->post( controller => 'action', 'pass' );
+};
+
+
+#
+# event: _city_click( undef, [ $canvas ] )
+#
+# called when used clicked on a city on the canvas.
+#
+event _city_click => sub {
+    my $args = $_[ARG1];
+    my ($canvas) = @$args;
+
+    my $game = Games::Pandemic->instance;
+    my $map  = $game->map;
+    my $player = $game->curplayer; # FIXME: dispatcher
+
+    # find city clicked
+    my $item = $canvas->find( withtag => 'current' );
+    my ($id) = grep { s/^c-(.*)/$1/ } $canvas->gettags($item);
+    my $city = $map->city($id);
+
+    if ( $city eq $player->location ) {
+        # FIXME: hilight possible travel destinations
+    } else {
+        return $K->post( controller => 'action', 'move', $player, $city )
+            if $player->can_travel_to($city);
+        return $K->post( controller => 'action', 'shuttle', $player, $city )
+            if $player->can_shuttle_to($city);
+        return $K->post( controller => 'action', 'charter', $player, $city )
+            if $player->owns_city_card($player->location);
+        return $K->post( controller => 'action', 'fly', $player, $city )
+            if $player->owns_city_card($city);
+    }
 };
 
 

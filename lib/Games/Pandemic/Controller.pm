@@ -5,7 +5,8 @@ use 5.010;
 use strict;
 use warnings;
 
-use List::Util qw{ shuffle };
+use List::Util      qw{ shuffle };
+use List::MoreUtils qw{ all };
 use MooseX::Singleton;  # should come before any other moose
 use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
@@ -180,6 +181,42 @@ event _action_treat => sub {
     $disease->return($nbtreat);
 
     $K->post( main => 'treatment', $city );
+    $K->yield('_action_done');
+};
+
+
+#
+# event: _action_discover($disease, @cards)
+#
+# request to discover a cure.
+#
+event _action_discover => sub {
+    my ($disease, @cards) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+    my $deck = $game->cards;
+
+    # various checks
+    return $K->yield('_next_action')
+        if $disease->is_cured                                # nothing to do
+        || !$curp->location->has_station                     # no research station
+        || scalar(@cards) != $curp->cards_needed             # not enough cards
+        || not(all { $_->isa('Games::Pandemic::Card::City') } @cards) # not the right cards
+        || not(all { $curp->owns_card($_) } @cards)          # not the right player
+        || not(all { $_->city->disease eq $disease } @cards) # wrong cards
+        ;
+
+    # yup, we can exchange cards for a cure
+    foreach my $card ( @cards ) {
+        $curp->drop_card($card);
+        $deck->discard($card);
+        $K->post( main => 'drop_card', $curp, $card );
+    }
+    $disease->cure;
+    $K->post( main => 'cure', $disease );
+
+    # FIXME: golden cure
+
     $K->yield('_action_done');
 };
 

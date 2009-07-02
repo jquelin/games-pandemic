@@ -85,6 +85,18 @@ event build_station => sub {
 };
 
 
+=method event: cure($disease)
+
+Received when a cure has been found for C<$disease>.
+
+=cut
+
+event cure => sub {
+    my ($self, $disease) = @_[OBJECT, ARG0];
+    $self->_update_status;
+};
+
+
 =method event: drop_card($player, $card)
 
 Received when C<$player> drops a C<$card>.

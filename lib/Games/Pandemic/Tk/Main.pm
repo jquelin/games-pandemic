@@ -750,9 +750,8 @@ sub _build_status_bar {
     $fstations->Label(
         -image => image( catfile( $SHAREDIR, 'research-station-32.png' ) ),
     )->pack(@LEFT);
-    $fstations->Label(
-        -text => $game->stations,
-    )->pack(@LEFT);
+    my $lab_nbstations = $fstations->Label->pack(@LEFT);
+    $self->_set_w('lab_nbstations', $lab_nbstations );
 
     # diseases information
     my $fdiseases = $sb->Frame->pack(@LEFT, @PADX10);
@@ -761,13 +760,12 @@ sub _build_status_bar {
         $fdiseases->Label(
             -image => image( $disease->image('cube', 32) ),
         )->pack(@LEFT);
-        $fdiseases->Label(
-            -text => $disease->nbleft,
-        )->pack(@LEFT);
-        $fcures->Label(
+        my $lab_disease = $fdiseases->Label->pack(@LEFT);
+        my $lab_cure = $fcures->Label(
             -image => image( $disease->image('cure', 32) ),
-            @ENOFF,
         )->pack(@LEFT);
+        $self->_set_w("lab_disease_$disease", $lab_disease);
+        $self->_set_w("lab_cure_$disease", $lab_cure);
     }
 
     # player cards information
@@ -776,9 +774,8 @@ sub _build_status_bar {
     $fcards->Label(
         -image => image( catfile( $SHAREDIR, 'card-player.png' ) ),
     )->pack(@LEFT);
-    $fcards->Label(
-        -text => $cards->nbcards . '-' . $cards->nbdiscards,
-    )->pack(@LEFT);
+    my $lab_cards = $fcards->Label->pack(@LEFT);
+    $self->_set_w('lab_cards', $lab_cards);
 
     # infection information
     my $infection = $game->infection;
@@ -786,9 +783,8 @@ sub _build_status_bar {
     $finfection->Label(
         -image => image( catfile( $SHAREDIR, 'card-infection.png' ) ),
     )->pack(@LEFT);
-    $finfection->Label(
-        -text => $infection->nbcards . '-' . $infection->nbdiscards,
-    )->pack(@LEFT);
+    my $lab_infection = $finfection->Label->pack(@LEFT);
+    $self->_set_w('lab_infection', $lab_infection);
 
     # player information
     my $fplayer = $sb->Frame->pack(@LEFT, @PADX10);
@@ -1002,7 +998,26 @@ sub _update_actions {
 #
 sub _update_status {
     my $self = shift;
-    # FIXME: implement
+    my $game = Games::Pandemic->instance;
+    my $map  = $game->map;
+
+    # research stations
+    $self->_w('lab_nbstations')->configure(-text => $game->stations);
+
+    # diseases information
+    foreach my $disease ( $map->all_diseases ) {
+        $self->_w("lab_disease_$disease")->configure(-text => $disease->nbleft);
+        $self->_w("lab_cure_$disease")->configure(
+            $disease->is_cured ? (@ENON) : (@ENOFF) );
+    }
+
+    # cards information
+    my $deck1 = $game->cards;
+    my $deck2 = $game->infection;
+    my $text1 = $deck1->nbcards . '-' . $deck1->nbdiscards;
+    my $text2 = $deck2->nbcards . '-' . $deck2->nbdiscards;
+    $self->_w('lab_cards')->configure( -text => $text1 );
+    $self->_w('lab_infection')->configure(-text => $text2 );
 }
 
 

@@ -244,13 +244,16 @@ sub is_build_possible {
 
 =method my $disease = $player->is_discover_possible;
 
-Return the C<$disease> that C<$player> can cure, that is, if she owns enough
-city cards of this disease. Return undef otherwise.
+Return the C<$disease> that C<$player> can cure, that is, if she owns
+enough city cards of this disease and she is in a city with a research
+station. Return undef otherwise.
 
 =cut
 
 sub is_discover_possible {
     my $self = shift;
+
+    return unless $self->location->has_station;
 
     # get list of city cards
     my @cards =

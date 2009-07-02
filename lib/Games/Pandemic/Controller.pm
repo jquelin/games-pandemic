@@ -299,8 +299,12 @@ event _action_move => sub {
 # user wishes to pass.
 # 
 event _action_pass => sub {
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+
     # nothing to do - user is just passing
-    $K->yield('_action_done');
+    $curp->set_actions_left(0);
+    $K->yield( '_draw_cards' );
 };
 
 

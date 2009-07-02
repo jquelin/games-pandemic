@@ -82,6 +82,7 @@ Received when C<$city> gained a research station.
 event build_station => sub {
     my ($self, $city) = @_[OBJECT, ARG0];
     $self->_draw_station($city);
+    $self->_update_status;
 };
 
 
@@ -118,8 +119,8 @@ Received when C<$player> got a new C<$card>.
 
 event gain_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
-
     $self->_w("f$player")->add_card($card);
+    $self->_update_status; # deck count
 };
 
 

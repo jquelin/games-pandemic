@@ -352,6 +352,28 @@ event _action_build => sub {
 
 
 #
+# event: _action_discover()
+#
+# user wishes to discover a cure.
+#
+event _action_discover => sub {
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+
+    my $disease = $curp->is_discover_possible;
+    my @cards =
+        grep { $_->city->disease eq $disease }
+        grep { $_->isa('Games::Pandemic::Card::City') }
+        $curp->all_cards;
+
+    # FIXME: choose which cards
+    splice @cards, $curp->cards_needed;
+
+    $K->post( controller => 'action', 'discover', $disease, @cards );
+};
+
+
+#
 # event: _action_pass()
 #
 # user wishes to pass.

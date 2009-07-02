@@ -242,10 +242,10 @@ sub is_build_possible {
 }
 
 
-=method my $bool = $player->is_discover_possible;
+=method my $disease = $player->is_discover_possible;
 
-Return true if C<$player> can discover a cure. She can do so if she owns enough
-city cards of the right disease.
+Return the C<$disease> that C<$player> can cure, that is, if she owns enough
+city cards of this disease. Return undef otherwise.
 
 =cut
 
@@ -260,9 +260,10 @@ sub is_discover_possible {
     # check if we have enough cards
     my %seen;
     foreach my $card ( @cards ) {
-        my $name = $card->city->disease->name;
+        my $disease = $card->city->disease;
+        my $name = $disease->name;
         $seen{$name}++;
-        return 1 if $seen{$name} == $self->cards_needed;
+        return $disease if $seen{$name} == $self->cards_needed;
     }
 
     return 0;

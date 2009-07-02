@@ -1044,20 +1044,20 @@ I used the following icons:
 
 =over 4
 
-=item * research station symbol by Klukeart (Miriam Moshinsky)
-L<http://www.klukeart.com>, under a free license for non-commercial use
-(see L<http://www.veryicon.com/icons/object/medical/symbol-
-1.html>)
+=item * research station symbol by Klukeart (Miriam Moshinsky), under a
+free license for non-commercial use
 
-=item * research station icon by IconsLand L<http://www.icons-
-land.com/>, under a free license for non- commercial use (see
-L<http://www.iconspedia.com/icon/hospital--632.html>)
+=item * research station icon by IconsLand, under a free license for non-
+commercial use
 
-=item * share icon by Everaldo Coelho L<http://www.everaldo.com/>, under
-a gpl license (see L<http://www.iconfinder.net/icondetails/15612/32>)
+=item * discover icon by Klukeart (Miriam Moshinsky), under a free
+license for non commercial use
 
-=item * pass icon by Zeus Box Studio L<http://www.zeusboxstudio.com/>,
-under a cc-by license (see L<http://www.iconfinder.net/icondetails/12788/32>)
+=item * syringue icon by Everaldo Coelho, under an lgpl license
+
+=item * share icon by Everaldo Coelho , under a gpl license
+
+=item * pass icon by Zeus Box Studio, under a cc-by license
 
 =back
 

@@ -1,15 +1,16 @@
 Revision history for Games::Pandemic.
 
-High-level changelog
-====================
-
-0.3.x    move actions implemented
-0.2.x    creating players & basis turns
-0.1.x    initial work, with basic capabilities
-
-
-Low-level changelog
-===================
+0.4.0 Thu Jul  2 18:48:24 2009
+ - moving license to gpl3
+ - treating a city implemented
+ - sharing card implemented
+ - discovering cure implemented
+ - passing now means finishing one's turn
+ - updating status bar works
+ - updating number of available research station
+ - current player blinks on map
+ - bigger pawns on the map
+ - scrolling player cards
 
 0.3.0 Fri Jun 26 12:39:04 2009
  - player can move to an adjacent city

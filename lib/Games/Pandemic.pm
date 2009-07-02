@@ -77,8 +77,13 @@ has curplayer => ( is=>'rw', isa=>'Games::Pandemic::Player', weak_ref=>1 );
 
 # number of research stations remaining to be build
 has stations => (
-    is  => 'rw',
-    isa => 'Int',
+    metaclass => 'Counter',
+    is        => 'ro',
+    isa       => 'Int',
+    provides  => {
+        dec => 'dec_stations',
+        set => 'set_stations',
+    },
 );
 
 # -- public methods

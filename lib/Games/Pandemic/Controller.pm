@@ -111,8 +111,10 @@ event _action_build => sub {
         unless $curp->is_build_possible;
     # FIXME: check research station count
 
+    # build station
     my $city = $curp->location;
     $city->build_station;
+    $game->dec_stations;
     $K->post( main => 'build_station', $city );
 
     # player loose a card
@@ -122,8 +124,6 @@ event _action_build => sub {
         $game->cards->discard( $card );
         $K->post( main => 'drop_card', $curp, $card );
     }
-
-    # FIXME: update research station count
 
     $K->yield('_action_done');
 };

@@ -352,29 +352,12 @@ event _action_build => sub {
 
 
 #
-# event: _action_treat()
+# event: _action_pass()
 #
-# user wishes to treat a disease in her location.
+# user wishes to pass.
 #
-event _action_treat => sub {
-    my $game = Games::Pandemic->instance;
-    my $curp = $game->curplayer;
-    my $map  = $game->map;
-    my $city = $curp->location;
-
-    # find the city infections
-    my @diseases;
-    foreach my $disease ( $map->all_diseases ) {
-        next if $city->get_infection($disease) == 0;
-        push @diseases, $disease;
-    }
-
-    # check if city is multi-infected
-    if ( scalar @diseases == 1 ) {
-        $K->post( controller => 'action', 'treat', $diseases[0] );
-    } else {
-        # FIXME: ask user which disease to treat
-    }
+event _action_pass => sub {
+    $K->post( controller => 'action', 'pass' );
 };
 
 
@@ -413,12 +396,29 @@ event _action_share => sub {
 
 
 #
-# event: _action_pass()
+# event: _action_treat()
 #
-# user wishes to pass.
+# user wishes to treat a disease in her location.
 #
-event _action_pass => sub {
-    $K->post( controller => 'action', 'pass' );
+event _action_treat => sub {
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+    my $map  = $game->map;
+    my $city = $curp->location;
+
+    # find the city infections
+    my @diseases;
+    foreach my $disease ( $map->all_diseases ) {
+        next if $city->get_infection($disease) == 0;
+        push @diseases, $disease;
+    }
+
+    # check if city is multi-infected
+    if ( scalar @diseases == 1 ) {
+        $K->post( controller => 'action', 'treat', $diseases[0] );
+    } else {
+        # FIXME: ask user which disease to treat
+    }
 };
 
 

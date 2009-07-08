@@ -168,10 +168,10 @@ event new_game => sub {
     my $s = $self->_session;
 
 
-    #
+    # add missing gui elements
     $self->_build_action_bar;
-    $self->_build_status_bar;
     $self->_build_players_bar;
+    $self->_build_status_bar;
 
     # remove everything on the canvas
     $c->delete('all');
@@ -745,7 +745,7 @@ sub _build_players_bar {
 #
 # $main->_build_status_bar;
 #
-# create the status bar at the bottom of the window.
+# create the status bar at the right of the window.
 #
 sub _build_status_bar {
     my $self = shift;
@@ -753,47 +753,47 @@ sub _build_status_bar {
     my $map  = $game->map;
 
     # the status bar itself is a frame
-    my $sb = $mw->Frame->pack(@BOTTOM, @FILLX, -before=>$self->_w('canvas'));
+    my $sb = $mw->Frame->pack(@RIGHT, @FILLX, -before=>$self->_w('canvas'));
 
     # research stations
-    my $fstations = $sb->Frame->pack(@LEFT, @PADX10);
+    my $fstations = $sb->Frame->pack(@TOP, @PADX10);
     $fstations->Label(
         -image => image( catfile( $SHAREDIR, 'research-station-32.png' ) ),
-    )->pack(@LEFT);
-    my $lab_nbstations = $fstations->Label->pack(@LEFT);
+    )->pack(@TOP);
+    my $lab_nbstations = $fstations->Label->pack(@TOP);
     $self->_set_w('lab_nbstations', $lab_nbstations );
 
     # diseases information
-    my $fdiseases = $sb->Frame->pack(@LEFT, @PADX10);
-    my $fcures    = $sb->Frame->pack(@LEFT, @PADX10);
+    my $fdiseases = $sb->Frame->pack(@TOP, @PADX10);
+    my $fcures    = $sb->Frame->pack(@TOP, @PADX10);
     foreach my $disease ( $map->all_diseases ) {
         $fdiseases->Label(
             -image => image( $disease->image('cube', 32) ),
-        )->pack(@LEFT);
-        my $lab_disease = $fdiseases->Label->pack(@LEFT);
+        )->pack(@TOP);
+        my $lab_disease = $fdiseases->Label->pack(@TOP);
         my $lab_cure = $fcures->Label(
             -image => image( $disease->image('cure', 32) ),
-        )->pack(@LEFT);
+        )->pack(@TOP);
         $self->_set_w("lab_disease_$disease", $lab_disease);
         $self->_set_w("lab_cure_$disease", $lab_cure);
     }
 
     # player cards information
     my $cards  = $game->cards;
-    my $fcards = $sb->Frame->pack(@LEFT, @PADX10);
+    my $fcards = $sb->Frame->pack(@TOP, @PADX10);
     $fcards->Label(
         -image => image( catfile( $SHAREDIR, 'card-player.png' ) ),
-    )->pack(@LEFT);
-    my $lab_cards = $fcards->Label->pack(@LEFT);
+    )->pack(@TOP);
+    my $lab_cards = $fcards->Label->pack(@TOP);
     $self->_set_w('lab_cards', $lab_cards);
 
     # infection information
     my $infection = $game->infection;
-    my $finfection = $sb->Frame->pack(@LEFT, @PADX10);
+    my $finfection = $sb->Frame->pack(@TOP, @PADX10);
     $finfection->Label(
         -image => image( catfile( $SHAREDIR, 'card-infection.png' ) ),
-    )->pack(@LEFT);
-    my $lab_infection = $finfection->Label->pack(@LEFT);
+    )->pack(@TOP);
+    my $lab_infection = $finfection->Label->pack(@TOP);
     $self->_set_w('lab_infection', $lab_infection);
 }
 

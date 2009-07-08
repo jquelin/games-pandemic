@@ -561,6 +561,15 @@ sub _build_action_bar {
         );
         $self->_set_w( $name, $widget );
     }
+
+    # player information
+    $tb->separator( -movable => 0 );
+    my $labcurp = $tb->Label; # for current player image
+    $tb->Label( -text => T('actions left: ') );
+    my $labturn = $tb->Label;
+    $self->_set_w('lab_curplayer', $labcurp);
+    $self->_set_w('lab_nbactions', $labturn);
+
 }
 
 
@@ -786,14 +795,6 @@ sub _build_status_bar {
     )->pack(@LEFT);
     my $lab_infection = $finfection->Label->pack(@LEFT);
     $self->_set_w('lab_infection', $lab_infection);
-
-    # player information
-    my $fplayer = $sb->Frame->pack(@LEFT, @PADX10);
-    my $labcurp = $fplayer->Label->pack(@LEFT); # for current player image
-    $fplayer->Label( -text => T('actions left: ') )->pack(@LEFT);
-    my $labturn = $fplayer->Label->pack(@LEFT);
-    $self->_set_w('lab_curplayer', $labcurp);
-    $self->_set_w('lab_nbactions', $labturn);
 }
 
 

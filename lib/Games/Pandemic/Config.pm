@@ -14,6 +14,8 @@ use YAML::Tiny qw{ LoadFile };
 my $default = {
     canvas_height => 600,
     canvas_width  => 1024,
+    win_height => 600+40*2+25,
+    win_width  => 1024+70,
 };
 
 # -- accessors

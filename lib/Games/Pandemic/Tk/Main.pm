@@ -656,6 +656,12 @@ sub _build_gui {
     $mw->title(T('Pandemic'));
     $mw->iconimage( pandemic_icon() );
 
+    # make sure window is big enough
+    my $config = Games::Pandemic::Config->instance;
+    my $width  = $config->get( 'win_width' );
+    my $height = $config->get( 'win_height' );
+    $mw->geometry($width . 'x' . $height);
+
     # WARNING: we need to create the toolbar object before anything
     # else. indeed, tk::toolbar loads the embedded icons in classinit,
     # that is when the first object of the class is created - and not

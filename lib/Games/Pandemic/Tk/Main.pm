@@ -321,9 +321,9 @@ the game can continue.
 event too_many_cards => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
 
+    # warn user
     my $format = T('Player %s has too many cards. '.
         'Drop some cards (or use some action cards) before continuing.');
-
     Games::Pandemic::Tk::Dialog->new(
         parent => $mw,
         title  => T('Warning'),
@@ -332,8 +332,12 @@ event too_many_cards => sub {
         text   => sprintf($format, $player->role)
     );
 
+    # prevent any action but dropping cards
+    $self->_w("but_action_$_")->configure(@ENOFF)
+        for qw{ build discover treat share pass };
+    $self->_w("but_action_drop")->configure(@ENON);
+
     # FIXME: provide a way to drop cards
-    # FIXME: prevent user to do anything else
 };
 
 

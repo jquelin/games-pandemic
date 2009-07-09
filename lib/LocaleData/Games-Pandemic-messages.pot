@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Games-Pandemic\n"
 "Report-Msgid-Bugs-To: bug-games-pandemic@rt.cpan.org\n"
-"POT-Creation-Date: 2009-06-26 12:27+0200\n"
+"POT-Creation-Date: 2009-07-09 16:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -244,70 +244,109 @@ msgstr ""
 msgid "Osaka"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:390
+#: lib/Games/Pandemic/Tk/DropCard.pm:79 lib/Games/Pandemic/Tk/GiveCard.pm:104
+msgid "Sharing..."
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/DropCard.pm:93 lib/Games/Pandemic/Tk/GiveCard.pm:118
+msgid "Select player receiving the card:"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/DropCard.pm:124 lib/Games/Pandemic/Tk/GiveCard.pm:149
+msgid "Select city card to give:"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/DropCard.pm:157 lib/Games/Pandemic/Tk/GiveCard.pm:182
+msgid "Give"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/DropCard.pm:162 lib/Games/Pandemic/Tk/GiveCard.pm:187
+msgid "Cancel"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Dialog.pm:92
+msgid "Close"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:314
+#, perl-format
+msgid ""
+"Player %s has too many cards. Drop some cards (or use some action cards) "
+"before continuing."
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:319
+msgid "Warning"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:320
+msgid "Too many cards"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:555
 msgid "Build a research station"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:391
+#: lib/Games/Pandemic/Tk/Main.pm:556
 msgid "Discover a cure"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:392
+#: lib/Games/Pandemic/Tk/Main.pm:557
 msgid "Treat a disease"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:393
+#: lib/Games/Pandemic/Tk/Main.pm:558
 msgid "Give a card"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:394
+#: lib/Games/Pandemic/Tk/Main.pm:559
 msgid "Pass your turn"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:468 lib/Games/Pandemic/Tk/Main.pm:670
-msgid "New game"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:469
-msgid "Join game"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:470 lib/Games/Pandemic/Tk/Main.pm:671
-msgid "Load game"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:506
-msgid "Pandemic"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:538
-msgid "~New game"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:539
-msgid "~Load game"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:540
-msgid "~Close game"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:542
-msgid "~Quit"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:545
-msgid "~Game"
-msgstr ""
-
-#: lib/Games/Pandemic/Tk/Main.pm:648
+#: lib/Games/Pandemic/Tk/Main.pm:595
 msgid "actions left: "
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:672
+#: lib/Games/Pandemic/Tk/Main.pm:642 lib/Games/Pandemic/Tk/Main.pm:849
+msgid "New game"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:643
+msgid "Join game"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:644 lib/Games/Pandemic/Tk/Main.pm:850
+msgid "Load game"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:683
+msgid "Pandemic"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:725
+msgid "~New game"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:726
+msgid "~Load game"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:727
+msgid "~Close game"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:729
+msgid "~Quit"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:732
+msgid "~Game"
+msgstr ""
+
+#: lib/Games/Pandemic/Tk/Main.pm:851
 msgid "Close game"
 msgstr ""
 
-#: lib/Games/Pandemic/Tk/Main.pm:673
+#: lib/Games/Pandemic/Tk/Main.pm:852
 msgid "Quit"
 msgstr ""

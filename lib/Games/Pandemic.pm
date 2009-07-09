@@ -109,8 +109,7 @@ sub run {
 }
 
 no Moose;
-# singleton classes cannot be made immutable
-#__PACKAGE__->meta->make_immutable;
+__PACKAGE__->meta->make_immutable;
 
 1;
 __END__

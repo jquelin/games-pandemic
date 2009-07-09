@@ -228,12 +228,20 @@ event _action_discover => sub {
 #
 event _action_done => sub {
     my $game = Games::Pandemic->instance;
-    my $player = $game->curplayer;
 
-    $player->action_done;
-    # FIXME: update gui
+    # turn is done
+    my $curp = $game->curplayer;
+    $curp->action_done;
 
-   my $event = $player->actions_left == 0 ? '_draw_cards' : '_next_action';
+    # check if a player has too many cards
+    foreach my $player ( $game->all_players ) {
+        next if $player->nb_cards <= $player->max_cards;
+        $K->post( main => 'too_many_cards', $player );
+        return;
+    }
+
+    # everything's fine, we can continue
+    my $event = $curp->actions_left == 0 ? '_draw_cards' : '_next_action';
     $K->yield( $event );
 };
 

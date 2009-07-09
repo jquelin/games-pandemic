@@ -323,6 +323,18 @@ completeness.
 sub is_pass_possible { 1 }
 
 
+=method my $bool = $player->is_drop_possible;
+
+Return true if C<$player> can drop a card. True if she has at least one card.
+
+=cut
+
+sub is_drop_possible {
+    my $self = shift;
+    return $self->nb_cards;
+}
+
+
 #- methods to control whether an action (with all params) is valid
 
 =method my $bool = $player->can_travel_to($city);

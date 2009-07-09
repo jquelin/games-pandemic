@@ -567,6 +567,7 @@ sub _build_action_bar {
         [ 'treat',    T('Treat a disease')                         ],
         [ 'share',    T('Give a card')                             ],
         [ 'pass',     T('Pass your turn')                          ],
+        [ 'drop',     T('Drop some cards')                         ],
     );
     my @items = map {
         my ($action, $tip) = @$_;
@@ -1026,7 +1027,7 @@ sub _update_actions {
     my $game = Games::Pandemic->instance;
     my $player = $game->curplayer;
 
-    my @actions = qw{ build discover treat share pass };
+    my @actions = qw{ build discover treat share pass drop };
     foreach my $action ( @actions ) {
         my $method = "is_${action}_possible";
         $self->_w("but_action_$action")->configure(
@@ -1106,6 +1107,8 @@ license for non commercial use
 =item * share icon by Everaldo Coelho , under a gpl license
 
 =item * pass icon by Zeus Box Studio, under a cc-by license
+
+=item * trash icon by Jojo Mendoza, under a cc-nd-nc license
 
 =item * warning icon by Gnome artists, under a gpl license
 

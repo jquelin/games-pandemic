@@ -232,6 +232,7 @@ event _action_done => sub {
     # turn is done
     my $curp = $game->curplayer;
     $curp->action_done;
+    $K->post( main => 'action_done' );
 
     # check if a player has too many cards
     foreach my $player ( $game->all_players ) {

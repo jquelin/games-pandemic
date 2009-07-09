@@ -74,6 +74,18 @@ sub START {
 
 # -- public events
 
+=method event: action_done()
+
+Received when current player has finished an action.
+
+=cut
+
+event action_done => sub {
+    my $self = $_[OBJECT];
+    $self->_update_status;
+};
+
+
 =method event: build_station($city)
 
 Received when C<$city> gained a research station.
@@ -259,9 +271,7 @@ Received when player needs to do its next action.
 
 event next_action => sub {
     my $self = $_[OBJECT];
-    my $game = Games::Pandemic->instance;
-    my $player = $game->curplayer;
-    $self->_w('lab_nbactions')->configure(-text=>$player->actions_left);
+    $self->_update_status;
     $self->_update_actions;
 };
 
@@ -1034,6 +1044,7 @@ sub _update_actions {
 sub _update_status {
     my $self = shift;
     my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
     my $map  = $game->map;
 
     # research stations
@@ -1053,6 +1064,9 @@ sub _update_status {
     my $text2 = $deck2->nbcards . '-' . $deck2->nbdiscards;
     $self->_w('lab_cards')->configure( -text => $text1 );
     $self->_w('lab_infection')->configure(-text => $text2 );
+
+    # actions left
+    $self->_w('lab_nbactions')->configure(-text=>$curp->actions_left);
 }
 
 

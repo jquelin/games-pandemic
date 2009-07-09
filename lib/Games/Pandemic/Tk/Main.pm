@@ -20,6 +20,7 @@ use Tk::PNG;
 use Tk::ToolBar;
 
 use Games::Pandemic::Config;
+use Games::Pandemic::Tk::Dialog;
 use Games::Pandemic::Tk::GiveCard;
 use Games::Pandemic::Tk::PlayerFrame;
 use Games::Pandemic::Tk::Utils;
@@ -297,6 +298,32 @@ event player_move => sub {
     my $dx = $to->coordx - $from->coordx;
     my $dy = $to->coordy - $from->coordy;
     $self->_w('canvas')->move( $player, $dx, $dy );
+};
+
+
+=method event: too_many_cards( $player )
+
+Received when C<$player> has too many cards: she must drop some before
+the game can continue.
+
+=cut
+
+event too_many_cards => sub {
+    my ($self, $player) = @_[OBJECT, ARG0];
+
+    my $format = T('Player %s has too many cards. '.
+        'Drop some cards (or use some action cards) before continuing.');
+
+    Games::Pandemic::Tk::Dialog->new(
+        parent => $mw,
+        title  => T('Warning'),
+        header => T('Too many cards'),
+        icon   => catfile($SHAREDIR, 'icons', 'warning-48.png'),
+        text   => sprintf($format, $player->role)
+    );
+
+    # FIXME: provide a way to drop cards
+    # FIXME: prevent user to do anything else
 };
 
 
@@ -1065,6 +1092,8 @@ license for non commercial use
 =item * share icon by Everaldo Coelho , under a gpl license
 
 =item * pass icon by Zeus Box Studio, under a cc-by license
+
+=item * warning icon by Gnome artists, under a gpl license
 
 =back
 

@@ -16,7 +16,7 @@ use Games::Pandemic::Tk::Utils;
 # -- accessors
 
 has parent => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
-has header => ( is=>'ro', isa=>'Str', required=>1 );
+has header => ( is=>'rw', isa=>'Str', default=>undef );
 has title  => ( is=>'rw', isa=>'Str', default=>T('Pandemic') );
 has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
 
@@ -67,13 +67,15 @@ sub _build_gui {
     $top->iconimage( pandemic_icon($top) );
 
     # dialog name
-    my $font = $top->Font(-size=>16);
-    $top->Label(
-        -text => $self->header,
-        -bg   => 'black',
-        -fg   => 'white',
-        -font => $font,
-    )->pack(@TOP, @PAD10, @FILL2);
+    if ( defined $self->header ) {
+        my $font = $top->Font(-size=>16);
+        $top->Label(
+            -text => $self->header,
+            -bg   => 'black',
+            -fg   => 'white',
+            -font => $font,
+        )->pack(@TOP, @PAD10, @FILL2);
+    }
 
     # build sub-class gui elems
     inner();

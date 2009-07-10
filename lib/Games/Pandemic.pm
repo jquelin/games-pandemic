@@ -86,6 +86,15 @@ has stations => (
     },
 );
 
+# holds the player having too many cards - if any
+has too_many_cards => (
+    is       => 'rw',
+    isa      => 'Games::Pandemic::Player',
+    default  => undef,
+    weak_ref => 1,
+);
+
+
 # -- public methods
 
 =method Games::Pandemic->run;

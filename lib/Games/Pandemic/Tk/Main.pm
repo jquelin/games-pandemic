@@ -50,13 +50,6 @@ has _widgets => (
 # currently selected player
 has _selplayer => ( is => 'rw', weak_ref => 1, isa => 'Games::Pandemic::Player' );
 
-# holds the player having too many cards - if any
-has _too_many_cards => (
-    is       => 'rw',
-    isa      => 'Games::Pandemic::Player',
-    default  => undef,
-    weak_ref => 1,
-);
 
 # it's not usually a good idea to retain a reference on a poe session,
 # since poe is already taking care of the references for us. however, we
@@ -329,8 +322,6 @@ the game can continue.
 event too_many_cards => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
 
-    $self->_set_too_many_cards($player);
-
     # warn user
     my $format = T('Player %s has too many cards. '.
         'Drop some cards (or use some action cards) before continuing.');
@@ -515,15 +506,14 @@ event _action_treat => sub {
 #
 event _city_click => sub {
     my ($self, $args) = @_[OBJECT, ARG1];
+    my $game = Games::Pandemic->instance;
 
     # if we're in a situation of too many cards for a player, user is
     # not allowed to travel
-    return $self->yield('too_many_cards', $self->_too_many_cards)
-        if defined $self->_too_many_cards;
+    return $self->yield('too_many_cards', $game->too_many_cards)
+        if defined $game->too_many_cards;
 
     my ($canvas) = @$args;
-
-    my $game = Games::Pandemic->instance;
     my $map  = $game->map;
     my $player = $game->curplayer; # FIXME: dispatcher
 

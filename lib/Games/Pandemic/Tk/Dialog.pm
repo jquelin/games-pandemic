@@ -21,7 +21,7 @@ has title  => ( is=>'rw', isa=>'Str', lazy_build=>1 );
 has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
 
 
-# -- initialization
+# -- initialization / finalization
 
 #
 # BUILD()
@@ -33,6 +33,18 @@ sub BUILD {
     $self->_build_gui;
 }
 
+
+#
+# DEMOLISH()
+#
+# called as destructor
+#
+sub DEMOLISH {
+    my $self = shift;
+    debug( "~dialog: $self\n" );
+}
+
+# lazy builders
 sub _build_title  { T('Pandemic') }
 sub _build_header { '' }
 

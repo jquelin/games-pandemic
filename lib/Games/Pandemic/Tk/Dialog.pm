@@ -17,7 +17,7 @@ use Games::Pandemic::Tk::Utils;
 
 has parent => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
 has header => ( is=>'ro', isa=>'Str', required=>1 );
-has title  => ( is=>'ro', isa=>'Str', required=>1 );
+has title  => ( is=>'rw', isa=>'Str', default=>T('Pandemic') );
 has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
 
 

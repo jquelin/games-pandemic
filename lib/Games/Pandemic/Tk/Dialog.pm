@@ -16,8 +16,8 @@ use Games::Pandemic::Tk::Utils;
 # -- accessors
 
 has parent => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
-has header => ( is=>'rw', isa=>'Str', default=>undef );
-has title  => ( is=>'rw', isa=>'Str', default=>T('Pandemic') );
+has header => ( is=>'rw', isa=>'Str', lazy_build=>1 );
+has title  => ( is=>'rw', isa=>'Str', lazy_build=>1 );
 has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
 
 
@@ -32,6 +32,9 @@ sub BUILD {
     my $self = shift;
     $self->_build_gui;
 }
+
+sub _build_title  { T('Pandemic') }
+sub _build_header { '' }
 
 
 # -- gui methods
@@ -67,7 +70,7 @@ sub _build_gui {
     $top->iconimage( pandemic_icon($top) );
 
     # dialog name
-    if ( defined $self->header ) {
+    if ( $self->header ) {
         my $font = $top->Font(-size=>16);
         $top->Label(
             -text => $self->header,

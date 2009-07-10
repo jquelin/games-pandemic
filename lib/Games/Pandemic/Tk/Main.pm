@@ -20,7 +20,7 @@ use Tk::PNG;
 use Tk::ToolBar;
 
 use Games::Pandemic::Config;
-use Games::Pandemic::Tk::Dialog;
+use Games::Pandemic::Tk::Dialog::Simple;
 use Games::Pandemic::Tk::GiveCard;
 use Games::Pandemic::Tk::PlayerFrame;
 use Games::Pandemic::Tk::Utils;
@@ -325,7 +325,7 @@ event too_many_cards => sub {
     # warn user
     my $format = T('Player %s has too many cards. '.
         'Drop some cards (or use some action cards) before continuing.');
-    Games::Pandemic::Tk::Dialog->new(
+    Games::Pandemic::Tk::Dialog::Simple->new(
         parent => $mw,
         title  => T('Warning'),
         header => T('Too many cards'),

@@ -1,5 +1,5 @@
 package Games::Pandemic::Tk::Dialog;
-# ABSTRACT: generic dialog window for Games::Pandemic
+# ABSTRACT: base class for Games::Pandemic dialog windows
 
 use 5.010;
 use strict;
@@ -17,9 +17,7 @@ use Games::Pandemic::Tk::Utils;
 
 has parent => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
 has header => ( is=>'ro', isa=>'Str', required=>1 );
-has text   => ( is=>'ro', isa=>'Str', required=>1 );
 has title  => ( is=>'ro', isa=>'Str', required=>1 );
-has icon   => ( is=>'ro', isa=>'Str' );
 has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
 
 
@@ -77,15 +75,8 @@ sub _build_gui {
         -font => $font,
     )->pack(@TOP, @PAD10, @FILL2);
 
-    # icon + text
-    my $f = $top->Frame->pack(@TOP,@XFILL2);
-    $f->Label(-image => image($self->icon,$top))->pack(@LEFT, @FILL2, @PAD10)
-        if defined $self->icon;
-    $f->Label(
-        -text       => $self->text,
-        -justify    => 'left',
-        -wraplength => '6c',
-    )->pack(@LEFT, @XFILL2, @PAD10);
+    # build sub-class gui elems
+    inner();
 
     # close button
     $top->Button(

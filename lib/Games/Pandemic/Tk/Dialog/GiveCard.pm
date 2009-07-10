@@ -48,17 +48,6 @@ sub _build_header { T('Give a card') }
 # -- gui methods
 
 #
-# $dialog->_cancel;
-#
-# destroy the dialog without performing any action.
-#
-sub _cancel {
-    my $self = shift;
-    $self->_toplevel->destroy;
-}
-
-
-#
 # $dialog->_give;
 #
 # request to give a card & destroy the dialog.
@@ -66,7 +55,7 @@ sub _cancel {
 sub _give {
     my $self = shift;
     $K->post( controller => 'action', 'share', $self->_card, $self->_player );
-    $self->_toplevel->destroy;
+    $self->_close;
 }
 
 
@@ -160,7 +149,7 @@ augment _build_gui => sub {
     $fbuttons->Button(
         -text    => T('Cancel'),
         -width   => 10,
-        -command => sub { $self->_cancel },
+        -command => sub { $self->_close },
     )->pack(@LEFT, @XFILL2);
 };
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Games-Pandemic\n"
 "Report-Msgid-Bugs-To: bug-games-pandemic@rt.cpan.org\n"
-"POT-Creation-Date: 2009-07-09 16:04+0200\n"
+"POT-Creation-Date: 2009-07-10 17:17+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jérôme Quelin <jquelin@gmail.com>\n"
 "Language-Team: Jérôme Quelin <jquelin@gmail.com>\n"
@@ -240,117 +240,126 @@ msgstr "Tokyo"
 msgid "Osaka"
 msgstr "Osaka"
 
-#: lib/Games/Pandemic/Tk/DropCard.pm:79
-#: lib/Games/Pandemic/Tk/GiveCard.pm:104
+#: lib/Games/Pandemic/Tk/DropCard.pm:59
 msgid "Sharing..."
 msgstr "Partage..."
 
-#: lib/Games/Pandemic/Tk/DropCard.pm:93
-#: lib/Games/Pandemic/Tk/GiveCard.pm:118
+#: lib/Games/Pandemic/Tk/DropCard.pm:73
+#: lib/Games/Pandemic/Tk/Dialog/GiveCard.pm:83
 msgid "Select player receiving the card:"
 msgstr "Choisir le joueur recevant la carte :"
 
-#: lib/Games/Pandemic/Tk/DropCard.pm:124
-#: lib/Games/Pandemic/Tk/GiveCard.pm:149
+#: lib/Games/Pandemic/Tk/DropCard.pm:104
+#: lib/Games/Pandemic/Tk/Dialog/GiveCard.pm:114
 msgid "Select city card to give:"
 msgstr "Choisir la carte à donner :"
 
-#: lib/Games/Pandemic/Tk/DropCard.pm:157
-#: lib/Games/Pandemic/Tk/GiveCard.pm:182
+#: lib/Games/Pandemic/Tk/DropCard.pm:137
+#: lib/Games/Pandemic/Tk/Dialog/GiveCard.pm:145
 msgid "Give"
 msgstr "Donner"
 
-#: lib/Games/Pandemic/Tk/DropCard.pm:162
-#: lib/Games/Pandemic/Tk/GiveCard.pm:187
+#: lib/Games/Pandemic/Tk/DropCard.pm:142
+#: lib/Games/Pandemic/Tk/Dialog/GiveCard.pm:150
 msgid "Cancel"
 msgstr "Annuler"
 
-#: lib/Games/Pandemic/Tk/Dialog.pm:92
-msgid "Close"
-msgstr "Fermer"
+#: lib/Games/Pandemic/Tk/Dialog.pm:48
+#: lib/Games/Pandemic/Tk/Main.pm:717
+msgid "Pandemic"
+msgstr "Pandémie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:314
+#: lib/Games/Pandemic/Tk/Main.pm:326
 #, perl-format
 msgid "Player %s has too many cards. Drop some cards (or use some action cards) before continuing."
 msgstr "Le joueur %s a trop de cartes. Défausser des cartes (ou utiliser des cartes actions) avant de continuer."
 
-#: lib/Games/Pandemic/Tk/Main.pm:319
+#: lib/Games/Pandemic/Tk/Main.pm:330
 msgid "Warning"
 msgstr "Avertissement"
 
-#: lib/Games/Pandemic/Tk/Main.pm:320
+#: lib/Games/Pandemic/Tk/Main.pm:331
 msgid "Too many cards"
 msgstr "Trop de cartes"
 
-#: lib/Games/Pandemic/Tk/Main.pm:555
+#: lib/Games/Pandemic/Tk/Main.pm:588
 msgid "Build a research station"
 msgstr "Construire une station de recherche"
 
-#: lib/Games/Pandemic/Tk/Main.pm:556
+#: lib/Games/Pandemic/Tk/Main.pm:589
 msgid "Discover a cure"
 msgstr "Trouver un remède"
 
-#: lib/Games/Pandemic/Tk/Main.pm:557
+#: lib/Games/Pandemic/Tk/Main.pm:590
 msgid "Treat a disease"
 msgstr "Traiter une maladie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:558
+#: lib/Games/Pandemic/Tk/Main.pm:591
+#: lib/Games/Pandemic/Tk/Dialog/GiveCard.pm:45
 msgid "Give a card"
 msgstr "Donner une carte"
 
-#: lib/Games/Pandemic/Tk/Main.pm:559
+#: lib/Games/Pandemic/Tk/Main.pm:592
 msgid "Pass your turn"
 msgstr "Passer votre tour"
 
-#: lib/Games/Pandemic/Tk/Main.pm:595
+#: lib/Games/Pandemic/Tk/Main.pm:593
+msgid "Drop some cards"
+msgstr "Défausser des cartes"
+
+#: lib/Games/Pandemic/Tk/Main.pm:629
 msgid "actions left: "
 msgstr "Actions restantes :"
 
-#: lib/Games/Pandemic/Tk/Main.pm:642
-#: lib/Games/Pandemic/Tk/Main.pm:849
+#: lib/Games/Pandemic/Tk/Main.pm:676
+#: lib/Games/Pandemic/Tk/Main.pm:883
 msgid "New game"
 msgstr "Nouvelle partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:643
+#: lib/Games/Pandemic/Tk/Main.pm:677
 msgid "Join game"
 msgstr "Rejoindre une partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:644
-#: lib/Games/Pandemic/Tk/Main.pm:850
+#: lib/Games/Pandemic/Tk/Main.pm:678
+#: lib/Games/Pandemic/Tk/Main.pm:884
 msgid "Load game"
 msgstr "Charger une partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:683
-msgid "Pandemic"
-msgstr "Pandémie"
-
-#: lib/Games/Pandemic/Tk/Main.pm:725
+#: lib/Games/Pandemic/Tk/Main.pm:759
 msgid "~New game"
 msgstr "~Nouvelle partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:726
+#: lib/Games/Pandemic/Tk/Main.pm:760
 msgid "~Load game"
 msgstr "~Charger une partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:727
+#: lib/Games/Pandemic/Tk/Main.pm:761
 msgid "~Close game"
 msgstr "~Fermer la partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:729
+#: lib/Games/Pandemic/Tk/Main.pm:763
 msgid "~Quit"
 msgstr "~Quitter"
 
-#: lib/Games/Pandemic/Tk/Main.pm:732
+#: lib/Games/Pandemic/Tk/Main.pm:766
 msgid "~Game"
 msgstr "~Jeu"
 
-#: lib/Games/Pandemic/Tk/Main.pm:851
+#: lib/Games/Pandemic/Tk/Main.pm:885
 msgid "Close game"
 msgstr "Fermer la partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:852
+#: lib/Games/Pandemic/Tk/Main.pm:886
 msgid "Quit"
 msgstr "Quitter"
+
+#: lib/Games/Pandemic/Tk/Dialog/GiveCard.pm:44
+msgid "Sharing"
+msgstr "Partage"
+
+#: lib/Games/Pandemic/Tk/Dialog/Simple.pm:50
+msgid "Close"
+msgstr "Fermer"
 
 #~ msgid "Ho Chi Minh City"
 #~ msgstr ""

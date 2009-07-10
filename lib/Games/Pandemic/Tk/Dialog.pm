@@ -83,12 +83,6 @@ sub _build_gui {
     # build sub-class gui elems
     inner();
 
-    # close button
-    $top->Button(
-        -text    => T('Close'),
-        -command => sub { $self->_close; },
-    )->pack(@TOP, @FILLX);
-    
     # center window & make it appear
     $top->Popup( -popover => $parent );
     $top->resizable(0,0);

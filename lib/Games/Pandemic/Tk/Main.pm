@@ -21,7 +21,7 @@ use Tk::ToolBar;
 
 use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Dialog::Simple;
-use Games::Pandemic::Tk::GiveCard;
+use Games::Pandemic::Tk::Dialog::GiveCard;
 use Games::Pandemic::Tk::PlayerFrame;
 use Games::Pandemic::Tk::Utils;
 use Games::Pandemic::Utils;
@@ -463,7 +463,7 @@ event _action_share => sub {
         $K->post( controller => 'action', 'share', @cards, @players );
 
     } else {
-        Games::Pandemic::Tk::GiveCard->new(
+        Games::Pandemic::Tk::Dialog::GiveCard->new(
             parent  => $mw,
             cards   => \@cards,
             players => \@players,

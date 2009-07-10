@@ -1,4 +1,4 @@
-package Games::Pandemic::Tk::GiveCard;
+package Games::Pandemic::Tk::Dialog::GiveCard;
 # ABSTRACT: sharing dialog window for Games::Pandemic
 
 use 5.010;
@@ -11,10 +11,12 @@ use POE;
 use Readonly;
 use Tk;
 
+extends 'Games::Pandemic::Tk::Dialog';
+
 use Games::Pandemic::Utils;
 use Games::Pandemic::Tk::Utils;
 
-Readonly my $K  => $poe_kernel;
+Readonly my $K => $poe_kernel;
 
 
 # -- accessors
@@ -26,10 +28,6 @@ has cards => (
     auto_deref => 1,
 );
 
-has parent => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
-
-has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
-
 has players => (
     is         => 'ro',
     isa        => 'ArrayRef',
@@ -40,24 +38,11 @@ has players => (
 has _card   => ( is=>'rw', weak_ref=>1, isa=>'Games::Pandemic::Card::City' );
 has _player => ( is=>'rw', weak_ref=>1, isa=>'Games::Pandemic::Player' );
 
-# it's not usually a good idea to retain a reference on a poe session,
-# since poe is already taking care of the references for us. however, we
-# need the session to call ->postback() to set the various gui callbacks
-# that will be fired upon gui events.
-has _session => ( is=>'rw', isa=>'POE::Session', weak_ref=>1 );
-
 
 # -- initialization
 
-#
-# BUILD()
-#
-# called as constructor initialization
-#
-sub BUILD {
-    my $self = shift;
-    $self->_build_gui;
-}
+sub _build_title  { T('Sharing') }
+sub _build_header { T('Give a card') }
 
 
 # -- gui methods
@@ -92,18 +77,9 @@ sub _give {
 #
 # create the various gui elements.
 #
-sub _build_gui {
+augment _build_gui => sub {
     my $self = shift;
-    my $parent = $self->parent;
-
-    my $top = $parent->Toplevel;
-    $self->_set_toplevel($top);
-    $top->withdraw;
-
-    # set windowtitle
-    $top->title(T('Sharing...'));
-    $top->iconimage( pandemic_icon($top) );
-
+    my $top  = $self->_toplevel;
 
     my $fcenter = $top->Frame->pack(@TOP, @XFILL2);
 
@@ -170,8 +146,6 @@ sub _build_gui {
         }
     }
 
-
-
     # the dialog buttons.
     # note that we specify a bogus width in order for both buttons to be
     # the same width. since we pack them with expand set to true, their
@@ -188,11 +162,7 @@ sub _build_gui {
         -width   => 10,
         -command => sub { $self->_cancel },
     )->pack(@LEFT, @XFILL2);
-
-    # center window & make it appear
-    $top->Popup( -popover => $parent);
-    $top->grab; # make it modal
-}
+};
 
 
 

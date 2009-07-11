@@ -92,7 +92,7 @@ augment _build_gui => sub {
             # to display a radiobutton with image + text, we need to
             # create a radiobutton with a label just next to it.
             my $fplayer = $f->Frame->pack(@TOP, @FILLX);
-            $fplayer->Radiobutton(
+            my $rb = $fplayer->Radiobutton(
                 -text     => $player->role,
                 -variable => \$selplayer,
                 -value    => $player->role,
@@ -102,7 +102,7 @@ augment _build_gui => sub {
             my $lab = $fplayer->Label(
                 -image    => image( $player->image('icon', 32), $top ),
             )->pack(@LEFT);
-            $lab->bind( '<1>', sub { $self->_set_player($player); $selplayer=$player->role; } );
+            $lab->bind( '<1>', sub { $rb->invoke; } );
         }
     }
 
@@ -123,7 +123,7 @@ augment _build_gui => sub {
             # to display a radiobutton with image + text, we need to
             # create a radiobutton with a label just next to it.
             my $fcity = $f->Frame->pack(@TOP, @FILLX);
-            $fcity->Radiobutton(
+            my $rb = $fcity->Radiobutton(
                 -image    => image($card->icon, $top),
                 -variable => \$selcard,
                 -value    => $card->label,
@@ -133,7 +133,7 @@ augment _build_gui => sub {
                 -text   => $card->label,
                 -anchor => 'w',
             )->pack(@LEFT, @FILLX);
-            $lab->bind( '<1>', sub { $self->_set_card($card); $selcard=$card->label; } );
+            $lab->bind( '<1>', sub { $rb->invoke; } );
         }
     }
 };

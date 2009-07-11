@@ -89,7 +89,7 @@ sub _build_gui {
             -bg   => 'black',
             -fg   => 'white',
             -font => $font,
-        )->pack(@TOP, @PAD10, @FILL2);
+        )->pack(@TOP, @PAD10, @IPAD10, @FILL2);
     }
 
     # build sub-class gui elems

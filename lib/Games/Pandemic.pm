@@ -91,8 +91,12 @@ has too_many_cards => (
     is       => 'rw',
     isa      => 'Games::Pandemic::Player',
     default  => undef,
+    clearer  => 'clear_too_many_cards',
     weak_ref => 1,
 );
+
+
+has next_step => ( is=>'rw', isa=>'Str' );
 
 
 # -- public methods

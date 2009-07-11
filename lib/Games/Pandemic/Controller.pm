@@ -64,7 +64,16 @@ event drop_cards => sub {
         $K->post( main => 'drop_card', $player, $card );
     }
 
+    # check again that there are not too many cards
+    foreach my $player ( $game->all_players ) {
+        next if $player->nb_cards <= $player->max_cards;
+        $game->set_too_many_cards($player);
+        $K->post( main => 'too_many_cards', $player );
+        return;
+    }
 
+    $K->yield( $game->next_step ) if $game->too_many_cards;
+    $game->clear_too_many_cards;
 };
 
 
@@ -258,16 +267,19 @@ event _action_done => sub {
     $curp->action_done;
     $K->post( main => 'action_done' );
 
-    # check if a player has too many cards
+    # next step would be...
+    my $event = $curp->actions_left == 0 ? '_draw_cards' : '_next_action';
+
+    # ... unless a player has too many cards
     foreach my $player ( $game->all_players ) {
         next if $player->nb_cards <= $player->max_cards;
         $game->set_too_many_cards($player);
+        $game->set_next_step($event);
         $K->post( main => 'too_many_cards', $player );
         return;
     }
 
     # everything's fine, we can continue
-    my $event = $curp->actions_left == 0 ? '_draw_cards' : '_next_action';
     $K->yield( $event );
 };
 

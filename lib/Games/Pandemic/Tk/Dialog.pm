@@ -19,6 +19,8 @@ has parent => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
 has title  => ( is=>'rw', isa=>'Str', lazy_build=>1 );
 has header => ( is=>'rw', isa=>'Str', lazy_build=>1 );
 has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
+has _ok     => ( is=>'ro', isa=>'Str', lazy_build=>1 );
+has _cancel => ( is=>'ro', isa=>'Str', lazy_build=>1 );
 
 
 # a hash to store the widgets for easier reference.
@@ -57,8 +59,10 @@ sub DEMOLISH {
 }
 
 # lazy builders
-sub _build_title  { T('Pandemic') }
-sub _build_header { '' }
+sub _build_title   { T('Pandemic') }
+sub _build_header  { '' }
+sub _build__ok     { '' }
+sub _build__cancel { '' }
 
 
 # -- gui methods
@@ -106,6 +110,30 @@ sub _build_gui {
 
     # build sub-class gui elems
     inner();
+
+    # the dialog buttons.
+    # note that we specify a bogus width in order for both buttons to be
+    # the same width. since we pack them with expand set to true, their
+    # width will grow - but equally. otherwise, their size would be
+    # proportional to their english text.
+    my $fbuttons = $top->Frame->pack(@TOP, @FILLX);
+    if ( $self->_ok ) {
+        my $but = $fbuttons->Button(
+            -text    => $self->_ok,
+            -width   => 10,
+            @ENOFF,
+            -command => sub { $self->_valid },
+        )->pack(@LEFT, @XFILL2);
+        $self->_set_w('ok', $but);
+    }
+    if ( $self->_cancel ) {
+        my $but = $fbuttons->Button(
+            -text    => $self->_cancel,
+            -width   => 10,
+            -command => sub { $self->_close },
+        )->pack(@LEFT, @XFILL2);
+        $self->_set_w('cancel', $but);
+    }
 
     # center window & make it appear
     $top->Popup( -popover => $parent );

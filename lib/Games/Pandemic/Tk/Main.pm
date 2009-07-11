@@ -20,8 +20,9 @@ use Tk::PNG;
 use Tk::ToolBar;
 
 use Games::Pandemic::Config;
-use Games::Pandemic::Tk::Dialog::Simple;
+use Games::Pandemic::Tk::Dialog::DropCards;
 use Games::Pandemic::Tk::Dialog::GiveCard;
+use Games::Pandemic::Tk::Dialog::Simple;
 use Games::Pandemic::Tk::PlayerFrame;
 use Games::Pandemic::Tk::Utils;
 use Games::Pandemic::Utils;
@@ -403,6 +404,22 @@ event _decay => sub {
 #
 event _action_build => sub {
     $K->post( controller => 'action', 'build' );
+};
+
+
+#
+# event: _action_drop()
+#
+# user wishes to drop a card, either from current player or if we're in
+# a situation of too many cards.
+#
+event _action_drop => sub {
+    my $game = Games::Pandemic->instance;
+    my $player = $game->too_many_cards // $game->curplayer; # FIXME://padre
+    Games::Pandemic::Tk::Dialog::DropCards->new(
+        parent => $mw,
+        player => $player,
+    );
 };
 
 

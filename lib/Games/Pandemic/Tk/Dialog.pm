@@ -121,7 +121,6 @@ sub _build_gui {
         my $but = $fbuttons->Button(
             -text    => $self->_ok,
             -width   => 10,
-            @ENOFF,
             -command => sub { $self->_valid },
         )->pack(@LEFT, @XFILL2);
         $self->_set_w('ok', $but);

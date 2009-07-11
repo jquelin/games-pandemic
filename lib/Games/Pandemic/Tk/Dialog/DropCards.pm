@@ -41,6 +41,16 @@ has _cards => (
 
 # -- initialization
 
+#
+# BUILD()
+#
+# called as constructor initialization
+#
+sub BUILD {
+    my $self = shift;
+    $self->_w('ok')->configure(@ENOFF);
+}
+
 sub _build_title   { T('Discard') }
 sub _build_header  { T('Drop some cards') }
 sub _build__ok     { T('Drop') }

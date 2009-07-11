@@ -41,7 +41,31 @@ event action => sub {
     # FIXME: check src vs current player
 
     $K->yield("_action_$action", @params);
- };
+};
+
+
+=method event: drop_cards( $player, @cards )
+
+Request from C<$player> to remove some C<@cards> from her hands.
+
+=cut
+
+event drop_cards => sub {
+    my ($player, @cards) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
+    my $deck = $game->cards;
+
+    # FIXME: check src vs $player
+
+    # remove cards from player hands
+    foreach my $card ( @cards ) {
+        $player->drop_card( $card );
+        $deck->discard( $card );
+        $K->post( main => 'drop_card', $player, $card );
+    }
+
+
+};
 
 
 =method event: new_game()

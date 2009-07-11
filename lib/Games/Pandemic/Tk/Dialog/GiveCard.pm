@@ -105,7 +105,7 @@ augment _build_gui => sub {
     }
 
     # if more than one card, select which one to give
-    my @cards = $self->cards;
+    my @cards = sort { $a->label cmp $b->label } $self->cards;
     $self->_set_card( $cards[0] );
     if ( @cards > 1 ) {
         # enclosed cards in their own frame

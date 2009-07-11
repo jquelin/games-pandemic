@@ -41,18 +41,20 @@ has _player => ( is=>'rw', weak_ref=>1, isa=>'Games::Pandemic::Player' );
 
 # -- initialization
 
-sub _build_title  { T('Sharing') }
-sub _build_header { T('Give a card') }
+sub _build_title   { T('Sharing') }
+sub _build_header  { T('Give a card') }
+sub _build__ok     { T('Give') }
+sub _build__cancel { T('Cancel') }
 
 
 # -- gui methods
 
 #
-# $dialog->_give;
+# $dialog->_valid;
 #
 # request to give a card & destroy the dialog.
 #
-sub _give {
+sub _valid {
     my $self = shift;
     $K->post( controller => 'action', 'share', $self->_card, $self->_player );
     $self->_close;
@@ -62,7 +64,7 @@ sub _give {
 # -- private methods
 
 #
-# $main->_build_gui;
+# $main->_valid;
 #
 # create the various gui elements.
 #
@@ -134,23 +136,6 @@ augment _build_gui => sub {
             $lab->bind( '<1>', sub { $self->_set_card($card); $selcard=$card->label; } );
         }
     }
-
-    # the dialog buttons.
-    # note that we specify a bogus width in order for both buttons to be
-    # the same width. since we pack them with expand set to true, their
-    # width will grow - but equally. otherwise, their size would be
-    # proportional to their english text.
-    my $fbuttons = $top->Frame->pack(@TOP, @FILLX);
-    $fbuttons->Button(
-        -text    => T('Give'),
-        -width   => 10,
-        -command => sub { $self->_give },
-    )->pack(@LEFT, @XFILL2);
-    $fbuttons->Button(
-        -text    => T('Cancel'),
-        -width   => 10,
-        -command => sub { $self->_close },
-    )->pack(@LEFT, @XFILL2);
 };
 
 

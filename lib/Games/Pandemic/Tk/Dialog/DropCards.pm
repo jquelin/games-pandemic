@@ -38,18 +38,6 @@ has _cards => (
     }
 );
 
-# a hash with all the widgets, for easier reference.
-has _widgets => (
-    metaclass => 'Collection::Hash',
-    is        => 'ro',
-    isa       => 'HashRef',
-    default   => sub { {} },
-    provides  => {
-        'set' => '_set_w',
-        'get' => '_w',
-    },
-);
-
 
 # -- initialization
 

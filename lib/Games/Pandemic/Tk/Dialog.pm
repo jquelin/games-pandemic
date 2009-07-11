@@ -21,6 +21,18 @@ has header => ( is=>'rw', isa=>'Str', lazy_build=>1 );
 has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
 
 
+# a hash to store the widgets for easier reference.
+has _widgets => (
+    metaclass => 'Collection::Hash',
+    is        => 'ro',
+    isa       => 'HashRef',
+    default   => sub { {} },
+    provides  => {
+        'set' => '_set_w',
+        'get' => '_w',
+    },
+);
+
 # -- initialization / finalization
 
 #

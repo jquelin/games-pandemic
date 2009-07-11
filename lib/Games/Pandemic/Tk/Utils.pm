@@ -17,6 +17,7 @@ our @EXPORT = qw{
     @FILLX  @FILLY  @FILL2
     @XFILLX @XFILLY @XFILL2
     @PAD1   @PAD10 @PAD20 @PADX10
+    @IPAD10
     @ENON   @ENOFF
     image   pandemic_icon
 };
@@ -42,6 +43,9 @@ our @PAD1    = ( -padx => 1, -pady => 1);
 our @PAD10   = ( -padx => 10, -pady => 10);
 our @PAD20   = ( -padx => 20, -pady => 20);
 our @PADX10  = ( -padx => 10 );
+
+# internal padding
+our @IPAD10   = ( -ipadx => 10, -ipady => 10);
 
 # enabled state
 our @ENON    = ( -state => 'normal' );

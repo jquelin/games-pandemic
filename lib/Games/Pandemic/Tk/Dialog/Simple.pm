@@ -23,6 +23,8 @@ has icon   => ( is=>'ro', isa=>'Str' );
 
 # -- initialization
 
+sub _build__cancel { T('Close') }
+
 
 # -- private methods
 
@@ -44,12 +46,6 @@ augment _build_gui => sub {
         -justify    => 'left',
         -wraplength => '6c',
     )->pack(@LEFT, @XFILL2, @PAD10);
-
-    # close button
-    $top->Button(
-        -text    => T('Close'),
-        -command => sub { $self->_close; },
-    )->pack(@TOP, @FILLX);
 };
 
 

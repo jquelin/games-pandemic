@@ -442,7 +442,12 @@ event _deal_card => sub {
     }
 
     # FIXME: game over if no more card
-    # FIXME: if player has too much cards
+
+    # check if player has too much cards
+    if ( $player->nb_cards > $player->max_cards ) {
+        $game->set_too_many_cards($player);
+        $K->post( main => 'too_many_cards', $player );
+    }
 };
 
 

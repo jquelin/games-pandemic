@@ -585,7 +585,9 @@ sub _build_action_bar {
     my $session = $self->_session;
 
     # create the toolbar
-    my $tb = $self->_w('toolbar');
+    my $tbmain = $self->_w('toolbar');
+    my $tb = $mw->ToolBar(-movable => 0, -in=>$tbmain );
+    $self->_set_w('tbactions', $tb);
 
     # the toolbar widgets
     my @actions = (
@@ -606,9 +608,6 @@ sub _build_action_bar {
             $tip,
         ]
         } @actions;
-
-    # add a separator
-    unshift @items, ['separator'];
 
     # create the widgets
     foreach my $item ( @items ) {
@@ -634,7 +633,6 @@ sub _build_action_bar {
     my $labturn = $tb->Label;
     $self->_set_w('lab_curplayer', $labcurp);
     $self->_set_w('lab_nbactions', $labturn);
-
 }
 
 

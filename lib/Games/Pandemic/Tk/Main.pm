@@ -151,6 +151,18 @@ event end_of_cards => sub {
 };
 
 
+=method event: end_of_propagation()
+
+Received when propagation is done
+
+=cut
+
+event end_of_propagation => sub {
+    my $self = $_[OBJECT];
+    $self->_update_actions;
+};
+
+
 =method event: gain_card($player, $card)
 
 Received when C<$player> got a new C<$card>.

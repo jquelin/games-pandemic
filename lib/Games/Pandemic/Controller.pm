@@ -54,8 +54,9 @@ event continue => sub {
     my $game = Games::Pandemic->instance;
     # FIXME: check src vs current player
     given ( $game->state ) {
-        when ('end_of_actions') { $K->yield('_draw_cards'); }
-        when ('end_of_cards')   { $K->yield('_propagate'); }
+        when ('end_of_actions')     { $K->yield('_draw_cards' ); }
+        when ('end_of_cards')       { $K->yield('_propagate'  ); }
+        when ('end_of_propagation') { $K->yield('_next_player'); }
     }
 };
 
@@ -563,7 +564,10 @@ event _propagate => sub {
         $K->yield( _infect => $card->city, 1 );
         $icards->discard( $card );
     } for 1 .. 2; # FIXME: infection rate
-    $K->yield( '_next_player' );
+
+    # update game state
+    $game->set_state('end_of_propagation');
+    $K->post( 'end_of_propagation' );
 };
 
 

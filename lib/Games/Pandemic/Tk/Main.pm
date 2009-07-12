@@ -43,8 +43,9 @@ has _widgets => (
     isa       => 'HashRef',
     default   => sub { {} },
     provides  => {
-        'set' => '_set_w',
-        'get' => '_w',
+        set    => '_set_w',
+        get    => '_w',
+        delete => '_del_w',
     },
 );
 
@@ -551,6 +552,19 @@ event _city_click => sub {
         return $K->post( controller => 'action', 'fly', $player, $city )
             if $player->owns_city_card($city);
     }
+};
+
+
+#
+# event: _close()
+#
+# request to close current game.
+#
+event _close => sub {
+    return;
+    my $self = shift;
+    my $tb = $self->_w('tbactions');
+    $tb->{CONTAINER}->packForget; # FIXME: breaking encapsulation
 };
 
 

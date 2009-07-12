@@ -647,6 +647,14 @@ sub _build_action_bar {
     my $labturn = $tb->Label;
     $self->_set_w('lab_curplayer', $labcurp);
     $self->_set_w('lab_nbactions', $labturn);
+
+    # continue button
+    my $but = $tb->Button(
+        -text    => T('Continue'),
+        -command => $session->postback('continue'),
+        @ENOFF,
+    );
+    $self->_set_w('but_continue', $but);
 }
 
 

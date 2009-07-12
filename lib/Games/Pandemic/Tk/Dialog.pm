@@ -151,6 +151,7 @@ __END__
 =begin Pod::Coverage
 
 BUILD
+DEMOLISH
 
 =end Pod::Coverage
 

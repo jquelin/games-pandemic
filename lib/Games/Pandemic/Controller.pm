@@ -504,6 +504,7 @@ event _next_player => sub {
         $player = $game->next_player;
     }
     $game->set_curplayer( $player );
+    $game->set_state('actions');
 
     $player->set_actions_left(4);
     $K->post( main => 'next_player', $player );

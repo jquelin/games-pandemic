@@ -74,6 +74,9 @@ has _players_in_turn => (
 );
 has curplayer => ( is=>'rw', isa=>'Games::Pandemic::Player', weak_ref=>1 );
 
+# game state
+has state => ( is=>'rw', isa=>'Str' );
+
 
 # number of research stations remaining to be build
 has stations => (

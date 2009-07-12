@@ -126,6 +126,8 @@ sub infect {
     $nb      //= 1;
     $disease //= $self->disease;
 
+    # FIXME: check for eradication
+
     # perform the infection
     my $id  = $disease->id;
     my $old = $self->_get_infection($id) // 0; # FIXME//padre

@@ -450,7 +450,11 @@ event _deal_card => sub {
 # sent when player needs to draw her cards.
 #
 event _draw_cards => sub {
-    $K->yield( '_propagate' );
+    my $game = Games::Pandemic->instance;
+    my $curp = $game->curplayer;
+    # FIXME: is 2 cards fixed or map-dependant?
+    $K->yield( '_deal_card', $curp, 2 );
+    $K->post( main => 'end_of_cards' );
 };
 
 

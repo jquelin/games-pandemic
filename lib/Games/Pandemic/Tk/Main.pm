@@ -583,6 +583,17 @@ event _close => sub {
 
 
 #
+# event: _continue()
+#
+# request to move game forward.
+#
+event _continue => sub {
+    my $game = Games::Pandemic->instance;
+    $K->post( controller => 'continue' );
+};
+
+
+#
 # event: _new()
 #
 # request a new game to the controller
@@ -665,7 +676,7 @@ sub _build_action_bar {
     # continue button
     my $but = $tb->Button(
         -text    => T('Continue'),
-        -command => $session->postback('continue'),
+        -command => $session->postback('_continue'),
         @ENOFF,
     );
     $self->_set_w('but_continue', $but);

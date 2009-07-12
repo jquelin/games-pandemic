@@ -492,6 +492,8 @@ event _infect => sub {
 
     # perform the infection & update the gui
     my $outbreak = $city->infect($nb, $disease);
+    # FIXME: update outbreak
+    # FIXME: gameover if too many outbreaks
     $K->post( main => 'infection', $city, $outbreak );
 
     return unless $outbreak;

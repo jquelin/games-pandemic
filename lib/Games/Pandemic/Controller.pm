@@ -554,6 +554,15 @@ event _next_player => sub {
 # sent to do the regular disease propagation.
 #
 event _propagate => sub {
+    my $game   = Games::Pandemic->instance;
+    my $icards = $game->infection;
+
+    # propagate diseases
+    do {
+        my $card = $icards->next;
+        $K->yield( _infect => $card->city, 1 );
+        $icards->discard( $card );
+    } for 1 .. 2; # FIXME: infection rate
     $K->yield( '_next_player' );
 };
 

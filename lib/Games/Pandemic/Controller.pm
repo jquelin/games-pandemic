@@ -44,6 +44,21 @@ event action => sub {
 };
 
 
+=method event: continue()
+
+Player wishes to move game forward.
+
+=cut
+
+event continue => sub {
+    my $game = Games::Pandemic->instance;
+    # FIXME: check src vs current player
+    given ( $game->state ) {
+        when ('end_of_actions') { $K->yield('_draw_cards'); }
+    }
+};
+
+
 =method event: drop_cards( $player, @cards )
 
 Request from C<$player> to remove some C<@cards> from her hands.
@@ -427,6 +442,7 @@ event _deal_card => sub {
     # FIXME: game over if no more card
     # FIXME: if player has too much cards
 };
+
 
 #
 # event: _draw_cards()

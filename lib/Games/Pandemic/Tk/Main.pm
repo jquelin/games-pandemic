@@ -139,6 +139,18 @@ event end_of_actions => sub {
 };
 
 
+=method event: end_of_cards()
+
+Received when current player has received her cards for this turn.
+
+=cut
+
+event end_of_cards => sub {
+    my $self = $_[OBJECT];
+    $self->_update_actions;
+};
+
+
 =method event: gain_card($player, $card)
 
 Received when C<$player> got a new C<$card>.
@@ -1109,7 +1121,7 @@ sub _update_actions {
             }
             $self->_w('but_continue')->configure(@ENOFF);
         }
-        when ('end_of_actions') {
+        when ('end_of_actions' || 'end_of_cards') {
             $self->_w("but_action_$_")->configure(@ENOFF) for @actions;
             $self->_w('but_continue')->configure(@ENON);
         }

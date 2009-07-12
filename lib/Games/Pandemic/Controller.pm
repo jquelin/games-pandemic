@@ -268,7 +268,7 @@ event _action_done => sub {
     $K->post( main => 'action_done' );
 
     # next step would be...
-    my $event = $curp->actions_left == 0 ? '_draw_cards' : '_next_action';
+    my $event = $curp->actions_left == 0 ? '_end_of_actions' : '_next_action';
 
     # ... unless a player has too many cards
     foreach my $player ( $game->all_players ) {
@@ -350,7 +350,8 @@ event _action_pass => sub {
 
     # nothing to do - user is just passing
     $curp->set_actions_left(0);
-    $K->yield( '_draw_cards' );
+    $K->post( main => 'action_done' );
+    $K->yield( '_end_of_actions' );
 };
 
 
@@ -434,6 +435,18 @@ event _deal_card => sub {
 #
 event _draw_cards => sub {
     $K->yield( '_propagate' );
+};
+
+
+#
+# event: _end_of_actions()
+#
+# sent when player finished her actions
+#
+event _end_of_actions => sub {
+    my $game = Games::Pandemic->instance;
+    $game->set_state('end_of_actions');
+    $K->post( main => 'end_of_actions' );
 };
 
 

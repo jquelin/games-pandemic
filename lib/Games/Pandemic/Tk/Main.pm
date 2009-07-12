@@ -127,6 +127,18 @@ event drop_card => sub {
 };
 
 
+=method event: end_of_actions()
+
+Received when current player has finished her actions.
+
+=cut
+
+event end_of_actions => sub {
+    my $self = $_[OBJECT];
+    $self->_update_actions;
+};
+
+
 =method event: gain_card($player, $card)
 
 Received when C<$player> got a new C<$card>.
@@ -530,6 +542,8 @@ event _city_click => sub {
     # not allowed to travel
     return $self->yield('too_many_cards', $game->too_many_cards)
         if defined $game->too_many_cards;
+
+    return unless $game->state eq 'actions';
 
     my ($canvas) = @$args;
     my $map  = $game->map;
@@ -1075,12 +1089,20 @@ sub _update_actions {
     my $player = $game->curplayer;
 
     my @actions = qw{ build discover treat share pass drop };
-    foreach my $action ( @actions ) {
-        my $method = "is_${action}_possible";
-        $self->_w("but_action_$action")->configure(
-            $player->$method ? @ENON : @ENOFF );
+    given ( $game->state ) {
+        when ('actions') {
+            foreach my $action ( @actions ) {
+                my $method = "is_${action}_possible";
+                $self->_w("but_action_$action")->configure(
+                    $player->$method ? @ENON : @ENOFF );
+            }
+            $self->_w('but_continue')->configure(@ENOFF);
+        }
+        when ('end_of_actions') {
+            $self->_w("but_action_$_")->configure(@ENOFF) for @actions;
+            $self->_w('but_continue')->configure(@ENON);
+        }
     }
-
 }
 
 

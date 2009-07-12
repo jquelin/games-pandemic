@@ -1,5 +1,15 @@
 Revision history for Games::Pandemic.
 
+0.5.0 Sun Jul 12 14:45:43 2009
+ - introducing continue button to move game forward
+ - dealing cards after player completed her actions
+ - infecting new cities after player got her cards
+ - checking if a player has too many cards before continuing
+ - allowing player to drop cards
+ - making window large enough to hold map + various bars
+ - info bar now on the right of the map
+ - current player now displayed in toolbar
+
 0.4.0 Thu Jul  2 18:48:24 2009
  - moving license to gpl3
  - treating a city implemented

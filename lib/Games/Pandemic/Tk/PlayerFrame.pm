@@ -10,7 +10,9 @@ use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 use Tk;
 
+use Games::Pandemic::Utils;
 use Games::Pandemic::Tk::Utils;
+
 
 # -- attributes
 
@@ -59,7 +61,12 @@ has _is_opened => (
 );
 
 
-# -- initialization
+# -- default builders / finishers
+
+sub DEMOLISH {
+    my $self = shift;
+    debug( "~pframe: " . $self->player->role . "\n" );
+}
 
 sub _build__frame {
     my $self = shift;
@@ -130,6 +137,13 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=begin Pod::Coverage
+
+DEMOLISH
+
+=end Pod::Coverage
+
 
 =head1 SYNOPSIS
 

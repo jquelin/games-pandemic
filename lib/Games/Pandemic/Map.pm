@@ -62,7 +62,7 @@ has start_city => (
 has start_diseases => ( is=>'ro', isa=>'ArrayRef[Int]', auto_deref=>1, lazy_build => 1 );
 
 
-# -- default builders / finshers
+# -- default builders / finishers
 
 
 sub DEMOLISH {

@@ -44,6 +44,24 @@ event action => sub {
 };
 
 
+=method event: close()
+
+Player has closed current game.
+
+=cut
+
+event close => sub {
+    my $game = Games::Pandemic->instance;
+    $game->clear_map;
+    $game->clear_cards_deck;
+    $game->clear_infection_deck;
+    $game->clear_players;
+    $game->clear_players_in_turn;
+    $game->clear_curplayer;
+    $game->clear_too_many_cards;
+};
+
+
 =method event: continue()
 
 Player wishes to move game forward.

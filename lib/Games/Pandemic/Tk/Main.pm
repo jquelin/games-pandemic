@@ -599,10 +599,20 @@ event _city_click => sub {
 # request to close current game.
 #
 event _close => sub {
-    return;
     my $self = shift;
-    my $tb = $self->_w('tbactions');
+    my $game = Games::Pandemic->instance;
+
+    my $tb = $self->_del_w('tbactions');
     $tb->{CONTAINER}->packForget; # FIXME: breaking encapsulation
+    $tb->destroy;
+    $self->_del_w("f$_")->destroy for $game->all_players;
+    $self->_del_w('fplayers')->destroy;
+    $self->_del_w('infobar')->destroy;
+
+    my $c = $self->_w('canvas');
+    $c->delete('all');
+
+    $K->post( controller => 'close' );
 };
 
 

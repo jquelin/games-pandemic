@@ -894,6 +894,7 @@ sub _build_status_bar {
 
     # the status bar itself is a frame
     my $sb = $mw->Frame->pack(@RIGHT, @FILLX, -before=>$self->_w('canvas'));
+    $self->_set_w( infobar => $sb );
 
     # research stations
     my $fstations = $sb->Frame->pack(@TOP, @PADX10);

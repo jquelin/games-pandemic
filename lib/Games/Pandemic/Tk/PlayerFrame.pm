@@ -45,7 +45,7 @@ has _frame => (
     isa        => 'Tk::Frame',
     weak_ref   => 1,
     lazy_build => 1,
-    handles    => [ qw{ pack } ],
+    handles    => [ qw{ pack destroy } ],
 );
 
 

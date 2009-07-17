@@ -17,6 +17,13 @@ with 'MooseX::Traits';
 use Games::Pandemic::Utils;
 
 
+# -- default builders / finishers
+
+sub DEMOLISH {
+    my $self = shift;
+    debug( "~player: " . $self->role . "\n" );
+}
+
 # -- accessors
 
 has _cards => (
@@ -380,6 +387,14 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+
+=begin Pod::Coverage
+
+DEMOLISH
+
+=end Pod::Coverage
+
 
 =head1 SYNOPSIS
 

@@ -62,7 +62,14 @@ has start_city => (
 has start_diseases => ( is=>'ro', isa=>'ArrayRef[Int]', auto_deref=>1, lazy_build => 1 );
 
 
-# -- default builders
+# -- default builders / finshers
+
+
+sub DEMOLISH {
+    my $self = shift;
+    debug( "~map: " . $self->name . "\n" );
+}
+
 
 sub _cities_builder {
     my $self = shift;
@@ -189,3 +196,10 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=begin Pod::Coverage
+
+DEMOLISH
+
+=end Pod::Coverage
+

@@ -8,6 +8,17 @@ use warnings;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 
+use Games::Pandemic::Utils;
+
+
+# -- builders / finishers
+
+sub DEMOLISH {
+    my $self = shift;
+    debug( "~card: " . $self->label . "\n" );
+}
+
+
 # -- accessors
 
 has label => ( is => 'ro', isa => 'Str', lazy_build => 1 );
@@ -18,3 +29,10 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=begin Pod::Coverage
+
+DEMOLISH
+
+=end Pod::Coverage
+

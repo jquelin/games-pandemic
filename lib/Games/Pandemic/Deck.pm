@@ -9,6 +9,16 @@ use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 
+use Games::Pandemic::Utils;
+
+
+# -- builders / finishers
+
+sub DEMOLISH {
+    my $self = shift;
+    debug( "~deck: $self\n" );
+}
+
 
 # -- accessors
 
@@ -43,6 +53,12 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 __END__
+
+=begin Pod::Coverage
+
+DEMOLISH
+
+=end Pod::Coverage
 
 
 =head1 DESCRIPTION

@@ -32,20 +32,23 @@ has config => (
 );
 
 has map => (
-    is  => 'rw',
-    isa => 'Games::Pandemic::Map',
+    is      => 'rw',
+    isa     => 'Games::Pandemic::Map',
+    clearer => 'clear_map',
 );
 
 # player cards deck
 has cards => (
-    is  => 'rw',
-    isa => 'Games::Pandemic::Deck',
+    is      => 'rw',
+    isa     => 'Games::Pandemic::Deck',
+    clearer => 'clear_cards_deck',
 );
 
 # infection cards deck
 has infection => (
-    is  => 'rw',
-    isa => 'Games::Pandemic::Deck',
+    is      => 'rw',
+    isa     => 'Games::Pandemic::Deck',
+    clearer => 'clear_infection_deck',
 );
 
 # current players
@@ -58,6 +61,7 @@ has _players => (
     provides   => {
         elements => 'all_players',       # my @p = $game->all_players;
         push     => 'add_player',        # $game->add_player( $player );
+        clear    => 'clear_players',
     }
 );
 # list of players waiting for their turn
@@ -70,9 +74,15 @@ has _players_in_turn => (
     provides   => {
         push     => 'reinit_players',    # $game->reinit_players( $player );
         shift    => 'next_player',       # my $p = $game->next_player;
+        clear    => 'clear_players_in_turn',
     }
 );
-has curplayer => ( is=>'rw', isa=>'Games::Pandemic::Player', weak_ref=>1 );
+has curplayer => (
+    is       => 'rw',
+    isa      => 'Games::Pandemic::Player',
+    weak_ref => 1,
+    clearer  => 'clear_curplayer',
+);
 
 # game state
 has state => ( is=>'rw', isa=>'Str' );

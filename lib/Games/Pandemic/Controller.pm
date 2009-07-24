@@ -518,6 +518,31 @@ event _end_of_actions => sub {
 
 
 #
+# event: _epidemic()
+#
+# an epidemic card has been drawn.
+#
+event _epidemic => sub {
+    my $game = Games::Pandemic->instance;
+    my $deck = $game->infection;
+
+    # epidemic first strikes hard a new city...
+    my $card = $deck->last;
+    my $city = $card->city;
+    $K->yield( '_infect', $city, 3 );
+    $K->post( main => 'epidemic', $city );
+
+    # then already hit cities ready for a new turn...
+    my @cards = $deck->past;
+    push @cards, $card;
+    $deck->clear_pile;
+    $deck->refill( shuffle @cards );
+
+    # FIXME: update infection rate
+};
+
+
+#
 # _infect( $city [, $nb [, $disease ] ] );
 #
 # infect $city with $nb items of $disease. perform an outbreak on

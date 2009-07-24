@@ -467,6 +467,14 @@ event _deal_card => sub {
     # deal some cards to the players
     foreach my $i ( 1 .. $nb ) {
         my $card = $deck->next;
+
+        # check if we hit a new epidemic
+        if ( $card->isa('Games::Pandemic::Card::Epidemic') ) {
+            $K->yield( '_epidemic' );
+            next;
+        }
+
+        # regular card, dealing it to player
         $player->gain_card($card);
         $K->post(main=>'gain_card', $player, $card);
     }

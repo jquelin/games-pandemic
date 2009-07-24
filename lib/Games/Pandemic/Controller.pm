@@ -138,10 +138,7 @@ event new_game => sub {
         my $nbleft  = scalar(@pcards) - $nbinit;
         my $perheap = int( $nbleft / $epidemics );
         foreach my $i ( 0 .. $epidemics-1 ) {
-            my $start  = $nbinit + $i * $perheap;
-            my $rand   = int( rand($perheap) );
-            my $offset = $start + $rand;
-            say $offset;
+            my $offset = $i * $perheap + int( rand($perheap) );
             splice @pcards, $offset, 0, Games::Pandemic::Card::Epidemic->new;
         }
     }

@@ -8,12 +8,14 @@ use warnings;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 
+use Games::Pandemic::Utils;
+
 extends 'Games::Pandemic::Card';
 
 # -- default builders
 
 sub _build_icon  { '' }
-sub _build_label { '' }
+sub _build_label { T('epidemic') }
 
 
 no Moose;

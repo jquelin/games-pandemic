@@ -163,6 +163,27 @@ event end_of_propagation => sub {
 };
 
 
+=method event: epidemic($city)
+
+Received when a new epidemic strikes C<$city>.
+
+=cut
+
+event epidemic => sub {
+    my ($self, $city) = @_[OBJECT, ARG0];
+
+    # warn user
+    my $format = T('%s epidemic strikes in %s.');
+    Games::Pandemic::Tk::Dialog::Simple->new(
+        parent => $mw,
+        title  => T('Warning'),
+        header => T('New epidemic'),
+        icon   => catfile($SHAREDIR, 'icons', 'warning-48.png'),
+        text   => sprintf($format, $city->disease->name, $city->name)
+    );
+};
+
+
 =method event: gain_card($player, $card)
 
 Received when C<$player> got a new C<$card>.

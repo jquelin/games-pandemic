@@ -12,6 +12,7 @@ use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
 use Readonly;
 
+use Games::Pandemic::Card::Epidemic;
 use Games::Pandemic::Deck;
 use Games::Pandemic::Map::Pandemic;
 use Games::Pandemic::Player;
@@ -130,6 +131,20 @@ event new_game => sub {
 
     # create the player cards deck
     my @pcards = shuffle $map->cards;
+    {
+        # insert epidemic cards
+        my $nbinit = 12;   # FIXME: 3 players * 4 cards, should not be fixed
+        my $epidemics = 4; # FIXME: depends on game difficulty
+        my $nbleft  = scalar(@pcards) - $nbinit;
+        my $perheap = int( $nbleft / $epidemics );
+        foreach my $i ( 0 .. $epidemics-1 ) {
+            my $start  = $nbinit + $i * $perheap;
+            my $rand   = int( rand($perheap) );
+            my $offset = $start + $rand;
+            say $offset;
+            splice @pcards, $offset, 0, Games::Pandemic::Card::Epidemic->new;
+        }
+    }
     my $pcards = Games::Pandemic::Deck->new( cards => \@pcards );
     $game->set_cards( $pcards );
 

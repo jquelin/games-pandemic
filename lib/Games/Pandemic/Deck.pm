@@ -30,6 +30,7 @@ has cards => (
     provides   => {
         count => 'nbcards',
         pop   => 'next',
+        push  => 'refill',
         shift => 'last',
     },
 );
@@ -40,10 +41,10 @@ has _pile => (
     default    => sub { [] },
     auto_deref => 1,
     provides   => {
-        clear    => '_clear_pile',
+        clear    => 'clear_pile',
         count    => 'nbdiscards',
-        push     => 'discard',
         elements => 'past',
+        push     => 'discard',
     },
 );
 

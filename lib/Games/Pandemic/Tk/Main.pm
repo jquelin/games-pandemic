@@ -623,6 +623,7 @@ event _close => sub {
     my $self = shift;
     my $game = Games::Pandemic->instance;
 
+    # remove everything from current game
     my $tb = $self->_del_w('tbactions');
     $tb->{CONTAINER}->packForget; # FIXME: breaking encapsulation
     $tb->destroy;
@@ -632,6 +633,9 @@ event _close => sub {
 
     my $c = $self->_w('canvas');
     $c->delete('all');
+
+    # redraw initial actions
+    $self->_draw_init_screen;
 
     $K->post( controller => 'close' );
 };
@@ -766,39 +770,8 @@ sub _build_canvas {
         $mw->bind('Tk::Canvas', "<Control-Key-$key>", undef);
     }
 
-    # create the initial welcome screen
-    my @tags = ( -tags => ['startup'] );
-    # first a background image...
-    $c->createImage (
-        $width/2, $height/2,
-        -anchor => 'center',
-        -image  => image( catfile($SHAREDIR, "background.png") ),
-        @tags,
-    );
-    # ... then some basic actions
-    my @buttons = (
-        [ T('New game') ,  1, '_new'  ],
-        [ T('Join game') , 0, '_join' ],
-        [ T('Load game') , 0, '_load' ],
-    );
-    my $pad = 25;
-    my $font = $mw->Font(-weight=>'bold');
-    foreach my $i ( 0 .. $#buttons ) {
-        my ($text, $active, $event) = @{ $buttons[$i] };
-        # create the 'button' (really a clickable text)
-        my $id = $c->createText(
-            $width/2, $height/2 - (@buttons)/2*$pad + $i*$pad,
-            $active ? @ENON : @ENOFF,
-            -text         => $text,
-            -fill         => '#dddddd',
-            -activefill   => 'white',
-            -disabledfill => '#999999',
-            -font         => $font,
-            @tags,
-        );
-        # now bind click on this text
-        $c->bind( $id, '<1>', $s->postback($event) );
-    }
+    # initial actions
+    $self->_draw_init_screen;
 }
 
 
@@ -1120,6 +1093,57 @@ sub _draw_infection {
             #-outline => undef,
             -tags    => $tags,
         );
+    }
+}
+
+
+#
+# $main->_draw_init_screen;
+#
+# draw splash image on canvas + initial actions, to present user with a
+# non-empty window by default.
+#
+sub _draw_init_screen {
+    my $self = shift;
+    my $c = $self->_w('canvas');
+    my $s = $self->_session;
+
+    my $config = Games::Pandemic::Config->instance;
+    my $width  = $config->get( 'canvas_width' );
+    my $height = $config->get( 'canvas_height' );
+
+    # create the initial welcome screen
+    my @tags = ( -tags => ['startup'] );
+    # first a background image...
+    $c->createImage (
+        $width/2, $height/2,
+        -anchor => 'center',
+        -image  => image( catfile($SHAREDIR, "background.png") ),
+        @tags,
+    );
+    # ... then some basic actions
+    my @buttons = (
+        [ T('New game') ,  1, '_new'  ],
+        [ T('Join game') , 0, '_join' ],
+        [ T('Load game') , 0, '_load' ],
+    );
+    my $pad = 25;
+    my $font = $mw->Font(-weight=>'bold');
+    foreach my $i ( 0 .. $#buttons ) {
+        my ($text, $active, $event) = @{ $buttons[$i] };
+        # create the 'button' (really a clickable text)
+        my $id = $c->createText(
+            $width/2, $height/2 - (@buttons)/2*$pad + $i*$pad,
+            $active ? @ENON : @ENOFF,
+            -text         => $text,
+            -fill         => '#dddddd',
+            -activefill   => 'white',
+            -disabledfill => '#999999',
+            -font         => $font,
+            @tags,
+        );
+        # now bind click on this text
+        $c->bind( $id, '<1>', $s->postback($event) );
     }
 }
 

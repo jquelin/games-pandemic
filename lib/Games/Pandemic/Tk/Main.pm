@@ -23,6 +23,7 @@ use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Dialog::DropCards;
 use Games::Pandemic::Tk::Dialog::GiveCard;
 use Games::Pandemic::Tk::Dialog::Simple;
+use Games::Pandemic::Tk::PlayerCards;
 use Games::Pandemic::Tk::PlayerFrame;
 use Games::Pandemic::Tk::Utils;
 use Games::Pandemic::Utils;
@@ -48,6 +49,10 @@ has _widgets => (
         delete => '_del_w',
     },
 );
+
+# toplevel with all players and their cards
+has _playercards => ( is=>'rw', isa=>'Games::Pandemic::Tk::PlayerCards' );
+
 
 # currently selected player
 has _selplayer => ( is => 'rw', weak_ref => 1, isa => 'Games::Pandemic::Player' );
@@ -240,11 +245,12 @@ event new_game => sub {
     my $c = $self->_w('canvas');
     my $s = $self->_session;
 
-
     # add missing gui elements
     $self->_build_action_bar;
     $self->_build_players_bar;
     $self->_build_status_bar;
+    my $pcards = Games::Pandemic::Tk::PlayerCards->new( parent=>$mw );
+    $self->_set_playercards($pcards);
 
     # remove everything on the canvas
     $c->delete('all');

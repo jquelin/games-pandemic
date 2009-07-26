@@ -891,6 +891,11 @@ sub _build_menubar {
     );
     $self->_build_menu(T('~Game'), @mnu_game);
 
+    # menu view
+    my @mnu_view = (
+    [ '_show_cards', '', 'F2', T('Player ~cards')   ],
+    );
+    $self->_build_menu(T('~View'), @mnu_view);
 }
 
 

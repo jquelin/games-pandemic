@@ -136,7 +136,7 @@ sub _build_gui {
     my $font = $top->Font;
     my $max = max map { $font->measure($_->label) } @cards;
     my $width  = $max * 3; # FIXME: depends on number of players
-    my $height = 32 + 20 * 9;  # FIXME: depends on max cards
+    my $height = 40 + 20 * 9;  # FIXME: depends on max cards
     $top->geometry("${width}x${height}");
 
     # window title

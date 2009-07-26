@@ -70,6 +70,7 @@ sub new_player {
     # create the frame holding the player
     my $top   = $self->_toplevel;
     my $frame = $top->Frame->pack(@LEFT, @XFILL2);
+    $self->_set_w("f$player", $frame);
 
     my $ftitle = $frame->Frame->pack(@TOP, @FILLX);
     $ftitle->Label( -image => image( $player->image('icon', 32), $top ) )->pack(@LEFT);
@@ -88,11 +89,28 @@ sub gain_card {
     my ($self, $player, $card) = @_;
     my $top = $self->_toplevel;
 
+    # replace existing cards frame
     my $fcards = $self->_w("cards_$player");
-    my $f = $fcards->Frame->pack(@TOP, @FILLX);
-    $f->Label( -image => image($card->icon, $top) )->pack(@LEFT);
-    $f->Label( -text => $card->label, -anchor=>'w' )->pack(@LEFT);
-    #$self->_add_fcard( $card, $f );
+    $fcards->destroy;
+    $fcards = $self->_w("f$player")->Frame->pack(@TOP, @XFILL2);
+    $self->_set_w("cards_$player", $fcards);
+
+    my @cards = $player->all_cards;
+    my @cities =
+        sort { $a->city->disease cmp $b->city->disease
+            || $a->label cmp $b->label }
+        grep { $_->isa('Games::Pandemic::Card::City') }
+        @cards;
+    my @specials =
+        sort { $a->label cmp $b->label }
+        grep { ! $_->isa('Games::Pandemic::Card::City') }
+        @cards;
+
+    foreach my $card ( @specials, @cities ) {
+        my $f = $fcards->Frame->pack(@TOP, @FILLX);
+        $f->Label( -image => image($card->icon, $top) )->pack(@LEFT);
+        $f->Label( -text => $card->label, -anchor=>'w' )->pack(@LEFT);
+    }
 }
 
 

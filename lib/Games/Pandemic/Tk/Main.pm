@@ -132,7 +132,6 @@ Received when C<$player> drops a C<$card>.
 event drop_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
     $self->_playercards->drop_card($player, $card);
-    $self->_w("f$player")->rm_card($card);
     $self->_update_status; # deck count
 };
 
@@ -203,7 +202,6 @@ Received when C<$player> got a new C<$card>.
 event gain_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
     $self->_playercards->gain_card($player, $card);
-    $self->_w("f$player")->add_card($card);
     $self->_update_status; # deck count
 };
 
@@ -310,11 +308,7 @@ Received when the controller has just created a new player.
 event new_player => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
 
-    # creating the frame holding the player cards
-    my $fplayers = $self->_w( 'fplayers' );
-    my $f = Games::Pandemic::Tk::PlayerFrame->new(player=>$player, parent=>$fplayers);
-    $self->_set_w( "f$player", $f );
-    $f->pack(@LEFT);
+    # adding the player to player cards window
     $self->_playercards->new_player($player);
 
     # drawing the pawn on the canvas

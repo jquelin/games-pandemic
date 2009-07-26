@@ -251,7 +251,6 @@ event new_game => sub {
 
     # add missing gui elements
     $self->_build_action_bar;
-    $self->_build_players_bar;
     $self->_build_status_bar;
     my $pcards = Games::Pandemic::Tk::PlayerCards->new( parent=>$mw );
     $self->_set_playercards($pcards);
@@ -877,23 +876,6 @@ sub _build_menu {
         $accel =~ s/Control-(\w)/"Control-" . lc($1)/e;
         $mw->bind("<$accel>", $s->postback($action));
     }
-}
-
-
-#
-# $main->_build_players_bar;
-#
-# create the players bar, with the various players and their cards.
-#
-sub _build_players_bar {
-    my $self = shift;
-
-    my $fplayers = $mw->Scrolled(
-        'Frame',
-        -scrollbars => 's',
-        -height     => 40,  # 32 pixels + border
-    )->pack(@BOTTOM, @FILLX, -before=>$self->_w('canvas'));
-    $self->_set_w( fplayers => $fplayers );
 }
 
 

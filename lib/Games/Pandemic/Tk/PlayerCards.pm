@@ -15,7 +15,7 @@ use Games::Pandemic::Utils;
 # -- attributes & accessors
 
 has parent    => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
-has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
+has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel', handles => [ qw{ destroy } ] );
 
 
 # -- initialization

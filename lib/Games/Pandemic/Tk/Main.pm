@@ -313,6 +313,7 @@ event new_player => sub {
     my $f = Games::Pandemic::Tk::PlayerFrame->new(player=>$player, parent=>$fplayers);
     $self->_set_w( "f$player", $f );
     $f->pack(@LEFT);
+    $self->_playercards->new_player($player);
 
     # drawing the pawn on the canvas
     my $c = $self->_w('canvas');

@@ -201,6 +201,7 @@ Received when C<$player> got a new C<$card>.
 
 event gain_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
+    $self->_playercards->gain_card($player, $card);
     $self->_w("f$player")->add_card($card);
     $self->_update_status; # deck count
 };

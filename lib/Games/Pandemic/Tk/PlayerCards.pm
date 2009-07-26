@@ -80,6 +80,22 @@ sub new_player {
 }
 
 
+=method $pcards->gain_card($player, $card);
+
+=cut
+
+sub gain_card {
+    my ($self, $player, $card) = @_;
+    my $top = $self->_toplevel;
+
+    my $fcards = $self->_w("cards_$player");
+    my $f = $fcards->Frame->pack(@TOP, @FILLX);
+    $f->Label( -image => image($card->icon, $top) )->pack(@LEFT);
+    $f->Label( -text => $card->label, -anchor=>'w' )->pack(@LEFT);
+    #$self->_add_fcard( $card, $f );
+}
+
+
 # -- private methods
 
 #

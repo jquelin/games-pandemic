@@ -51,7 +51,11 @@ has _widgets => (
 );
 
 # toplevel with all players and their cards
-has _playercards => ( is=>'rw', isa=>'Games::Pandemic::Tk::PlayerCards' );
+has _playercards => (
+    is      => 'rw',
+    isa     => 'Games::Pandemic::Tk::PlayerCards',
+    clearer => '_clear_playercards',
+);
 
 
 # currently selected player
@@ -639,6 +643,10 @@ event _close => sub {
 
     my $c = $self->_w('canvas');
     $c->delete('all');
+
+    # destroy player cards window
+    $self->_playercards->destroy;
+    $self->_clear_playercards;
 
     # redraw initial actions
     $self->_draw_init_screen;

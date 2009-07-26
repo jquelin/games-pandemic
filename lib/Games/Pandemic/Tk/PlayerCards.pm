@@ -64,7 +64,6 @@ sub _build_gui {
 
     # center window & make it appear
     $top->Popup( -popover => $parent );
-    $top->resizable(0,0);
 }
 
 no Moose;

@@ -15,7 +15,7 @@ use Games::Pandemic::Utils;
 
 sub DEMOLISH {
     my $self = shift;
-    debug( "~card: " . $self->label . "\n" );
+    #debug( "~card: " . $self->label . "\n" );
 }
 
 

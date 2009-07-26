@@ -92,7 +92,7 @@ has neighbour_ids => (
 
 sub DEMOLISH {
     my $self = shift;
-    debug( "~city: " . $self->name . "\n" );
+    #debug( "~city: " . $self->name . "\n" );
 }
 
 

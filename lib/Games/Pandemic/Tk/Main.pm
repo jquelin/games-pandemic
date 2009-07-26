@@ -664,7 +664,11 @@ event _continue => sub {
 #
 # request a new game to the controller
 #
-event _new => sub { $K->post('controller' => 'new_game'); };
+event _new => sub {
+    my $game = Games::Pandemic->instance;
+    return if $game->is_in_play;
+    $K->post('controller' => 'new_game');
+};
 
 
 #

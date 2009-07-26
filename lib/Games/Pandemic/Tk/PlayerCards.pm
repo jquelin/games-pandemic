@@ -83,6 +83,8 @@ sub new_player {
 
 =method $pcards->gain_card($player, $card);
 
+Request to add a new C<$card> to C<$player>.
+
 =cut
 
 sub gain_card {
@@ -112,6 +114,15 @@ sub gain_card {
         $f->Label( -text => $card->label, -anchor=>'w' )->pack(@LEFT);
     }
 }
+
+
+=method $pcards->drop_card($player, $card);
+
+Request to remove a C<$card> from C<$player>.
+
+=cut
+
+*drop_card = \&gain_card;
 
 
 # -- private methods

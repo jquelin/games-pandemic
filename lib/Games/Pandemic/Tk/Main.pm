@@ -131,6 +131,7 @@ Received when C<$player> drops a C<$card>.
 
 event drop_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
+    $self->_playercards->drop_card($player, $card);
     $self->_w("f$player")->rm_card($card);
     $self->_update_status; # deck count
 };

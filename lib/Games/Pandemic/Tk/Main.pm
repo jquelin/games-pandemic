@@ -24,7 +24,6 @@ use Games::Pandemic::Tk::Dialog::DropCards;
 use Games::Pandemic::Tk::Dialog::GiveCard;
 use Games::Pandemic::Tk::Dialog::Simple;
 use Games::Pandemic::Tk::PlayerCards;
-use Games::Pandemic::Tk::PlayerFrame;
 use Games::Pandemic::Tk::Utils;
 use Games::Pandemic::Utils;
 

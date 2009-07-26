@@ -97,6 +97,7 @@ sub gain_card {
     $fcards = $self->_w("f$player")->Frame->pack(@TOP, @XFILL2);
     $self->_set_w("cards_$player", $fcards);
 
+    # sort cards by type, then by label
     my @cards = $player->all_cards;
     my @cities =
         sort { $a->city->disease cmp $b->city->disease
@@ -108,6 +109,7 @@ sub gain_card {
         grep { ! $_->isa('Games::Pandemic::Card::City') }
         @cards;
 
+    # repopulate new frame
     foreach my $card ( @specials, @cities ) {
         my $f = $fcards->Frame->pack(@TOP, @FILLX);
         $f->Label( -image => image($card->icon, $top) )->pack(@LEFT);

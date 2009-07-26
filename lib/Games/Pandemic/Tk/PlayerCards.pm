@@ -97,20 +97,8 @@ sub gain_card {
     $fcards = $self->_w("f$player")->Frame->pack(@TOP, @XFILL2);
     $self->_set_w("cards_$player", $fcards);
 
-    # sort cards by type, then by label
-    my @cards = $player->all_cards;
-    my @cities =
-        sort { $a->city->disease cmp $b->city->disease
-            || $a->label cmp $b->label }
-        grep { $_->isa('Games::Pandemic::Card::City') }
-        @cards;
-    my @specials =
-        sort { $a->label cmp $b->label }
-        grep { ! $_->isa('Games::Pandemic::Card::City') }
-        @cards;
-
     # repopulate new frame
-    foreach my $card ( @specials, @cities ) {
+    foreach my $card ( $player->all_cards ) {
         my $f = $fcards->Frame->pack(@TOP, @FILLX);
         $f->Label( -image => image($card->icon, $top) )->pack(@LEFT);
         $f->Label( -text => $card->label, -anchor=>'w' )->pack(@LEFT);

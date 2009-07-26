@@ -34,7 +34,7 @@ has _cards => (
     auto_deref => 1,
     provides   => {
         count   => 'nb_cards',        # my $nb = $player->nb_cards;
-        values  => 'all_cards',       # my @c = $player->all_cards;
+        values  => '_all_cards',      # my @c = $player->all_cards;
         delete  => 'drop_card',       # $player->drop_card( $card );
         set     => '_add_card',       # $player->_add_card( $card, $card );
         exists  => 'owns_card',       # my $bool = $player->owns_card($card);
@@ -153,6 +153,31 @@ sub image {
         $SHAREDIR, 'roles',
         join('-', $self->_role, $what, $size) . '.png'
     );
+}
+
+
+=method my @cards = $player->all_cards;
+
+Return the list of cards owned by C<$player>. The list is sorted by type
+of card, then by disease and by name.
+
+=cut
+
+sub all_cards {
+    my $self = shift;
+
+    # fetch cards
+    my @cards = $self->_all_cards;
+    my @cities =
+        sort { $a->city->disease->name cmp $b->city->disease->name
+            || $a->label cmp $b->label }
+        grep { $_->isa('Games::Pandemic::Card::City') }
+        @cards;
+    my @specials =
+        sort { $a->label cmp $b->label }
+        grep { ! $_->isa('Games::Pandemic::Card::City') }
+        @cards;
+    return @specials, @cities;
 }
 
 

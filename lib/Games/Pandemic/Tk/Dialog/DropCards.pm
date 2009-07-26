@@ -103,7 +103,7 @@ augment _build_gui => sub {
     my $top  = $self->_toplevel;
 
     my $player = $self->player;
-    my @cards  = sort { $a->label cmp $b->label } $player->all_cards;
+    my @cards  = $player->all_cards;
 
     my $f = $top->Frame->pack(@TOP, @XFILL2, @PAD10);
     $f->Label(

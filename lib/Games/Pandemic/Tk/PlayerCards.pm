@@ -58,7 +58,7 @@ sub DEMOLISH {
 
 # -- public methods
 
-=method $pcards->new_player( $player )
+=method $pcards->new_player( $player );
 
 Request to add a new C<$player> to the window.
 
@@ -71,7 +71,7 @@ sub new_player {
     my $top   = $self->_toplevel;
     my $frame = $top->Frame->pack(@LEFT, @XFILL2);
 
-    my $ftitle = $frame->Frame->pack(@TOP);
+    my $ftitle = $frame->Frame->pack(@TOP, @FILLX);
     $ftitle->Label( -image => image( $player->image('icon', 32), $top ) )->pack(@LEFT);
     $ftitle->Label( -text  => $player->role )->pack(@LEFT);
 

@@ -5,6 +5,7 @@ use 5.010;
 use strict;
 use warnings;
 
+use List::Util qw{ max };
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use Tk;
@@ -52,11 +53,20 @@ sub DEMOLISH {
 #
 sub _build_gui {
     my $self = shift;
+    my $game = Games::Pandemic->instance;
     my $parent = $self->parent;
 
     my $top = $parent->Toplevel;
     $self->_set_toplevel($top);
     $top->withdraw;
+
+    # compute window width
+    my @cards = $game->map->cards;
+    my $font = $top->Font;
+    my $max = max map { $font->measure($_->label) } @cards;
+    my $width  = $max * 3; # FIXME: depends on number of players
+    my $height = 32 * 10;  # FIXME: depends on max cards
+    $top->geometry("${width}x${height}");
 
     # window title
     $top->title( T('Cards') );

@@ -86,6 +86,16 @@ has curplayer => (
 
 # game state
 has state => ( is=>'rw', isa=>'Str' );
+has is_in_play => (
+    metaclass => 'Bool',
+    is        => 'ro',
+    isa       => 'Bool',
+    default   => 0,
+    provides  => {
+        set   => 'has_started',
+        unset => 'has_ended',
+    }
+);
 
 
 # number of research stations remaining to be build

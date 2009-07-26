@@ -60,6 +60,7 @@ event close => sub {
     $game->clear_players_in_turn;
     $game->clear_curplayer;
     $game->clear_too_many_cards;
+    $game->has_ended;
 };
 
 
@@ -121,6 +122,7 @@ Create a new game: (re-)initialize the map, and various internal states.
 
 event new_game => sub {
     my $game = Games::Pandemic->instance;
+    $game->has_started;
 
     # create the map
     my $map = Games::Pandemic::Map::Pandemic->new;

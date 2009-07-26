@@ -814,7 +814,7 @@ sub _build_gui {
     # that is when the first object of the class is created - and not
     # during compile time.
     $self->_build_toolbar;
-    $self->_build_menu;
+    $self->_build_menubar;
     $self->_build_canvas;
 
     # center & show the window
@@ -824,43 +824,28 @@ sub _build_gui {
 
 
 #
-# $main->_build_menu;
+# $self->_build_menu( $label, @submenus );
 #
-# create the window's menu.
+# Create the menu $label, with all the @submenus.
+# @submenus is a list of [$action, $icon, $accel, $label] items.
 #
 sub _build_menu {
-    my $self = shift;
+    my ($self, $label, @submenus) = @_;
+    my $menubar = $self->_w('menubar');
     my $s = $self->_session;
 
-    # no tear-off menus
-    $mw->optionAdd('*tearOff', 'false');
-
-    #$h->{w}{mnu_run} = $menubar->entrycget(1, '-menu');
-
-    my $menubar = $mw->Menu;
-    $mw->configure(-menu => $menubar );
-
-    # menu game
-    my @mnu_game = (
-    [ '_new',   'filenew16',   'Ctrl+N', T('~New game')   ],
-    [ '_load',  'fileopen16',  'Ctrl+O', T('~Load game')  ],
-    [ '_close', 'fileclose16', 'Ctrl+W', T('~Close game') ],
-    [ '---'                                               ],
-    [ '_quit',  'actexit16',   'Ctrl+Q', T('~Quit')       ],
-    );
-
-    my $game = $menubar->cascade(-label => T('~Game'));
-    foreach my $item ( @mnu_game ) {
+    my $menu = $menubar->cascade(-label => $label);
+    foreach my $item ( @submenus ) {
         my ($action, $icon, $accel, $label) = @$item;
 
         # separators are easier
         if ( $action eq '---' ) {
-            $game->separator;
+            $menu->separator;
             next;
         }
 
         # regular buttons
-        $game->command(
+        $menu->command(
             -label       => $label,
             -image       => $icon,
             -compound    => 'left',
@@ -875,6 +860,37 @@ sub _build_menu {
         $accel =~ s/Control-(\w)/"Control-" . lc($1)/e;
         $mw->bind("<$accel>", $s->postback($action));
     }
+}
+
+
+#
+# $main->_build_menubar;
+#
+# create the window's menu.
+#
+sub _build_menubar {
+    my $self = shift;
+    my $s = $self->_session;
+
+    # no tear-off menus
+    $mw->optionAdd('*tearOff', 'false');
+
+    #$h->{w}{mnu_run} = $menubar->entrycget(1, '-menu');
+
+    my $menubar = $mw->Menu;
+    $mw->configure(-menu => $menubar );
+    $self->_set_w('menubar', $menubar);
+
+    # menu game
+    my @mnu_game = (
+    [ '_new',   'filenew16',   'Ctrl+N', T('~New game')   ],
+    [ '_load',  'fileopen16',  'Ctrl+O', T('~Load game')  ],
+    [ '_close', 'fileclose16', 'Ctrl+W', T('~Close game') ],
+    [ '---'                                               ],
+    [ '_quit',  'actexit16',   'Ctrl+Q', T('~Quit')       ],
+    );
+    $self->_build_menu(T('~Game'), @mnu_game);
+
 }
 
 

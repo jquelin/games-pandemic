@@ -632,8 +632,6 @@ event _close => sub {
     my $tb = $self->_del_w('tbactions');
     $tb->{CONTAINER}->packForget; # FIXME: breaking encapsulation
     $tb->destroy;
-    $self->_del_w("f$_")->destroy for $game->all_players;
-    $self->_del_w('fplayers')->destroy;
     $self->_del_w('infobar')->destroy;
 
     my $c = $self->_w('canvas');

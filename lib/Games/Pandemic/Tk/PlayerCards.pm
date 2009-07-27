@@ -7,6 +7,7 @@ use warnings;
 
 use List::Util qw{ max };
 use Moose;
+use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 use Tk;
 

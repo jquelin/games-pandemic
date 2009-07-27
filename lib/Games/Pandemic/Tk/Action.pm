@@ -6,10 +6,10 @@ use strict;
 use warnings;
 
 use Moose;
+use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Tk::Utils;
-use Games::Pandemic::Utils;
 
 
 # -- attributes & accessors

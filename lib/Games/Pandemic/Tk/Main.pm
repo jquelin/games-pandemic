@@ -270,6 +270,11 @@ event new_game => sub {
     # remove everything on the canvas
     $c->delete('all');
 
+    # prevent some actions
+    $self->_action('new')->disable;
+    $self->_action('load')->disable;
+    $self->_action('close')->enable;
+
     # the background image
     my $map    = Games::Pandemic->instance->map;
     my $bgpath = $map->background_path;
@@ -641,6 +646,11 @@ event _close => sub {
     my $self = shift;
     my $game = Games::Pandemic->instance;
 
+    # allow some actions
+    $self->_action('new')->enable;
+    $self->_action('load')->enable;
+    $self->_action('close')->disable;
+
     # remove everything from current game
     my $tb = $self->_del_w('tbactions');
     $tb->{CONTAINER}->packForget; # FIXME: breaking encapsulation
@@ -825,7 +835,7 @@ sub _build_gui {
     $mw->geometry($width . 'x' . $height);
 
     # create the actions
-    foreach my $what ( qw{ new open close cards } ) {
+    foreach my $what ( qw{ new load close quit cards } ) {
         my $action = Games::Pandemic::Tk::Action->new;
         $self->_set_action($what, $action);
     }
@@ -992,16 +1002,15 @@ sub _build_toolbar {
 
     # the toolbar widgets
     my @tb = (
-        [ 'Button', 'filenew22',   'tbut_new',   '_new',   T('New game')   ],
-        [ 'Button', 'fileopen22',  'tbut_load',  '_load',  T('Load game')  ],
-        [ 'Button', 'fileclose22', 'tbut_close', '_close', T('Close game') ],
-        [ 'Button', 'actexit22',   'tbut_quit',  '_quit',  T('Quit')       ],
-        #[ 'separator'                                                     ],
+        [ 'Button', 'filenew22',   'tbut_new',   'new',   '_new',   T('New game')   ],
+        [ 'Button', 'fileopen22',  'tbut_load',  'load',  '_load',  T('Load game')  ],
+        [ 'Button', 'fileclose22', 'tbut_close', 'close', '_close', T('Close game') ],
+        [ 'Button', 'actexit22',   'tbut_quit',  'quit',  '_quit',  T('Quit')       ],
     );
 
     # create the widgets
     foreach my $item ( @tb ) {
-        my ($type, $image, $name, $event, $tip) = @$item;
+        my ($type, $image, $name, $action, $event, $tip) = @$item;
 
         # separator is a special case
         $tb->separator( -movable => 0 ), next if $type eq 'separator';
@@ -1014,6 +1023,7 @@ sub _build_toolbar {
             -command     => $session->postback($event),
         );
         $self->_set_w( $name, $widget );
+        $self->_action($action)->add_widget( $widget );
     }
 }
 

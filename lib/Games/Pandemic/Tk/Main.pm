@@ -20,6 +20,7 @@ use Tk::PNG;
 use Tk::ToolBar;
 
 use Games::Pandemic::Config;
+use Games::Pandemic::Tk::Action;
 use Games::Pandemic::Tk::Dialog::DropCards;
 use Games::Pandemic::Tk::Dialog::GiveCard;
 use Games::Pandemic::Tk::Dialog::Simple;
@@ -46,6 +47,18 @@ has _widgets => (
         set    => '_set_w',
         get    => '_w',
         delete => '_del_w',
+    },
+);
+
+# a hash with all the actions.
+has _actions => (
+    metaclass => 'Collection::Hash',
+    is        => 'ro',
+    isa       => 'HashRef',
+    default   => sub { {} },
+    provides  => {
+        set    => '_set_action',
+        get    => '_action',
     },
 );
 
@@ -810,6 +823,12 @@ sub _build_gui {
     my $width  = $config->get( 'win_width' );
     my $height = $config->get( 'win_height' );
     $mw->geometry($width . 'x' . $height);
+
+    # create the actions
+    foreach my $what ( qw{ new open close cards } ) {
+        my $action = Games::Pandemic::Tk::Action->new;
+        $self->_set_action($what, $action);
+    }
 
     # WARNING: we need to create the toolbar object before anything
     # else. indeed, tk::toolbar loads the embedded icons in classinit,

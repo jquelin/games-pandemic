@@ -839,6 +839,11 @@ sub _build_gui {
         my $action = Games::Pandemic::Tk::Action->new;
         $self->_set_action($what, $action);
     }
+    # allow some actions
+    $self->_action('new')->enable;
+    $self->_action('load')->enable;
+    $self->_action('close')->disable;
+
 
     # WARNING: we need to create the toolbar object before anything
     # else. indeed, tk::toolbar loads the embedded icons in classinit,

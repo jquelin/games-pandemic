@@ -7,17 +7,22 @@ use warnings;
 
 use List::Util qw{ max };
 use Moose;
+use MooseX::POE;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
+use Readonly;
 use Tk;
 
 use Games::Pandemic::Tk::Utils;
 use Games::Pandemic::Utils;
 
+Readonly my $K => $poe_kernel;
+
+
 # -- attributes & accessors
 
 has parent    => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
-has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel', handles => [ qw{ destroy } ] );
+has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
 
 # a hash with all the widgets, for easier reference.
 has _widgets => (
@@ -36,22 +41,23 @@ has _widgets => (
 # -- initialization
 
 #
-# BUILD()
+# START()
 #
-# called during object initialization.
+# called during session start
 #
-sub BUILD {
+sub START {
     my $self = shift;
+    $K->alias_set('cards');
     $self->_build_gui;
 }
 
 
 #
-# DEMOLISH()
+# STOP()
 #
-# called as destructor
+# called during session stop
 #
-sub DEMOLISH {
+sub STOP {
     my $self = shift;
     debug( "~player cards: $self\n" );
 }
@@ -59,14 +65,14 @@ sub DEMOLISH {
 
 # -- public methods
 
-=method $pcards->new_player( $player );
+=method event: new_player( $player )
 
 Request to add a new C<$player> to the window.
 
 =cut
 
-sub new_player {
-    my ($self, $player) = @_;
+event new_player => sub {
+    my ($self, $player) = @_[OBJECT, ARG0];
 
     # create the frame holding the player
     my $top   = $self->_toplevel;
@@ -79,17 +85,17 @@ sub new_player {
 
     my $fcards = $frame->Frame->pack(@TOP, @XFILL2);
     $self->_set_w("cards_$player", $fcards);
-}
+};
 
 
-=method $pcards->gain_card($player, $card);
+=method event: gain_card($player, $card)
 
 Request to add a new C<$card> to C<$player>.
 
 =cut
 
-sub gain_card {
-    my ($self, $player, $card) = @_;
+event gain_card => sub {
+    my ($self, $player, $card) = @_[OBJECT, ARG0, ARG1];
     my $top = $self->_toplevel;
 
     # replace existing cards frame
@@ -104,16 +110,32 @@ sub gain_card {
         $f->Label( -image => image($card->icon, $top) )->pack(@LEFT);
         $f->Label( -text => $card->label, -anchor=>'w' )->pack(@LEFT);
     }
-}
+};
 
 
-=method $pcards->drop_card($player, $card);
+=method event: drop_card($player, $card)
 
 Request to remove a C<$card> from C<$player>.
 
 =cut
 
-*drop_card = \&gain_card;
+# drop_card is the same as gain_card, since we're removing all cards and
+# re-adding all those belonging to the player.
+event drop_card => \&gain_card;
+
+
+=method event: destroy()
+
+Request to destroy the window.
+
+=cut
+
+event destroy => sub {
+    my $self = shift;
+    $K->alias_remove('cards');
+    $self->_toplevel->destroy;
+};
+
 
 
 # -- private methods
@@ -156,7 +178,7 @@ __END__
 
 =begin Pod::Coverage
 
-BUILD
-DEMOLISH
+START
+STOP
 
 =end Pod::Coverage

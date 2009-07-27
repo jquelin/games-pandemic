@@ -159,6 +159,9 @@ event new_game => sub {
         $icards->discard( $card );
     }
 
+    # signal main window that we have started a new game
+    $K->post( 'main' => 'new_game' );
+
     # create the players
     # FIXME: by now we're creating a fixed set of players, should be
     # configurable
@@ -168,9 +171,6 @@ event new_game => sub {
     $K->yield( _new_player => 'Medic', 4 );
     #$K->yield( _new_player => 'Dispatcher', 4 );
     #$K->yield( _new_player => 'OperationsExpert', 4 );
-
-    # signal main window that we have started a new game
-    $K->post( 'main' => 'new_game' );
 
     # start the game
     $K->yield( '_next_player' );

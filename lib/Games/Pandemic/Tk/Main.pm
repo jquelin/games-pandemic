@@ -62,12 +62,6 @@ has _actions => (
     },
 );
 
-# toplevel with all players and their cards
-has _playercards => (
-    is      => 'rw',
-    isa     => 'Games::Pandemic::Tk::PlayerCards',
-    clearer => '_clear_playercards',
-);
 
 
 # currently selected player
@@ -143,7 +137,7 @@ Received when C<$player> drops a C<$card>.
 
 event drop_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
-    $self->_playercards->drop_card($player, $card);
+    $K->post( cards => 'drop_card', $player, $card );
     $self->_update_status; # deck count
 };
 
@@ -213,7 +207,7 @@ Received when C<$player> got a new C<$card>.
 
 event gain_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
-    $self->_playercards->gain_card($player, $card);
+    $K->post( cards => 'gain_card', $player, $card );
     $self->_update_status; # deck count
 };
 
@@ -264,8 +258,7 @@ event new_game => sub {
     # add missing gui elements
     $self->_build_action_bar;
     $self->_build_status_bar;
-    my $pcards = Games::Pandemic::Tk::PlayerCards->new( parent=>$mw );
-    $self->_set_playercards($pcards);
+    Games::Pandemic::Tk::PlayerCards->new( parent=>$mw );
 
     # remove everything on the canvas
     $c->delete('all');
@@ -325,7 +318,7 @@ event new_player => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
 
     # adding the player to player cards window
-    $self->_playercards->new_player($player);
+    $K->post( cards => 'new_player', $player );
 
     # drawing the pawn on the canvas
     my $c = $self->_w('canvas');
@@ -661,8 +654,7 @@ event _close => sub {
     $c->delete('all');
 
     # destroy player cards window
-    $self->_playercards->destroy;
-    $self->_clear_playercards;
+    $K->post( cards => 'destroy' );
 
     # redraw initial actions
     $self->_draw_init_screen;

@@ -1016,28 +1016,29 @@ sub _build_toolbar {
 
     # the toolbar widgets
     my @tb = (
-        [ 'Button', 'filenew22',   'tbut_new',   'new',   '_new',   T('New game')   ],
-        [ 'Button', 'fileopen22',  'tbut_load',  'load',  '_load',  T('Load game')  ],
-        [ 'Button', 'fileclose22', 'tbut_close', 'close', '_close', T('Close game') ],
-        [ 'Button', 'actexit22',   'tbut_quit',  'quit',  '_quit',  T('Quit')       ],
+        [ 'Button', 'filenew22',   'new',   T('New game')   ],
+        [ 'Button', 'fileopen22',  'load',  T('Load game')  ],
+        [ 'Button', 'fileclose22', 'close', T('Close game') ],
+        [ 'Button', 'actexit22',   'quit',  T('Quit')       ],
     );
 
     # create the widgets
     foreach my $item ( @tb ) {
-        my ($type, $image, $name, $action, $event, $tip) = @$item;
+        my ($type, $image, $name, $tip) = @$item;
 
         # separator is a special case
         $tb->separator( -movable => 0 ), next if $type eq 'separator';
+        my $action = $self->_action($name);
 
         # regular toolbar widgets
         my $widget = $tb->$type(
             -image       => $image,
             -tip         => $tip,
             #-accelerator => $item->[2],
-            -command     => $session->postback($event),
+            -command     => $action->callback,
         );
-        $self->_set_w( $name, $widget );
-        $self->_action($action)->add_widget( $widget );
+        $self->_set_w( "tbut_$name", $widget );
+        $action->add_widget( $widget );
     }
 }
 

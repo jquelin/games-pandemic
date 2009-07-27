@@ -27,18 +27,31 @@ has _widgets => (
     },
 );
 
+has is_enabled => (
+    metaclass => 'Bool',
+    is        => 'ro',
+    isa       => 'Bool',
+    default   => 1,
+    provides  => {
+        set   => '_enable',
+        unset => '_disable',
+    },
+);
+
 
 # -- public methods
 
 =method $action->add_widget( $widget );
 
-Associate C<$widget> with C<$action>.
+Associate C<$widget> with C<$action>. Enable or disable it depending on
+current action status.
 
 =cut
 
 sub add_widget {
     my ($self, $widget) = @_;
     $self->_set_widget($widget, $widget);
+    $widget->configure( $self->is_enabled ? @ENON : @ENOFF );
 }
 
 
@@ -60,6 +73,7 @@ Activate all associated widgets.
 sub enable {
     my $self = shift;
     $_->configure(@ENON) for $self->_all_widgets;
+    $self->_enable;
 }
 
 
@@ -72,6 +86,7 @@ De-activate all associated widgets.
 sub disable {
     my $self = shift;
     $_->configure(@ENOFF) for $self->_all_widgets;
+    $self->_disable;
 }
 
 

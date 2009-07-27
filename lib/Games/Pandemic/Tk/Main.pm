@@ -900,10 +900,9 @@ sub _build_menu {
         # letter too!
         $action->add_widget($widget);
         $accel =~ s/Ctrl\+/Control-/;
-#        $actionobj->add_binding($accel);
-#        $mw->bind("<$accel>", $s->postback($action));
-#        $accel =~ s/Control-(\w)/"Control-" . lc($1)/e;
-#        $mw->bind("<$accel>", $s->postback($action));
+        $action->add_binding("<$accel>");
+        $accel =~ s/Control-(\w)/"Control-" . lc($1)/e;
+        $action->add_binding("<$accel>");
     }
 }
 

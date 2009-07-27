@@ -27,6 +27,18 @@ has _widgets => (
     },
 );
 
+# a list of bindings.
+has _bindings => (
+    metaclass => 'Collection::Array',
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    default   => sub { [] },
+    provides  => {
+        push     => '_add_binding',      # $action->_add_binding($binding);
+        elements => '_all_bindings',     # my @bindings = $action->_all_bindings;
+    },
+);
+
 has is_enabled => (
     metaclass => 'Bool',
     is        => 'ro',
@@ -68,6 +80,24 @@ De-associate C<$widget> with C$<action>.
 # rm_widget() implemented in _widget attribute declaration
 
 
+=method $action->add_binding( $binding );
+
+Associate C<$binding> with C<$action>. Enable or disable it depending on
+current action status. C<$binding> is a regular binding, as defined by
+L<Tk::bind>.
+
+It is not possible to remove a binding from an action.
+
+=cut
+
+sub add_binding {
+    my ($self, $binding) = @_;
+    $self->_add_binding($binding);
+    $self->window->bind( $binding, $self->is_enabled ? $self->callback : '' );
+}
+
+
+
 =method $action->enable;
 
 Activate all associated widgets.
@@ -77,6 +107,7 @@ Activate all associated widgets.
 sub enable {
     my $self = shift;
     $_->configure(@ENON) for $self->_all_widgets;
+    $self->window->bind( $_, $self->callback ) for $self->_all_bindings;
     $self->_enable;
 }
 
@@ -90,6 +121,7 @@ De-activate all associated widgets.
 sub disable {
     my $self = shift;
     $_->configure(@ENOFF) for $self->_all_widgets;
+    $self->window->bind( $_, '' ) for $self->_all_bindings;
     $self->_disable;
 }
 
@@ -109,6 +141,7 @@ __END__
     );
     $action->add_widget( $menu_entry );
     $action->add_widget( $button );
+    $action->add_binding( '<Control-F>' );
     $action->enable;
     ...
     $action->disable;
@@ -121,6 +154,8 @@ sometimes, we want to enable or disable a given action, and this means
 having to update everything this action is allowed.
 
 This module helps managing actions in a GUI: just create a new object,
-associate some widgets with C<add_widget()> and then de/activate the
-whole action at once with C<enable()> or C<disable()>.
+associate some widgets and bindings with C<add_widget()> and then
+de/activate the whole action at once with C<enable()> or C<disable()>.
 
+The C<window> and C<callback> attributes are mandatory when calling the
+constructor.

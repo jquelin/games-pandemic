@@ -38,6 +38,10 @@ has is_enabled => (
     },
 );
 
+has callback => ( is => 'ro', isa => 'CodeRef',    required => 1, );
+has window   => ( is => 'ro', isa => 'Tk::Widget', required => 1, );
+
+
 
 # -- public methods
 
@@ -99,7 +103,10 @@ __END__
 
 =head1 SYNOPSIS
 
-    my $action = Games::Pandemic::Tk::Action->new;
+    my $action = Games::Pandemic::Tk::Action->new(
+        window   => $mw,
+        callback => $session->postback('event'),
+    );
     $action->add_widget( $menu_entry );
     $action->add_widget( $button );
     $action->enable;

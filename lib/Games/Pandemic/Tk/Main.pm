@@ -816,6 +816,7 @@ sub _build_canvas {
 #
 sub _build_gui {
     my $self = shift;
+    my $s = $self->_session;
 
     # hide window during its creation to avoid flickering
     $mw->withdraw;
@@ -836,7 +837,10 @@ sub _build_gui {
 
     # create the actions
     foreach my $what ( qw{ new load close quit show_cards } ) {
-        my $action = Games::Pandemic::Tk::Action->new;
+        my $action = Games::Pandemic::Tk::Action->new(
+            window   => $mw,
+            callback => $s->postback("_$what"),
+        );
         $self->_set_action($what, $action);
     }
     # allow some actions
@@ -890,14 +894,16 @@ sub _build_menu {
             -command     => $s->postback($action),
         );
         $self->_set_w("menu_${name}_${label}", $widget);
-        $self->_action($action)->add_widget($widget);
 
         # create the bindings. note: we also need to bind the lowercase
         # letter too!
+        my $actionobj = $self->_action($action);
+        $actionobj->add_widget($widget);
         $accel =~ s/Ctrl\+/Control-/;
-        $mw->bind("<$accel>", $s->postback($action));
-        $accel =~ s/Control-(\w)/"Control-" . lc($1)/e;
-        $mw->bind("<$accel>", $s->postback($action));
+#        $actionobj->add_binding($accel);
+#        $mw->bind("<$accel>", $s->postback($action));
+#        $accel =~ s/Control-(\w)/"Control-" . lc($1)/e;
+#        $mw->bind("<$accel>", $s->postback($action));
     }
 }
 

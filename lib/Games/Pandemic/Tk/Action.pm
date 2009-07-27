@@ -51,6 +51,29 @@ De-associate C<$widget> with C$<action>.
 # rm_widget() implemented in _widget attribute declaration
 
 
+=method $action->enable;
+
+Activate all associated widgets.
+
+=cut
+
+sub enable {
+    my $self = shift;
+    $_->configure(@ENON) for $self->_all_widgets;
+}
+
+
+=method $action->disable;
+
+De-activate all associated widgets.
+
+=cut
+
+sub disable {
+    my $self = shift;
+    $_->configure(@ENOFF) for $self->_all_widgets;
+}
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
@@ -64,6 +87,9 @@ __END__
     my $action = Games::Pandemic::Tk::Action->new;
     $action->add_widget( $menu_entry );
     $action->add_widget( $button );
+    $action->enable;
+    ...
+    $action->disable;
 
 
 =head1 DESCRIPTION
@@ -74,5 +100,5 @@ having to update everything this action is allowed.
 
 This module helps managing actions in a GUI: just create a new object,
 associate some widgets with C<add_widget()> and then de/activate the
-whole action at once.
+whole action at once with C<enable()> or C<disable()>.
 

@@ -860,13 +860,14 @@ sub _build_gui {
 
 
 #
-# $self->_build_menu( $label, @submenus );
+# $self->_build_menu( $name, $label, @submenus );
 #
-# Create the menu $label, with all the @submenus.
+# Create the menu $label, with all the @submenus. Store the menus under
+# the name menu_$name_$label.
 # @submenus is a list of [$action, $icon, $accel, $label] items.
 #
 sub _build_menu {
-    my ($self, $label, @submenus) = @_;
+    my ($self, $name, $label, @submenus) = @_;
     my $menubar = $self->_w('menubar');
     my $s = $self->_session;
 
@@ -881,13 +882,14 @@ sub _build_menu {
         }
 
         # regular buttons
-        $menu->command(
+        my $widget = $menu->command(
             -label       => $label,
             -image       => $icon,
             -compound    => 'left',
             -accelerator => $accel,
             -command     => $s->postback($action),
         );
+        $self->_set_w("menu_${name}_${label}", $widget);
 
         # create the bindings. note: we also need to bind the lowercase
         # letter too!
@@ -925,13 +927,13 @@ sub _build_menubar {
     [ '---'                                               ],
     [ '_quit',  'actexit16',   'Ctrl+Q', T('~Quit')       ],
     );
-    $self->_build_menu(T('~Game'), @mnu_game);
+    $self->_build_menu('game', T('~Game'), @mnu_game);
 
     # menu view
     my @mnu_view = (
     [ '_show_cards', '', 'F2', T('Player ~cards')   ],
     );
-    $self->_build_menu(T('~View'), @mnu_view);
+    $self->_build_menu('view', T('~View'), @mnu_view);
 }
 
 

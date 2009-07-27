@@ -835,7 +835,7 @@ sub _build_gui {
     $mw->geometry($width . 'x' . $height);
 
     # create the actions
-    foreach my $what ( qw{ new load close quit cards } ) {
+    foreach my $what ( qw{ new load close quit show_cards } ) {
         my $action = Games::Pandemic::Tk::Action->new;
         $self->_set_action($what, $action);
     }
@@ -864,7 +864,7 @@ sub _build_gui {
 #
 # Create the menu $label, with all the @submenus. Store the menus under
 # the name menu_$name_$label.
-# @submenus is a list of [$action, $icon, $accel, $label] items.
+# @submenus is a list of [$action, $event, $icon, $accel, $label] items.
 #
 sub _build_menu {
     my ($self, $name, $label, @submenus) = @_;
@@ -873,7 +873,7 @@ sub _build_menu {
 
     my $menu = $menubar->cascade(-label => $label);
     foreach my $item ( @submenus ) {
-        my ($action, $icon, $accel, $label) = @$item;
+        my ($action, $event, $icon, $accel, $label) = @$item;
 
         # separators are easier
         if ( $action eq '---' ) {
@@ -890,6 +890,7 @@ sub _build_menu {
             -command     => $s->postback($action),
         );
         $self->_set_w("menu_${name}_${label}", $widget);
+        $self->_action($action)->add_widget($widget);
 
         # create the bindings. note: we also need to bind the lowercase
         # letter too!
@@ -921,17 +922,17 @@ sub _build_menubar {
 
     # menu game
     my @mnu_game = (
-    [ '_new',   'filenew16',   'Ctrl+N', T('~New game')   ],
-    [ '_load',  'fileopen16',  'Ctrl+O', T('~Load game')  ],
-    [ '_close', 'fileclose16', 'Ctrl+W', T('~Close game') ],
+    [ 'new',   '_new',   'filenew16',   'Ctrl+N', T('~New game')   ],
+    [ 'load',  '_load',  'fileopen16',  'Ctrl+O', T('~Load game')  ],
+    [ 'close', '_close', 'fileclose16', 'Ctrl+W', T('~Close game') ],
     [ '---'                                               ],
-    [ '_quit',  'actexit16',   'Ctrl+Q', T('~Quit')       ],
+    [ 'quit',  '_quit',  'actexit16',   'Ctrl+Q', T('~Quit')       ],
     );
     $self->_build_menu('game', T('~Game'), @mnu_game);
 
     # menu view
     my @mnu_view = (
-    [ '_show_cards', '', 'F2', T('Player ~cards')   ],
+    [ 'show_cards', '_show_cards', '', 'F2', T('Player ~cards')   ],
     );
     $self->_build_menu('view', T('~View'), @mnu_view);
 }

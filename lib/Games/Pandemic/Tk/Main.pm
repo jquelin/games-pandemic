@@ -696,6 +696,16 @@ event _quit => sub {
 };
 
 
+#
+# event: _show_cards()
+#
+# user request to toggle player cards visbility
+#
+event _show_cards => sub {
+    $K->post( cards => 'toggle_visibility' );
+};
+
+
 # -- gui creation
 
 #

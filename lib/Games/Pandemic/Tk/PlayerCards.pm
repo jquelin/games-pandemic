@@ -37,6 +37,12 @@ has _widgets => (
     },
 );
 
+# it's not usually a good idea to retain a reference on a poe session,
+# since poe is already taking care of the references for us. however, we
+# need the session to call ->postback() to set the various gui callbacks
+# that will be fired upon gui events.
+has _session => ( is=>'rw', isa=>'POE::Session', weak_ref=>1 );
+
 
 # -- initialization
 
@@ -46,8 +52,9 @@ has _widgets => (
 # called during session start
 #
 sub START {
-    my $self = shift;
+    my ($self, $session) = @_[OBJECT, SESSION];
     $K->alias_set('cards');
+    $self->_set_session($session);
     $self->_build_gui;
 }
 
@@ -137,6 +144,19 @@ event destroy => sub {
 };
 
 
+=method event: toggle_visibility()
+
+Request to hide/show window depending on its previous state.
+
+=cut
+
+event toggle_visibility => sub {
+    my $self = shift;
+    my $top  = $self->_toplevel;
+    my $method = $top->state eq 'normal' ? 'withdraw' : 'deiconify';
+    $top->$method;
+};
+
 
 # -- private methods
 
@@ -149,6 +169,7 @@ sub _build_gui {
     my $self = shift;
     my $game = Games::Pandemic->instance;
     my $parent = $self->parent;
+    my $s = $self->_session;
 
     my $top = $parent->Toplevel;
     $self->_set_toplevel($top);
@@ -165,6 +186,10 @@ sub _build_gui {
     # window title
     $top->title( T('Cards') );
     $top->iconimage( pandemic_icon($top) );
+
+    # trap some events
+    $top->protocol( WM_DELETE_WINDOW => $s->postback('toggle_visibility') );
+    $top->bind('<F2>', $s->postback('toggle_visibility') );
 
     # center window & make it appear
     $top->Popup( -popover => $parent );

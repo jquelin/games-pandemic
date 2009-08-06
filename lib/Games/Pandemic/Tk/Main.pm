@@ -795,7 +795,8 @@ sub _build_action_bar {
         -command => $session->postback('_continue'),
         @ENOFF,
     );
-    $self->_set_w('but_continue', $but);
+    $self->_action('continue')->add_widget($but);
+    $self->_action('continue')->add_binding('<Return>');
 }
 
 
@@ -859,7 +860,7 @@ sub _build_gui {
     $mw->geometry($width . 'x' . $height);
 
     # create the actions
-    foreach my $what ( qw{ new load close quit show_cards } ) {
+    foreach my $what ( qw{ new load close quit show_cards continue } ) {
         my $action = Games::Pandemic::Tk::Action->new(
             window   => $mw,
             callback => $s->postback("_$what"),
@@ -870,7 +871,7 @@ sub _build_gui {
     $self->_action('new')->enable;
     $self->_action('load')->enable;
     $self->_action('close')->disable;
-
+    $self->_action('continue')->disable;
 
     # WARNING: we need to create the toolbar object before anything
     # else. indeed, tk::toolbar loads the embedded icons in classinit,
@@ -1268,11 +1269,11 @@ sub _update_actions {
                 $self->_w("but_action_$action")->configure(
                     $player->$method ? @ENON : @ENOFF );
             }
-            $self->_w('but_continue')->configure(@ENOFF);
+            $self->_action('continue')->disable;
         }
         when ('end_of_actions' || 'end_of_cards') {
             $self->_w("but_action_$_")->configure(@ENOFF) for @actions;
-            $self->_w('but_continue')->configure(@ENON);
+            $self->_action('continue')->enable;
         }
     }
 }

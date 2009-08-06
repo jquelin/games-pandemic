@@ -371,6 +371,27 @@ event next_player => sub {
 };
 
 
+=method event: no_more_cards()
+
+Received when game is over due to a lack of cards to deal.
+
+=cut
+
+event no_more_cards => sub {
+    # warn user
+    my $format = T('%s epidemic strikes in %s.');
+    Games::Pandemic::Tk::Dialog::Simple->new(
+        parent => $mw,
+        title  => T('You lost!'),
+        header => T('No more cards'),
+        icon   => catfile($SHAREDIR, 'icons', 'warning-48.png'),
+        text   => T(  'Game is over, you lost: '
+                    . 'there are no more cards to deal. '
+                    . 'Try harder next time!' ),
+    );
+};
+
+
 =method event: player_move( $player, $from ,$to )
 
 Received when C<$player> has moved between C<$from> and C<$to> cities.

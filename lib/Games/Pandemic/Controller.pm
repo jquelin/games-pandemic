@@ -470,6 +470,12 @@ event _deal_card => sub {
     foreach my $i ( 1 .. $nb ) {
         my $card = $deck->next;
 
+        if ( not defined $card ) {
+            # no more cards - game is over
+            $K->yield('_no_more_cards');
+            return;
+        }
+
         # check if we hit a new epidemic
         if ( $card->isa('Games::Pandemic::Card::Epidemic') ) {
             $K->yield( '_epidemic' );
@@ -480,8 +486,6 @@ event _deal_card => sub {
         $player->gain_card($card);
         $K->post(main=>'gain_card', $player, $card);
     }
-
-    # FIXME: game over if no more card
 
     # check if player has too much cards
     if ( $player->nb_cards > $player->max_cards ) {
@@ -618,6 +622,17 @@ event _next_player => sub {
     $player->set_actions_left(4);
     $K->post( main => 'next_player', $player );
     $K->yield( '_next_action' );
+};
+
+
+#
+# event: _no_more_cards()
+#
+# sent when controller cannot deal any more cards, and game is over.
+#
+event _no_more_cards => sub {
+    $K->post( main => 'no_more_cards' );
+    $K->yield('_game_over');
 };
 
 

@@ -1,5 +1,12 @@
 Revision history for Games::Pandemic.
 
+0.6.0 
+ - introduced epidemic events
+ - closing current game is now supported
+ - player cards now displayed in a window of their own
+ - sorting cards by type then by disease then by city name
+ - actions now independant of buttons/menu for easier reuse
+
 0.5.0 Sun Jul 12 14:45:43 2009
  - introducing continue button to move game forward
  - dealing cards after player completed her actions

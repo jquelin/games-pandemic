@@ -212,6 +212,19 @@ event gain_card => sub {
 };
 
 
+=method event: game_over()
+
+Received when game is over: user cannot advance the game any more.
+
+=cut
+
+event game_over => sub {
+    my $self = shift;
+    $self->_action($_)->disable for ( "continue",
+        map { "action_$_" } qw{ build discover treat share pass drop } );
+};
+
+
 =method event: infection($city, $outbreak)
 
 Received when C<$city> gets infected. C<$outbreak> is true if this

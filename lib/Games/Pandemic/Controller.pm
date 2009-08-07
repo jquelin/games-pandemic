@@ -144,6 +144,7 @@ event new_game => sub {
             splice @pcards, $offset, 0, Games::Pandemic::Card::Epidemic->new;
         }
     }
+    splice @pcards, 0, 39;
     my $pcards = Games::Pandemic::Deck->new( cards => \@pcards );
     $game->set_cards( $pcards );
 
@@ -508,6 +509,19 @@ event _draw_cards => sub {
 
     $game->set_state('end_of_cards');
     $K->post( main => 'end_of_cards' );
+};
+
+
+#
+# event: _game_over()
+#
+# sent when game is over (either win or loose), user cannot do anything
+# but close the game.
+#
+event _game_over => sub {
+    my $game = Games::Pandemic->instance;
+    $game->has_ended;
+    $K->post( main => 'game_over' );
 };
 
 

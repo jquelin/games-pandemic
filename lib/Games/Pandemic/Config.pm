@@ -44,7 +44,7 @@ be provided.
 
 sub get {
     my ($self, $key) = @_;
-    my $val = $self->_get($key) // $default->{$key}; # /FIXME padre highlight
+    my $val = $self->_get($key) // $default->{$key};
 }
 
 # -- private subs

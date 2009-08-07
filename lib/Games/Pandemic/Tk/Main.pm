@@ -800,7 +800,6 @@ sub _build_action_bar {
         @ENOFF,
     );
     $self->_action('continue')->add_widget($but);
-    $self->_action('continue')->add_binding('<Return>');
 }
 
 
@@ -981,6 +980,8 @@ sub _build_menubar {
     [ 'action_pass'     , '', 'p', T('~Pass your turn')           ],
     [ '---'                                                       ],
     [ 'action_drop'     , '', 'd', T('~Drop some cards')          ],
+    [ '---'                                                       ],
+    [ 'continue'        , '', 'Return', T('Conti~nue')          ],
     );
     $self->_build_menu('action', T('~Action'), @mnu_action);
 }

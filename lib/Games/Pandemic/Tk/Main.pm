@@ -267,6 +267,7 @@ event new_game => sub {
     $self->_action('new')->disable;
     $self->_action('load')->disable;
     $self->_action('close')->enable;
+    $self->_action('show_cards')->enable;
 
     # the background image
     my $map    = Games::Pandemic->instance->map;
@@ -664,6 +665,7 @@ event _close => sub {
     $self->_action('new')->enable;
     $self->_action('load')->enable;
     $self->_action('close')->disable;
+    $self->_action('show_cards')->disable;
 
     # remove everything from current game
     my $tb = $self->_del_w('tbactions');
@@ -860,7 +862,9 @@ sub _build_gui {
     $mw->geometry($width . 'x' . $height);
 
     # create the actions
-    foreach my $what ( qw{ new load close quit show_cards continue } ) {
+    my @enabled  = qw{ new load quit };
+    my @disabled = qw{ close continue show_cards };
+    foreach my $what ( @enabled, @disabled ) {
         my $action = Games::Pandemic::Tk::Action->new(
             window   => $mw,
             callback => $s->postback("_$what"),
@@ -868,10 +872,8 @@ sub _build_gui {
         $self->_set_action($what, $action);
     }
     # allow some actions
-    $self->_action('new')->enable;
-    $self->_action('load')->enable;
-    $self->_action('close')->disable;
-    $self->_action('continue')->disable;
+    $self->_action($_)->enable  for @enabled;
+    $self->_action($_)->disable for @disabled;
 
     # WARNING: we need to create the toolbar object before anything
     # else. indeed, tk::toolbar loads the embedded icons in classinit,

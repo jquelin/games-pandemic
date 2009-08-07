@@ -755,32 +755,21 @@ sub _build_action_bar {
         [ 'pass',     T('Pass your turn')                          ],
         [ 'drop',     T('Drop some cards')                         ],
     );
-    my @items = map {
-        my ($action, $tip) = @$_;
-        [
-            'Button',
-            image( catfile($SHAREDIR, 'actions', "$action.png") ),
-            "but_action_$action",
-            "_action_$action",
-            $tip,
-        ]
-        } @actions;
 
     # create the widgets
-    foreach my $item ( @items ) {
-        my ($type, $image, $name, $event, $tip) = @$item;
+    foreach my $item ( @actions ) {
+        my ($action, $tip) = @$item;
 
-        # separator is a special case
-        $tb->separator( -movable => 0 ), next if $type eq 'separator';
+        my $image = image( catfile($SHAREDIR, 'actions', "$action.png") );
+        my $event = "_action_$action";
 
         # regular toolbar widgets
-        my $widget = $tb->$type(
+        my $widget = $tb->Button(
             -image       => $image,
             -tip         => $tip,
-            #-accelerator => $item->[2],
             -command     => $session->postback($event),
         );
-        $self->_set_w( $name, $widget );
+        $self->_action("action_$action")->add_widget($widget);
     }
 
     # player information
@@ -863,7 +852,10 @@ sub _build_gui {
 
     # create the actions
     my @enabled  = qw{ new load quit };
-    my @disabled = qw{ close continue show_cards };
+    my @disabled = (
+        qw{ close continue show_cards },
+        map { "action_$_" } qw{ build discover drop pass share treat },
+    );
     foreach my $what ( @enabled, @disabled ) {
         my $action = Games::Pandemic::Tk::Action->new(
             window   => $mw,
@@ -966,6 +958,18 @@ sub _build_menubar {
     [ 'show_cards', '', 'F2', T('Player ~cards') ],
     );
     $self->_build_menu('view', T('~View'), @mnu_view);
+
+    # menu actions
+    my @mnu_action = (
+    [ 'action_build'    , '', 'b', T('~Build a research station') ],
+    [ 'action_discover' , '', 'c', T('Discover a ~cure')          ],
+    [ 'action_treat'    , '', 't', T('~Treat a disease')          ],
+    [ 'action_share'    , '', 's', T('~Give a card')              ],
+    [ 'action_pass'     , '', 'p', T('~Pass your turn')           ],
+    [ '---'                                                       ],
+    [ 'action_drop'     , '', 'd', T('~Drop some cards')          ],
+    );
+    $self->_build_menu('action', T('~Action'), @mnu_action);
 }
 
 
@@ -1267,14 +1271,14 @@ sub _update_actions {
     given ( $game->state ) {
         when ('actions') {
             foreach my $action ( @actions ) {
-                my $method = "is_${action}_possible";
-                $self->_w("but_action_$action")->configure(
-                    $player->$method ? @ENON : @ENOFF );
+                my $check  = "is_${action}_possible";
+                my $method = $player->$check ? 'enable' : 'disable';
+                $self->_action("action_$action")->$method;
             }
             $self->_action('continue')->disable;
         }
         when ('end_of_actions' || 'end_of_cards') {
-            $self->_w("but_action_$_")->configure(@ENOFF) for @actions;
+            $self->_action("action_$_")->disable for @actions;
             $self->_action('continue')->enable;
         }
     }

@@ -144,7 +144,6 @@ event new_game => sub {
             splice @pcards, $offset, 0, Games::Pandemic::Card::Epidemic->new;
         }
     }
-    splice @pcards, 0, 39;
     my $pcards = Games::Pandemic::Deck->new( cards => \@pcards );
     $game->set_cards( $pcards );
 
@@ -169,7 +168,7 @@ event new_game => sub {
     # FIXME: initial number of card depends of map / number of players
     $K->yield( _new_player => 'Researcher', 4 );
     $K->yield( _new_player => 'Scientist', 4 );
-    $K->yield( _new_player => 'Medic', 4 );
+    #$K->yield( _new_player => 'Medic', 4 );
     #$K->yield( _new_player => 'Dispatcher', 4 );
     #$K->yield( _new_player => 'OperationsExpert', 4 );
 

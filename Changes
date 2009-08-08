@@ -1,11 +1,15 @@
 Revision history for Games::Pandemic.
 
-0.6.0 
- - introduced epidemic events
+0.6.0 Sat Aug  8 14:30:38 2009
+ - introducing epidemic events
  - closing current game is now supported
  - player cards now displayed in a window of their own
+ - detecting game over condition when no more cards
  - sorting cards by type then by disease then by city name
+ - introducing a new "action" menu, with shortcuts for actions
  - actions now independant of buttons/menu for easier reuse
+
+**
 
 0.5.0 Sun Jul 12 14:45:43 2009
  - introducing continue button to move game forward
@@ -16,6 +20,8 @@ Revision history for Games::Pandemic.
  - making window large enough to hold map + various bars
  - info bar now on the right of the map
  - current player now displayed in toolbar
+
+**
 
 0.4.0 Thu Jul  2 18:48:24 2009
  - moving license to gpl3
@@ -28,6 +34,8 @@ Revision history for Games::Pandemic.
  - current player blinks on map
  - bigger pawns on the map
  - scrolling player cards
+
+**
 
 0.3.0 Fri Jun 26 12:39:04 2009
  - player can move to an adjacent city
@@ -42,6 +50,8 @@ Revision history for Games::Pandemic.
  - using real moose roles
  - caching images
 
+**
+
 0.2.0 Wed Jun 24 17:36:24 2009
  - introducing player class
  - creating 2 players, displaying them on gui
@@ -49,6 +59,8 @@ Revision history for Games::Pandemic.
  - pass action implemented
  - basic stubs for turn events complete
  - trimming cruft in archive
+
+**
 
 0.1.0 Fri Jun 19 18:11:39 2009
  - original version

@@ -299,6 +299,10 @@ event _action_discover => sub {
 
     # FIXME: golden cure
 
+    # check if game is won
+    return $K->yield('_all_cures_discovered')
+        if all { $_->is_cured } $game->map->all_diseases;
+
     $K->yield('_action_done');
 };
 

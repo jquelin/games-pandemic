@@ -590,7 +590,10 @@ event _infect => sub {
 
     # update the disease
     $disease->take($nb);
-    #if ( $disease->nbleft <= 0 ) { # FIXME: gameover }
+    if ( $disease->nbleft <= 0 ) {
+        $K->yield('_no_more_cubes', $disease);
+        return;
+    }
 
     # perform the infection & update the gui
     my $outbreak = $city->infect($nb, $disease);

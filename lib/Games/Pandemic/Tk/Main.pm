@@ -104,6 +104,26 @@ event action_done => sub {
 };
 
 
+=method event: all_cures_discovered()
+
+Received when game is won due to all cures being discovered
+
+=cut
+
+event all_cures_discovered => sub {
+    # warn user
+    Games::Pandemic::Tk::Dialog::Simple->new(
+        parent => $mw,
+        title  => T('You won!'),
+        header => T('Congratulations'),
+        icon   => catfile($SHAREDIR, 'icons', 'success-48.png'),
+        text   => T(  "You won: all the diseases now have a cure available."
+                    . "\n\n"
+                    . "Perhaps is it time to augment difficulty?" ),
+    );
+};
+
+
 =method event: build_station($city)
 
 Received when C<$city> gained a research station.
@@ -1372,6 +1392,8 @@ license for non commercial use
 =item * trash icon by Jojo Mendoza, under a cc-nd-nc license
 
 =item * warning icon by Gnome artists, under a gpl license
+
+=item * success icon by Gnome artists, under a gpl license
 
 =back
 

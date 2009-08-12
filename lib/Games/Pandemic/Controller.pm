@@ -460,6 +460,17 @@ event _action_shuttle => sub {
 
 
 #
+# event: _all_cures_discovered()
+#
+# sent when game has been won.
+#
+event _all_cures_discovered => sub {
+    $K->post( main => 'all_cures_discovered' );
+    $K->yield( '_game_over' );
+};
+
+
+#
 # _deal_card( $player, $nb );
 #
 # deal $nb cards to $player. check whether player has too much cards in

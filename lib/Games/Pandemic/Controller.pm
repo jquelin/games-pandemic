@@ -668,6 +668,18 @@ event _no_more_cards => sub {
 
 
 #
+# event: _no_more_cubes($disease)
+#
+# sent when a $disease has spread over any control, and game is over.
+#
+event _no_more_cubes => sub {
+    my $disease = $_[ARG0];
+    $K->post( main => 'no_more_cubes', $disease );
+    $K->yield('_game_over');
+};
+
+
+#
 # event: _propagate()
 #
 # sent to do the regular disease propagation.

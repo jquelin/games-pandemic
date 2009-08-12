@@ -426,6 +426,30 @@ event no_more_cards => sub {
 };
 
 
+=method event: no_more_cubes( $disease )
+
+Received when game is over due to a lack of cards to deal.
+
+=cut
+
+event no_more_cubes => sub {
+    my $disease = $_[ARG0];
+    # warn user
+    my $title = T('%s pandemic spread out');
+    my $text  = T( "Game is over, you lost: " )
+              . T( "the %s pandemic isn't under control any more." )
+              . "\n\n"
+              . T( "Try harder next time!" );
+    Games::Pandemic::Tk::Dialog::Simple->new(
+        parent => $mw,
+        title  => T('You lost!'),
+        header => sprintf($title, $disease->name),
+        icon   => catfile($SHAREDIR, 'icons', 'warning-48.png'),
+        text   => sprintf($text, $disease->name),
+    );
+};
+
+
 =method event: player_move( $player, $from ,$to )
 
 Received when C<$player> has moved between C<$from> and C<$to> cities.

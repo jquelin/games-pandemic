@@ -240,6 +240,7 @@ Received when game is over: user cannot advance the game any more.
 
 event game_over => sub {
     my $self = shift;
+    $self->_update_status;
     $self->_action($_)->disable for ( "continue",
         map { "action_$_" } qw{ build discover treat share pass drop } );
 };

@@ -117,7 +117,7 @@ event all_cures_discovered => sub {
         title  => T('You won!'),
         header => T('Congratulations'),
         icon   => catfile($SHAREDIR, 'icons', 'success-48.png'),
-        text   => T(  "You won: all the diseases now have a cure available."
+        text   => T(  "You won: you discovered all the cures."
                     . "\n\n"
                     . "Perhaps is it time to augment difficulty?" ),
     );
@@ -433,9 +433,8 @@ event no_more_cubes => sub {
     my ($self, $disease) = @_[OBJECT, ARG0];
 
     # warn user
-    my $fmt_header = T('%s pandemic spread out');
-    my $fmt_reason = T( "the %s pandemic isn't under control any more." );
-    my $header = sprintf $fmt_header, $disease->name;
+    my $fmt_reason = T( "the %s pandemic is too spread out to be cured." );
+    my $header = T('Pandemic out of control');
     my $reason = sprintf $fmt_reason, $disease->name;
 
     $self->_game_lost($header, $reason);

@@ -413,17 +413,13 @@ Received when game is over due to a lack of cards to deal.
 =cut
 
 event no_more_cards => sub {
+    my $self = $_[OBJECT];
+
     # warn user
-    my $format = T('%s epidemic strikes in %s.');
-    Games::Pandemic::Tk::Dialog::Simple->new(
-        parent => $mw,
-        title  => T('You lost!'),
-        header => T('No more cards'),
-        icon   => catfile($SHAREDIR, 'icons', 'warning-48.png'),
-        text   => T(  'Game is over, you lost: '
-                    . 'there are no more cards to deal. '
-                    . 'Try harder next time!' ),
-    );
+    my $header = T('No more cards');
+    my $reason = T('there are no more cards to deal.');
+
+    $self->_game_lost($header, $reason);
 };
 
 
@@ -434,20 +430,15 @@ Received when game is over due to a lack of cards to deal.
 =cut
 
 event no_more_cubes => sub {
-    my $disease = $_[ARG0];
+    my ($self, $disease) = @_[OBJECT, ARG0];
+
     # warn user
-    my $title = T('%s pandemic spread out');
-    my $text  = T( "Game is over, you lost: " )
-              . T( "the %s pandemic isn't under control any more." )
-              . "\n\n"
-              . T( "Try harder next time!" );
-    Games::Pandemic::Tk::Dialog::Simple->new(
-        parent => $mw,
-        title  => T('You lost!'),
-        header => sprintf($title, $disease->name),
-        icon   => catfile($SHAREDIR, 'icons', 'warning-48.png'),
-        text   => sprintf($text, $disease->name),
-    );
+    my $fmt_header = T('%s pandemic spread out');
+    my $fmt_reason = T( "the %s pandemic isn't under control any more." );
+    my $header = sprintf $fmt_header, $disease->name;
+    my $reason = sprintf $fmt_reason, $disease->name;
+
+    $self->_game_lost($header, $reason);
 };
 
 
@@ -1314,6 +1305,28 @@ sub _draw_station {
         -tags  => $tags,
     );
 }
+
+
+#
+# $main->_game_lost( $header, $reason );
+#
+# show a standard simple dialog announcing end of game for a given $reason.
+#
+sub _game_lost {
+    my ($self, $header, $reason) = @_;
+    my $text = T( 'Game is over, you lost: ' )
+             . $reason
+             . "\n\n"
+             . T( 'Try harder next time!' );
+    Games::Pandemic::Tk::Dialog::Simple->new(
+        parent => $mw,
+        title  => T('You lost!'),
+        header => $header,
+        icon   => catfile($SHAREDIR, 'icons', 'warning-48.png'),
+        text   => $text,
+    );
+};
+
 
 #
 # $main->_update_actions;

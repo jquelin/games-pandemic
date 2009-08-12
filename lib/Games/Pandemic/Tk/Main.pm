@@ -647,7 +647,7 @@ event _city_click => sub {
 
     # find city clicked
     my $item = $canvas->find( withtag => 'current' );
-    my ($id) = grep { s/^c-(.*)/$1/ } $canvas->gettags($item);
+    my ($id) = map { /^c-(.*)/ ? $1 : () } $canvas->gettags($item);
     my $city = $map->city($id);
 
     if ( $city eq $player->location ) {

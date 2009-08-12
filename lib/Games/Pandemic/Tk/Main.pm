@@ -444,9 +444,8 @@ event too_many_cards => sub {
     );
 
     # prevent any action but dropping cards
-    $self->_w("but_action_$_")->configure(@ENOFF)
-        for qw{ build discover treat share pass };
-    $self->_w("but_action_drop")->configure(@ENON);
+    $self->_action("action_$_")->disable for qw{ build discover treat share pass };
+    $self->_action("action_drop")->enable;
 
     # FIXME: provide a way to drop cards
 };

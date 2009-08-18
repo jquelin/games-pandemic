@@ -139,7 +139,11 @@ sub _build_gui {
 
     # center window & make it appear
     $top->Popup( -popover => $parent );
-    $top->resizable(0,0) unless $self->resizable;
+    if ( $self->resizable ) {
+        $top->minsize($top->width, $top->height);
+    } else {
+        $top->resizable(0,0);
+    }
 }
 
 

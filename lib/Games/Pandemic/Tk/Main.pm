@@ -24,6 +24,7 @@ use Games::Pandemic::Tk::Action;
 use Games::Pandemic::Tk::Dialog::DropCards;
 use Games::Pandemic::Tk::Dialog::GiveCard;
 use Games::Pandemic::Tk::Dialog::Simple;
+use Games::Pandemic::Tk::Dialog::ViewCards;
 use Games::Pandemic::Tk::PlayerCards;
 use Games::Pandemic::Tk::Utils;
 use Games::Pandemic::Utils;
@@ -776,6 +777,33 @@ event _show_cards => sub {
 };
 
 
+#
+# event: _show_past_cards()
+#
+# user request to see cards already played / dropped.
+#
+event _show_past_cards => sub {
+    my $game = Games::Pandemic->instance;
+    my $deck = $game->cards;
+
+    if ( $deck->nbdiscards ) {
+        Games::Pandemic::Tk::Dialog::ViewCards->new(
+            parent => $mw,
+            title  => T('Information'),
+            header => T('Discard pile'),
+            cards  => [ $deck->past ],
+        );
+    } else {
+        # nothing to show
+        Games::Pandemic::Tk::Dialog::Simple->new(
+            parent => $mw,
+            icon   => catfile($SHAREDIR, 'icons', 'warning-48.png'),
+            text   => T('No cards in the discard pile.'),
+        );
+    }
+};
+
+
 # -- gui creation
 
 #
@@ -1030,6 +1058,7 @@ sub _build_status_bar {
     my $self = shift;
     my $game = Games::Pandemic->instance;
     my $map  = $game->map;
+    my $s    = $self->_session;
 
     # the status bar itself is a frame
     my $sb = $mw->Frame->pack(@RIGHT, @FILLX, -before=>$self->_w('canvas'));
@@ -1061,11 +1090,13 @@ sub _build_status_bar {
     # player cards information
     my $cards  = $game->cards;
     my $fcards = $sb->Frame->pack(@TOP, @PADX10);
-    $fcards->Label(
+    my $img_cards = $fcards->Label(
         -image => image( catfile( $SHAREDIR, 'card-player.png' ) ),
     )->pack(@TOP);
     my $lab_cards = $fcards->Label->pack(@TOP);
     $self->_set_w('lab_cards', $lab_cards);
+    $img_cards->bind('<Button-1>', $s->postback('_show_past_cards'));
+    $lab_cards->bind('<Button-1>', $s->postback('_show_past_cards'));
 
     # infection information
     my $infection = $game->infection;

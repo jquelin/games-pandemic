@@ -804,6 +804,33 @@ event _show_past_cards => sub {
 };
 
 
+#
+# event: _show_past_infections()
+#
+# user request to see infections already endured.
+#
+event _show_past_infections => sub {
+    my $game = Games::Pandemic->instance;
+    my $deck = $game->infection;
+
+    if ( $deck->nbdiscards ) {
+        Games::Pandemic::Tk::Dialog::ViewCards->new(
+            parent => $mw,
+            title  => T('Information'),
+            header => T('Past infections'),
+            cards  => [ $deck->past ],
+        );
+    } else {
+        # nothing to show
+        Games::Pandemic::Tk::Dialog::Simple->new(
+            parent => $mw,
+            icon   => catfile($SHAREDIR, 'icons', 'warning-48.png'),
+            text   => T('No past infections.'),
+        );
+    }
+};
+
+
 # -- gui creation
 
 #
@@ -1101,11 +1128,13 @@ sub _build_status_bar {
     # infection information
     my $infection = $game->infection;
     my $finfection = $sb->Frame->pack(@TOP, @PADX10);
-    $finfection->Label(
+    my $img_infection = $finfection->Label(
         -image => image( catfile( $SHAREDIR, 'card-infection.png' ) ),
     )->pack(@TOP);
     my $lab_infection = $finfection->Label->pack(@TOP);
     $self->_set_w('lab_infection', $lab_infection);
+    $img_infection->bind('<Button-1>', $s->postback('_show_past_infections'));
+    $lab_infection->bind('<Button-1>', $s->postback('_show_past_infections'));
 }
 
 

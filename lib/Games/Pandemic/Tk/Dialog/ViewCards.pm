@@ -44,9 +44,9 @@ augment _build_gui => sub {
     my $top  = $self->_toplevel;
 
     # main elements
-    $top->Label(-text=>'(more recent)')->pack(@TOP, @FILLX, @PAD5);
-    my $f = $top->Scrolled('Frame', -scrollbars=>'oe')->pack(@TOP, @XFILL2, @PAD5);
-    $top->Label(-text=>'(older)')->pack(@TOP, @FILLX, @PAD5);
+    $top->Label(-text=>'(more recent)')->pack(@TOP, @FILLX, @PAD2);
+    my $f = $top->Scrolled('Frame', -scrollbars=>'oe')->pack(@TOP, @XFILL2, @PAD2);
+    $top->Label(-text=>'(older)')->pack(@TOP, @FILLX, @PAD2);
 
     # display cards
     foreach my $card ( reverse $self->cards ) {

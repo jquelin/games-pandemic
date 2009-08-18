@@ -16,12 +16,13 @@ use Games::Pandemic::Tk::Utils;
 
 # -- accessors
 
-has parent => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
-has title  => ( is=>'rw', isa=>'Str', lazy_build=>1 );
-has header => ( is=>'rw', isa=>'Str', lazy_build=>1 );
+has parent    => ( is=>'ro', isa=>'Tk::Widget', required=>1, weak_ref=>1, );
+has title     => ( is=>'rw', isa=>'Str',  lazy_build=>1 );
+has header    => ( is=>'rw', isa=>'Str',  lazy_build=>1 );
+has resizable => ( is=>'ro', isa=>'Bool', lazy_build=>1 );
 has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
-has _ok     => ( is=>'ro', isa=>'Str', lazy_build=>1 );
-has _cancel => ( is=>'ro', isa=>'Str', lazy_build=>1 );
+has _ok       => ( is=>'ro', isa=>'Str', lazy_build=>1 );
+has _cancel   => ( is=>'ro', isa=>'Str', lazy_build=>1 );
 
 
 # a hash to store the widgets for easier reference.
@@ -60,10 +61,11 @@ sub DEMOLISH {
 }
 
 # lazy builders
-sub _build_title   { T('Pandemic') }
-sub _build_header  { '' }
-sub _build__ok     { '' }
-sub _build__cancel { '' }
+sub _build_title     { T('Pandemic') }
+sub _build_header    { '' }
+sub _build_resizable { 0 }
+sub _build__ok       { '' }
+sub _build__cancel   { '' }
 
 
 # -- gui methods
@@ -137,7 +139,7 @@ sub _build_gui {
 
     # center window & make it appear
     $top->Popup( -popover => $parent );
-    $top->resizable(0,0);
+    $top->resizable(0,0) unless $self->resizable;
 }
 
 

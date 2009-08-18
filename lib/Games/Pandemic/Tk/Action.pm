@@ -1,9 +1,9 @@
-package Games::Pandemic::Tk::Action;
-# ABSTRACT: action item for main Games::Pandemic window
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Tk::Action;
+# ABSTRACT: action item for main Games::Pandemic window
 
 use Moose;
 use MooseX::AttributeHelpers;

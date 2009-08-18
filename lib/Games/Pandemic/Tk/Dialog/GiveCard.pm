@@ -1,9 +1,9 @@
-package Games::Pandemic::Tk::Dialog::GiveCard;
-# ABSTRACT: sharing dialog window for Games::Pandemic
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Tk::Dialog::GiveCard;
+# ABSTRACT: sharing dialog window for Games::Pandemic
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;

@@ -1,9 +1,9 @@
-package Games::Pandemic::Tk::Dialog::ViewCards;
-# ABSTRACT: dialog window to show cards
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Tk::Dialog::ViewCards;
+# ABSTRACT: dialog window to show cards
 
 use List::Util qw{ max };
 use Moose;

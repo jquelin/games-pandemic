@@ -1,9 +1,9 @@
-package Games::Pandemic::Role::Medic;
-# ABSTRACT: medic pandemic role
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Role::Medic;
+# ABSTRACT: medic pandemic role
 
 use Moose::Role;
 use Games::Pandemic::Utils;

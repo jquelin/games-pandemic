@@ -1,9 +1,9 @@
-package Games::Pandemic::Player;
-# ABSTRACT: pandemic game player
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Player;
+# ABSTRACT: pandemic game player
 
 use File::Spec::Functions qw{ catfile };
 use List::MoreUtils       qw{ any };

@@ -1,9 +1,9 @@
-package Games::Pandemic::Tk::PlayerCards;
-# ABSTRACT: window holding player cards for Games::Pandemic
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Tk::PlayerCards;
+# ABSTRACT: window holding player cards for Games::Pandemic
 
 use List::Util qw{ max };
 use Moose;

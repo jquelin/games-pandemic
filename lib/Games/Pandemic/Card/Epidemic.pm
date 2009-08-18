@@ -1,9 +1,9 @@
-package Games::Pandemic::Card::Epidemic;
-# ABSTRACT: epidemic card for pandemic
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Card::Epidemic;
+# ABSTRACT: epidemic card for pandemic
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;

@@ -1,9 +1,9 @@
-package Games::Pandemic::Utils;
-# ABSTRACT: various utilities for Games::Pandemic
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Utils;
+# ABSTRACT: various utilities for Games::Pandemic
 
 use Devel::CheckOS        qw{ os_is };
 use Encode;

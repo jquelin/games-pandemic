@@ -1,9 +1,9 @@
-package Games::Pandemic::Tk::Dialog;
-# ABSTRACT: base class for Games::Pandemic dialog windows
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Tk::Dialog;
+# ABSTRACT: base class for Games::Pandemic dialog windows
 
 use Moose;
 use MooseX::AttributeHelpers;

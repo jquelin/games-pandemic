@@ -1,9 +1,9 @@
-package Games::Pandemic::Tk::Utils;
-# ABSTRACT: Tk utilities for gui building
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Tk::Utils;
+# ABSTRACT: Tk utilities for gui building
 
 use File::Spec::Functions qw{ catfile };
 use Moose;

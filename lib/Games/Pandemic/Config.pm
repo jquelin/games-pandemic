@@ -1,9 +1,9 @@
-package Games::Pandemic::Config;
-# ABSTRACT: local configuration for Games::Pandemic
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Config;
+# ABSTRACT: local configuration for Games::Pandemic
 
 use Games::Pandemic::Utils;
 use MooseX::Singleton;          # should come before any other moose

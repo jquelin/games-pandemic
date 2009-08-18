@@ -1,9 +1,9 @@
-package Games::Pandemic::Controller;
-# ABSTRACT: controller for a pandemic game
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Controller;
+# ABSTRACT: controller for a pandemic game
 
 use List::Util      qw{ shuffle };
 use List::MoreUtils qw{ all };

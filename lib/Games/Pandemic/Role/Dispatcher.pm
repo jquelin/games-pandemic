@@ -1,9 +1,9 @@
-package Games::Pandemic::Role::Dispatcher;
-# ABSTRACT: dispatcher pandemic role
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic::Role::Dispatcher;
+# ABSTRACT: dispatcher pandemic role
 
 use Moose::Role;
 use Games::Pandemic::Utils;

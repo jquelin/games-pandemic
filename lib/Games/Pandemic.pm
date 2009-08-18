@@ -1,9 +1,9 @@
-package Games::Pandemic;
-# ABSTRACT: cooperative pandemic board game
-
 use 5.010;
 use strict;
 use warnings;
+
+package Games::Pandemic;
+# ABSTRACT: cooperative pandemic board game
 
 # although it's not strictly needed to load POE::Kernel manually (since
 # MooseX::POE will load it anyway), we're doing it here to make sure poe

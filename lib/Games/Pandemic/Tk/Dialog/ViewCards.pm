@@ -27,7 +27,8 @@ has cards => (
 
 # -- initialization
 
-sub _build__cancel { T('Close') }
+sub _build_resizable { 1 }
+sub _build__cancel   { T('Close') }
 
 
 

@@ -17,8 +17,8 @@ use Games::Pandemic::Tk::Utils;
 # -- accessors
 
 has parent    => ( is=>'ro', isa=>'Tk::Widget', required=>1, weak_ref=>1, );
-has title     => ( is=>'rw', isa=>'Str',  lazy_build=>1 );
-has header    => ( is=>'rw', isa=>'Str',  lazy_build=>1 );
+has title     => ( is=>'ro', isa=>'Str',  lazy_build=>1 );
+has header    => ( is=>'ro', isa=>'Str',  lazy_build=>1 );
 has resizable => ( is=>'ro', isa=>'Bool', lazy_build=>1 );
 has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
 has _ok       => ( is=>'ro', isa=>'Str', lazy_build=>1 );

@@ -255,7 +255,7 @@ event _action_treat => sub {
     my $nb = $city->get_infection($disease);
     return $K->yield('_next_action') if $nb == 0;
 
-    my $nbtreat = $curp->treat_all # FIXME: cure discovered
+    my $nbtreat = ( $curp->treat_all || $disease->is_cured )
         ? $nb
         : 1;
 

@@ -1,5 +1,13 @@
 Revision history for Games::Pandemic.
 
+0.7.0 Sat Aug 22 14:43:01 2009
+ - fix crash due to missing action conversion
+ - wiping all cubes from a city if a cure has been found for the disease
+ - reacting to winning conditions
+ - reacting to game over condition when no more disease cubes
+ - possibility to see cards already played / discarded
+ - possibility to see past infections
+
 0.6.0 Sat Aug  8 14:30:38 2009
  - introducing epidemic events
  - closing current game is now supported

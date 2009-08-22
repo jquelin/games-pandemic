@@ -38,13 +38,13 @@ has nbleft => (
 has nbmax => ( is => 'ro', isa => 'Int', required   => 1 );
 has _map  => ( is => 'ro', isa => 'Games::Pandemic::Map',required => 1, weak_ref => 1 );
 
-has is_cured => (
+has has_cure => (
     metaclass => 'Bool',
     is        => 'ro',
     isa       => 'Bool',
     default   => 0,
     provides  => {
-        set     => 'cure',
+        set     => 'find_cure',
     }
 );
 

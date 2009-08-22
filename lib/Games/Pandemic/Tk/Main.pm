@@ -1433,7 +1433,7 @@ sub _update_status {
     foreach my $disease ( $map->all_diseases ) {
         $self->_w("lab_disease_$disease")->configure(-text => $disease->nbleft);
         $self->_w("lab_cure_$disease")->configure(
-            $disease->is_cured ? (@ENON) : (@ENOFF) );
+            $disease->has_cure ? (@ENON) : (@ENOFF) );
     }
 
     # cards information

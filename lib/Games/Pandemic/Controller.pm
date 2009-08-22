@@ -255,7 +255,7 @@ event _action_treat => sub {
     my $nb = $city->get_infection($disease);
     return $K->yield('_next_action') if $nb == 0;
 
-    my $nbtreat = ( $curp->treat_all || $disease->is_cured )
+    my $nbtreat = ( $curp->treat_all || $disease->has_cure )
         ? $nb
         : 1;
 
@@ -280,7 +280,7 @@ event _action_discover => sub {
 
     # various checks
     return $K->yield('_next_action')
-        if $disease->is_cured                                # nothing to do
+        if $disease->has_cure                                # nothing to do
         || !$curp->location->has_station                     # no research station
         || scalar(@cards) != $curp->cards_needed             # not enough cards
         || not(all { $_->isa('Games::Pandemic::Card::City') } @cards) # not the right cards
@@ -294,14 +294,14 @@ event _action_discover => sub {
         $deck->discard($card);
         $K->post( main => 'drop_card', $curp, $card );
     }
-    $disease->cure;
+    $disease->find_cure;
     $K->post( main => 'cure', $disease );
 
     # FIXME: golden cure
 
     # check if game is won
     return $K->yield('_all_cures_discovered')
-        if all { $_->is_cured } $game->map->all_diseases;
+        if all { $_->has_cure } $game->map->all_diseases;
 
     $K->yield('_action_done');
 };

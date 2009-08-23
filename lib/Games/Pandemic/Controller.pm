@@ -160,7 +160,7 @@ event new_game => sub {
     }
 
     # signal main window that we have started a new game
-    $K->post( 'main' => 'new_game' );
+    $K->post( main => 'new_game' );
 
     # create the players
     # FIXME: by now we're creating a fixed set of players, should be
@@ -710,7 +710,7 @@ event _propagate => sub {
 
     # update game state
     $game->set_state('end_of_propagation');
-    $K->post( 'end_of_propagation' );
+    $K->post( main => 'end_of_propagation' );
 };
 
 

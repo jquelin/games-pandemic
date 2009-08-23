@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::PlayerCards;
-# ABSTRACT: window holding player cards for Games::Pandemic
+# ABSTRACT: pandemic dialog to show player cards
 
 use List::Util qw{ max };
 use Moose;

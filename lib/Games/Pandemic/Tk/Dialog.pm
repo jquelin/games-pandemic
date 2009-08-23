@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog;
-# ABSTRACT: base class for Games::Pandemic dialog windows
+# ABSTRACT: base class for pandemic dialog windows
 
 use Moose;
 use MooseX::AttributeHelpers;

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Action;
-# ABSTRACT: action item for main Games::Pandemic window
+# ABSTRACT: action item for main pandemic window
 
 use Moose;
 use MooseX::AttributeHelpers;

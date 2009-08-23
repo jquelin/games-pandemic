@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Disease;
-# ABSTRACT: disease object for Games::Pandemic
+# ABSTRACT: pandemic disease object
 
 use File::Spec::Functions qw{ catfile };
 use Moose;

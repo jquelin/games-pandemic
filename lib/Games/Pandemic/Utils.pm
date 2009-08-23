@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Utils;
-# ABSTRACT: various utilities for Games::Pandemic
+# ABSTRACT: various utilities for pandemic
 
 use Devel::CheckOS        qw{ os_is };
 use Encode;

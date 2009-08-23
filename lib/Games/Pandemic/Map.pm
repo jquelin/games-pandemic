@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Map;
-# ABSTRACT: map information for Games::Pandemic
+# ABSTRACT: pandemic map information
 
 use File::Spec::Functions qw{ catdir catfile };
 use Moose;

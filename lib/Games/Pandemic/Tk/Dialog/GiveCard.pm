@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::GiveCard;
-# ABSTRACT: sharing dialog window for Games::Pandemic
+# ABSTRACT: pandemic dialog to give cards
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;

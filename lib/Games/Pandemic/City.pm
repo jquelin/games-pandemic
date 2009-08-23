@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::City;
-# ABSTRACT: city object for Games::Pandemic
+# ABSTRACT: pandemic city object
 
 use Moose;
 use MooseX::AttributeHelpers;

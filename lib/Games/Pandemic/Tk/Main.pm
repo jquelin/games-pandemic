@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Main;
-# ABSTRACT: main window for Games::Pandemic
+# ABSTRACT: main pandemic window
 
 use File::Spec::Functions qw{ catfile };
 use Image::Size;

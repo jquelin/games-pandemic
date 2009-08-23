@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::Simple;
-# ABSTRACT: generic dialog window for Games::Pandemic
+# ABSTRACT: generic pandemic dialog
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;

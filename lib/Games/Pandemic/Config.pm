@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Config;
-# ABSTRACT: local configuration for Games::Pandemic
+# ABSTRACT: pandemic local configuration
 
 use Games::Pandemic::Utils;
 use MooseX::Singleton;          # should come before any other moose

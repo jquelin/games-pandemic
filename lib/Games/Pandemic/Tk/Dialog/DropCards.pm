@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::DropCards;
-# ABSTRACT: dropping cards dialog window for Games::Pandemic
+# ABSTRACT: pandemic dialog to drop cards
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;

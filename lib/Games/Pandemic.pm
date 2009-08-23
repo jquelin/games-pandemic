@@ -109,6 +109,16 @@ has stations => (
     },
 );
 
+has nb_outbreaks => (
+    metaclass => 'Counter',
+    is        => 'ro',
+    isa       => 'Int',
+    provides  => {
+        inc => 'inc_outbreaks',
+        set => 'set_outbreaks',
+    },
+);
+
 # holds the player having too many cards - if any
 has too_many_cards => (
     is       => 'rw',

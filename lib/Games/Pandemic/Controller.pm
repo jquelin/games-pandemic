@@ -616,14 +616,18 @@ event _infect => sub {
         return;
     }
 
-    # FIXME: gameover if too many outbreaks
     $K->post( main => 'infection', $city, $outbreak );
-
     return unless $outbreak && !$seen->{$city};
 
+    # update number of outbreaks
     my $game = Games::Pandemic->instance;
     $game->inc_outbreaks;
+    if ( $game->nb_outbreaks == 8 ) { # FIXME: map dependant?
+        $K->yield('_too_many_outbreaks');
+        return;
+    }
 
+    # chaining infections
     $seen->{$city}++;
     $K->yield( '_infect', $_, 1, $disease, $seen ) for $city->neighbours;
 };

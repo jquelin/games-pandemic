@@ -299,7 +299,7 @@ sub is_discover_possible {
         my $disease = $card->city->disease;
         my $name = $disease->name;
         $seen{$name}++;
-        return $disease if $seen{$name} == $self->cards_needed;
+        return $disease if $seen{$name} == $self->cards_needed && ! $disease->has_cure;
     }
 
     return 0;

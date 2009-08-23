@@ -524,6 +524,22 @@ event too_many_cards => sub {
     # FIXME: provide a way to drop cards
 };
 
+=method event: too_many_outbreaks()
+
+Received when there are too many outbreaks, and game is over.
+
+=cut
+
+event too_many_outbreaks => sub {
+    my $self = shift;
+
+    # warn user
+    my $header = T('Too many outbreaks');
+    my $reason = T('there were too many outbreaks, pandemics have spread out of control.');
+
+    $self->_game_lost($header, $reason);
+};
+
 
 =method event: treatment( $city )
 

@@ -728,6 +728,17 @@ event _propagate => sub {
 };
 
 
+#
+# event: _too_many_outbreaks()
+#
+# sent when there are too many outbreaks, and game is over.
+#
+event _too_many_outbreaks => sub {
+    $K->post( main => 'too_many_outbreaks' );
+    $K->yield('_game_over');
+};
+
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

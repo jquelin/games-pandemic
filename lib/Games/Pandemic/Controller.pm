@@ -131,6 +131,9 @@ event new_game => sub {
     # 5 research stations available. FIXME: should it be part of the map?
     $game->set_stations( 5 );
 
+    # no outbreaks yet
+    $game->set_outbreaks( 0 );
+
     # create the player cards deck
     my @pcards = shuffle $map->cards;
     {
@@ -613,11 +616,14 @@ event _infect => sub {
         return;
     }
 
-    # FIXME: update outbreak
     # FIXME: gameover if too many outbreaks
     $K->post( main => 'infection', $city, $outbreak );
 
     return unless $outbreak && !$seen->{$city};
+
+    my $game = Games::Pandemic->instance;
+    $game->inc_outbreaks;
+
     $seen->{$city}++;
     $K->yield( '_infect', $_, 1, $disease, $seen ) for $city->neighbours;
 };

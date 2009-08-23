@@ -144,3 +144,20 @@ BUILD
 =end Pod::Coverage
 
 
+=head1 SYNOPSIS
+
+    Games::Pandemic::Tk::Dialog::DropCards->new(
+        parent => $mw,
+        player => $player,
+    );
+
+=head1 DESCRIPTION
+
+Sometimes, a player has too many cards in her hands. In this case, she
+must drop cards to get back to the official limit.
+
+This dialog will show current cards of C<$player> and ask which ones
+should be discarded. When clicking ok, the selected card(s) will be
+dropped. This takes no action, and is handled by
+L<Games::Pandemic::Controller>.
+

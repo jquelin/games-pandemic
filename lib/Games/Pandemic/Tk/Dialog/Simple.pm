@@ -61,3 +61,21 @@ __END__
 BUILD
 
 =end Pod::Coverage
+
+=head1 SYNOPSIS
+
+    Games::Pandemic::Tk::Dialog::Simple->new(
+        parent => $mw,
+        title  => $title,
+        header => $header,
+        icon   => $image,
+        text   => $texte,
+    );
+
+=head1 DESCRIPTION
+
+This module implements a very simple dialog window, to display various
+information on the current game state. It only has a close button, since
+it does not implement any action.
+
+The only mandatory paramater (beside C<parent> of course) is C<text>.

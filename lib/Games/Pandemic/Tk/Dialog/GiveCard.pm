@@ -153,3 +153,20 @@ BUILD
 =end Pod::Coverage
 
 
+=head1 SYNOPSIS
+
+    Games::Pandemic::Tk::Dialog::GiveCard->new(
+        parent  => $mw,
+        cards   => \@cards,
+        players => \@players,
+    );
+
+=head1 DESCRIPTION
+
+The game allows player to give cards to each other, provided that the
+players are in the same city.
+
+This dialog will show the C<@cards> of current player, with the list of
+C<@players> currently in the city. When clicking ok, the selected card
+will be given to the selected player. This takes one action, and is
+handled by L<Games::Pandemic::Controller>.

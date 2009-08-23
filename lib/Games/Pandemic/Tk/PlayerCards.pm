@@ -207,3 +207,13 @@ START
 STOP
 
 =end Pod::Coverage
+
+=head1 SYNOPSIS
+
+    Games::Pandemic::Tk::PlayerCards->new( parent=>$mw );
+
+=head1 DESCRIPTION
+
+This module implements a POE session (aliased C<cards>), responsible to
+show the cards hold by the various players. It will receive some events
+from the main window when the players gain or loose some cards.

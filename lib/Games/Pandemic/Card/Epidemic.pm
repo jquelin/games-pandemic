@@ -28,5 +28,6 @@ __END__
 =head1 DESCRIPTION
 
 This package implements a simple epidemic card, not meant to be
-displayed at all.
+displayed at all. It is here only to mark an epidemic event, drawn among
+other cards.
 

@@ -187,7 +187,7 @@ It accepts the following attributes:
 =back
 
 To subclass it, declare your own attributes, create the lazy builders
-for the attributes, and C<augment> the C<_build_gui()> method to create
-the bottom of the dialog window.
-
+for the attributes, C<augment> the C<_build_gui()> method to create the
+bottom of the dialog window, and implement the C<_valid()> method that
+would be called when ok button is pressed.
 

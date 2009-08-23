@@ -127,6 +127,8 @@ sub _build_gui {
             -command => sub { $self->_valid },
         )->pack(@LEFT, @XFILL2);
         $self->_set_w('ok', $but);
+        $top->bind('<Return>', sub { $self->_valid });
+        $top->bind('<Escape>', sub { $self->_valid }) unless $self->_cancel;
     }
     if ( $self->_cancel ) {
         my $but = $fbuttons->Button(
@@ -135,6 +137,8 @@ sub _build_gui {
             -command => sub { $self->_close },
         )->pack(@LEFT, @XFILL2);
         $self->_set_w('cancel', $but);
+        $top->bind('<Escape>', sub { $self->_close });
+        $top->bind('<Return>', sub { $self->_valid }) unless $self->_ok;
     }
 
     # center window & make it appear

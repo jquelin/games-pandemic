@@ -112,10 +112,12 @@ sub neighbours {
 }
 
 
-=method my $outbreak = $city->infect( [ $nb [, $disease] ] )
+=method my ($outbreak, $nbreal) = $city->infect( [ $nb [, $disease] ] )
 
 Infect C<$city> with C<$nb> items of C<$disease>. Return true if an
-outbreak happened following this infection, false otherwise.
+outbreak happened following this infection, false otherwise. If an
+outbreak happened, return also the real number of items used (since a
+city can only hold up to a maximum number of disease items).
 
 C<$nb> defaults to 1, and C<$disease> to the city disease.
 
@@ -143,7 +145,7 @@ sub infect {
 
     # store new infection state & return outbreak status
     $self->_set_infection( $id, $new );
-    return $outbreak;
+    return $outbreak, $new-$old;
 }
 
 

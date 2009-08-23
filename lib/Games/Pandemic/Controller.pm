@@ -587,35 +587,41 @@ event _epidemic => sub {
 
 
 #
-# _infect( $city [, $nb [, $disease ] ] );
+# _infect( $city [, $nb [, $disease [, $seen ] ] ] );
 #
 # infect $city with $nb items of $disease. perform an outbreak on
 # neighbour cities if needed. $nb defaults to 1, $disease defaults to
-# the city default disease.
+# the city default disease. if there's an outbreak, keep a list of
+# cities already C<$seen> (a hash reference).
 #
 event _infect => sub {
-    my ($city, $nb, $disease) = @_[ARG0..$#_];
+    my ($city, $nb, $disease, $seen) = @_[ARG0..$#_];
     $nb      //= 1;
     $disease //= $city->disease;
 
     # disease eradicated: no infection! \o/
     return if $disease->is_eradicated;
 
+    # perform the infection & update the gui
+    my ($outbreak, $nbreal) = $city->infect($nb, $disease);
+
     # update the disease
-    $disease->take($nb);
+    $disease->take($nbreal);
     if ( $disease->nbleft <= 0 ) {
         $K->yield('_no_more_cubes', $disease);
         return;
     }
 
-    # perform the infection & update the gui
-    my $outbreak = $city->infect($nb, $disease);
     # FIXME: update outbreak
     # FIXME: gameover if too many outbreaks
     $K->post( main => 'infection', $city, $outbreak );
 
     return unless $outbreak;
-    # FIXME: outbreak!
+    $seen //= {}; # FIXME: padre//
+    print $_->name . " " for $city->neighbours; say '';
+    my @neighbours = grep { !$seen->{$_}++ } $city->neighbours;
+    print $_->name ." " for @neighbours; say '';
+    $K->yield( '_infect', $_, 1, $disease, $seen ) for @neighbours;
 };
 
 

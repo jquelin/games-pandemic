@@ -267,10 +267,8 @@ event _action_treat => sub {
     $K->post( main => 'treatment', $city );
 
     # check if disease is eradicated
-    if ( $disease->has_cure && $disease->nbleft == $disease->nbmax ) {
-        $disease->eradicate;
-        $K->post( main => 'eradicate', $disease );
-    }
+    $K->yield( '_eradicate', $disease )
+        if $disease->has_cure && $disease->nbleft == $disease->nbmax;
 
     $K->yield('_action_done');
 };
@@ -307,10 +305,8 @@ event _action_discover => sub {
     $K->post( main => 'cure', $disease );
 
     # check if disease is eradicated
-    if ( $disease->nbleft == $disease->nbmax ) {
-        $disease->eradicate;
-        $K->post( main => 'eradicate', $disease);
-    }
+    $K->yield( '_eradicate', $disease )
+        if $disease->has_cure && $disease->nbleft == $disease->nbmax;
 
     # check if game is won
     return $K->yield('_all_cures_discovered')
@@ -586,6 +582,18 @@ event _epidemic => sub {
     $deck->refill( shuffle @cards );
 
     # FIXME: update infection rate
+};
+
+
+#
+# event: _eradicate($disease)
+#
+# $disease has been eradicated.
+#
+event _eradicate => sub {
+    my $disease = $_[ARG0];
+    $disease->eradicate;
+    $K->post( main => 'eradicate', $disease );
 };
 
 

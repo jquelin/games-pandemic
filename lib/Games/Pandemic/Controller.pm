@@ -261,8 +261,14 @@ event _action_treat => sub {
 
     $city->treat($disease, $nbtreat);
     $disease->return($nbtreat);
-
     $K->post( main => 'treatment', $city );
+
+    # check if disease is eradicated
+    if ( $disease->has_cure && $disease->nbleft == $disease->nbmax ) {
+        $disease->eradicate;
+        $K->post( main => 'eradicate', $disease );
+    }
+
     $K->yield('_action_done');
 };
 
@@ -297,7 +303,11 @@ event _action_discover => sub {
     $disease->find_cure;
     $K->post( main => 'cure', $disease );
 
-    # FIXME: golden cure
+    # check if disease is eradicated
+    if ( $disease->nbleft == $disease->nbmax ) {
+        $disease->eradicate;
+        $K->post( main => 'eradicate', $disease);
+    }
 
     # check if game is won
     return $K->yield('_all_cures_discovered')

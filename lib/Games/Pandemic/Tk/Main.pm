@@ -15,6 +15,7 @@ use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
 use Readonly;
 use Tk;
+use Tk::Balloon;
 use Tk::Font;
 use Tk::JPEG;
 use Tk::Pane;
@@ -1022,6 +1023,9 @@ sub _build_gui {
     $self->_action($_)->enable  for @enabled;
     $self->_action($_)->disable for @disabled;
 
+    # the tooltip
+    $self->_set_w('tooltip', $mw->Balloon);
+
     # WARNING: we need to create the toolbar object before anything
     # else. indeed, tk::toolbar loads the embedded icons in classinit,
     # that is when the first object of the class is created - and not
@@ -1140,6 +1144,8 @@ sub _build_status_bar {
     my $game = Games::Pandemic->instance;
     my $map  = $game->map;
     my $s    = $self->_session;
+    my $tip  = $self->_w('tooltip');
+    my $tipmsg;
 
     # the status bar itself is a frame
     my $sb = $mw->Frame->pack(@RIGHT, @FILLX, -before=>$self->_w('canvas'));
@@ -1147,25 +1153,36 @@ sub _build_status_bar {
 
     # research stations
     my $fstations = $sb->Frame->pack(@TOP, @PADX10);
-    $fstations->Label(
+    my $img_nbstations = $fstations->Label(
         -image => image( catfile( $SHAREDIR, 'research-station-32.png' ) ),
     )->pack(@TOP);
     my $lab_nbstations = $fstations->Label->pack(@TOP);
     $self->_set_w('lab_nbstations', $lab_nbstations );
+    $tipmsg = T("number of remaining\nresearch stations");
+    $tip->attach($img_nbstations, -msg=>$tipmsg);
+    $tip->attach($lab_nbstations, -msg=>$tipmsg);
 
     # diseases information
     my $fdiseases = $sb->Frame->pack(@TOP, @PADX10);
     my $fcures    = $sb->Frame->pack(@TOP, @PADX10);
     foreach my $disease ( $map->all_diseases ) {
-        $fdiseases->Label(
+        # disease
+        my $img_disease = $fdiseases->Label(
             -image => image( $disease->image('cube', 32) ),
         )->pack(@TOP);
         my $lab_disease = $fdiseases->Label->pack(@TOP);
+        $tipmsg = sprintf T("number of cubes\nof %s left"), $disease->name;
+        $tip->attach($img_disease, -msg=>$tipmsg);
+        $tip->attach($lab_disease, -msg=>$tipmsg);
+
+        # cure
         my $lab_cure = $fcures->Label(
             -image => image( $disease->image('cure', 32) ),
         )->pack(@TOP);
         $self->_set_w("lab_disease_$disease", $lab_disease);
         $self->_set_w("lab_cure_$disease", $lab_cure);
+        $tipmsg = sprintf T("cure for %s\nnot found"), $disease->name;
+        $tip->attach($lab_cure, -msg=>$tipmsg);
     }
 
     # player cards information
@@ -1178,6 +1195,9 @@ sub _build_status_bar {
     $self->_set_w('lab_cards', $lab_cards);
     $img_cards->bind('<Button-1>', $s->postback('_show_past_cards'));
     $lab_cards->bind('<Button-1>', $s->postback('_show_past_cards'));
+    $tipmsg = T("number of cards remaining-discarded\nclick to see history");
+    $tip->attach($img_cards, -msg=>$tipmsg);
+    $tip->attach($lab_cards, -msg=>$tipmsg);
 
     # infection information
     my $infection = $game->infection;
@@ -1189,6 +1209,9 @@ sub _build_status_bar {
     $self->_set_w('lab_infection', $lab_infection);
     $img_infection->bind('<Button-1>', $s->postback('_show_past_infections'));
     $lab_infection->bind('<Button-1>', $s->postback('_show_past_infections'));
+    $tipmsg = T("number of infections remaining-passed\nclick to see history");
+    $tip->attach($img_infection, -msg=>$tipmsg);
+    $tip->attach($lab_infection, -msg=>$tipmsg);
 
     # oubreak information
     my $scale = $sb->Scale(
@@ -1199,6 +1222,8 @@ sub _build_status_bar {
         @ENOFF,
     )->pack(@TOP, @PADX10);
     $self->_set_w('outbreaks', $scale);
+    $tipmsg = sprintf T("number of outbreaks\n(maximum %s)"), 8; # FIXME: map dependant?
+    $tip->attach($scale, -msg=>$tipmsg);
 }
 
 

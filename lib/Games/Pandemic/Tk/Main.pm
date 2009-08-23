@@ -172,6 +172,10 @@ Received when a cure has been found for C<$disease>.
 
 event cure => sub {
     my ($self, $disease) = @_[OBJECT, ARG0];
+    $self->_w('tooltip')->attach(
+        $self->_w("lab_cure_$disease"),
+        -msg=> sprintf( T("cure found\nfor %s"), $disease->name ),
+    );
     $self->_update_status;
 };
 
@@ -1171,6 +1175,7 @@ sub _build_status_bar {
             -image => image( $disease->image('cube', 32) ),
         )->pack(@TOP);
         my $lab_disease = $fdiseases->Label->pack(@TOP);
+        $self->_set_w("lab_disease_$disease", $lab_disease);
         $tipmsg = sprintf T("number of cubes\nof %s left"), $disease->name;
         $tip->attach($img_disease, -msg=>$tipmsg);
         $tip->attach($lab_disease, -msg=>$tipmsg);
@@ -1179,7 +1184,6 @@ sub _build_status_bar {
         my $lab_cure = $fcures->Label(
             -image => image( $disease->image('cure', 32) ),
         )->pack(@TOP);
-        $self->_set_w("lab_disease_$disease", $lab_disease);
         $self->_set_w("lab_cure_$disease", $lab_cure);
         $tipmsg = sprintf T("cure for %s\nnot found"), $disease->name;
         $tip->attach($lab_cure, -msg=>$tipmsg);

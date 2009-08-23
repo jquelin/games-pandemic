@@ -110,7 +110,7 @@ sub _build__outbreak_gradient {
 
     my $color = substr( ($scale->configure(-troughcolor))[3], 1);
     my $c = Convert::Color->new("rgb8:$color");
-    my @gradient = array_gradient([ map {$_*255} $c->rgb ], [255,0,0], 8);
+    my @gradient = array_gradient([ map {$_*255} $c->rgb ], [255,0,0], 9);
     return \@gradient;
 }
 

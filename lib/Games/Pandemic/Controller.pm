@@ -598,6 +598,7 @@ event _infect => sub {
     my ($city, $nb, $disease, $seen) = @_[ARG0..$#_];
     $nb      //= 1;
     $disease //= $city->disease;
+    $seen    //= {}; # FIXME: padre//
 
     # disease eradicated: no infection! \o/
     return if $disease->is_eradicated;
@@ -616,12 +617,9 @@ event _infect => sub {
     # FIXME: gameover if too many outbreaks
     $K->post( main => 'infection', $city, $outbreak );
 
-    return unless $outbreak;
-    $seen //= {}; # FIXME: padre//
-    print $_->name . " " for $city->neighbours; say '';
-    my @neighbours = grep { !$seen->{$_}++ } $city->neighbours;
-    print $_->name ." " for @neighbours; say '';
-    $K->yield( '_infect', $_, 1, $disease, $seen ) for @neighbours;
+    return unless $outbreak && !$seen->{$city};
+    $seen->{$city}++;
+    $K->yield( '_infect', $_, 1, $disease, $seen ) for $city->neighbours;
 };
 
 

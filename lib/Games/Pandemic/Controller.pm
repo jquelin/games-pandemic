@@ -598,6 +598,9 @@ event _infect => sub {
     $nb      //= 1;
     $disease //= $city->disease;
 
+    # disease eradicated: no infection! \o/
+    return if $disease->is_eradicated;
+
     # update the disease
     $disease->take($nb);
     if ( $disease->nbleft <= 0 ) {

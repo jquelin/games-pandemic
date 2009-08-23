@@ -138,7 +138,7 @@ sub _build_gui {
         )->pack(@LEFT, @XFILL2);
         $self->_set_w('cancel', $but);
         $top->bind('<Escape>', sub { $self->_close });
-        $top->bind('<Return>', sub { $self->_valid }) unless $self->_ok;
+        $top->bind('<Return>', sub { $self->_close }) unless $self->_ok;
     }
 
     # center window & make it appear

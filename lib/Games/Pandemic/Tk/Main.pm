@@ -5,9 +5,11 @@ use warnings;
 package Games::Pandemic::Tk::Main;
 # ABSTRACT: main pandemic window
 
+use Convert::Color;
 use File::Spec::Functions qw{ catfile };
 use Image::Size;
 use List::Util            qw{ min };
+use Math::Gradient        qw{ array_gradient };
 use Moose;
 use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
@@ -36,7 +38,7 @@ Readonly my $TIME_BLINK => 0.5;
 Readonly my $TIME_DECAY => 0.150;
 
 
-# -- accessors
+# -- attributes
 
 # a hash with all the widgets, for easier reference.
 has _widgets => (
@@ -63,7 +65,18 @@ has _actions => (
     },
 );
 
-
+# color gradient for outbreak scale
+has _outbreak_gradient => (
+    metaclass  => 'Collection::Array',
+    is         => 'ro',
+    isa        => 'ArrayRef[ArrayRef]',
+    auto_deref => 1,
+    lazy_build => 1,
+    provides   => {
+        get  => '_outbreak_color',            # my $c = $main->_outbreak_color($i);
+        push => '_add_to_outbreak_gradient',  # my $c = $main->_add_to_outbreak_gradient($rgb);
+    }
+);
 
 # currently selected player
 has _selplayer => ( is => 'rw', weak_ref => 1, isa => 'Games::Pandemic::Player' );
@@ -89,6 +102,18 @@ sub START {
     $self->_set_session($session);
     $self->_build_gui;
 }
+
+
+sub _build__outbreak_gradient {
+    my $self = shift;
+    my $scale = $self->_w('outbreaks');
+
+    my $color = substr( ($scale->configure(-troughcolor))[3], 1);
+    my $c = Convert::Color->new("rgb8:$color");
+    my @gradient = array_gradient([ map {$_*255} $c->rgb ], [255,0,0], 8);
+    return \@gradient;
+}
+
 
 
 # -- public events
@@ -1148,6 +1173,16 @@ sub _build_status_bar {
     $self->_set_w('lab_infection', $lab_infection);
     $img_infection->bind('<Button-1>', $s->postback('_show_past_infections'));
     $lab_infection->bind('<Button-1>', $s->postback('_show_past_infections'));
+
+    # oubreak information
+    my $scale = $sb->Scale(
+        -orient => 'vertical',
+        -sliderlength => 20,
+        -from   => 8,
+        -to     => 0,
+        @ENOFF,
+    )->pack(@TOP, @PADX10);
+    $self->_set_w('outbreaks', $scale);
 }
 
 
@@ -1456,6 +1491,17 @@ sub _update_status {
     my $text2 = $deck2->nbcards . '-' . $deck2->nbdiscards;
     $self->_w('lab_cards')->configure( -text => $text1 );
     $self->_w('lab_infection')->configure(-text => $text2 );
+
+    # number of outbreaks
+    my $outbreaks = $game->nb_outbreaks;
+    my $scale = $self->_w('outbreaks');
+    $scale->configure(@ENON); # ->set() doesn't work if disabled
+    $scale->set( $outbreaks );
+    my $color = Convert::Color::RGB8->new( @{ $self->_outbreak_color($outbreaks) } );
+    $scale->configure(
+        -troughcolor => '#' . $color->hex,
+        @ENOFF
+    );
 
     # actions left
     $self->_w('lab_nbactions')->configure(-text=>$curp->actions_left);

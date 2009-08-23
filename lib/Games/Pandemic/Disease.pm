@@ -48,6 +48,15 @@ has has_cure => (
     }
 );
 
+has is_eradicated => (
+    metaclass => 'Bool',
+    is        => 'ro',
+    isa       => 'Bool',
+    default   => 0,
+    provides  => {
+        set     => 'eradicate',
+    }
+);
 
 # -- default builders / finishers
 

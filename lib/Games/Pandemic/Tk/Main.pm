@@ -258,8 +258,13 @@ Received when $disease has been eradicated.
 
 event eradicate => sub {
     my ($self, $disease) = @_[OBJECT, ARG0];
-    $self->_w("lab_cure_$disease")->configure(
+    my $label = $self->_w("lab_cure_$disease");
+    $label->configure(
         -image => image( $disease->image('golden-cure', 32) ) );
+    $self->_w('tooltip')->attach(
+        $label,
+        -msg => sprintf( T("%s:\ndisease eradicated"), $disease->name ),
+    );
 };
 
 

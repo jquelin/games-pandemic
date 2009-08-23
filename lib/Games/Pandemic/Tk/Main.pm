@@ -24,6 +24,7 @@ use Tk::ToolBar;
 
 use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Action;
+use Games::Pandemic::Tk::Dialog::ChooseDisease;
 use Games::Pandemic::Tk::Dialog::DropCards;
 use Games::Pandemic::Tk::Dialog::GiveCard;
 use Games::Pandemic::Tk::Dialog::Simple;
@@ -719,7 +720,10 @@ event _action_treat => sub {
     if ( scalar @diseases == 1 ) {
         $K->post( controller => 'action', 'treat', $diseases[0] );
     } else {
-        # FIXME: ask user which disease to treat
+        Games::Pandemic::Tk::Dialog::ChooseDisease->new(
+            parent   => $mw,
+            diseases => \@diseases,
+        );
     }
 };
 

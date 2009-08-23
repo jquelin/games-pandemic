@@ -220,6 +220,19 @@ event epidemic => sub {
 };
 
 
+=method event: eradicate($disease)
+
+Received when $disease has been eradicated.
+
+=cut
+
+event eradicate => sub {
+    my ($self, $disease) = @_[OBJECT, ARG0];
+    $self->_w("lab_cure_$disease")->configure(
+        -image => image( $disease->image('golden-cure', 32) ) );
+};
+
+
 =method event: gain_card($player, $card)
 
 Received when C<$player> got a new C<$card>.

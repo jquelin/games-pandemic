@@ -138,7 +138,7 @@ event new_game => sub {
     my @pcards = shuffle $map->cards;
     {
         # insert epidemic cards
-        my $nbinit = 12;   # FIXME: 3 players * 4 cards, should not be fixed
+        my $nbinit    = 8; # FIXME: 2 players * 4 cards, should not be fixed
         my $epidemics = 4; # FIXME: depends on game difficulty
         my $nbleft  = scalar(@pcards) - $nbinit;
         my $perheap = int( $nbleft / $epidemics );

@@ -141,9 +141,9 @@ event new_game => sub {
         my $nbinit    = 8; # FIXME: 2 players * 4 cards, should not be fixed
         my $epidemics = 4; # FIXME: depends on game difficulty
         my $nbleft  = scalar(@pcards) - $nbinit;
-        my $perheap = int( $nbleft / $epidemics );
-        foreach my $i ( 0 .. $epidemics-1 ) {
-            my $offset = $i * $perheap + int( rand($perheap) );
+        my $perheap = $nbleft / $epidemics;
+        foreach my $i ( reverse 0 .. $epidemics-1 ) {
+            my $offset = int( $i * $perheap + rand($perheap) );
             splice @pcards, $offset, 0, Games::Pandemic::Card::Epidemic->new;
         }
     }

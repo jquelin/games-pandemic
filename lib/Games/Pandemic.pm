@@ -114,10 +114,24 @@ has nb_outbreaks => (
     is        => 'ro',
     isa       => 'Int',
     provides  => {
-        inc => 'inc_outbreaks',
+        inc => '_inc_outbreaks',
         set => 'set_outbreaks',
     },
 );
+
+
+=method $game->inc_outbreaks;
+
+Increment number of outbreaks, up to a maximum of 8.
+
+=cut
+
+sub inc_outbreaks {
+    my $self = shift;
+    return if $self->nb_outbreaks == 8; # FIXME: game dependant?
+    $self->_inc_outbreaks;
+}
+
 
 # holds the player having too many cards - if any
 has too_many_cards => (

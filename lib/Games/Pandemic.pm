@@ -143,7 +143,7 @@ has too_many_cards => (
 );
 
 
-has next_step => ( is=>'rw', isa=>'Str' );
+has next_step => ( is=>'rw', isa=>'Str', clearer=>'clear_next_step' );
 
 
 # -- public methods

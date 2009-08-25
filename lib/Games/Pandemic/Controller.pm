@@ -529,6 +529,7 @@ event _draw_cards => sub {
     my $curp = $game->curplayer;
     # FIXME: is 2 cards fixed or map-dependant?
     $K->yield( '_deal_card', $curp, 2 );
+    $game->clear_next_step;
 
     $game->set_state('end_of_cards');
     $K->post( main => 'end_of_cards' );

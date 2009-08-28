@@ -163,7 +163,7 @@ sub cards {
         map { Games::Pandemic::Card::City->new(city=>$_) }
         $self->all_cities;
     my @special =
-        map { my $class = "Games::Pandemic::Card::$_"; $class->new }
+        map { my $class = "Games::Pandemic::Card::Special::$_"; $class->new }
         $self->_raw_special_cards;
     return (@citycards, @special);
 }

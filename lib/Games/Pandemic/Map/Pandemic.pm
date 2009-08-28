@@ -86,6 +86,12 @@ return (
 );
 }
 
+
+sub _raw_special_cards {
+    return qw{ OneQuietNight };
+}
+
+
 sub _raw_start_city {
     return 4; # start at atlanta
 }

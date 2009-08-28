@@ -151,17 +151,21 @@ sub sharedir {
 
 =method my @cards = $map->cards;
 
-Return a list of C<Games::Pandemic::Card>: specific cards depending on
-the map, plus one card per city defined in the map. They will be used
+Return a list of C<Games::Pandemic::Card>: special event cards depending
+on the map, plus one card per city defined in the map. They will be used
 for the regular deck. Note that the cards will B<not> be shuffled.
 
 =cut
 
 sub cards {
     my $self = shift;
-    return
+    my @citycards =
         map { Games::Pandemic::Card::City->new(city=>$_) }
         $self->all_cities;
+    my @special =
+        map { my $class = "Games::Pandemic::Card::$_"; $class->new }
+        $self->_raw_special_cards;
+    return (@citycards, @special);
 }
 
 

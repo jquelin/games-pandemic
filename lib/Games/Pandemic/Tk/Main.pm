@@ -1605,5 +1605,7 @@ license for non commercial use
 
 =item * success icon by Gnome artists, under a gpl license
 
+=item * quiet night icon by David Vignoni, undef a lgpl license
+
 =back
 

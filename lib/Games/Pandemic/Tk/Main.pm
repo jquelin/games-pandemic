@@ -28,6 +28,7 @@ use Games::Pandemic::Tk::Dialog::Action;
 use Games::Pandemic::Tk::Dialog::ChooseDisease;
 use Games::Pandemic::Tk::Dialog::DropCards;
 use Games::Pandemic::Tk::Dialog::GiveCard;
+use Games::Pandemic::Tk::Dialog::GovernmentGrant;
 use Games::Pandemic::Tk::Dialog::Simple;
 use Games::Pandemic::Tk::Dialog::ViewCards;
 use Games::Pandemic::Tk::PlayerCards;
@@ -294,6 +295,24 @@ event game_over => sub {
     $self->_update_status;
     $self->_action($_)->disable for ( "continue",
         map { "action_$_" } qw{ build discover treat share pass drop } );
+};
+
+
+=method event: government_grant( $player, $card )
+
+Received when C<$player> wants to play special C<$card>
+L<Games::Pandemic::Card::Special::GovernmentGrant>. Does not require
+an action.
+
+=cut
+
+event government_grant => sub {
+    my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
+    Games::Pandemic::Tk::Dialog::GovernmentGrant->new(
+        parent => $mw,
+        player => $player,
+        card   => $card,
+    );
 };
 
 

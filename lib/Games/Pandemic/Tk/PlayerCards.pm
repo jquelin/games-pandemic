@@ -10,6 +10,7 @@ use Moose;
 use MooseX::POE;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
+use POE;
 use Readonly;
 use Tk;
 
@@ -70,7 +71,7 @@ sub STOP {
 }
 
 
-# -- public methods
+# -- public events
 
 =method event: new_player( $player )
 
@@ -104,6 +105,7 @@ Request to add a new C<$card> to C<$player>.
 event gain_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0, ARG1];
     my $top = $self->_toplevel;
+    my $s   = $self->_session;
 
     # replace existing cards frame
     my $fcards = $self->_w("cards_$player");
@@ -114,8 +116,18 @@ event gain_card => sub {
     # repopulate new frame
     foreach my $card ( $player->all_cards ) {
         my $f = $fcards->Frame->pack(@TOP, @FILLX);
-        $f->Label( -image => image($card->icon, $top) )->pack(@LEFT);
-        $f->Label( -text => $card->label, -anchor=>'w' )->pack(@LEFT);
+        my $img = $f->Label( -image => image($card->icon, $top) )->pack(@LEFT);
+        my $lab = $f->Label( -text => $card->label, -anchor=>'w' )->pack(@LEFT);
+
+        # special cards can be clicked
+        if ( $card->isa('Games::Pandemic::Card::Special') ) {
+            my $sub = $s->postback('_special_card_clicked', $card);
+            $img->bind('<1>', $sub);
+            $lab->bind('<1>', $sub);
+            $f->bind('<1>', $sub);
+            $f->bind('<Enter>', sub { $f->configure(-relief=>'raised'); } );
+            $f->bind('<Leave>', sub { $f->configure(-relief=>'flat'); } );
+        }
     }
 };
 

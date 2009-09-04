@@ -24,16 +24,8 @@ Readonly my $GREY => '#666666';
 
 # -- accessors
 
-has card => (
-    is         => 'rw',
-    isa        => 'Games::Pandemic::Card',
-    required   => 1,
-);
-
-has _selcard => (
-    is         => 'rw',
-    isa        => 'Games::Pandemic::Card',
-);
+has card     => ( is=>'rw', isa=>'Games::Pandemic::Card', required=>1 );
+has _selcard => ( is=>'rw', isa=>'Games::Pandemic::Card' );
 
 has _selected => (
     is         => 'rw',
@@ -81,11 +73,11 @@ augment _build_gui => sub {
     )->pack(@TOP, @XFILL2, @PAD2);
 
     # display cards
-    my $game = Games::Pandemic->instance;
     my @citycards =
         sort { $a->city->disease->name cmp $b->city->disease->name
             || $a->label cmp $b->label }
-        $game->map->disease_cards;
+        Games::Pandemic->instance->map->disease_cards;
+
     foreach my $card ( @citycards ) {
         # to display a checkbutton with image + text, we need to
         # create a checkbutton with a label just next to it.

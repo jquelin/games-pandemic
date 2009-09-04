@@ -129,7 +129,13 @@ sub _select_city {
 # to play the card and build a research station in the selected city.
 #
 sub _valid {
-    say "ici";
+    my $self = shift;
+    $K->post( controller => 'government_grant',
+        $self->player,
+        $self->card,
+        $self->_selcard->city,
+    );
+    $self->_close;
 }
 
 

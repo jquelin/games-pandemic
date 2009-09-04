@@ -10,6 +10,8 @@ use MooseX::SemiAffordanceAccessor;
 
 extends 'Games::Pandemic::Card';
 
+has description => ( is => 'ro', isa => 'Str', lazy_build => 1 );
+
 
 # -- public methods
 

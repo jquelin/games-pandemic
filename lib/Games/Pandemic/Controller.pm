@@ -167,7 +167,8 @@ event new_game => sub {
     # 5 research stations available. FIXME: should it be part of the map?
     $game->set_stations( 5 );
 
-    # no outbreaks yet
+    # no epidemics and no outbreaks yet
+    $game->set_epidemics( 0 );
     $game->set_outbreaks( 0 );
 
     # create the player cards deck

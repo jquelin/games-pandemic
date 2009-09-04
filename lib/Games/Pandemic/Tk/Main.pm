@@ -855,7 +855,7 @@ event _close => sub {
     my $game = Games::Pandemic->instance;
 
     # remove current timers
-    $K->delay( '_glow' );
+    $K->alarm_remove_all;
 
     # allow some actions
     $self->_action('new')->enable;

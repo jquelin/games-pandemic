@@ -24,6 +24,7 @@ Readonly my $GREY => '#666666';
 
 # -- accessors
 
+has player   => ( is=>'rw', isa=>'Games::Pandemic::Player', required=>1 );
 has card     => ( is=>'rw', isa=>'Games::Pandemic::Card', required=>1 );
 has _selcard => ( is=>'rw', isa=>'Games::Pandemic::Card' );
 

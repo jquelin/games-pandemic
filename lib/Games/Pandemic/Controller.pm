@@ -652,7 +652,8 @@ event _epidemic => sub {
     $deck->clear_pile;
     $deck->refill( shuffle @cards );
 
-    # FIXME: update infection rate
+    # update infection rate
+    $game->inc_epidemics;
 };
 
 
@@ -801,7 +802,7 @@ event _propagate => sub {
             my $card = $icards->next;
             $K->yield( _infect => $card->city, 1 );
             $icards->discard( $card );
-        } for 1 .. 2; # FIXME: infection rate
+        } for 1 .. $game->infection_rate;
     } else {
         $game->enable_propagation;
     }

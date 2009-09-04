@@ -143,6 +143,18 @@ has too_many_cards => (
 );
 
 
+# whether there will be a propagation in this turn
+has propagation => (
+    metaclass => 'Bool',
+    is        => 'ro',
+    isa       => 'Bool',
+    default   => 1,
+    provides  => {
+        set   => 'enable_propagation',
+        unset => 'disable_propagation',
+    }
+);
+
 has next_step => ( is=>'rw', isa=>'Str', clearer=>'clear_next_step' );
 
 

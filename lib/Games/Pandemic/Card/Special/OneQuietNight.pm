@@ -17,6 +17,10 @@ extends 'Games::Pandemic::Card::Special';
 
 sub _build_icon  { catfile($SHAREDIR, 'cards', 'one-quiet-night.png' ) }
 sub _build_label { T('One quiet night') }
+sub _build_description {
+    T( 'When played, this card prevents the next infection phase to be '
+    . 'played: it will be skipped.' );
+}
 
 
 no Moose;

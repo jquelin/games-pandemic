@@ -745,14 +745,19 @@ event _no_more_cubes => sub {
 #
 event _propagate => sub {
     my $game   = Games::Pandemic->instance;
-    my $icards = $game->infection;
 
-    # propagate diseases
-    do {
-        my $card = $icards->next;
-        $K->yield( _infect => $card->city, 1 );
-        $icards->discard( $card );
-    } for 1 .. 2; # FIXME: infection rate
+    if ( $game->propagation ) {
+        my $icards = $game->infection;
+
+        # propagate diseases
+        do {
+            my $card = $icards->next;
+            $K->yield( _infect => $card->city, 1 );
+            $icards->discard( $card );
+        } for 1 .. 2; # FIXME: infection rate
+    } else {
+        $game->enable_propagation;
+    }
 
     # update game state
     $game->set_state('end_of_propagation');

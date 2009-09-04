@@ -79,6 +79,7 @@ augment _build_gui => sub {
     my @citycards =
         sort { $a->city->disease->name cmp $b->city->disease->name
             || $a->label cmp $b->label }
+        grep { ! $_->city->has_station }
         Games::Pandemic->instance->map->disease_cards;
 
     foreach my $card ( @citycards ) {

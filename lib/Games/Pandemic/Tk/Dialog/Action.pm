@@ -7,6 +7,8 @@ package Games::Pandemic::Tk::Dialog::Action;
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;
+use POE;
+use Readonly;
 use Tk;
 
 extends 'Games::Pandemic::Tk::Dialog::Simple';
@@ -14,10 +16,13 @@ extends 'Games::Pandemic::Tk::Dialog::Simple';
 use Games::Pandemic::Utils;
 use Games::Pandemic::Tk::Utils;
 
+Readonly my $K => $poe_kernel;
+
 
 # -- accessors
 
-has action => ( is=>'ro', isa=>'Str', required=>1 );
+has action    => ( is=>'ro', isa=>'Str', required=>1 );
+has post_args => ( is=>'ro', isa=>'ArrayRef', required=>1 );
 
 
 # -- initialization
@@ -27,6 +32,19 @@ sub _build__cancel { T('Cancel') }
 
 
 # -- private methods
+
+#
+# $dialog->_valid;
+#
+# request to perform the action.
+#
+sub _valid {
+    my $self = shift;
+    my $args = $self->post_args;
+    $K->post( @$args );
+    $self->_close;
+}
+
 
 
 no Moose;

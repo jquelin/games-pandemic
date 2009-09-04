@@ -132,6 +132,20 @@ BUILD
 
 =end Pod::Coverage
 
+=head1 SYNOPSIS
+
+    Games::Pandemic::Tk::Dialog::GovernmentGrant->new(
+        parent => $mw,
+        card   => $card,        # special govt grant card
+        player => $player,      # player owning it
+    );
+
+
 =head1 DESCRIPTION
 
-This dialog implements 
+This dialog implements a dialog to let the user choose in which city to
+build a research station when playing a
+L<Games::Pandemic::Card::Special::GovernmentGrant> card.
+
+The card should be passed in the constructor, along with the player
+holding the card.

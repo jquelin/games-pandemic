@@ -195,6 +195,7 @@ event one_quiet_night => sub {
     # play special card
     my $game = Games::Pandemic->instance;
     $game->disable_propagation;
+    # FIXME: update gui?
 
     # drop the card
     $player->drop_card( $card );

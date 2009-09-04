@@ -40,7 +40,7 @@ Readonly my $mw => $poe_main_window; # already created by poe
 Readonly my $RADIUS     => 10;
 Readonly my $TIME_BLINK => 0.5;
 Readonly my $TIME_DECAY => 0.150;
-
+Readonly my $TIME_GLOW  => 0.150;
 
 # -- attributes
 
@@ -82,6 +82,20 @@ has _outbreak_gradient => (
     }
 );
 
+# color gradient for infection rate
+has _infection_rate_gradient => (
+    metaclass  => 'Collection::Array',
+    is         => 'ro',
+    isa        => 'ArrayRef[Str]',
+    auto_deref => 1,
+    lazy_build => 1,
+    provides   => {
+        shift => '_next_infection_rate_color',
+        push  => '_add_infection_rate_color',
+    }
+);
+
+
 # currently selected player
 has _selplayer => ( is => 'rw', weak_ref => 1, isa => 'Games::Pandemic::Player' );
 
@@ -107,6 +121,14 @@ sub START {
     $self->_build_gui;
 }
 
+
+sub _build__infection_rate_gradient {
+    my @gradient =
+        map { sprintf "#%02x%02x%02x", @$_ }
+        array_gradient([15,71,15], [212,219,16], 50);
+    push @gradient, reverse @gradient;
+    return \@gradient;
+}
 
 sub _build__outbreak_gradient {
     my $self = shift;
@@ -650,6 +672,15 @@ event _decay => sub {
 };
 
 
+event _glow => sub {
+    my $self = shift;
+    my $game = Games::Pandemic->instance;
+    my $color = $self->_next_infection_rate_color;
+    $self->_w('lab_infection_rate')->configure(-bg=>$color);
+    $K->delay( _glow => $TIME_GLOW / ($game->nb_epidemics+1) );
+    $self->_add_infection_rate_color($color);
+};
+
 # -- gui events
 
 #
@@ -822,6 +853,9 @@ event _city_click => sub {
 event _close => sub {
     my $self = shift;
     my $game = Games::Pandemic->instance;
+
+    # remove current timers
+    $K->delay( '_glow' );
 
     # allow some actions
     $self->_action('new')->enable;
@@ -1272,6 +1306,14 @@ sub _build_status_bar {
     $tip->attach($img_infection, -msg=>$tipmsg);
     $tip->attach($lab_infection, -msg=>$tipmsg);
 
+    # infection rate
+    my $firate = $sb->Frame(-bg=>'black')->pack(@TOP, @PADX10, @FILLX);
+    my $lab_irate = $firate->Label->pack(@TOP, @XFILL2);
+    $self->_set_w('lab_infection_rate', $lab_irate);
+    $K->delay( _glow => $TIME_GLOW );
+    $tipmsg = T("infection rate\n(number of epidemics)");
+    $tip->attach($lab_irate, -msg=>$tipmsg);
+
     # oubreak information
     my $scale = $sb->Scale(
         -orient => 'vertical',
@@ -1591,6 +1633,11 @@ sub _update_status {
     my $text2 = $deck2->nbcards . '-' . $deck2->nbdiscards;
     $self->_w('lab_cards')->configure( -text => $text1 );
     $self->_w('lab_infection')->configure(-text => $text2 );
+
+    # infection rate
+    my $lab_irate = $self->_w('lab_infection_rate');
+    my $text = sprintf "%d (%d)", $game->infection_rate, $game->nb_epidemics;
+    $lab_irate->configure(-text =>$text);
 
     # number of outbreaks
     my $outbreaks = $game->nb_outbreaks;

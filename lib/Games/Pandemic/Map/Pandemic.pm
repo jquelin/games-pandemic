@@ -86,6 +86,9 @@ return (
 );
 }
 
+sub infection_rates {
+    return (2, 2, 2, 3, 3, 4, 4);
+}
 
 sub _raw_special_cards {
     return qw{ OneQuietNight };

@@ -91,9 +91,13 @@ augment _build_gui => sub {
 };
 
 
-# -- private methods
-
-
+#
+# $ggd->_select_city( $card, $fcard, $img, $lab );
+#
+# Called when one of the frame ($fcard), image ($img) or label ($lab)
+# representing the $card has been selected. Hilight the new widgets, un-
+# hilight the old widgets and store the new card selected.
+#
 sub _select_city {
     my ($self, $card, $fcard, $img, $lab) = @_;
 
@@ -114,6 +118,13 @@ sub _select_city {
 }
 
 
+#
+# $ggd->_valid;
+#
+#
+# called when the action button has been clicked. Request the controller
+# to play the card and build a research station in the selected city.
+#
 sub _valid {
     say "ici";
 }

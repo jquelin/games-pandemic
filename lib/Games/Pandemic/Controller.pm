@@ -572,7 +572,7 @@ event _deal_card => sub {
 
         # check if we hit a new epidemic
         if ( $card->isa('Games::Pandemic::Card::Epidemic') ) {
-            $K->yield( '_epidemic' );
+            $K->yield( '_epidemic', $card );
             next;
         }
 
@@ -632,9 +632,9 @@ event _end_of_actions => sub {
 
 
 #
-# event: _epidemic()
+# event: _epidemic( $card )
 #
-# an epidemic card has been drawn.
+# an epidemic $card has been drawn.
 #
 event _epidemic => sub {
     my $game = Games::Pandemic->instance;
@@ -654,6 +654,9 @@ event _epidemic => sub {
 
     # update infection rate
     $game->inc_epidemics;
+
+    # discard the epidemic card
+    $game->cards->discard( $_[ARG0] );
 };
 
 

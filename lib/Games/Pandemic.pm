@@ -155,6 +155,16 @@ has propagation => (
     }
 );
 
+has nb_epidemics => (
+    metaclass => 'Counter',
+    is        => 'ro',
+    isa       => 'Int',
+    provides  => {
+        inc => 'inc_epidemics',
+        set => 'set_epidemics',
+    },
+);
+
 has next_step => ( is=>'rw', isa=>'Str', clearer=>'clear_next_step' );
 
 

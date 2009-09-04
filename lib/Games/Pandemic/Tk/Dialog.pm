@@ -148,6 +148,9 @@ sub _build_gui {
     } else {
         $top->resizable(0,0);
     }
+
+    # allow dialogs to finish once everything is in place
+    $self->_finish_gui if $self->can('_finish_gui');
 }
 
 

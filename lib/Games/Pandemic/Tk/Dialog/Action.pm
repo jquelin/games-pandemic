@@ -9,7 +9,7 @@ use Moose;
 use MooseX::SemiAffordanceAccessor;
 use Tk;
 
-extends 'Games::Pandemic::Tk::Dialog';
+extends 'Games::Pandemic::Tk::Dialog::Simple';
 
 use Games::Pandemic::Utils;
 use Games::Pandemic::Tk::Utils;
@@ -17,8 +17,6 @@ use Games::Pandemic::Tk::Utils;
 
 # -- accessors
 
-has text   => ( is=>'ro', isa=>'Str', required=>1 );
-has icon   => ( is=>'ro', isa=>'Str' );
 has action => ( is=>'ro', isa=>'Str', required=>1 );
 
 
@@ -29,27 +27,6 @@ sub _build__cancel { T('Cancel') }
 
 
 # -- private methods
-
-#
-# dialog->_build_gui;
-#
-# create the various gui elements.
-#
-augment _build_gui => sub {
-    my $self = shift;
-    my $top  = $self->_toplevel;
-
-    # icon + text
-    my $f = $top->Frame->pack(@TOP,@XFILL2);
-    $f->Label(-image => image($self->icon,$top))->pack(@LEFT, @FILL2, @PAD10)
-        if defined $self->icon;
-    $f->Label(
-        -text       => $self->text,
-        -justify    => 'left',
-        -wraplength => '6c',
-    )->pack(@LEFT, @XFILL2, @PAD10);
-};
-
 
 
 no Moose;

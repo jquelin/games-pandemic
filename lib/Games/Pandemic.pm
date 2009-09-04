@@ -165,6 +165,23 @@ has nb_epidemics => (
     },
 );
 
+=method my $nb = $game->infection_rate;
+
+Return the infection rate, that is, the number of cities infected per
+turn. This rate is growing with number of epidemics, according to the
+table given by the map's C<infection_rates()> method.
+
+=cut
+
+sub infection_rate {
+    my $self = shift;
+    my $map  = $self->map;
+    my $nbepidemics = $self->nb_epidemics;
+    my @rates = $map->infection_rates;
+    return $nbepidemics >= scalar(@rates)
+        ? $rates[-1] : $rates[$nbepidemics];
+}
+
 has next_step => ( is=>'rw', isa=>'Str', clearer=>'clear_next_step' );
 
 

@@ -66,10 +66,10 @@ BUILD
 
     Games::Pandemic::Tk::Dialog::Simple->new(
         parent => $mw,
-        title  => $title,
-        header => $header,
-        icon   => $image,
-        text   => $texte,
+        title  => $title,       # optional
+        header => $header,      # optional
+        icon   => $image,       # optional
+        text   => $text,
     );
 
 =head1 DESCRIPTION

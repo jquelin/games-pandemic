@@ -180,6 +180,29 @@ event new_game => sub {
 };
 
 
+=method event: one_quiet_night()
+
+Special event card: prevent disease propagation during this turn.
+
+=cut
+
+event one_quiet_night => sub {
+    my ($player, $card) = @_[ARG0..$#_];
+
+    # basic check
+    return unless $player->owns_card($card);
+
+    # play special card
+    my $game = Games::Pandemic->instance;
+    $game->disable_propagation;
+
+    # drop the card
+    $player->drop_card( $card );
+    $game->cards->discard( $card );
+    $K->post( main => 'drop_card', $player, $card );
+};
+
+
 # -- private event
 
 #

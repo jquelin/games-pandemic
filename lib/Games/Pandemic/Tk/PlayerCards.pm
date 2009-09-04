@@ -122,9 +122,7 @@ event gain_card => sub {
         # special cards can be clicked
         if ( $card->isa('Games::Pandemic::Card::Special') ) {
             my $sub = $s->postback('_special_card_clicked', $card);
-            $img->bind('<1>', $sub);
-            $lab->bind('<1>', $sub);
-            $f->bind('<1>', $sub);
+            $_->bind('<1>', $sub) for ($img, $lab, $f);
             $f->bind('<Enter>', sub { $f->configure(-relief=>'raised'); } );
             $f->bind('<Leave>', sub { $f->configure(-relief=>'flat'); } );
         }

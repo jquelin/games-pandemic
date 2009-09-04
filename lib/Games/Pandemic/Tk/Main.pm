@@ -1634,5 +1634,8 @@ license for non commercial use
 
 =item * quiet night icon by David Vignoni, under a lgpl license
 
+=item * government grant icon by Webdesigner Depot, under a free
+license for commercial use
+
 =back
 

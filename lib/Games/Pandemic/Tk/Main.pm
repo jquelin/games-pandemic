@@ -728,7 +728,7 @@ event _action_share => sub {
 
     # get list of cards to be shared
     my @cards = $curp->can_share_anywhere
-        ? $curp->all_cards
+        ? grep { $_->isa('Games::Pandemic::Card::City') } $curp->all_cards
         : $curp->owns_city_card($city);
 
     if ( @players == 1 && @cards == 1 ) {

@@ -114,6 +114,33 @@ event drop_cards => sub {
 };
 
 
+=method event: government_grant($player, $card, $city)
+
+Special event card: add a new research station.
+
+=cut
+
+event government_grant => sub {
+    my ($player, $card, $city) = @_[ARG0..$#_];
+
+    # basic checks
+    return unless $player->owns_card($card);
+    return if $city->has_station;
+
+    # play special card: build station
+    my $game = Games::Pandemic->instance;
+    $city->build_station;
+    $game->dec_stations;
+    $K->post( main => 'build_station', $city );
+
+    # drop the card
+    $player->drop_card( $card );
+    $game->cards->discard( $card );
+    $K->post( main => 'drop_card', $player, $card );
+};
+
+
+
 =method event: new_game()
 
 Create a new game: (re-)initialize the map, and various internal states.

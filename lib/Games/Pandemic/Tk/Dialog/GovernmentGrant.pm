@@ -66,6 +66,8 @@ augment _build_gui => sub {
     )->pack(@LEFT, @FILLX, @PAD10);
 
     # main elements
+    my $text = T('Select city in which to build the new research station:');
+    $top->Label(-text => $text, -anchor=>'w')->pack(@TOP,@FILLX, @PAD5);
     my $tiler = $top->Scrolled( 'Tiler',
         -scrollbars => 'oe',
         -rows       => 8,

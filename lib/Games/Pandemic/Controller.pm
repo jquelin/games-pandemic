@@ -207,7 +207,7 @@ event new_game => sub {
 };
 
 
-=method event: one_quiet_night()
+=method event: one_quiet_night($player, $card)
 
 Special event card: prevent disease propagation during this turn.
 

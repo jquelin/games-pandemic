@@ -1210,16 +1210,16 @@ sub _build_status_bar {
     my $sb = $mw->Frame->pack(@RIGHT, @FILLX, -before=>$self->_w('canvas'));
     $self->_set_w( infobar => $sb );
 
-    # research stations
-    my $fstations = $sb->Frame->pack(@TOP, @PADX10);
-    my $img_nbstations = $fstations->Label(
-        -image => image( catfile( $SHAREDIR, 'research-station-32.png' ) ),
-    )->pack(@TOP);
-    my $lab_nbstations = $fstations->Label->pack(@TOP);
-    $self->_set_w('lab_nbstations', $lab_nbstations );
-    $tipmsg = T("number of remaining\nresearch stations");
-    $tip->attach($img_nbstations, -msg=>$tipmsg);
-    $tip->attach($lab_nbstations, -msg=>$tipmsg);
+#    # research stations
+#    my $fstations = $sb->Frame->pack(@TOP, @PADX10);
+#    my $img_nbstations = $fstations->Label(
+#        -image => image( catfile( $SHAREDIR, 'research-station-32.png' ) ),
+#    )->pack(@TOP);
+#    my $lab_nbstations = $fstations->Label->pack(@TOP);
+#    $self->_set_w('lab_nbstations', $lab_nbstations );
+#    $tipmsg = T("number of remaining\nresearch stations");
+#    $tip->attach($img_nbstations, -msg=>$tipmsg);
+#    $tip->attach($lab_nbstations, -msg=>$tipmsg);
 
     # diseases information
     my $fdiseases = $sb->Frame->pack(@TOP, @PADX10);
@@ -1574,8 +1574,8 @@ sub _update_status {
     my $curp = $game->curplayer;
     my $map  = $game->map;
 
-    # research stations
-    $self->_w('lab_nbstations')->configure(-text => $game->stations);
+#    # research stations
+#    $self->_w('lab_nbstations')->configure(-text => $game->stations);
 
     # diseases information
     foreach my $disease ( $map->all_diseases ) {

@@ -121,7 +121,7 @@ event gain_card => sub {
 
         # special cards can be clicked
         if ( $card->isa('Games::Pandemic::Card::Special') ) {
-            my $sub = $s->postback('_special_card_clicked', $card);
+            my $sub = $s->postback('_special_card_clicked', $player, $card);
             $_->bind('<1>', $sub) for ($img, $lab, $f);
             $f->bind('<Enter>', sub { $f->configure(-relief=>'raised'); } );
             $f->bind('<Leave>', sub { $f->configure(-relief=>'flat'); } );
@@ -165,6 +165,20 @@ event toggle_visibility => sub {
     my $top  = $self->_toplevel;
     my $method = $top->state eq 'normal' ? 'withdraw' : 'deiconify';
     $top->$method;
+};
+
+
+# -- private events
+
+#
+# event: _special_card_clicked( $card )
+#
+# received when user has clicked on a special $card.
+#
+event _special_card_clicked => sub {
+    my ($self, $args) = @_[OBJECT, ARG0];
+    my ($player, $card) = @$args;
+    $K->post( main => $card->event, $player, $card );
 };
 
 

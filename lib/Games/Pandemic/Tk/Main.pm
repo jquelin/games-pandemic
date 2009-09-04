@@ -24,6 +24,7 @@ use Tk::ToolBar;
 
 use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Action;
+use Games::Pandemic::Tk::Dialog::Action;
 use Games::Pandemic::Tk::Dialog::ChooseDisease;
 use Games::Pandemic::Tk::Dialog::DropCards;
 use Games::Pandemic::Tk::Dialog::GiveCard;
@@ -488,6 +489,32 @@ event no_more_cubes => sub {
     my $reason = sprintf $fmt_reason, $disease->name;
 
     $self->_game_lost($header, $reason);
+};
+
+
+=method event: one_quiet_night( $player, $card )
+
+Received when C<$player> wants to play special C<$card>
+L<Games::Pandemic::Card::Special::OneQuietNight>. Does not require
+an action.
+
+=cut
+
+event one_quiet_night => sub {
+    my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
+
+    my $text = $card->description . "\n\n" .
+        T('Do you want to play this card?');
+
+    Games::Pandemic::Tk::Dialog::Action->new(
+        parent    => $mw,
+        title     => T('Special event'),
+        header    => $card->label,
+        icon      => catfile($SHAREDIR, 'cards', 'one-quiet-night-48.png'),
+        text      => $text,
+        action    => T('Play'),
+        post_args => [ controller=>'one_quiet_night', $player, $card ],
+    );
 };
 
 

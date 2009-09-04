@@ -96,6 +96,17 @@ augment _build_gui => sub {
 
 
 #
+# $ggd->_finish_gui;
+#
+# prevent valid button to be clicked (no city selected at first)
+#
+sub _finish_gui {
+    my $self = shift;
+    $self->_w('ok')->configure(@ENOFF);
+}
+
+
+#
 # $ggd->_select_city( $card, $fcard, $img, $lab );
 #
 # Called when one of the frame ($fcard), image ($img) or label ($lab)
@@ -119,6 +130,9 @@ sub _select_city {
     my @new = ($img, $lab, $fcard);
     $self->_set_selected( \@new );
     $_->configure(-bg=>$GREY) for @new;
+
+    # allow validation
+    $self->_w('ok')->configure(@ENON);
 }
 
 

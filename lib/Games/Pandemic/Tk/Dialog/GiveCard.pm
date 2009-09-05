@@ -86,7 +86,7 @@ augment _build_gui => sub {
             -anchor => 'w',
         )->pack(@TOP, @FILLX);
 
-        # display cards
+        # display players
         my $selplayer = $self->_player->role;
         foreach my $player ( @players ) {
             # to display a radiobutton with image + text, we need to

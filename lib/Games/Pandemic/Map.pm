@@ -11,6 +11,7 @@ use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Card::City;
+use Games::Pandemic::Card::Special::Airlift;
 use Games::Pandemic::Card::Special::GovernmentGrant;
 use Games::Pandemic::Card::Special::OneQuietNight;
 use Games::Pandemic::Card::Special::ResilientPopulation;

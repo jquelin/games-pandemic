@@ -1724,5 +1724,8 @@ license for commercial use
 
 =item * resilient population icon by Gnome Project, under a GPL license
 
+=item * airlift icon by IconsLand, under a free license for non-
+commercial use
+
 =back
 

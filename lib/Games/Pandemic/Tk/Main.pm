@@ -591,6 +591,9 @@ event player_move => sub {
     my $dx = $to->coordx - $from->coordx;
     my $dy = $to->coordy - $from->coordy;
     $self->_w('canvas')->move( $player, $dx, $dy );
+
+    # need to update actions if moved with airlift
+    $self->_update_actions;
 };
 
 

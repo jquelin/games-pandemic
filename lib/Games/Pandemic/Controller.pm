@@ -683,10 +683,8 @@ event _epidemic => sub {
     $K->post( main => 'epidemic', $city );
 
     # then already hit cities ready for a new turn...
-    my @cards = $deck->past;
-    push @cards, $card;
-    $deck->clear_pile;
-    $deck->refill( shuffle @cards );
+    $deck->discard( $card );
+    $game->set_intensify( 1 );
 
     # update infection rate
     $game->inc_epidemics;
@@ -832,6 +830,15 @@ event _no_more_cubes => sub {
 #
 event _propagate => sub {
     my $game   = Games::Pandemic->instance;
+
+    # previous epidemic: intensify the game
+    if ( $game->intensify ) {
+        $game->set_intensify(0);
+        my $deck = $game->infection;
+        my @cards = $deck->past;
+        $deck->clear_pile;
+        $deck->refill( shuffle @cards );
+    }
 
     if ( $game->propagation ) {
         my $icards = $game->infection;

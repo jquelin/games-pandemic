@@ -18,7 +18,7 @@ extends 'Games::Pandemic::Card::Special';
 sub _build_icon  { catfile($SHAREDIR, 'cards', 'one-quiet-night-16.png' ) }
 sub _build_label { T('One quiet night') }
 sub _build_description {
-    T( 'When played, this card prevents the next infection phase to be '
+    T( 'This event prevents the next infection phase to be '
     . 'played: it will be skipped.' );
 }
 
@@ -33,5 +33,5 @@ __END__
 =head1 DESCRIPTION
 
 This package implements the special event card C<one quiet night>. When
-played, this card prevents the next infection phase to be played: it
+played, this event prevents the next infection phase to be played: it
 will be skipped.

@@ -18,7 +18,7 @@ extends 'Games::Pandemic::Card::Special';
 sub _build_icon  { catfile($SHAREDIR, 'cards', 'government-grant-16.png' ) }
 sub _build_label { T('Government grant') }
 sub _build_description {
-    T( 'When played, this card adds a research station to any city for free.' );
+    T( 'This event allows to add a research station to any city for free.' );
 }
 
 
@@ -32,4 +32,4 @@ __END__
 =head1 DESCRIPTION
 
 This package implements the special event card C<one quiet night>. When
-played, this card adds a research station to any city for free.
+played, this event allows to add a research station to any city for free.

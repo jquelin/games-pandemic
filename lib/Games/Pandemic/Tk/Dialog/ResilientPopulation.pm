@@ -40,7 +40,7 @@ has _selected => (
 sub _build_header    { $_[0]->card->label }
 sub _build_resizable { 1 }
 sub _build_title     { T('Special event') }
-sub _build__ok       { T('Remove') }
+sub _build__ok       { T('Remove from game') }
 sub _build__cancel   { T('Cancel') }
 
 
@@ -68,7 +68,7 @@ augment _build_gui => sub {
     )->pack(@LEFT, @FILLX, @PAD10);
 
     # main elements
-    my $text = T('Select city to remove from past infections:');
+    my $text = T('Select infected city to remove from game:');
     $top->Label(-text => $text, -anchor=>'w')->pack(@TOP,@FILLX, @PAD5);
     my $tiler = $top->Scrolled( 'Tiler',
         -scrollbars => 'oe',

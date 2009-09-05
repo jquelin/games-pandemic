@@ -18,7 +18,7 @@ extends 'Games::Pandemic::Card::Special';
 sub _build_icon  { catfile($SHAREDIR, 'cards', 'resilient-population-16.png' ) }
 sub _build_label { T('Resilient population') }
 sub _build_description {
-    T( 'This event allows to pick a card from past infections '
+    T( 'This event allows to pick a city from past infections '
      . 'and remove it from the game.' );
 }
 
@@ -33,5 +33,5 @@ __END__
 =head1 DESCRIPTION
 
 This package implements the special event card C<resilient population>.
-When played, this event allows to pick a card from past infections and
+When played, this event allows to pick a city from past infections and
 remove it from the game.

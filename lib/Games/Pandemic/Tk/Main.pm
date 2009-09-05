@@ -29,6 +29,7 @@ use Games::Pandemic::Tk::Dialog::ChooseDisease;
 use Games::Pandemic::Tk::Dialog::DropCards;
 use Games::Pandemic::Tk::Dialog::GiveCard;
 use Games::Pandemic::Tk::Dialog::GovernmentGrant;
+use Games::Pandemic::Tk::Dialog::ResilientPopulation;
 use Games::Pandemic::Tk::Dialog::Simple;
 use Games::Pandemic::Tk::Dialog::ViewCards;
 use Games::Pandemic::Tk::PlayerCards;
@@ -572,6 +573,24 @@ event player_move => sub {
     my $dx = $to->coordx - $from->coordx;
     my $dy = $to->coordy - $from->coordy;
     $self->_w('canvas')->move( $player, $dx, $dy );
+};
+
+
+=method event: resilient_population( $player, $card )
+
+Received when C<$player> wants to play special C<$card>
+L<Games::Pandemic::Card::Special::ResilientPopulation>. Does not require
+an action.
+
+=cut
+
+event resilient_population => sub {
+    my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
+    Games::Pandemic::Tk::Dialog::ResilientPopulation->new(
+        parent => $mw,
+        player => $player,
+        card   => $card,
+    );
 };
 
 

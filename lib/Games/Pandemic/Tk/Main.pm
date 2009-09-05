@@ -1703,5 +1703,7 @@ license for non commercial use
 =item * government grant icon by Webdesigner Depot, under a free
 license for commercial use
 
+=item * resilient population icon by Gnome Project, under a GPL license
+
 =back
 

@@ -13,6 +13,7 @@ use MooseX::SemiAffordanceAccessor;
 use Games::Pandemic::Card::City;
 use Games::Pandemic::Card::Special::GovernmentGrant;
 use Games::Pandemic::Card::Special::OneQuietNight;
+use Games::Pandemic::Card::Special::ResilientPopulation;
 use Games::Pandemic::City;
 use Games::Pandemic::Disease;
 use Games::Pandemic::Utils;

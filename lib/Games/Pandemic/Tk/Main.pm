@@ -25,6 +25,7 @@ use Tk::ToolBar;
 use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Action;
 use Games::Pandemic::Tk::Dialog::Action;
+use Games::Pandemic::Tk::Dialog::Airlift;
 use Games::Pandemic::Tk::Dialog::ChooseDisease;
 use Games::Pandemic::Tk::Dialog::DropCards;
 use Games::Pandemic::Tk::Dialog::GiveCard;
@@ -154,6 +155,23 @@ Received when current player has finished an action.
 event action_done => sub {
     my $self = $_[OBJECT];
     $self->_update_status;
+};
+
+
+=method event: airlift( $player, $card )
+
+Received when C<$player> wants to play special C<$card>
+L<Games::Pandemic::Card::Special::Airlift>. Does not require an action.
+
+=cut
+
+event airlift => sub {
+    my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
+    Games::Pandemic::Tk::Dialog::Airlift->new(
+        parent => $mw,
+        player => $player,
+        card   => $card,
+    );
 };
 
 

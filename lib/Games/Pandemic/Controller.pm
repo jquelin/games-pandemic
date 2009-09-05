@@ -168,6 +168,7 @@ event new_game => sub {
     $game->set_stations( 5 );
 
     # no epidemics and no outbreaks yet
+    $game->set_intensify( 0 );
     $game->set_epidemics( 0 );
     $game->set_outbreaks( 0 );
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Games-Pandemic\n"
 "Report-Msgid-Bugs-To: bug-games-pandemic@rt.cpan.org\n"
-"POT-Creation-Date: 2009-09-04 18:55+0200\n"
+"POT-Creation-Date: 2009-09-05 15:10+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jérôme Quelin <jquelin@gmail.com>\n"
 "Language-Team: Jérôme Quelin <jquelin@gmail.com>\n"
@@ -41,16 +41,32 @@ msgid "Government grant"
 msgstr "Subvention publique"
 
 #: lib/Games/Pandemic/Card/Special/GovernmentGrant.pm:21
-msgid "When played, this card adds a research station to any city for free."
-msgstr "L'emploi de cette carte permet d'ajouter une station de recherche, gratuitement, sur la ville de votre choix."
+msgid "This event allows to add a research station to any city for free."
+msgstr "Cet événement permet d'ajouter une station de recherche, gratuitement, sur la ville de votre choix."
+
+#: lib/Games/Pandemic/Card/Special/ResilientPopulation.pm:19
+msgid "Resilient population"
+msgstr "Population résiliente"
+
+#: lib/Games/Pandemic/Card/Special/ResilientPopulation.pm:21
+msgid "This event allows to pick a city from past infections and remove it from the game."
+msgstr "Cet événement permet de choisir une ville parmi celles déjà infectées, et de la retirer du jeu."
 
 #: lib/Games/Pandemic/Card/Special/OneQuietNight.pm:19
 msgid "One quiet night"
 msgstr "Par une nuit tranquille"
 
 #: lib/Games/Pandemic/Card/Special/OneQuietNight.pm:21
-msgid "When played, this card prevents the next infection phase to be played: it will be skipped."
-msgstr "L'emploi de cette carte empêche la prochaine phase de propagation."
+msgid "This event prevents the next infection phase to be played: it will be skipped."
+msgstr "Cet événement empêche la prochaine phase de propagation : elle n'aura pas lieu."
+
+#: lib/Games/Pandemic/Card/Special/Airlift.pm:19
+msgid "Airlift"
+msgstr "Pont aérien"
+
+#: lib/Games/Pandemic/Card/Special/Airlift.pm:21
+msgid "This event allows to move a player to any city for free."
+msgstr "Cet événement permet de déplacer un joueur dans n'importe quelle ville, gratuitement."
 
 #: lib/Games/Pandemic/Map/Pandemic.pm:28
 msgid "Cholera"
@@ -261,19 +277,19 @@ msgid "Osaka"
 msgstr "Osaka"
 
 #: lib/Games/Pandemic/Tk/Dialog.pm:64
-#: lib/Games/Pandemic/Tk/Main.pm:1093
+#: lib/Games/Pandemic/Tk/Main.pm:1130
 msgid "Pandemic"
 msgstr "Pandémie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:169
+#: lib/Games/Pandemic/Tk/Main.pm:188
 msgid "You won!"
 msgstr "Gagné!"
 
-#: lib/Games/Pandemic/Tk/Main.pm:170
+#: lib/Games/Pandemic/Tk/Main.pm:189
 msgid "Congratulations"
 msgstr "Félicitations"
 
-#: lib/Games/Pandemic/Tk/Main.pm:172
+#: lib/Games/Pandemic/Tk/Main.pm:191
 msgid ""
 "You won: you discovered all the cures.\n"
 "\n"
@@ -283,7 +299,7 @@ msgstr ""
 "\n"
 "Peut-être est-il temps d'augmenter la difficulté ?"
 
-#: lib/Games/Pandemic/Tk/Main.pm:202
+#: lib/Games/Pandemic/Tk/Main.pm:221
 #, perl-format
 msgid ""
 "cure found\n"
@@ -292,21 +308,21 @@ msgstr ""
 "remède trouvé\n"
 "pour %s"
 
-#: lib/Games/Pandemic/Tk/Main.pm:267
+#: lib/Games/Pandemic/Tk/Main.pm:286
 #, perl-format
 msgid "%s epidemic strikes in %s."
 msgstr "Une épidémie de %s éclate à %s."
 
-#: lib/Games/Pandemic/Tk/Main.pm:270
-#: lib/Games/Pandemic/Tk/Main.pm:593
+#: lib/Games/Pandemic/Tk/Main.pm:289
+#: lib/Games/Pandemic/Tk/Main.pm:630
 msgid "Warning"
 msgstr "Avertissement"
 
-#: lib/Games/Pandemic/Tk/Main.pm:271
+#: lib/Games/Pandemic/Tk/Main.pm:290
 msgid "New epidemic"
 msgstr "Nouvelle épidémie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:291
+#: lib/Games/Pandemic/Tk/Main.pm:310
 #, perl-format
 msgid ""
 "%s:\n"
@@ -315,170 +331,172 @@ msgstr ""
 "%s :\n"
 "maladie éradiquée"
 
-#: lib/Games/Pandemic/Tk/Main.pm:511
+#: lib/Games/Pandemic/Tk/Main.pm:530
 msgid "No more cards"
 msgstr "Plus de cartes"
 
-#: lib/Games/Pandemic/Tk/Main.pm:512
+#: lib/Games/Pandemic/Tk/Main.pm:531
 msgid "there are no more cards to deal."
 msgstr "il n'y a plus de cartes à distribuer."
 
-#: lib/Games/Pandemic/Tk/Main.pm:528
+#: lib/Games/Pandemic/Tk/Main.pm:547
 #, perl-format
 msgid "the %s pandemic is too spread out to be cured."
 msgstr "la pandémie de %s est trop étendue pour être traitée."
 
-#: lib/Games/Pandemic/Tk/Main.pm:529
+#: lib/Games/Pandemic/Tk/Main.pm:548
 msgid "Pandemic out of control"
 msgstr "Pandémie hors de contrôle"
 
-#: lib/Games/Pandemic/Tk/Main.pm:548
+#: lib/Games/Pandemic/Tk/Main.pm:567
 msgid "Do you want to play this card?"
 msgstr "Voulez-vous jouer cette carte ?"
 
-#: lib/Games/Pandemic/Tk/Main.pm:552
+#: lib/Games/Pandemic/Tk/Main.pm:571
 #: lib/Games/Pandemic/Tk/Dialog/GovernmentGrant.pm:42
+#: lib/Games/Pandemic/Tk/Dialog/ResilientPopulation.pm:42
+#: lib/Games/Pandemic/Tk/Dialog/Airlift.pm:43
 msgid "Special event"
 msgstr "Evénement spécial"
 
-#: lib/Games/Pandemic/Tk/Main.pm:556
+#: lib/Games/Pandemic/Tk/Main.pm:575
 msgid "Play"
 msgstr "Jouer"
 
-#: lib/Games/Pandemic/Tk/Main.pm:589
+#: lib/Games/Pandemic/Tk/Main.pm:626
 #, perl-format
 msgid "Player %s has too many cards. Drop some cards (or use some action cards) before continuing."
 msgstr "Le joueur %s a trop de cartes. Défausser des cartes (ou utiliser des cartes actions) avant de continuer."
 
-#: lib/Games/Pandemic/Tk/Main.pm:594
+#: lib/Games/Pandemic/Tk/Main.pm:631
 msgid "Too many cards"
 msgstr "Trop de cartes"
 
-#: lib/Games/Pandemic/Tk/Main.pm:616
+#: lib/Games/Pandemic/Tk/Main.pm:653
 msgid "Too many outbreaks"
 msgstr "Trop d'éclosions"
 
-#: lib/Games/Pandemic/Tk/Main.pm:617
+#: lib/Games/Pandemic/Tk/Main.pm:654
 msgid "there were too many outbreaks, pandemics have spread out of control."
 msgstr "il y a eu trop d'éclosions, les pandémies ont échappé à tout contrôle."
 
-#: lib/Games/Pandemic/Tk/Main.pm:940
-#: lib/Games/Pandemic/Tk/Main.pm:967
+#: lib/Games/Pandemic/Tk/Main.pm:977
+#: lib/Games/Pandemic/Tk/Main.pm:1004
 msgid "Information"
 msgstr "Information"
 
-#: lib/Games/Pandemic/Tk/Main.pm:941
+#: lib/Games/Pandemic/Tk/Main.pm:978
 msgid "Discard pile"
 msgstr "Défausse"
 
-#: lib/Games/Pandemic/Tk/Main.pm:949
+#: lib/Games/Pandemic/Tk/Main.pm:986
 msgid "No cards in the discard pile."
 msgstr "Pas de carte dans la défausse."
 
-#: lib/Games/Pandemic/Tk/Main.pm:968
+#: lib/Games/Pandemic/Tk/Main.pm:1005
 msgid "Past infections"
 msgstr "Infections précédentes"
 
-#: lib/Games/Pandemic/Tk/Main.pm:976
+#: lib/Games/Pandemic/Tk/Main.pm:1013
 msgid "No past infections."
 msgstr "Pas d'infection déjà rencontrée."
 
-#: lib/Games/Pandemic/Tk/Main.pm:1001
+#: lib/Games/Pandemic/Tk/Main.pm:1038
 msgid "Build a research station"
 msgstr "Construire une station de recherche"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1002
+#: lib/Games/Pandemic/Tk/Main.pm:1039
 msgid "Discover a cure"
 msgstr "Trouver un remède"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1003
+#: lib/Games/Pandemic/Tk/Main.pm:1040
 #: lib/Games/Pandemic/Tk/Dialog/ChooseDisease.pm:35
 msgid "Treat a disease"
 msgstr "Traiter une maladie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1004
+#: lib/Games/Pandemic/Tk/Main.pm:1041
 #: lib/Games/Pandemic/Tk/Dialog/GiveCard.pm:45
 msgid "Give a card"
 msgstr "Donner une carte"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1005
+#: lib/Games/Pandemic/Tk/Main.pm:1042
 msgid "Pass your turn"
 msgstr "Passer votre tour"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1006
+#: lib/Games/Pandemic/Tk/Main.pm:1043
 #: lib/Games/Pandemic/Tk/Dialog/DropCards.pm:55
 msgid "Drop some cards"
 msgstr "Défausser des cartes"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1028
+#: lib/Games/Pandemic/Tk/Main.pm:1065
 msgid "actions left: "
 msgstr "Actions restantes :"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1035
+#: lib/Games/Pandemic/Tk/Main.pm:1072
 msgid "Continue"
 msgstr "Continuer"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1200
+#: lib/Games/Pandemic/Tk/Main.pm:1237
 msgid "~New game"
 msgstr "~Nouvelle partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1201
+#: lib/Games/Pandemic/Tk/Main.pm:1238
 msgid "~Load game"
 msgstr "~Charger une partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1202
+#: lib/Games/Pandemic/Tk/Main.pm:1239
 msgid "~Close game"
 msgstr "~Fermer la partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1204
+#: lib/Games/Pandemic/Tk/Main.pm:1241
 msgid "~Quit"
 msgstr "~Quitter"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1206
+#: lib/Games/Pandemic/Tk/Main.pm:1243
 msgid "~Game"
 msgstr "~Jeu"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1210
+#: lib/Games/Pandemic/Tk/Main.pm:1247
 msgid "Player ~cards"
 msgstr "~Cartes des joueurs"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1212
+#: lib/Games/Pandemic/Tk/Main.pm:1249
 msgid "~View"
 msgstr "~Affichage"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1216
+#: lib/Games/Pandemic/Tk/Main.pm:1253
 msgid "~Build a research station"
 msgstr "Construire une ~station de recherche"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1217
+#: lib/Games/Pandemic/Tk/Main.pm:1254
 msgid "Discover a ~cure"
 msgstr "Trouver un ~remède"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1218
+#: lib/Games/Pandemic/Tk/Main.pm:1255
 msgid "~Treat a disease"
 msgstr "~Traiter une maladie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1219
+#: lib/Games/Pandemic/Tk/Main.pm:1256
 msgid "~Give a card"
 msgstr "Donner une ~carte"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1220
+#: lib/Games/Pandemic/Tk/Main.pm:1257
 msgid "~Pass your turn"
 msgstr "~Passer votre tour"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1222
+#: lib/Games/Pandemic/Tk/Main.pm:1259
 msgid "~Drop some cards"
 msgstr "~Défausser des cartes"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1224
+#: lib/Games/Pandemic/Tk/Main.pm:1261
 msgid "Conti~nue"
 msgstr "Conti~nuer"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1226
+#: lib/Games/Pandemic/Tk/Main.pm:1263
 msgid "~Action"
 msgstr "A~ction"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1268
+#: lib/Games/Pandemic/Tk/Main.pm:1305
 #, perl-format
 msgid ""
 "number of cubes\n"
@@ -487,7 +505,7 @@ msgstr ""
 "nombre de cubes\n"
 "de %s restant"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1277
+#: lib/Games/Pandemic/Tk/Main.pm:1314
 #, perl-format
 msgid ""
 "cure for %s\n"
@@ -496,7 +514,7 @@ msgstr ""
 "remède pour %s\n"
 "non trouvé"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1291
+#: lib/Games/Pandemic/Tk/Main.pm:1328
 msgid ""
 "number of cards remaining-discarded\n"
 "click to see history"
@@ -504,7 +522,7 @@ msgstr ""
 "nombre de cartes restantes-défaussées\n"
 "cliquer pour voir l'historique"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1305
+#: lib/Games/Pandemic/Tk/Main.pm:1342
 msgid ""
 "number of infections remaining-passed\n"
 "click to see history"
@@ -512,7 +530,7 @@ msgstr ""
 "nombre d'infections restantes-passées\n"
 "cliquer pour voir l'historique"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1314
+#: lib/Games/Pandemic/Tk/Main.pm:1351
 msgid ""
 "infection rate\n"
 "(number of epidemics)"
@@ -520,7 +538,7 @@ msgstr ""
 "vitesse de propagation\n"
 "(nombre d'épidémies)"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1326
+#: lib/Games/Pandemic/Tk/Main.pm:1363
 #, perl-format
 msgid ""
 "number of outbreaks\n"
@@ -529,37 +547,37 @@ msgstr ""
 "nombre d'éclosions\n"
 "(maximum %s)"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1346
-#: lib/Games/Pandemic/Tk/Main.pm:1512
+#: lib/Games/Pandemic/Tk/Main.pm:1383
+#: lib/Games/Pandemic/Tk/Main.pm:1549
 msgid "New game"
 msgstr "Nouvelle partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1347
-#: lib/Games/Pandemic/Tk/Main.pm:1514
+#: lib/Games/Pandemic/Tk/Main.pm:1384
+#: lib/Games/Pandemic/Tk/Main.pm:1551
 msgid "Load game"
 msgstr "Charger une partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1348
+#: lib/Games/Pandemic/Tk/Main.pm:1385
 msgid "Close game"
 msgstr "Fermer la partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1349
+#: lib/Games/Pandemic/Tk/Main.pm:1386
 msgid "Quit"
 msgstr "Quitter"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1513
+#: lib/Games/Pandemic/Tk/Main.pm:1550
 msgid "Join game"
 msgstr "Rejoindre une partie"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1566
+#: lib/Games/Pandemic/Tk/Main.pm:1603
 msgid "Game is over, you lost: "
 msgstr "La partie est terminée, vous avez perdu : "
 
-#: lib/Games/Pandemic/Tk/Main.pm:1569
+#: lib/Games/Pandemic/Tk/Main.pm:1606
 msgid "Try harder next time!"
 msgstr "Vous pouvez ré-essayer !"
 
-#: lib/Games/Pandemic/Tk/Main.pm:1572
+#: lib/Games/Pandemic/Tk/Main.pm:1609
 msgid "You lost!"
 msgstr "Perdu!"
 
@@ -570,8 +588,10 @@ msgstr "Construire"
 #: lib/Games/Pandemic/Tk/Dialog/GovernmentGrant.pm:44
 #: lib/Games/Pandemic/Tk/Dialog/ChooseDisease.pm:37
 #: lib/Games/Pandemic/Tk/Dialog/DropCards.pm:57
+#: lib/Games/Pandemic/Tk/Dialog/ResilientPopulation.pm:44
 #: lib/Games/Pandemic/Tk/Dialog/Action.pm:31
 #: lib/Games/Pandemic/Tk/Dialog/GiveCard.pm:47
+#: lib/Games/Pandemic/Tk/Dialog/Airlift.pm:45
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -603,6 +623,14 @@ msgstr "Défausser"
 msgid "Select cards to drop:"
 msgstr "Choisir les cartes à défausser :"
 
+#: lib/Games/Pandemic/Tk/Dialog/ResilientPopulation.pm:43
+msgid "Remove from game"
+msgstr "Retirer du jeu"
+
+#: lib/Games/Pandemic/Tk/Dialog/ResilientPopulation.pm:71
+msgid "Select infected city to remove from game:"
+msgstr "Choisir la ville déjà infectée à retirer du jeu :"
+
 #: lib/Games/Pandemic/Tk/Dialog/ViewCards.pm:32
 #: lib/Games/Pandemic/Tk/Dialog/Simple.pm:26
 msgid "Close"
@@ -624,6 +652,20 @@ msgstr "Choisir le joueur recevant la carte :"
 msgid "Select city card to give:"
 msgstr "Choisir la carte à donner :"
 
+#: lib/Games/Pandemic/Tk/Dialog/Airlift.pm:44
+msgid "Move player"
+msgstr "Déplacer le joueur"
+
+#: lib/Games/Pandemic/Tk/Dialog/Airlift.pm:77
+msgid "Select player to move:"
+msgstr "Choisir le joueur à déplacer :"
+
+#: lib/Games/Pandemic/Tk/Dialog/Airlift.pm:102
+msgid "Select city in which to move the player:"
+msgstr "Choisir la ville dans laquelle déplacer le joueur :"
+
+#~ msgid "Remove"
+#~ msgstr "Retirer du jeu"
 #~ msgid ""
 #~ "number of remaining\n"
 #~ "research stations"

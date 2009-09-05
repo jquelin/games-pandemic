@@ -250,6 +250,41 @@ event one_quiet_night => sub {
 };
 
 
+=method event: resilient_population($player, $card, $city)
+
+Special event card: remove a city from the game.
+
+=cut
+
+event resilient_population => sub {
+    my ($player, $card, $city) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
+    my $deck = $game->infection;
+    my @past = $deck->past;
+
+    # basic checks
+    return unless $player->owns_card($card);
+    return unless grep { $_->city eq $city } @past;
+
+    # play special card: make population resilient
+    $deck->clear_pile;
+    $deck->discard( grep { $_->city ne $city } @past );
+
+    # drop the card
+    $player->drop_card( $card );
+    $game->cards->discard( $card );
+    $K->post( main => 'drop_card', $player, $card );
+
+    # check that there are not too many cards
+    foreach my $player ( $game->all_players ) {
+        next if $player->nb_cards <= $player->max_cards;
+        $game->set_too_many_cards($player);
+        $K->post( main => 'too_many_cards', $player );
+        return;
+    }
+    $game->clear_too_many_cards;
+};
+
 # -- private event
 
 #

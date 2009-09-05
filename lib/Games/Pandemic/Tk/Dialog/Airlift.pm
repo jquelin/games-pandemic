@@ -136,7 +136,12 @@ augment _build_gui => sub {
 sub _check_player_city_combo {
     my $self = shift;
     my $player = $self->_selplayer;
-    my $city   = $self->_selcard->city;
+
+    # no city selected: no validation possible
+    return $self->_w('ok')->configure(@ENOFF) unless defined $self->_selcard;
+
+    # city selected: check if player is in city
+    my $city  = $self->_selcard->city;
     $self->_w('ok')->configure( $player->location eq $city ? @ENOFF : @ENON );
 }
 

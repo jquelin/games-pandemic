@@ -45,6 +45,40 @@ event action => sub {
 };
 
 
+=method event: airlift($player, $card, $selplayer, $city)
+
+Special event card: move a player in any city.
+
+=cut
+
+event airlift => sub {
+    my ($player, $card, $selplayer, $city) = @_[ARG0..$#_];
+
+    # basic checks
+    return unless $player->owns_card($card);
+    my $from = $player->location;
+    return if $from eq $city;
+
+    # play special card: move player
+    $selplayer->set_location($city);
+    $K->post( main => 'player_move', $selplayer, $from, $city );
+
+    # drop the card
+    my $game = Games::Pandemic->instance;
+    $player->drop_card( $card );
+    $game->cards->discard( $card );
+    $K->post( main => 'drop_card', $player, $card );
+
+    # check that there are not too many cards
+    foreach my $player ( $game->all_players ) {
+        next if $player->nb_cards <= $player->max_cards;
+        $game->set_too_many_cards($player);
+        $K->post( main => 'too_many_cards', $player );
+        return;
+    }
+    $game->clear_too_many_cards;
+};
+
 =method event: close()
 
 Player has closed current game.

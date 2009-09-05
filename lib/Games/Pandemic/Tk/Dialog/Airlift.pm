@@ -78,6 +78,7 @@ augment _build_gui => sub {
         -anchor => 'w',
     )->pack(@TOP,@FILLX, @PAD5);
     my $selplayer = $self->player->role;
+    $self->_set_selplayer( $self->player );
     foreach my $player ( $game->all_players ) {
         # to display a radiobutton with image + text, we need to
         # create a radiobutton with a label just next to it.
@@ -87,7 +88,7 @@ augment _build_gui => sub {
             -variable => \$selplayer,
             -value    => $player->role,
             -anchor   => 'w',
-            -command  => sub{ $self->_set_selplayer($player); },
+            -command  => sub{ $self->_set_selplayer($player); $self->_check_player_city_combo; },
         )->pack(@LEFT, @XFILLX);
         my $lab = $fplayer->Label(
             -image    => image( $player->image('icon', 32), $top ),
@@ -127,6 +128,20 @@ augment _build_gui => sub {
 
 
 #
+# $ad->_check_player_city_combo;
+#
+# prevent valid button to be clicked if selected player is in
+# selected city.
+#
+sub _check_player_city_combo {
+    my $self = shift;
+    my $player = $self->_selplayer;
+    my $city   = $self->_selcard->city;
+    $self->_w('ok')->configure( $player->location eq $city ? @ENOFF : @ENON );
+}
+
+
+#
 # $ad->_finish_gui;
 #
 # prevent valid button to be clicked (no city selected at first)
@@ -162,8 +177,8 @@ sub _select_city {
     $self->_set_selected( \@new );
     $_->configure(-bg=>$GREY) for @new;
 
-    # allow validation
-    $self->_w('ok')->configure(@ENON);
+    # di/allow validation
+    $self->_check_player_city_combo;
 }
 
 

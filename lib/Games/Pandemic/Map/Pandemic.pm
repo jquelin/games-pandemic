@@ -91,7 +91,7 @@ sub infection_rates {
 }
 
 sub _raw_special_cards {
-    return qw{ OneQuietNight };
+    qw{ Airlift Forecast GovernmentGrant OneQuietNight ResilientPopulation };
 }
 
 

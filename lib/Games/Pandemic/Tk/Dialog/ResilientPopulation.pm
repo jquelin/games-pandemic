@@ -76,12 +76,19 @@ augment _build_gui => sub {
         -columns    => 3,
     )->pack(@TOP, @XFILL2, @PAD2);
 
+    # get past infections. if no previous infection, an epidemic just
+    # stroke and thus we allow the user to use whatever infection that
+    # was available just before the epidemic.
+    my $deck = Games::Pandemic->instance->infection;
+    my @citycards = $deck->nbdiscards
+        ? $deck->past
+        : ( reverse $deck->future )[ 0 .. $deck->previous_nbdiscards-1 ];
+
     # display cards
-    my @citycards =
+    @citycards =
         sort { $a->city->disease->name cmp $b->city->disease->name
             || $a->label cmp $b->label }
-        grep { $_->isa('Games::Pandemic::Card::City') }
-        Games::Pandemic->instance->infection->past;
+        @citycards;
 
     foreach my $card ( @citycards ) {
         # to display a checkbutton with image + text, we need to

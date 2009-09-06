@@ -334,15 +334,25 @@ event resilient_population => sub {
     my ($player, $card, $city) = @_[ARG0..$#_];
     my $game = Games::Pandemic->instance;
     my $deck = $game->infection;
-    my @past = $deck->past;
+
+    my $after_epidemic = ($deck->nbdiscards == 0);
+    my @past = $after_epidemic
+        ? ( reverse $deck->future )[ 0 .. $deck->previous_nbdiscards-1 ]
+        : $deck->past;
 
     # basic checks
     return unless $player->owns_card($card);
     return unless grep { $_->city eq $city } @past;
 
     # play special card: make population resilient
-    $deck->clear_pile;
-    $deck->discard( grep { $_->city ne $city } @past );
+    if ( $after_epidemic ) {
+        my @future = $deck->future;
+        $deck->clear_cards;
+        $deck->refill( grep { $_->city ne $city } @future );
+    } else {
+        $deck->clear_pile;
+        $deck->discard( grep { $_->city ne $city } @past );
+    }
 
     # drop the card
     $player->drop_card( $card );

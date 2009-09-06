@@ -28,6 +28,7 @@ has cards => (
     required   => 1,
     auto_deref => 1,
     provides   => {
+        clear    => 'clear_cards',
         count    => 'nbcards',
         elements => 'future',
         pop      => 'next',
@@ -42,12 +43,30 @@ has _pile => (
     default    => sub { [] },
     auto_deref => 1,
     provides   => {
-        clear    => 'clear_pile',
+        clear    => '_clear_pile',
         count    => 'nbdiscards',
         elements => 'past',
         push     => 'discard',
     },
 );
+
+has previous_nbdiscards => ( is=>'rw', isa=>'Int' );
+
+
+# -- public methods
+
+=method $deck->clear_pile;
+
+Store the number of cards in the pile in C<previous_nbdiscards> and
+clear the pile.
+
+=cut
+
+sub clear_pile {
+    my $self = shift;
+    $self->set_previous_nbdiscards( $self->nbdiscards );
+    $self->_clear_pile;
+}
 
 
 no Moose;

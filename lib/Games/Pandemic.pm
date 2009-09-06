@@ -119,8 +119,6 @@ has nb_outbreaks => (
     },
 );
 
-# whether an epidemic has stroke
-has intensify => ( is=>'rw', isa=>'Bool', default=>0 );
 
 
 =method $game->inc_outbreaks;

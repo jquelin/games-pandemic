@@ -242,7 +242,6 @@ event new_game => sub {
     $game->set_stations( 5 );
 
     # no epidemics and no outbreaks yet
-    $game->set_intensify( 0 );
     $game->set_epidemics( 0 );
     $game->set_outbreaks( 0 );
 
@@ -758,7 +757,9 @@ event _epidemic => sub {
 
     # then already hit cities ready for a new turn...
     $deck->discard( $card );
-    $game->set_intensify( 1 );
+    my @cards = $deck->past;
+    $deck->clear_pile;
+    $deck->refill( shuffle @cards );
 
     # update infection rate
     $game->inc_epidemics;
@@ -904,15 +905,6 @@ event _no_more_cubes => sub {
 #
 event _propagate => sub {
     my $game   = Games::Pandemic->instance;
-
-    # previous epidemic: intensify the game
-    if ( $game->intensify ) {
-        $game->set_intensify(0);
-        my $deck = $game->infection;
-        my @cards = $deck->past;
-        $deck->clear_pile;
-        $deck->refill( shuffle @cards );
-    }
 
     if ( $game->propagation ) {
         my $icards = $game->infection;

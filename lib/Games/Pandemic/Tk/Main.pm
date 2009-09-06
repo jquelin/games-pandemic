@@ -28,6 +28,7 @@ use Games::Pandemic::Tk::Dialog::Action;
 use Games::Pandemic::Tk::Dialog::Airlift;
 use Games::Pandemic::Tk::Dialog::ChooseDisease;
 use Games::Pandemic::Tk::Dialog::DropCards;
+use Games::Pandemic::Tk::Dialog::Forecast;
 use Games::Pandemic::Tk::Dialog::GiveCard;
 use Games::Pandemic::Tk::Dialog::GovernmentGrant;
 use Games::Pandemic::Tk::Dialog::ResilientPopulation;
@@ -308,6 +309,23 @@ event eradicate => sub {
     $self->_w('tooltip')->attach(
         $label,
         -msg => sprintf( T("%s:\ndisease eradicated"), $disease->name ),
+    );
+};
+
+
+=method event: forecast( $player, $card )
+
+Received when C<$player> wants to play special C<$card>
+L<Games::Pandemic::Card::Special::Forecast>. Does not require an action.
+
+=cut
+
+event forecast => sub {
+    my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
+    Games::Pandemic::Tk::Dialog::Forecast->new(
+        parent => $mw,
+        player => $player,
+        card   => $card,
     );
 };
 

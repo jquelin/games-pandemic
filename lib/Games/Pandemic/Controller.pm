@@ -56,7 +56,7 @@ event airlift => sub {
 
     # basic checks
     return unless $player->owns_card($card);
-    my $from = $player->location;
+    my $from = $selplayer->location;
     return if $from eq $city;
 
     # play special card: move player

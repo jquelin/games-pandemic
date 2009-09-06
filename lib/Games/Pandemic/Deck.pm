@@ -28,10 +28,11 @@ has cards => (
     required   => 1,
     auto_deref => 1,
     provides   => {
-        count => 'nbcards',
-        pop   => 'next',
-        push  => 'refill',
-        shift => 'last',
+        count    => 'nbcards',
+        elements => 'future',
+        pop      => 'next',
+        push     => 'refill',
+        shift    => 'last',
     },
 );
 

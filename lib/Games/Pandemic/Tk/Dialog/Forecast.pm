@@ -71,8 +71,9 @@ augment _build_gui => sub {
     # peek the next infections
     my $game = Games::Pandemic->instance;
     my $deck = $game->infection;
-    my @cards = reverse $deck->future;
+    my @cards = $deck->future;
     splice @cards, 0, @cards-6;
+    @cards = reverse @cards;
     $self->_set_cards(\@cards);
 
     # the frame holding the infections to come

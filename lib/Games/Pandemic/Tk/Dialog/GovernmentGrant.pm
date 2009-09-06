@@ -64,6 +64,7 @@ augment _build_gui => sub {
     $f->Label(
         -text       => $card->description,
         -justify    => 'left',
+        -wraplength => '8c',
     )->pack(@LEFT, @FILLX, @PAD10);
 
     # main elements

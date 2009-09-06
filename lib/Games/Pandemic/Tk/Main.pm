@@ -1748,5 +1748,7 @@ license for commercial use
 =item * airlift icon by IconsLand, under a free license for non-
 commercial use
 
+=item * airlift icon by David Vignoni, under a LGPL license
+
 =back
 

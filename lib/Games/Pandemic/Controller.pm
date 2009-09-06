@@ -79,6 +79,7 @@ event airlift => sub {
     $game->clear_too_many_cards;
 };
 
+
 =method event: close()
 
 Player has closed current game.
@@ -144,6 +145,45 @@ event drop_cards => sub {
     }
 
     $K->yield( $game->next_step ) if $game->too_many_cards;
+    $game->clear_too_many_cards;
+};
+
+
+=method event: forecast($player, $card, @cards)
+
+Special event card: rearrange infections to come.
+
+=cut
+
+event forecast => sub {
+    my ($player, $card, @cards) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
+    my $deck = $game->infection;
+
+    # basic checks
+    return unless $player->owns_card($card);
+
+    # check if cards are the correct ones
+    my @curr = $deck->future;
+    splice @curr, 0, @curr-6;
+    return if join('+', sort @cards) ne join('+', sort @curr);
+
+    # rearrange the cards
+    $deck->next for 1..6;
+    $deck->refill( reverse @cards );
+
+    # drop the card
+    $player->drop_card( $card );
+    $game->cards->discard( $card );
+    $K->post( main => 'drop_card', $player, $card );
+
+    # check that there are not too many cards
+    foreach my $player ( $game->all_players ) {
+        next if $player->nb_cards <= $player->max_cards;
+        $game->set_too_many_cards($player);
+        $K->post( main => 'too_many_cards', $player );
+        return;
+    }
     $game->clear_too_many_cards;
 };
 

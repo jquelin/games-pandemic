@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Card::Special::GovernmentGrant;
-# ABSTRACT: "government grant" event card for pandemic
+# ABSTRACT: government grant event card for pandemic
 
 use File::Spec::Functions qw{ catfile };
 use Moose;
@@ -31,5 +31,6 @@ __END__
 
 =head1 DESCRIPTION
 
-This package implements the special event card C<one quiet night>. When
-played, this event allows to add a research station to any city for free.
+This package implements the special event card C<government grant>.
+When played, this event allows to add a research station to any
+city for free.

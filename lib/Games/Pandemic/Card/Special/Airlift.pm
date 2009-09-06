@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Card::Special::Airlift;
-# ABSTRACT: "airlift" event card for pandemic
+# ABSTRACT: airlift event card for pandemic
 
 use File::Spec::Functions qw{ catfile };
 use Moose;
@@ -31,5 +31,5 @@ __END__
 
 =head1 DESCRIPTION
 
-This package implements the special event card C<one quiet night>. When
+This package implements the special event card C<airlift>. When
 played, this event allows to move a player to any city for free.

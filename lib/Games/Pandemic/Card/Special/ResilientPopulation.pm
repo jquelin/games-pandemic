@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Card::Special::ResilientPopulation;
-# ABSTRACT: "resilient population" event card for pandemic
+# ABSTRACT: resilient population event card for pandemic
 
 use File::Spec::Functions qw{ catfile };
 use Moose;

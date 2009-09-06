@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Card::Special::OneQuietNight;
-# ABSTRACT: "quiet night" event card for pandemic
+# ABSTRACT: quiet night event card for pandemic
 
 use File::Spec::Functions qw{ catfile };
 use Moose;

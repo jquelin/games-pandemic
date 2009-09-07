@@ -1,5 +1,20 @@
 Revision history for Games::Pandemic.
 
+
+1.000000 Mon Sep  7 17:56:33 2009
+ - infection rate grows as epidemics strike
+ - displaying infection rate
+ - special event: airlift implemented
+ - special event: forecast implemented
+ - special event: government grant implemented
+ - special event: one quiet night implemented
+ - special event: resilient population implemented
+ - epidemics now shown in past cards
+ - clearing all city decays when closing a game
+ - moving license to gpl2
+
+**
+
 0.8.0 Fri Aug 28 09:45:03 2009
  - diseases can be eradicated
  - performing infection outbreaks

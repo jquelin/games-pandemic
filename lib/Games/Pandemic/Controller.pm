@@ -284,7 +284,7 @@ event new_game => sub {
     # FIXME: by now we're creating a fixed set of players, should be
     # configurable
     # FIXME: initial number of card depends of map / number of players
-    my @roles = shuffle qw{ Researcher Scientist OperationsExpert };
+    my @roles = shuffle qw{ Researcher Scientist OperationsExpert Medic };
     $K->yield( _new_player => $_, 4 ) for @roles[0..1];
     #$K->yield( _new_player => 'Researcher', 4 );
     #$K->yield( _new_player => 'Scientist', 4 );

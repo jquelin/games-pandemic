@@ -61,6 +61,7 @@ event airlift => sub {
 
     # play special card: move player
     $selplayer->set_location($city);
+    _check_auto_clean_on_cure();
     $K->post( main => 'player_move', $selplayer, $from, $city );
 
     # drop the card

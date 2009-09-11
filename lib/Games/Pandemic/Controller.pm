@@ -814,12 +814,17 @@ event _eradicate => sub {
 #
 event _infect => sub {
     my ($city, $nb, $disease, $seen) = @_[ARG0..$#_];
+    my $game = Games::Pandemic->instance;
     $nb      //= 1;
     $disease //= $city->disease;
     $seen    //= {}; # FIXME: padre//
 
     # disease eradicated: no infection! \o/
     return if $disease->is_eradicated;
+    return if $disease->has_cure &&
+        grep { $_->location eq $city  }
+        grep { $_->auto_clean_on_cure }
+        $game->all_players;
 
     # perform the infection & update the gui
     my ($outbreak, $nbreal) = $city->infect($nb, $disease);
@@ -835,7 +840,6 @@ event _infect => sub {
     return unless $outbreak && !$seen->{$city};
 
     # update number of outbreaks
-    my $game = Games::Pandemic->instance;
     $game->inc_outbreaks;
     if ( $game->nb_outbreaks == 8 ) { # FIXME: map dependant?
         $K->yield('_too_many_outbreaks');

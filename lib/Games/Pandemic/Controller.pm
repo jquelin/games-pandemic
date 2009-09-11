@@ -76,6 +76,7 @@ event airlift => sub {
         $K->post( main => 'too_many_cards', $player );
         return;
     }
+    $K->yield( $game->next_step ) if $game->too_many_cards;
     $game->clear_too_many_cards;
 };
 
@@ -184,6 +185,7 @@ event forecast => sub {
         $K->post( main => 'too_many_cards', $player );
         return;
     }
+    $K->yield( $game->next_step ) if $game->too_many_cards;
     $game->clear_too_many_cards;
 };
 
@@ -219,6 +221,7 @@ event government_grant => sub {
         $K->post( main => 'too_many_cards', $player );
         return;
     }
+    $K->yield( $game->next_step ) if $game->too_many_cards;
     $game->clear_too_many_cards;
 };
 
@@ -322,6 +325,7 @@ event one_quiet_night => sub {
         $K->post( main => 'too_many_cards', $player );
         return;
     }
+    $K->yield( $game->next_step ) if $game->too_many_cards;
     $game->clear_too_many_cards;
 };
 
@@ -368,6 +372,7 @@ event resilient_population => sub {
         $K->post( main => 'too_many_cards', $player );
         return;
     }
+    $K->yield( $game->next_step ) if $game->too_many_cards;
     $game->clear_too_many_cards;
 };
 

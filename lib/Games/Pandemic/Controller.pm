@@ -431,6 +431,7 @@ event _action_charter => sub {
     my $from = $player->location;
     $player->set_location($city);
     $K->post( main => 'player_move', $player, $from, $city );
+    _check_auto_clean_on_cure();
     $K->yield('_action_done');
 
     # drop the card
@@ -500,6 +501,8 @@ event _action_discover => sub {
     $disease->find_cure;
     $K->post( main => 'cure', $disease );
 
+    _check_auto_clean_on_cure();
+
     # check if disease is eradicated
     $K->yield( '_eradicate', $disease )
         if $disease->has_cure && $disease->nbleft == $disease->nbmax;
@@ -563,6 +566,7 @@ event _action_fly => sub {
     my $from = $player->location;
     $player->set_location($city);
     $K->post( main => 'player_move', $player, $from, $city );
+    _check_auto_clean_on_cure();
     $K->yield('_action_done');
 
     # drop the card
@@ -589,6 +593,7 @@ event _action_move => sub {
         my $from = $player->location;
         $player->set_location($city);
         $K->post( main => 'player_move', $player, $from, $city );
+        _check_auto_clean_on_cure();
         $K->yield('_action_done');
     } else {
         # invalid move
@@ -660,6 +665,7 @@ event _action_shuttle => sub {
     my $from = $player->location;
     $player->set_location($city);
     $K->post( main => 'player_move', $player, $from, $city );
+    _check_auto_clean_on_cure();
     $K->yield('_action_done');
 };
 
@@ -952,6 +958,39 @@ event _too_many_outbreaks => sub {
     $K->yield('_game_over');
 };
 
+
+# -- private subs
+
+sub _check_auto_clean_on_cure {
+    my $game = Games::Pandemic->instance;
+
+    # only diseases with a cure are eligible
+    my @diseases =
+        grep { $_->has_cure }
+        $game->map->all_diseases ;
+
+    foreach my $player ( $game->all_players ) {
+        # only works for player with auto_clean_on_cure property
+        next unless $player->auto_clean_on_cure;
+
+        # check all diseases
+        my $city = $player->location;
+        foreach my $disease ( @diseases ) {
+            my $nb = $city->get_infection( $disease );
+            next unless $nb; # no infection, move on
+
+            # yup, let's treat automatically
+            # FIXME - should be in a sub?
+            $city->treat($disease, $nb);
+            $disease->return($nb);
+            $K->post( main => 'treatment', $city );
+
+            # check if disease is eradicated
+            $K->yield( '_eradicate', $disease )
+                if $disease->has_cure && $disease->nbleft == $disease->nbmax;
+        }
+    }
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

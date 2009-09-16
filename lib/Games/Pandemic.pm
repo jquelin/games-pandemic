@@ -195,11 +195,6 @@ Create the various POE sessions, and start the POE kernel.
 =cut
 
 sub run {
-    my $self = shift;
-
-    # fetch the singleton if called as a class method
-    $self = $self->instance unless ref($self);
-
     # create the poe sessions
     Games::Pandemic::Controller->new;
     Games::Pandemic::Tk::Main->new;

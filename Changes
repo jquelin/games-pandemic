@@ -1,5 +1,13 @@
 Revision history for Games::Pandemic.
 
+{{$NEXT}}
+
+1.092640 Mon Sep 21 17:11:14 2009
+ - introducing medic player
+ - japanese translation, courtesy of tomita naoki
+ - using special card now removes too_many_cards condition
+
+**
 
 1.000000 Mon Sep  7 17:56:33 2009
  - infection rate grows as epidemics strike

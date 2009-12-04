@@ -11,12 +11,13 @@ use MooseX::SemiAffordanceAccessor;
 use POE;
 use Readonly;
 use Tk;
+use Tk::Sugar;
 use Tk::Tiler;
 
 extends 'Games::Pandemic::Tk::Dialog';
 
+use Games::Pandemic::Tk::Utils qw{ image };
 use Games::Pandemic::Utils;
-use Games::Pandemic::Tk::Utils;
 
 Readonly my $K    => $poe_kernel;
 Readonly my $GREY => '#666666';
@@ -58,23 +59,23 @@ augment _build_gui => sub {
     my $card = $self->card;
 
     # icon + text
-    my $f   = $top->Frame->pack(@TOP,@FILLX);
+    my $f   = $top->Frame->pack(top, fillx);
     my $img  = image( catfile($SHAREDIR, 'cards', 'resilient-population-48.png') );
-    $f->Label(-image => $img)->pack(@LEFT, @FILL2, @PAD10);
+    $f->Label(-image => $img)->pack(left, fill2, pad10);
     $f->Label(
         -text       => $card->description,
         -justify    => 'left',
         -wraplength => '8c',
-    )->pack(@LEFT, @FILLX, @PAD10);
+    )->pack(left, fillx, pad10);
 
     # main elements
     my $text = T('Select infected city to remove from game:');
-    $top->Label(-text => $text, -anchor=>'w')->pack(@TOP,@FILLX, @PAD5);
+    $top->Label(-text => $text, W)->pack(top, fillx, pad5);
     my $tiler = $top->Scrolled( 'Tiler',
         -scrollbars => 'oe',
         -rows       => 8,
         -columns    => 3,
-    )->pack(@TOP, @XFILL2, @PAD2);
+    )->pack(top, xfill2, pad2);
 
     # get past infections. if no previous infection, an epidemic just
     # stroke and thus we allow the user to use whatever infection that
@@ -94,8 +95,8 @@ augment _build_gui => sub {
         # to display a checkbutton with image + text, we need to
         # create a checkbutton with a label just next to it.
         my $fcard = $tiler->Frame;
-        my $img = $fcard->Label( -image => image($card->icon, $top) )->pack(@LEFT);
-        my $lab = $fcard->Label( -text  => $card->label, -anchor => 'w' )->pack(@LEFT, @FILLX);
+        my $img = $fcard->Label( -image => image($card->icon, $top) )->pack(left);
+        my $lab = $fcard->Label( -text  => $card->label, W )->pack(left, fillx);
         $_->bind('<1>', [$self, '_select_city', $card, $fcard, $img, $lab] )
             for ($img, $lab, $fcard);
         $tiler->Manage($fcard);
@@ -110,7 +111,7 @@ augment _build_gui => sub {
 #
 sub _finish_gui {
     my $self = shift;
-    $self->_w('ok')->configure(@ENOFF);
+    $self->_w('ok')->configure(disabled);
 }
 
 
@@ -140,7 +141,7 @@ sub _select_city {
     $_->configure(-bg=>$GREY) for @new;
 
     # allow validation
-    $self->_w('ok')->configure(@ENON);
+    $self->_w('ok')->configure(enabled);
 }
 
 

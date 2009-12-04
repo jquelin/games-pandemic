@@ -23,9 +23,6 @@ no Moose::Role;
 1;
 __END__
 
-=begin Pod::Coverage
-
-color
-role
-
-=end Pod::Coverage
+=for Pod::Coverage
+    color
+    role

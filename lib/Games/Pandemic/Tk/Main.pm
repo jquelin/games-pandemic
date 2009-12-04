@@ -1720,12 +1720,8 @@ __PACKAGE__->meta->make_immutable;
 1;
 __END__
 
-=begin Pod::Coverage
-
-START
-
-=end Pod::Coverage
-
+=for Pod::Coverage
+    START
 
 =head1 ACKNOWLEDGEMENT
 

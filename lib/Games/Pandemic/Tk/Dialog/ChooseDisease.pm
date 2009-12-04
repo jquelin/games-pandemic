@@ -101,12 +101,8 @@ __PACKAGE__->meta->make_immutable;
 1;
 __END__
 
-=begin Pod::Coverage
-
-BUILD
-
-=end Pod::Coverage
-
+=for Pod::Coverage
+    BUILD
 
 =head1 SYNOPSIS
 

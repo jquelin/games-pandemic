@@ -183,12 +183,8 @@ __PACKAGE__->meta->make_immutable;
 __END__
 
 
-=begin Pod::Coverage
-
-DEMOLISH
-
-=end Pod::Coverage
-
+=for Pod::Coverage
+    DEMOLISH
 
 =head1 DESCRIPTION
 

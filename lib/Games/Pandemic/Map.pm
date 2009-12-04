@@ -199,6 +199,15 @@ sub find_city {
     return $self->_find_city( sub { $_[0]->name eq $name } );
 }
 
+=method my @rates = $map->infection_rates;
+
+Return the infection rates. It's a list of numbers, which offset is the
+number of epidemics already encountered.
+
+=cut
+
+sub infection_rates { die "should be implemented in child class."; }
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

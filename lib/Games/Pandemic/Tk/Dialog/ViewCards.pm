@@ -8,12 +8,13 @@ package Games::Pandemic::Tk::Dialog::ViewCards;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use Tk;
+use Tk::Sugar;
 use Tk::Tiler;
 
 extends 'Games::Pandemic::Tk::Dialog';
 
 use Games::Pandemic::Utils;
-use Games::Pandemic::Tk::Utils;
+use Games::Pandemic::Tk::Utils qw{ image };
 
 
 # -- accessors
@@ -50,7 +51,7 @@ augment _build_gui => sub {
         -scrollbars => 'oe',
         -rows       => 8,
         -columns    => 3,
-    )->pack(@TOP, @XFILL2, @PAD2);
+    )->pack(top, xfill2, pad2);
     #$tiler->Manage( $tiler->Label(-text=>T('(older)'), -anchor=>'w') );
 
     # display cards
@@ -58,8 +59,8 @@ augment _build_gui => sub {
         # to display a checkbutton with image + text, we need to
         # create a checkbutton with a label just next to it.
         my $fcard = $tiler->Frame;
-        $fcard->Label( -image => image($card->icon, $top) )->pack(@LEFT);
-        $fcard->Label( -text  => $card->label, -anchor => 'w' )->pack(@LEFT, @FILLX);
+        $fcard->Label( -image => image($card->icon, $top) )->pack(left);
+        $fcard->Label( -text  => $card->label, W )->pack(left, fillx);
         $tiler->Manage($fcard);
     }
     #$tiler->Manage( $tiler->Label(-text=>T('(more recent)')) );

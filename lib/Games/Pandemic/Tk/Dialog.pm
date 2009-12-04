@@ -9,9 +9,10 @@ use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 use Tk;
+use Tk::Sugar;
 
+use Games::Pandemic::Tk::Utils qw{ pandemic_icon };
 use Games::Pandemic::Utils;
-use Games::Pandemic::Tk::Utils;
 
 
 # -- accessors
@@ -108,7 +109,7 @@ sub _build_gui {
             -bg   => 'black',
             -fg   => 'white',
             -font => $font,
-        )->pack(@TOP, @PAD10, @IPAD10, @FILL2);
+        )->pack(top, pad10, ipad10, fill2);
     }
 
     # build sub-class gui elems
@@ -119,13 +120,13 @@ sub _build_gui {
     # the same width. since we pack them with expand set to true, their
     # width will grow - but equally. otherwise, their size would be
     # proportional to their english text.
-    my $fbuttons = $top->Frame->pack(@TOP, @FILLX);
+    my $fbuttons = $top->Frame->pack(top, fillx);
     if ( $self->_ok ) {
         my $but = $fbuttons->Button(
             -text    => $self->_ok,
             -width   => 10,
             -command => sub { $self->_valid },
-        )->pack(@LEFT, @XFILL2);
+        )->pack(left, xfill2);
         $self->_set_w('ok', $but);
         $top->bind('<Return>', sub { $self->_valid });
         $top->bind('<Escape>', sub { $self->_valid }) unless $self->_cancel;
@@ -135,7 +136,7 @@ sub _build_gui {
             -text    => $self->_cancel,
             -width   => 10,
             -command => sub { $self->_close },
-        )->pack(@LEFT, @XFILL2);
+        )->pack(left, xfill2);
         $self->_set_w('cancel', $but);
         $top->bind('<Escape>', sub { $self->_close });
         $top->bind('<Return>', sub { $self->_close }) unless $self->_ok;

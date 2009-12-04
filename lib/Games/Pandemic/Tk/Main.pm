@@ -21,6 +21,7 @@ use Tk::JPEG;
 use Tk::Pane;
 use Tk::PNG;
 use Tk::ToolBar;
+use Tk::Sugar;
 
 use Games::Pandemic::Config;
 use Games::Pandemic::Tk::Action;
@@ -35,7 +36,7 @@ use Games::Pandemic::Tk::Dialog::ResilientPopulation;
 use Games::Pandemic::Tk::Dialog::Simple;
 use Games::Pandemic::Tk::Dialog::ViewCards;
 use Games::Pandemic::Tk::PlayerCards;
-use Games::Pandemic::Tk::Utils;
+use Games::Pandemic::Tk::Utils  qw{ image pandemic_icon };
 use Games::Pandemic::Utils;
 
 Readonly my $K  => $poe_kernel;
@@ -1092,7 +1093,7 @@ sub _build_action_bar {
     my $but = $tb->Button(
         -text    => T('Continue'),
         -command => $session->postback('_continue'),
-        @ENOFF,
+        enabled,
     );
     $self->_action('continue')->add_widget($but);
 }
@@ -1113,7 +1114,7 @@ sub _build_canvas {
     my $height = $config->get( 'canvas_height' );
 
     # creating the canvas
-    my $c  = $mw->Canvas(-width=>$width,-height=>$height)->pack(@TOP, @XFILL2);
+    my $c  = $mw->Canvas(-width=>$width,-height=>$height)->pack(top, xfill2);
     $self->_set_w('canvas', $c);
 
     # removing class bindings
@@ -1299,11 +1300,11 @@ sub _build_status_bar {
     my $tipmsg;
 
     # the status bar itself is a frame
-    my $sb = $mw->Frame->pack(@RIGHT, @FILLX, -before=>$self->_w('canvas'));
+    my $sb = $mw->Frame->pack(right, fillx, -before=>$self->_w('canvas'));
     $self->_set_w( infobar => $sb );
 
 #    # research stations
-#    my $fstations = $sb->Frame->pack(@TOP, @PADX10);
+#    my $fstations = $sb->Frame->pack(top, padx10);
 #    my $img_nbstations = $fstations->Label(
 #        -image => image( catfile( $SHAREDIR, 'research-station-32.png' ) ),
 #    )->pack(@TOP);
@@ -1314,14 +1315,14 @@ sub _build_status_bar {
 #    $tip->attach($lab_nbstations, -msg=>$tipmsg);
 
     # diseases information
-    my $fdiseases = $sb->Frame->pack(@TOP, @PADX10);
-    my $fcures    = $sb->Frame->pack(@TOP, @PADX10);
+    my $fdiseases = $sb->Frame->pack(top, padx(10));
+    my $fcures    = $sb->Frame->pack(top, padx(10));
     foreach my $disease ( $map->all_diseases ) {
         # disease
         my $img_disease = $fdiseases->Label(
             -image => image( $disease->image('cube', 32) ),
-        )->pack(@TOP);
-        my $lab_disease = $fdiseases->Label->pack(@TOP);
+        )->pack(top);
+        my $lab_disease = $fdiseases->Label->pack(top);
         $self->_set_w("lab_disease_$disease", $lab_disease);
         $tipmsg = sprintf T("number of cubes\nof %s left"), $disease->name;
         $tip->attach($img_disease, -msg=>$tipmsg);
@@ -1330,7 +1331,7 @@ sub _build_status_bar {
         # cure
         my $lab_cure = $fcures->Label(
             -image => image( $disease->image('cure', 32) ),
-        )->pack(@TOP);
+        )->pack(top);
         $self->_set_w("lab_cure_$disease", $lab_cure);
         $tipmsg = sprintf T("cure for %s\nnot found"), $disease->name;
         $tip->attach($lab_cure, -msg=>$tipmsg);
@@ -1338,11 +1339,11 @@ sub _build_status_bar {
 
     # player cards information
     my $cards  = $game->cards;
-    my $fcards = $sb->Frame->pack(@TOP, @PADX10);
+    my $fcards = $sb->Frame->pack(top, padx(10));
     my $img_cards = $fcards->Label(
         -image => image( catfile( $SHAREDIR, 'card-player.png' ) ),
-    )->pack(@TOP);
-    my $lab_cards = $fcards->Label->pack(@TOP);
+    )->pack(top);
+    my $lab_cards = $fcards->Label->pack(top);
     $self->_set_w('lab_cards', $lab_cards);
     $img_cards->bind('<Button-1>', $s->postback('_show_past_cards'));
     $lab_cards->bind('<Button-1>', $s->postback('_show_past_cards'));
@@ -1352,11 +1353,11 @@ sub _build_status_bar {
 
     # infection information
     my $infection = $game->infection;
-    my $finfection = $sb->Frame->pack(@TOP, @PADX10);
+    my $finfection = $sb->Frame->pack(top, padx(10));
     my $img_infection = $finfection->Label(
         -image => image( catfile( $SHAREDIR, 'card-infection.png' ) ),
-    )->pack(@TOP);
-    my $lab_infection = $finfection->Label->pack(@TOP);
+    )->pack(top);
+    my $lab_infection = $finfection->Label->pack(top);
     $self->_set_w('lab_infection', $lab_infection);
     $img_infection->bind('<Button-1>', $s->postback('_show_past_infections'));
     $lab_infection->bind('<Button-1>', $s->postback('_show_past_infections'));
@@ -1365,8 +1366,8 @@ sub _build_status_bar {
     $tip->attach($lab_infection, -msg=>$tipmsg);
 
     # infection rate
-    my $firate = $sb->Frame(-bg=>'black')->pack(@TOP, @PADX10, @FILLX);
-    my $lab_irate = $firate->Label->pack(@TOP, @XFILL2);
+    my $firate = $sb->Frame(-bg=>'black')->pack(top, fillx, padx(10));
+    my $lab_irate = $firate->Label->pack(top, xfill2);
     $self->_set_w('lab_infection_rate', $lab_irate);
     $K->delay( _glow => $TIME_GLOW );
     $tipmsg = T("infection rate\n(number of epidemics)");
@@ -1378,8 +1379,8 @@ sub _build_status_bar {
         -sliderlength => 20,
         -from   => 8,
         -to     => 0,
-        @ENOFF,
-    )->pack(@TOP, @PADX10);
+        enabled,
+    )->pack(top, padx(10));
     $self->_set_w('outbreaks', $scale);
     $tipmsg = sprintf T("number of outbreaks\n(maximum %s)"), 8; # FIXME: map dependant?
     $tip->attach($scale, -msg=>$tipmsg);
@@ -1396,7 +1397,7 @@ sub _build_toolbar {
     my $session = $self->_session;
 
     # create the toolbar
-    my $tb = $mw->ToolBar( -movable => 0, @TOP );
+    my $tb = $mw->ToolBar( -movable => 0, top );
     $self->_set_w('toolbar', $tb);
 
     # the toolbar widgets
@@ -1578,7 +1579,7 @@ sub _draw_init_screen {
         # create the 'button' (really a clickable text)
         my $id = $c->createText(
             $width/2, $height/2 - (@buttons)/2*$pad + $i*$pad,
-            $active ? @ENON : @ENOFF,
+            $active ? enabled : disabled,
             -text         => $text,
             -fill         => '#dddddd',
             -activefill   => 'white',
@@ -1681,7 +1682,7 @@ sub _update_status {
     foreach my $disease ( $map->all_diseases ) {
         $self->_w("lab_disease_$disease")->configure(-text => $disease->nbleft);
         $self->_w("lab_cure_$disease")->configure(
-            $disease->has_cure ? (@ENON) : (@ENOFF) );
+            $disease->has_cure ? (enabled) : (disabled) );
     }
 
     # cards information
@@ -1700,12 +1701,12 @@ sub _update_status {
     # number of outbreaks
     my $outbreaks = $game->nb_outbreaks;
     my $scale = $self->_w('outbreaks');
-    $scale->configure(@ENON); # ->set() doesn't work if disabled
+    $scale->configure(enabled); # ->set() doesn't work if disabled
     $scale->set( $outbreaks );
     my $color = Convert::Color::RGB8->new( @{ $self->_outbreak_color($outbreaks) } );
     $scale->configure(
         -troughcolor => '#' . $color->hex,
-        @ENOFF
+        enabled,
     );
 
     # actions left

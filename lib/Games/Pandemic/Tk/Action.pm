@@ -8,8 +8,7 @@ package Games::Pandemic::Tk::Action;
 use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
-
-use Games::Pandemic::Tk::Utils;
+use Tk::Sugar;
 
 
 # -- attributes & accessors
@@ -67,7 +66,7 @@ current action status.
 sub add_widget {
     my ($self, $widget) = @_;
     $self->_set_widget($widget, $widget);
-    $widget->configure( $self->is_enabled ? @ENON : @ENOFF );
+    $widget->configure( $self->is_enabled ? enabled : disabled );
 }
 
 
@@ -106,7 +105,7 @@ Activate all associated widgets.
 
 sub enable {
     my $self = shift;
-    $_->configure(@ENON) for $self->_all_widgets;
+    $_->configure(enabled) for $self->_all_widgets;
     $self->window->bind( $_, $self->callback ) for $self->_all_bindings;
     $self->_enable;
 }
@@ -120,7 +119,7 @@ De-activate all associated widgets.
 
 sub disable {
     my $self = shift;
-    $_->configure(@ENOFF) for $self->_all_widgets;
+    $_->configure(disabled) for $self->_all_widgets;
     $self->window->bind( $_, '' ) for $self->_all_bindings;
     $self->_disable;
 }

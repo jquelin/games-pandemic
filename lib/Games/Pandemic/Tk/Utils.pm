@@ -12,47 +12,7 @@ extends 'Exporter';
 
 use Games::Pandemic::Utils;
 
-our @EXPORT = qw{
-    @TOP @BOTTOM @LEFT @RIGHT
-    @FILLX  @FILLY  @FILL2
-    @XFILLX @XFILLY @XFILL2
-    @PAD1   @PAD2   @PAD5   @PAD10  @PAD20 @PADX10
-    @IPAD10
-    @ENON   @ENOFF
-    image   pandemic_icon
-};
-
-# -- exported constants (variables, since tk doesn't play nice with readonly)
-
-# pack sides
-our @TOP     = ( -side => 'top'    );
-our @BOTTOM  = ( -side => 'bottom' );
-our @LEFT    = ( -side => 'left'   );
-our @RIGHT   = ( -side => 'right'  );
-
-# pack fill / expand
-our @FILLX   = ( -fill => 'x'    );
-our @FILLY   = ( -fill => 'y'    );
-our @FILL2   = ( -fill => 'both' );
-our @XFILLX  = ( -expand => 1, -fill => 'x'    );
-our @XFILLY  = ( -expand => 1, -fill => 'y'    );
-our @XFILL2  = ( -expand => 1, -fill => 'both' );
-
-# padding
-our @PAD1    = ( -padx => 1,  -pady => 1 );
-our @PAD2    = ( -padx => 2,  -pady => 2 );
-our @PAD5    = ( -padx => 5,  -pady => 5 );
-our @PAD10   = ( -padx => 10, -pady => 10 );
-our @PAD20   = ( -padx => 20, -pady => 20 );
-our @PADX10  = ( -padx => 10 );
-
-# internal padding
-our @IPAD10   = ( -ipadx => 10, -ipady => 10);
-
-# enabled state
-our @ENON    = ( -state => 'normal' );
-our @ENOFF   = ( -state => 'disabled' );
-
+our @EXPORT = qw{ image pandemic_icon };
 
 # -- public subs
 
@@ -93,9 +53,5 @@ __END__
 
 =head1 DESCRIPTION
 
-This module exports easy to use constants for Tk, such as C<@TOP> to be
-used in place of C<-side => 'top'>. Since those are quite common, it's
-easier to use those constants.
-
-It also provides some useful subs for tk guis.
+This module exports some useful subs for tk guis.
 

@@ -12,12 +12,13 @@ use MooseX::SemiAffordanceAccessor;
 use POE;
 use Readonly;
 use Tk;
+use Tk::Sugar;
 use Tk::Tiler;
 
 extends 'Games::Pandemic::Tk::Dialog';
 
+use Games::Pandemic::Tk::Utils qw{ image };
 use Games::Pandemic::Utils;
-use Games::Pandemic::Tk::Utils;
 
 Readonly my $K => $poe_kernel;
 
@@ -55,18 +56,18 @@ augment _build_gui => sub {
     my $card = $self->card;
 
     # icon + text
-    my $f   = $top->Frame->pack(@TOP,@FILLX);
+    my $f   = $top->Frame->pack(top, fillx);
     my $img  = image( catfile($SHAREDIR, 'cards', 'forecast-48.png') );
-    $f->Label(-image => $img)->pack(@LEFT, @FILL2, @PAD10);
+    $f->Label(-image => $img)->pack(left, fill2, pad10);
     $f->Label(
         -text       => $card->description,
         -justify    => 'left',
         -wraplength => '6c',
-    )->pack(@LEFT, @FILLX, @PAD10);
+    )->pack(left, fillx, pad10);
 
     # main elements
     my $text = T('Rearrange the infections to come as you wish:');
-    $top->Label(-text => $text, -anchor=>'w')->pack(@TOP, @FILLX, @PAD5);
+    $top->Label(-text => $text, W)->pack(top, fillx, pad5);
 
     # peek the next infections
     my $game = Games::Pandemic->instance;
@@ -77,21 +78,21 @@ augment _build_gui => sub {
     $self->_set_cards(\@cards);
 
     # the frame holding the infections to come
-    my $finfections = $top->Frame->pack(@TOP, @XFILL2, @PAD5);
+    my $finfections = $top->Frame->pack(top, xfill2, pad5);
     my $i = 1;
     foreach my $card ( @cards ) {
-        my $fcard = $finfections->Frame->pack(@TOP, @FILLX);
-        my $lab = $fcard->Label( -text  => "$i - ", -anchor => 'w' )->pack(@LEFT);
-        $fcard->Label( -image => image($card->icon, $top) )->pack(@LEFT);
-        $fcard->Label( -text  => $card->label, -anchor => 'w' )->pack(@LEFT, @XFILLX);
+        my $fcard = $finfections->Frame->pack(top, fillx);
+        my $lab = $fcard->Label( -text  => "$i - ", W )->pack(left);
+        $fcard->Label( -image => image($card->icon, $top) )->pack(left);
+        $fcard->Label( -text  => $card->label, -anchor => 'w' )->pack(left, xfillx);
         my $up   = $fcard->Button(
             -image   => 'navup16',
             -command => [ $self, '_move', $card, -1 ],
-        )->pack(@LEFT);
+        )->pack(left);
         my $down = $fcard->Button(
             -image   => 'navdown16',
             -command => [ $self, '_move', $card, 1 ],
-        )->pack(@LEFT);
+        )->pack(left);
         $self->_set_w("f$card", $fcard);
         $self->_set_w("lab$card",  $lab);
         $self->_set_w("up$card",   $up);
@@ -136,10 +137,10 @@ sub _redraw_infections {
     
     my $i = 1;
     foreach my $card ( @cards ) {
-        $self->_w("f$card")->pack(@TOP, @FILLX);
+        $self->_w("f$card")->pack(top, fillx);
         $self->_w("lab$card") ->configure( -text => "$i - " );
-        $self->_w("up$card")  ->configure( $i == 1 ? @ENOFF : @ENON );
-        $self->_w("down$card")->configure( $i == 6 ? @ENOFF : @ENON );
+        $self->_w("up$card")  ->configure( $i == 1 ? disabled : enabled );
+        $self->_w("down$card")->configure( $i == 6 ? disabled : enabled );
         $i++;
     }
 }

@@ -11,12 +11,13 @@ use MooseX::SemiAffordanceAccessor;
 use POE;
 use Readonly;
 use Tk;
+use Tk::Sugar;
 use Tk::Tiler;
 
 extends 'Games::Pandemic::Tk::Dialog';
 
+use Games::Pandemic::Tk::Utils qw{ image };
 use Games::Pandemic::Utils;
-use Games::Pandemic::Tk::Utils;
 
 Readonly my $K    => $poe_kernel;
 Readonly my $GREY => '#666666';
@@ -60,53 +61,53 @@ augment _build_gui => sub {
     my $game = Games::Pandemic->instance;
 
     # icon + text
-    my $ftop = $top->Frame->pack(@TOP,@FILLX);
+    my $ftop = $top->Frame->pack(top, fillx);
     my $img  = image( catfile($SHAREDIR, 'cards', 'airlift-48.png') );
-    $ftop->Label(-image => $img)->pack(@LEFT, @FILL2, @PAD10);
+    $ftop->Label(-image => $img)->pack(left, fill2, pad10);
     $ftop->Label(
         -text       => $card->description,
         -justify    => 'left',
-    )->pack(@LEFT, @FILLX, @PAD10);
+    )->pack(left, fillx, pad10);
 
     # the frame holding everything
-    my $f = $top->Frame->pack(@TOP, @XFILL2);
+    my $f = $top->Frame->pack(top, xfill2);
 
     # player chooser
-    my $fleft = $f->Frame->pack(@LEFT, @FILL2, @PAD5);
+    my $fleft = $f->Frame->pack(left, fill2, pad5);
     $fleft->Label(
         -text   => T('Select player to move:'),
         -anchor => 'w',
-    )->pack(@TOP,@FILLX, @PAD5);
+    )->pack(top, fillx, pad5);
     my $selplayer = $self->player->role;
     $self->_set_selplayer( $self->player );
     foreach my $player ( $game->all_players ) {
         # to display a radiobutton with image + text, we need to
         # create a radiobutton with a label just next to it.
-        my $fplayer = $fleft->Frame->pack(@TOP, @FILLX);
+        my $fplayer = $fleft->Frame->pack(top, fillx);
         my $rb = $fplayer->Radiobutton(
             -text     => $player->role,
             -variable => \$selplayer,
             -value    => $player->role,
             -anchor   => 'w',
             -command  => sub{ $self->_set_selplayer($player); $self->_check_player_city_combo; },
-        )->pack(@LEFT, @XFILLX);
+        )->pack(left, xfillx);
         my $lab = $fplayer->Label(
             -image    => image( $player->image('icon', 32), $top ),
-        )->pack(@LEFT);
+        )->pack(left);
         $lab->bind( '<1>', sub { $rb->invoke; } );
     }
 
     # city chooser
-    my $fright = $f->Frame->pack(@LEFT, @XFILL2, @PAD5);
+    my $fright = $f->Frame->pack(left, xfill2, pad5);
     $fright->Label(
         -text   => T('Select city in which to move the player:'),
         -anchor => 'w',
-    )->pack(@TOP,@FILLX, @PAD5);
+    )->pack(top, fillx, pad5);
     my $tiler = $fright->Scrolled( 'Tiler',
         -scrollbars => 'oe',
         -rows       => 8,
         -columns    => 3,
-    )->pack(@TOP, @XFILL2, @PAD2);
+    )->pack(top, xfill2, pad2);
 
     # display cards
     my @citycards =
@@ -118,8 +119,8 @@ augment _build_gui => sub {
         # to display a checkbutton with image + text, we need to
         # create a checkbutton with a label just next to it.
         my $fcard = $tiler->Frame;
-        my $img = $fcard->Label( -image => image($card->icon, $top) )->pack(@LEFT);
-        my $lab = $fcard->Label( -text  => $card->label, -anchor => 'w' )->pack(@LEFT, @FILLX);
+        my $img = $fcard->Label( -image => image($card->icon, $top) )->pack(left);
+        my $lab = $fcard->Label( -text  => $card->label, -anchor => 'w' )->pack(left, fillx);
         $_->bind('<1>', [$self, '_select_city', $card, $fcard, $img, $lab] )
             for ($img, $lab, $fcard);
         $tiler->Manage($fcard);
@@ -138,11 +139,11 @@ sub _check_player_city_combo {
     my $player = $self->_selplayer;
 
     # no city selected: no validation possible
-    return $self->_w('ok')->configure(@ENOFF) unless defined $self->_selcard;
+    return $self->_w('ok')->configure(disabled) unless defined $self->_selcard;
 
     # city selected: check if player is in city
     my $city  = $self->_selcard->city;
-    $self->_w('ok')->configure( $player->location eq $city ? @ENOFF : @ENON );
+    $self->_w('ok')->configure( $player->location eq $city ? disabled : enabled );
 }
 
 
@@ -153,7 +154,7 @@ sub _check_player_city_combo {
 #
 sub _finish_gui {
     my $self = shift;
-    $self->_w('ok')->configure(@ENOFF);
+    $self->_w('ok')->configure(disabled);
 }
 
 

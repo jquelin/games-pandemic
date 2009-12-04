@@ -6,7 +6,9 @@ package Games::Pandemic::Tk::Dialog::Action;
 # ABSTRACT: pandemic dialog to confirm an action
 
 use Moose;
+use MooseX::Has::Sugar;
 use MooseX::SemiAffordanceAccessor;
+use MooseX::Types::Moose qw{ ArrayRef Str };
 use POE;
 use Readonly;
 use Tk;
@@ -20,8 +22,8 @@ Readonly my $K => $poe_kernel;
 
 # -- accessors
 
-has action    => ( is=>'ro', isa=>'Str', required=>1 );
-has post_args => ( is=>'ro', isa=>'ArrayRef', required=>1 );
+has action    => ( ro, required, isa=>Str );
+has post_args => ( ro, required, isa=>ArrayRef );
 
 
 # -- initialization
@@ -43,8 +45,6 @@ sub _valid {
     $K->post( @$args );
     $self->_close;
 }
-
-
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

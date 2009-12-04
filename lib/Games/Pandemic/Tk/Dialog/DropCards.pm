@@ -10,11 +10,12 @@ use MooseX::SemiAffordanceAccessor;
 use POE;
 use Readonly;
 use Tk;
+use Tk::Sugar;
 
 extends 'Games::Pandemic::Tk::Dialog';
 
+use Games::Pandemic::Tk::Utils qw{ image };
 use Games::Pandemic::Utils;
-use Games::Pandemic::Tk::Utils;
 
 Readonly my $K => $poe_kernel;
 
@@ -48,7 +49,7 @@ has _cards => (
 #
 sub BUILD {
     my $self = shift;
-    $self->_w('ok')->configure(@ENOFF);
+    $self->_w('ok')->configure(disabled);
 }
 
 sub _build_title   { T('Discard') }
@@ -76,7 +77,7 @@ sub _card_click {
 
     # 
     my @cards = $self->_selcards;
-    $self->_w('ok')->configure( scalar(@cards) ? @ENON : @ENOFF );
+    $self->_w('ok')->configure( scalar(@cards) ? enabled : disabled );
 }
 
 #
@@ -105,30 +106,29 @@ augment _build_gui => sub {
     my $player = $self->player;
     my @cards  = $player->all_cards;
 
-    my $f = $top->Frame->pack(@TOP, @XFILL2, @PAD10);
+    my $f = $top->Frame->pack(top, xfill2, pad10);
     $f->Label(
         -text   => T('Select cards to drop:'),
         -anchor => 'w',
-    )->pack(@TOP, @FILLX);
+    )->pack(top, fillx);
 
     # display cards
     foreach my $card ( @cards ) {
         # to display a checkbutton with image + text, we need to
         # create a checkbutton with a label just next to it.
-        my $fcity = $f->Frame->pack(@TOP, @FILLX);
+        my $fcity = $f->Frame->pack(top, fillx);
         my $selected;
         my $cb = $fcity->Checkbutton(
             -image    => image($card->icon, $top),
             -command  => sub { $self->_card_click($card); },
-        )->pack(@LEFT);
+        )->pack(left);
         my $lab = $fcity->Label(
             -text   => $card->label,
             -anchor => 'w',
-        )->pack(@LEFT, @FILLX);
+        )->pack(left, fillx);
         $lab->bind( '<1>', sub { $cb->invoke; } );
     }
 };
-
 
 
 no Moose;

@@ -6,6 +6,7 @@ package Games::Pandemic::City;
 # ABSTRACT: pandemic city object
 
 use Moose 0.92;
+use MooseX::Has::Sugar;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Utils;
@@ -17,14 +18,14 @@ use Games::Pandemic::Utils;
 # hell out of xgettext when one tries to access $foo->y. indeed, it
 # will skip random portions of your file, without any warning.
 # therefore, i'm using coordx / coordy.
-has id      => ( is => 'ro', required => 1, isa => 'Int' );
-has name    => ( is => 'ro', required => 1, isa => 'Str' );
-has coordx  => ( is => 'ro', required => 1, isa => 'Num' );
-has coordy  => ( is => 'ro', required => 1, isa => 'Num' );
-has xreal   => ( is => 'ro', required => 1, isa => 'Num' );
-has yreal   => ( is => 'ro', required => 1, isa => 'Num' );
-has disease => ( is => 'ro', required => 1, isa => 'Games::Pandemic::Disease', weak_ref => 1 );
-has _map    => ( is => 'ro', required => 1, isa => 'Games::Pandemic::Map', weak_ref => 1 );
+has id      => ( ro, required, isa => 'Int' );
+has name    => ( ro, required, isa => 'Str' );
+has coordx  => ( ro, required, isa => 'Num' );
+has coordy  => ( ro, required, isa => 'Num' );
+has xreal   => ( ro, required, isa => 'Num' );
+has yreal   => ( ro, required, isa => 'Num' );
+has disease => ( ro, required, weak_ref, isa => 'Games::Pandemic::Disease' );
+has _map    => ( ro, required, weak_ref, isa => 'Games::Pandemic::Map' );
 
 
 =method $city->build_station;
@@ -42,8 +43,8 @@ Return true if the city has a research station.
 =cut
 
 has has_station => (
+    rw,
     traits  => ['Bool'],
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
     handles => {
@@ -66,8 +67,8 @@ has has_station => (
 #    see public method infect()
 #
 has _infections => (
+    ro,
     traits  => ['Array'],
-    is      => 'ro',
     isa     => 'ArrayRef[Int]',
     default => sub { [] },
     handles => {
@@ -77,9 +78,8 @@ has _infections => (
 );
 
 has neighbour_ids => (
+    ro, required,
     traits   => ['Array'],
-    is       => 'ro',
-    required => 1,
     isa      => 'ArrayRef',
     handles  => { _neighbour_ids => 'elements' },
 );

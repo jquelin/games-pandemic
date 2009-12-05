@@ -10,7 +10,7 @@ use File::Spec::Functions qw{ catfile };
 use Image::Size;
 use List::Util            qw{ min };
 use Math::Gradient        qw{ array_gradient };
-use Moose;
+use Moose                 0.92;
 use MooseX::Has::Sugar;
 use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
@@ -52,25 +52,25 @@ Readonly my $TIME_GLOW  => 0.150;
 # a hash with all the widgets, for easier reference.
 has _widgets => (
     ro,
-    metaclass => 'Collection::Hash',
-    isa       => 'HashRef',
-    default   => sub { {} },
-    provides  => {
-        set    => '_set_w',
-        get    => '_w',
-        delete => '_del_w',
+    traits  => ['Hash'],
+    isa     => 'HashRef',
+    default => sub { {} },
+    handles => {
+        _set_w => 'set',
+        _w     => 'get',
+        _del_w => 'delete',
     },
 );
 
 # a hash with all the actions.
 has _actions => (
     ro,
-    metaclass => 'Collection::Hash',
-    isa       => 'HashRef',
-    default   => sub { {} },
-    provides  => {
-        set    => '_set_action',
-        get    => '_action',
+    traits  => ['Hash'],
+    isa     => 'HashRef',
+    default => sub { {} },
+    handles => {
+        _set_action => 'set',
+        _action     => 'get',
     },
 );
 
@@ -79,11 +79,11 @@ has _outbreak_gradient => (
     ro,
     auto_deref,
     lazy_build,
-    metaclass  => 'Collection::Array',
-    isa        => 'ArrayRef[ArrayRef]',
-    provides   => {
-        get  => '_outbreak_color',            # my $c = $main->_outbreak_color($i);
-        push => '_add_to_outbreak_gradient',  # my $c = $main->_add_to_outbreak_gradient($rgb);
+    traits  => ['Array'],
+    isa     => 'ArrayRef[ArrayRef]',
+    handles => {
+        _outbreak_color           => 'get',   # my $c = $main->_outbreak_color($i);
+        _add_to_outbreak_gradient => 'push',  # my $c = $main->_add_to_outbreak_gradient($rgb);
     }
 );
 
@@ -92,11 +92,11 @@ has _infection_rate_gradient => (
     ro,
     auto_deref,
     lazy_build,
-    metaclass  => 'Collection::Array',
-    isa        => 'ArrayRef[Str]',
-    provides   => {
-        shift => '_next_infection_rate_color',
-        push  => '_add_infection_rate_color',
+    traits  => ['Array'],
+    isa     => 'ArrayRef[Str]',
+    handles => {
+        _next_infection_rate_color => 'shift',
+        _add_infection_rate_color  => 'push',
     }
 );
 

@@ -15,6 +15,7 @@ use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
 use Readonly;
 use Tk;
+use Tk::Action;
 use Tk::Balloon;
 use Tk::Font;
 use Tk::JPEG;
@@ -24,7 +25,6 @@ use Tk::ToolBar;
 use Tk::Sugar;
 
 use Games::Pandemic::Config;
-use Games::Pandemic::Tk::Action;
 use Games::Pandemic::Tk::Dialog::Action;
 use Games::Pandemic::Tk::Dialog::Airlift;
 use Games::Pandemic::Tk::Dialog::ChooseDisease;
@@ -1165,7 +1165,7 @@ sub _build_gui {
         map { "action_$_" } qw{ build discover drop pass share treat },
     );
     foreach my $what ( @enabled, @disabled ) {
-        my $action = Games::Pandemic::Tk::Action->new(
+        my $action = Tk::Action->new(
             window   => $mw,
             callback => $s->postback("_$what"),
         );

@@ -11,6 +11,7 @@ use Image::Size;
 use List::Util            qw{ min };
 use Math::Gradient        qw{ array_gradient };
 use Moose;
+use MooseX::Has::Sugar;
 use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
 use Readonly;
@@ -50,8 +51,8 @@ Readonly my $TIME_GLOW  => 0.150;
 
 # a hash with all the widgets, for easier reference.
 has _widgets => (
+    ro,
     metaclass => 'Collection::Hash',
-    is        => 'ro',
     isa       => 'HashRef',
     default   => sub { {} },
     provides  => {
@@ -63,8 +64,8 @@ has _widgets => (
 
 # a hash with all the actions.
 has _actions => (
+    ro,
     metaclass => 'Collection::Hash',
-    is        => 'ro',
     isa       => 'HashRef',
     default   => sub { {} },
     provides  => {
@@ -75,11 +76,11 @@ has _actions => (
 
 # color gradient for outbreak scale
 has _outbreak_gradient => (
+    ro,
+    auto_deref,
+    lazy_build,
     metaclass  => 'Collection::Array',
-    is         => 'ro',
     isa        => 'ArrayRef[ArrayRef]',
-    auto_deref => 1,
-    lazy_build => 1,
     provides   => {
         get  => '_outbreak_color',            # my $c = $main->_outbreak_color($i);
         push => '_add_to_outbreak_gradient',  # my $c = $main->_add_to_outbreak_gradient($rgb);
@@ -88,11 +89,11 @@ has _outbreak_gradient => (
 
 # color gradient for infection rate
 has _infection_rate_gradient => (
+    ro,
+    auto_deref,
+    lazy_build,
     metaclass  => 'Collection::Array',
-    is         => 'ro',
     isa        => 'ArrayRef[Str]',
-    auto_deref => 1,
-    lazy_build => 1,
     provides   => {
         shift => '_next_infection_rate_color',
         push  => '_add_infection_rate_color',
@@ -101,14 +102,14 @@ has _infection_rate_gradient => (
 
 
 # currently selected player
-has _selplayer => ( is => 'rw', weak_ref => 1, isa => 'Games::Pandemic::Player' );
+has _selplayer => ( rw, weak_ref, isa => 'Games::Pandemic::Player' );
 
 
 # it's not usually a good idea to retain a reference on a poe session,
 # since poe is already taking care of the references for us. however, we
 # need the session to call ->postback() to set the various gui callbacks
 # that will be fired upon gui events.
-has _session => ( is=>'rw', isa=>'POE::Session', weak_ref=>1 );
+has _session => ( rw, weak_ref, isa=>'POE::Session' );
 
 
 # -- initialization

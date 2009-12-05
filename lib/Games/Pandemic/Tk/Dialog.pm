@@ -6,6 +6,7 @@ package Games::Pandemic::Tk::Dialog;
 # ABSTRACT: base class for pandemic dialog windows
 
 use Moose 0.92;
+use MooseX::Has::Sugar;
 use MooseX::SemiAffordanceAccessor;
 use Tk;
 use Tk::Sugar;
@@ -16,21 +17,21 @@ use Games::Pandemic::Utils;
 
 # -- accessors
 
-has parent    => ( is=>'ro', isa=>'Tk::Widget', required=>1, weak_ref=>1, );
-has title     => ( is=>'ro', isa=>'Str',  lazy_build=>1 );
-has header    => ( is=>'ro', isa=>'Str',  lazy_build=>1 );
-has resizable => ( is=>'ro', isa=>'Bool', lazy_build=>1 );
-has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
-has _ok       => ( is=>'ro', isa=>'Str', lazy_build=>1 );
-has _cancel   => ( is=>'ro', isa=>'Str', lazy_build=>1 );
+has parent    => ( ro, required, weak_ref, isa=>'Tk::Widget' );
+has title     => ( ro, lazy_build, isa=>'Str' );
+has header    => ( ro, lazy_build, isa=>'Str' );
+has resizable => ( ro, lazy_build, isa=>'Bool' );
+has _toplevel => ( rw, isa=>'Tk::Toplevel' );
+has _ok       => ( ro, lazy_build, isa=>'Str' );
+has _cancel   => ( ro, lazy_build, isa=>'Str' );
 
 
 # a hash to store the widgets for easier reference.
 has _widgets => (
-    traits => ['Hash'],
-    is        => 'ro',
-    isa       => 'HashRef',
-    default   => sub { {} },
+    ro,
+    traits  => ['Hash'],
+    isa     => 'HashRef',
+    default => sub { {} },
     handles => {
         _set_w => 'set',
         _w     => 'get',

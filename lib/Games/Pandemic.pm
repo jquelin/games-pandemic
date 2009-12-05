@@ -14,6 +14,7 @@ package Games::Pandemic;
 use POE::Kernel { loop => 'Tk' };
 
 use MooseX::Singleton;  # should come before any other moose
+use MooseX::Has::Sugar;
 use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
 
@@ -25,40 +26,39 @@ use Games::Pandemic::Tk::Main;
 # -- accessors
 
 has config => (
-    is       => 'ro',
+    ro,
     writer   => '_set_config',
     default  => sub { Games::Pandemic::Config->new },
     isa      => 'Games::Pandemic::Config'
 );
 
 has map => (
-    is      => 'rw',
+    rw,
     isa     => 'Games::Pandemic::Map',
     clearer => 'clear_map',
 );
 
 # player cards deck
 has cards => (
-    is      => 'rw',
+    rw,
     isa     => 'Games::Pandemic::Deck',
     clearer => 'clear_cards_deck',
 );
 
 # infection cards deck
 has infection => (
-    is      => 'rw',
+    rw,
     isa     => 'Games::Pandemic::Deck',
     clearer => 'clear_infection_deck',
 );
 
 # current players
 has _players => (
-    traits => ['Array'],
-    is         => 'ro',
-    isa        => 'ArrayRef[Games::Pandemic::Player]',
-    default    => sub { [] },
-    auto_deref => 1,
-    handles    => {
+    ro, auto_deref,
+    traits  => ['Array'],
+    isa     => 'ArrayRef[Games::Pandemic::Player]',
+    default => sub { [] },
+    handles => {
         all_players   => 'elements',       # my @p = $game->all_players;
         add_player    => 'push',           # $game->add_player( $player );
         clear_players => 'clear',
@@ -66,11 +66,10 @@ has _players => (
 );
 # list of players waiting for their turn
 has _players_in_turn => (
-    traits     => ['Array'],
-    is         => 'ro',
-    isa        => 'ArrayRef[Games::Pandemic::Player]',
-    default    => sub { [] },
-    auto_deref => 1,
+    ro, auto_deref,
+    traits  => ['Array'],
+    isa     => 'ArrayRef[Games::Pandemic::Player]',
+    default => sub { [] },
     handles => {
         reinit_players        => 'push',  # $game->reinit_players( $player );
         next_player           => 'shift', # my $p = $game->next_player;
@@ -78,17 +77,16 @@ has _players_in_turn => (
     }
 );
 has curplayer => (
-    is       => 'rw',
-    isa      => 'Games::Pandemic::Player',
-    weak_ref => 1,
-    clearer  => 'clear_curplayer',
+    rw, weak_ref,
+    isa     => 'Games::Pandemic::Player',
+    clearer => 'clear_curplayer',
 );
 
 # game state
-has state => ( is=>'rw', isa=>'Str' );
+has state => ( rw, isa=>'Str' );
 has is_in_play => (
+    ro,
     traits  => ['Bool'],
-    is      => 'ro',
     isa     => 'Bool',
     default => 0,
     handles => {
@@ -100,15 +98,15 @@ has is_in_play => (
 
 # number of research stations remaining to be build
 has stations => (
+    rw,
     traits  => ['Counter'],
-    is      => 'rw',
     isa     => 'Int',
     handles => { dec_stations => 'dec' },
 );
 
 has nb_outbreaks => (
+    ro,
     traits  => ['Counter'],
-    is      => 'ro',
     isa     => 'Int',
     handles => {
         _inc_outbreaks => 'inc',
@@ -133,18 +131,17 @@ sub inc_outbreaks {
 
 # holds the player having too many cards - if any
 has too_many_cards => (
-    is       => 'rw',
+    rw, weak_ref,
     isa      => 'Games::Pandemic::Player',
     default  => undef,
     clearer  => 'clear_too_many_cards',
-    weak_ref => 1,
 );
 
 
 # whether there will be a propagation in this turn
 has propagation => (
+    ro,
     traits  => ['Bool'],
-    is      => 'ro',
     isa     => 'Bool',
     default => 1,
     handles => {
@@ -154,8 +151,8 @@ has propagation => (
 );
 
 has nb_epidemics => (
+    ro,
     traits  => ['Counter'],
-    is      => 'ro',
     isa     => 'Int',
     handles => {
         inc_epidemics => 'inc',

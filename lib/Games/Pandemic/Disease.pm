@@ -7,6 +7,7 @@ package Games::Pandemic::Disease;
 
 use File::Spec::Functions qw{ catfile };
 use Moose                 0.92;
+use MooseX::Has::Sugar;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Utils;
@@ -15,39 +16,37 @@ use Games::Pandemic::Utils;
 # -- attributes
 
 has colors => (
+    ro, required,
     traits   => ['Array'],
-    is       => 'ro',
     isa      => 'ArrayRef[Str]',
-    required => 1,
     handles  => { color => 'get' },
 );
-has id    => ( is => 'ro', isa => 'Int', required   => 1 );
-has name  => ( is => 'ro', isa => 'Str', required   => 1 );
+has id    => ( ro, required, isa => 'Int' );
+has name  => ( ro, required, isa => 'Str' );
 has nbleft => (
+    ro, lazy,
     traits  => ['Number'],
-    is      => 'ro',
     isa     => 'Int',
-    lazy    => 1,
     builder => '_build_nb',
     handles => {
         return => 'add',
         take   => 'sub',
     },
 );
-has nbmax => ( is => 'ro', isa => 'Int', required   => 1 );
-has _map  => ( is => 'ro', isa => 'Games::Pandemic::Map',required => 1, weak_ref => 1 );
+has nbmax => ( ro, required, isa => 'Int' );
+has _map  => ( ro, required, weak_ref, isa => 'Games::Pandemic::Map' );
 
 has has_cure => (
+    ro,
     traits  => ['Bool'],
-    is      => 'ro',
     isa     => 'Bool',
     default => 0,
     handles => { find_cure => 'set' },
 );
 
 has is_eradicated => (
+    ro,
     traits  => ['Bool'],
-    is      => 'ro',
     isa     => 'Bool',
     default => 0,
     handles => { eradicate => 'set' },

@@ -53,28 +53,28 @@ has infection => (
 
 # current players
 has _players => (
-    metaclass  => 'Collection::Array',
+    traits => ['Array'],
     is         => 'ro',
     isa        => 'ArrayRef[Games::Pandemic::Player]',
     default    => sub { [] },
     auto_deref => 1,
-    provides   => {
-        elements => 'all_players',       # my @p = $game->all_players;
-        push     => 'add_player',        # $game->add_player( $player );
-        clear    => 'clear_players',
+    handles    => {
+        all_players   => 'elements',       # my @p = $game->all_players;
+        add_player    => 'push',           # $game->add_player( $player );
+        clear_players => 'clear',
     }
 );
 # list of players waiting for their turn
 has _players_in_turn => (
-    metaclass  => 'Collection::Array',
+    traits     => ['Array'],
     is         => 'ro',
     isa        => 'ArrayRef[Games::Pandemic::Player]',
     default    => sub { [] },
     auto_deref => 1,
-    provides   => {
-        push     => 'reinit_players',    # $game->reinit_players( $player );
-        shift    => 'next_player',       # my $p = $game->next_player;
-        clear    => 'clear_players_in_turn',
+    handles => {
+        reinit_players        => 'push',  # $game->reinit_players( $player );
+        next_player           => 'shift', # my $p = $game->next_player;
+        clear_players_in_turn => 'clear',
     }
 );
 has curplayer => (
@@ -87,35 +87,32 @@ has curplayer => (
 # game state
 has state => ( is=>'rw', isa=>'Str' );
 has is_in_play => (
-    metaclass => 'Bool',
-    is        => 'ro',
-    isa       => 'Bool',
-    default   => 0,
-    provides  => {
-        set   => 'has_started',
-        unset => 'has_ended',
+    traits  => ['Bool'],
+    is      => 'ro',
+    isa     => 'Bool',
+    default => 0,
+    handles => {
+        has_started => 'set',
+        has_ended   => 'unset',
     }
 );
 
 
 # number of research stations remaining to be build
 has stations => (
-    metaclass => 'Counter',
-    is        => 'ro',
-    isa       => 'Int',
-    provides  => {
-        dec => 'dec_stations',
-        set => 'set_stations',
-    },
+    traits  => ['Counter'],
+    is      => 'rw',
+    isa     => 'Int',
+    handles => { dec_stations => 'dec' },
 );
 
 has nb_outbreaks => (
-    metaclass => 'Counter',
-    is        => 'ro',
-    isa       => 'Int',
-    provides  => {
-        inc => '_inc_outbreaks',
-        set => 'set_outbreaks',
+    traits  => ['Counter'],
+    is      => 'ro',
+    isa     => 'Int',
+    handles => {
+        _inc_outbreaks => 'inc',
+        set_outbreaks  => 'set',
     },
 );
 
@@ -146,23 +143,23 @@ has too_many_cards => (
 
 # whether there will be a propagation in this turn
 has propagation => (
-    metaclass => 'Bool',
-    is        => 'ro',
-    isa       => 'Bool',
-    default   => 1,
-    provides  => {
-        set   => 'enable_propagation',
-        unset => 'disable_propagation',
+    traits  => ['Bool'],
+    is      => 'ro',
+    isa     => 'Bool',
+    default => 1,
+    handles => {
+        enable_propagation  => 'set',
+        disable_propagation => 'unset',
     }
 );
 
 has nb_epidemics => (
-    metaclass => 'Counter',
-    is        => 'ro',
-    isa       => 'Int',
-    provides  => {
-        inc => 'inc_epidemics',
-        set => 'set_epidemics',
+    traits  => ['Counter'],
+    is      => 'ro',
+    isa     => 'Int',
+    handles => {
+        inc_epidemics => 'inc',
+        set_epidemics => 'set',
     },
 );
 

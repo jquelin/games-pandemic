@@ -8,6 +8,7 @@ package Games::Pandemic::Config;
 use Games::Pandemic::Utils;
 use MooseX::Singleton;          # should come before any other moose
 use Moose      0.92;
+use MooseX::Has::Sugar;
 use MooseX::SemiAffordanceAccessor;
 use YAML::Tiny qw{ LoadFile };
 
@@ -21,8 +22,8 @@ my $default = {
 # -- accessors
 
 has _options => (
+    ro,
     traits  => ['Hash'],
-    is      => 'ro',
     isa     => 'HashRef[Str]',
     builder => '_build_options',
     handles => {
@@ -31,6 +32,14 @@ has _options => (
         _exists => 'exists',
     }
 );
+
+# -- initializer
+
+sub _build_options {
+    my $yaml = eval { LoadFile( "$CONFIGDIR/config.yaml" ) };
+    return $@ ? {} : $yaml;
+}
+
 
 # -- public methods
 
@@ -45,13 +54,6 @@ be provided.
 sub get {
     my ($self, $key) = @_;
     my $val = $self->_get($key) // $default->{$key};
-}
-
-# -- private subs
-
-sub _build_options {
-    my $yaml = eval { LoadFile( "$CONFIGDIR/config.yaml" ) };
-    return $@ ? {} : $yaml;
 }
 
 

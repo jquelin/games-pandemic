@@ -7,8 +7,7 @@ package Games::Pandemic::Player;
 
 use File::Spec::Functions qw{ catfile };
 use List::MoreUtils       qw{ any };
-use Moose;
-use MooseX::AttributeHelpers;
+use Moose                 0.92;
 use MooseX::SemiAffordanceAccessor;
 use UNIVERSAL::require;
 
@@ -27,28 +26,25 @@ sub DEMOLISH {
 # -- accessors
 
 has _cards => (
-    metaclass  => 'Collection::Hash',
+    traits     => ['Hash'],
     is         => 'ro',
     isa        => 'HashRef[Games::Pandemic::Card]',
     default    => sub { {} },
     auto_deref => 1,
-    provides   => {
-        count   => 'nb_cards',        # my $nb = $player->nb_cards;
-        values  => '_all_cards',      # my @c = $player->all_cards;
-        delete  => 'drop_card',       # $player->drop_card( $card );
-        set     => '_add_card',       # $player->_add_card( $card, $card );
-        exists  => 'owns_card',       # my $bool = $player->owns_card($card);
+    handles    => {
+        nb_cards   => 'count',     # my $nb = $player->nb_cards;
+        _all_cards => 'values',    # my @c = $player->all_cards;
+        drop_card  => 'delete',    # $player->drop_card( $card );
+        _add_card  => 'set',       # $player->_add_card( $card, $card );
+        owns_card  => 'exists',    # my $bool = $player->owns_card($card);
     }
 );
 
 has actions_left => (
-    metaclass => 'Counter',
-    is        => 'rw',
-    isa       => 'Int',
-    provides  => {
-        dec => 'action_done',
-        set => 'set_actions_left',
-    },
+    traits  => ['Counter'],
+    is      => 'rw',
+    isa     => 'Int',
+    handles => { action_done => 'dec' },
 );
 
 has location => ( is=>'rw', isa=>'Games::Pandemic::City', lazy_build => 1 );

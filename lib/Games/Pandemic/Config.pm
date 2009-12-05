@@ -7,7 +7,7 @@ package Games::Pandemic::Config;
 
 use Games::Pandemic::Utils;
 use MooseX::Singleton;          # should come before any other moose
-use MooseX::AttributeHelpers;
+use Moose      0.92;
 use MooseX::SemiAffordanceAccessor;
 use YAML::Tiny qw{ LoadFile };
 
@@ -20,15 +20,15 @@ my $default = {
 
 # -- accessors
 
-has '_options' => (
-    metaclass => 'Collection::Hash',
-    is        => 'ro',
-    isa       => 'HashRef[Str]',
-    builder   => '_build_options',
-    provides  => {
-        'set'    => 'set',
-        'get'    => '_get',
-        'exists' => '_exists',
+has _options => (
+    traits  => ['Hash'],
+    is      => 'ro',
+    isa     => 'HashRef[Str]',
+    builder => '_build_options',
+    handles => {
+        set     => 'set',
+        _get    => 'get',
+        _exists => 'exists',
     }
 );
 

@@ -6,6 +6,7 @@ package Games::Pandemic::Tk::Dialog::DropCards;
 # ABSTRACT: pandemic dialog to drop cards
 
 use Moose;
+use MooseX::Has::Sugar;
 use MooseX::SemiAffordanceAccessor;
 use POE;
 use Readonly;
@@ -23,12 +24,12 @@ Readonly my $K => $poe_kernel;
 # -- accessors
 
 # player that will loose some cards
-has player => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Games::Pandemic::Player' );
+has player => ( ro, required, weak_ref, isa=>'Games::Pandemic::Player' );
 
 # selected cards to be dropped
 has _cards => (
+    ro,
     traits  => ['Hash'],
-    is      => 'ro',
     isa     => 'HashRef[Games::Pandemic::Card]',
     default => sub { {} },
     handles => {

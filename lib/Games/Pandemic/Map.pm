@@ -6,8 +6,7 @@ package Games::Pandemic::Map;
 # ABSTRACT: pandemic map information
 
 use File::Spec::Functions qw{ catdir catfile };
-use Moose;
-use MooseX::AttributeHelpers;
+use Moose                 0.92;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Card::City;
@@ -23,28 +22,28 @@ use Games::Pandemic::Utils;
 # -- accessors
 
 has _cities => (
-    metaclass  => 'Collection::Array',
+    traits     => ['Array'],
     is         => 'ro',
     isa        => 'ArrayRef[Games::Pandemic::City]',
     builder    => '_cities_builder',
     lazy       => 1,  # _diseases() needs to be built before
     auto_deref => 1,
-    provides   => {
-        elements => 'all_cities',       # my @c = $map->all_cities;
-        get      => 'city',             # my $c = $map->city(23);
-        find     => '_find_city',
+    handles   => {
+        all_cities => 'elements',       # my @c = $map->all_cities;
+        city       => 'get',            # my $c = $map->city(23);
+        _find_city => 'first',
     }
 );
 
 has _diseases => (
-    metaclass  => 'Collection::Array',
+    traits     => ['Array'],
     is         => 'ro',
     isa        => 'ArrayRef[Games::Pandemic::Disease]',
     builder    => '_diseases_builder',
     auto_deref => 1,
-    provides   => {
-        elements => 'all_diseases',     # my @d = $map->all_diseases;
-        get      => 'disease',          # my $d = $map->disease(0);
+    handles    => {
+        all_diseases => 'elements',     # my @d = $map->all_diseases;
+        disease      => 'get',          # my $d = $map->disease(0);
     },
 );
 

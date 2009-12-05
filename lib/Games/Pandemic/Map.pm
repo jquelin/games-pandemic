@@ -7,6 +7,7 @@ package Games::Pandemic::Map;
 
 use File::Spec::Functions qw{ catdir catfile };
 use Moose                 0.92;
+use MooseX::Has::Sugar;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Card::City;
@@ -22,13 +23,12 @@ use Games::Pandemic::Utils;
 # -- accessors
 
 has _cities => (
-    traits     => ['Array'],
-    is         => 'ro',
-    isa        => 'ArrayRef[Games::Pandemic::City]',
-    builder    => '_cities_builder',
-    lazy       => 1,  # _diseases() needs to be built before
-    auto_deref => 1,
-    handles   => {
+    ro, auto_deref,
+    lazy,       # _diseases() needs to be built before
+    traits  => ['Array'],
+    isa     => 'ArrayRef[Games::Pandemic::City]',
+    builder => '_cities_builder',
+    handles => {
         all_cities => 'elements',       # my @c = $map->all_cities;
         city       => 'get',            # my $c = $map->city(23);
         _find_city => 'first',
@@ -36,34 +36,28 @@ has _cities => (
 );
 
 has _diseases => (
-    traits     => ['Array'],
-    is         => 'ro',
-    isa        => 'ArrayRef[Games::Pandemic::Disease]',
-    builder    => '_diseases_builder',
-    auto_deref => 1,
-    handles    => {
+    ro, auto_deref,
+    traits  => ['Array'],
+    isa     => 'ArrayRef[Games::Pandemic::Disease]',
+    builder => '_diseases_builder',
+    handles => {
         all_diseases => 'elements',     # my @d = $map->all_diseases;
         disease      => 'get',          # my $d = $map->disease(0);
     },
 );
 
-has max_infections => ( is => 'ro', isa => 'Int', lazy_build => 1 );
+has max_infections => ( ro, lazy_build, isa => 'Int' );
 
-has name => (
-    is      => 'ro',
-    isa     => 'Str',
-    builder => '_build_name',
-);
+has name => ( ro, isa => 'Str', builder => '_build_name' );
 
 has start_city => (
-    is       => 'ro',
+    ro, weak_ref,
+    lazy,     # _cities needs to be built before
     isa      => 'Games::Pandemic::City',
     builder  => '_start_city_builder',
-    lazy     => 1, # _cities needs to be built before
-    weak_ref => 1,
 );
 
-has start_diseases => ( is=>'ro', isa=>'ArrayRef[Int]', auto_deref=>1, lazy_build => 1 );
+has start_diseases => ( ro, auto_deref, lazy_build, isa=>'ArrayRef[Int]' );
 
 
 # -- default builders / finishers

@@ -27,15 +27,15 @@ has player => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Games::Pandemic::Playe
 
 # selected cards to be dropped
 has _cards => (
-    metaclass  => 'Collection::Hash',
-    is         => 'ro',
-    isa        => 'HashRef[Games::Pandemic::Card]',
-    default    => sub { {} },
-    provides   => {
-        values  => '_selcards',
-        delete  => '_deselect_card',
-        set     => '_select_card',
-        exists  => '_is_card_selected',
+    traits  => ['Hash'],
+    is      => 'ro',
+    isa     => 'HashRef[Games::Pandemic::Card]',
+    default => sub { {} },
+    handles => {
+        _selcards         => 'values',
+        _deselect_card    => 'delete',
+        _select_card      => 'set',
+        _is_card_selected => 'exists',
     }
 );
 

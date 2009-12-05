@@ -227,4 +227,30 @@ friends, you'll have an exciting time - much more than with this poor
 electronic copy.
 
 
+=head1 SEE ALSO
 
+You can look for information on this module at:
+
+=over 4
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/Games-Pandemic>
+
+=item * See open / report bugs
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Games-Pandemic>
+
+=item * Git repository
+
+L<http://github.com/jquelin/games-pandemic>
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/Games-Pandemic>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/Games-Pandemic>
+
+=back

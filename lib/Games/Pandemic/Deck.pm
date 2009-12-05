@@ -6,6 +6,7 @@ package Games::Pandemic::Deck;
 # ABSTRACT: pandemic card deck
 
 use Moose 0.92;
+use MooseX::Has::Sugar;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Utils;
@@ -22,10 +23,10 @@ sub DEMOLISH {
 # -- accessors
 
 has cards => (
+    required,
+    auto_deref,
     traits     => ['Array'],
     isa        => 'ArrayRef[Games::Pandemic::Card]',
-    required   => 1,
-    auto_deref => 1,
     handles => {
         clear_cards => 'clear',
         nbcards     => 'count',
@@ -37,10 +38,10 @@ has cards => (
 );
 
 has _pile => (
+    auto_deref,
     traits => ['Array'],
     isa        => 'ArrayRef[Games::Pandemic::Card]',
     default    => sub { [] },
-    auto_deref => 1,
     handles => {
         _clear_pile => 'clear',
         nbdiscards  => 'count',
@@ -49,7 +50,7 @@ has _pile => (
     },
 );
 
-has previous_nbdiscards => ( is=>'rw', isa=>'Int' );
+has previous_nbdiscards => ( rw, isa=>'Int' );
 
 
 # -- public methods

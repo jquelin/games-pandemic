@@ -5,8 +5,7 @@ use warnings;
 package Games::Pandemic::Tk::Dialog;
 # ABSTRACT: base class for pandemic dialog windows
 
-use Moose;
-use MooseX::AttributeHelpers;
+use Moose 0.92;
 use MooseX::SemiAffordanceAccessor;
 use Tk;
 use Tk::Sugar;
@@ -28,13 +27,13 @@ has _cancel   => ( is=>'ro', isa=>'Str', lazy_build=>1 );
 
 # a hash to store the widgets for easier reference.
 has _widgets => (
-    metaclass => 'Collection::Hash',
+    traits => ['Hash'],
     is        => 'ro',
     isa       => 'HashRef',
     default   => sub { {} },
-    provides  => {
-        'set' => '_set_w',
-        'get' => '_w',
+    handles => {
+        _set_w => 'set',
+        _w     => 'get',
     },
 );
 

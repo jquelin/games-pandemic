@@ -5,8 +5,7 @@ use warnings;
 package Games::Pandemic::Deck;
 # ABSTRACT: pandemic card deck
 
-use Moose;
-use MooseX::AttributeHelpers;
+use Moose 0.92;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Utils;
@@ -23,30 +22,30 @@ sub DEMOLISH {
 # -- accessors
 
 has cards => (
-    metaclass  => 'Collection::Array',
+    traits     => ['Array'],
     isa        => 'ArrayRef[Games::Pandemic::Card]',
     required   => 1,
     auto_deref => 1,
-    provides   => {
-        clear    => 'clear_cards',
-        count    => 'nbcards',
-        elements => 'future',
-        pop      => 'next',
-        push     => 'refill',
-        shift    => 'last',
+    handles => {
+        clear_cards => 'clear',
+        nbcards     => 'count',
+        future      => 'elements',
+        next        => 'pop',
+        refill      => 'push',
+        last        => 'shift',
     },
 );
 
 has _pile => (
-    metaclass  => 'Collection::Array',
+    traits => ['Array'],
     isa        => 'ArrayRef[Games::Pandemic::Card]',
     default    => sub { [] },
     auto_deref => 1,
-    provides   => {
-        clear    => '_clear_pile',
-        count    => 'nbdiscards',
-        elements => 'past',
-        push     => 'discard',
+    handles => {
+        _clear_pile => 'clear',
+        nbdiscards  => 'count',
+        past        => 'elements',
+        discard     => 'push',
     },
 );
 

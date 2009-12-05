@@ -5,8 +5,7 @@ use warnings;
 package Games::Pandemic::City;
 # ABSTRACT: pandemic city object
 
-use Moose;
-use MooseX::AttributeHelpers;
+use Moose 0.92;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Utils;
@@ -43,13 +42,13 @@ Return true if the city has a research station.
 =cut
 
 has has_station => (
-    metaclass => 'Bool',
-    is        => 'rw',
-    isa       => 'Bool',
-    default   => 0,
-    provides  => {
-        set     => 'build_station',
-        unset   => 'quash_station',
+    traits  => ['Bool'],
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+    handles => {
+        build_station => 'set',
+        quash_station => 'unset',
     }
 );
 
@@ -67,24 +66,22 @@ has has_station => (
 #    see public method infect()
 #
 has _infections => (
-    metaclass => 'Collection::Array',
-    is        => 'ro',
-    isa       => 'ArrayRef[Int]',
-    default   => sub { [] },
-    provides  => {
-        get => '_get_infection',
-        set => '_set_infection',
+    traits  => ['Array'],
+    is      => 'ro',
+    isa     => 'ArrayRef[Int]',
+    default => sub { [] },
+    handles => {
+        _get_infection => 'get',
+        _set_infection => 'set',
     },
 );
 
 has neighbour_ids => (
-    metaclass => 'Collection::Array',
-    is        => 'ro',
-    required  => 1,
-    isa       => 'ArrayRef',
-    provides  => {
-        elements => '_neighbour_ids',
-    },
+    traits   => ['Array'],
+    is       => 'ro',
+    required => 1,
+    isa      => 'ArrayRef',
+    handles  => { _neighbour_ids => 'elements' },
 );
 
 

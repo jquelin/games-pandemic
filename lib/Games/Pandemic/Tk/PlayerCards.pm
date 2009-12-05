@@ -7,6 +7,7 @@ package Games::Pandemic::Tk::PlayerCards;
 
 use List::Util qw{ max };
 use Moose      0.92;
+use MooseX::Has::Sugar;
 use MooseX::POE;
 use MooseX::SemiAffordanceAccessor;
 use POE;
@@ -22,13 +23,13 @@ Readonly my $K => $poe_kernel;
 
 # -- attributes & accessors
 
-has parent    => ( is=>'ro', required=>1, weak_ref=>1, isa=>'Tk::Widget' );
-has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
+has parent    => ( ro, required, weak_ref, isa=>'Tk::Widget' );
+has _toplevel => ( rw, isa=>'Tk::Toplevel' );
 
 # a hash with all the widgets, for easier reference.
 has _widgets => (
+    ro,
     traits  => ['Hash'],
-    is      => 'ro',
     isa     => 'HashRef',
     default => sub { {} },
     handles => {
@@ -42,7 +43,7 @@ has _widgets => (
 # since poe is already taking care of the references for us. however, we
 # need the session to call ->postback() to set the various gui callbacks
 # that will be fired upon gui events.
-has _session => ( is=>'rw', isa=>'POE::Session', weak_ref=>1 );
+has _session => ( rw, weak_ref, isa=>'POE::Session' );
 
 
 # -- initialization

@@ -6,8 +6,7 @@ package Games::Pandemic::Disease;
 # ABSTRACT: pandemic disease object
 
 use File::Spec::Functions qw{ catfile };
-use Moose;
-use MooseX::AttributeHelpers;
+use Moose                 0.92;
 use MooseX::SemiAffordanceAccessor;
 
 use Games::Pandemic::Utils;
@@ -15,47 +14,43 @@ use Games::Pandemic::Utils;
 
 # -- attributes
 
-has 'colors' => (
-    metaclass  => 'Collection::List',
-    is         => 'ro',
-    isa        => 'ArrayRef[Str]',
-    required   => 1,
-    provides   => { get => 'color' },
+has colors => (
+    traits   => ['Array'],
+    is       => 'ro',
+    isa      => 'ArrayRef[Str]',
+    required => 1,
+    handles  => { color => 'get' },
 );
 has id    => ( is => 'ro', isa => 'Int', required   => 1 );
 has name  => ( is => 'ro', isa => 'Str', required   => 1 );
 has nbleft => (
-    metaclass  => 'Number',
-    is         => 'ro',
-    isa        => 'Int',
-    lazy       => 1,
-    builder    => '_build_nb',
-    provides   => {
-        add => 'return',
-        sub => 'take',
+    traits  => ['Number'],
+    is      => 'ro',
+    isa     => 'Int',
+    lazy    => 1,
+    builder => '_build_nb',
+    handles => {
+        return => 'add',
+        take   => 'sub',
     },
 );
 has nbmax => ( is => 'ro', isa => 'Int', required   => 1 );
 has _map  => ( is => 'ro', isa => 'Games::Pandemic::Map',required => 1, weak_ref => 1 );
 
 has has_cure => (
-    metaclass => 'Bool',
-    is        => 'ro',
-    isa       => 'Bool',
-    default   => 0,
-    provides  => {
-        set     => 'find_cure',
-    }
+    traits  => ['Bool'],
+    is      => 'ro',
+    isa     => 'Bool',
+    default => 0,
+    handles => { find_cure => 'set' },
 );
 
 has is_eradicated => (
-    metaclass => 'Bool',
-    is        => 'ro',
-    isa       => 'Bool',
-    default   => 0,
-    provides  => {
-        set     => 'eradicate',
-    }
+    traits  => ['Bool'],
+    is      => 'ro',
+    isa     => 'Bool',
+    default => 0,
+    handles => { eradicate => 'set' },
 );
 
 # -- default builders / finishers

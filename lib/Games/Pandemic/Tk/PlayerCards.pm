@@ -6,9 +6,8 @@ package Games::Pandemic::Tk::PlayerCards;
 # ABSTRACT: pandemic dialog to show player cards
 
 use List::Util qw{ max };
-use Moose;
+use Moose      0.92;
 use MooseX::POE;
-use MooseX::AttributeHelpers;
 use MooseX::SemiAffordanceAccessor;
 use POE;
 use Readonly;
@@ -28,14 +27,14 @@ has _toplevel => ( is=>'rw', isa=>'Tk::Toplevel' );
 
 # a hash with all the widgets, for easier reference.
 has _widgets => (
-    metaclass => 'Collection::Hash',
-    is        => 'ro',
-    isa       => 'HashRef',
-    default   => sub { {} },
-    provides  => {
-        set    => '_set_w',
-        get    => '_w',
-        delete => '_del_w',
+    traits  => ['Hash'],
+    is      => 'ro',
+    isa     => 'HashRef',
+    default => sub { {} },
+    handles => {
+        _set_w => 'set',
+        _w     => 'get',
+        _del_w => 'delete',
     },
 );
 

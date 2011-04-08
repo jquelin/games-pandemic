@@ -137,7 +137,7 @@ sub inc_outbreaks {
 # holds the player having too many cards - if any
 has too_many_cards => (
     is       => 'rw',
-    isa      => 'Games::Pandemic::Player',
+    isa      => 'Maybe[Games::Pandemic::Player]',
     default  => undef,
     clearer  => 'clear_too_many_cards',
     weak_ref => 1,

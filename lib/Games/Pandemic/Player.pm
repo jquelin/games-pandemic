@@ -43,6 +43,7 @@ has _cards => (
 has actions_left => (
     traits  => ['Counter'],
     is      => 'rw',
+    default => 0,   # just to clear moose warning
     isa     => 'Int',
     handles => { action_done => 'dec' },
 );

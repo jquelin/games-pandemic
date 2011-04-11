@@ -100,6 +100,7 @@ has is_in_play => (
 has stations => (
     rw,
     traits  => ['Counter'],
+    default => 0, # just to clear moose warning
     isa     => 'Int',
     handles => { dec_stations => 'dec' },
 );
@@ -107,6 +108,7 @@ has stations => (
 has nb_outbreaks => (
     ro,
     traits  => ['Counter'],
+    default => 0, # just to clear moose warning
     isa     => 'Int',
     handles => {
         _inc_outbreaks => 'inc',
@@ -153,6 +155,7 @@ has propagation => (
 has nb_epidemics => (
     ro,
     traits  => ['Counter'],
+    default => 0, # just to clear moose warning
     isa     => 'Int',
     handles => {
         inc_epidemics => 'inc',

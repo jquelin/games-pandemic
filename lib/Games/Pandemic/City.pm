@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::City;
+BEGIN {
+  $Games::Pandemic::City::VERSION = '1.111010';
+}
 # ABSTRACT: pandemic city object
 
 use Moose 0.92;
@@ -28,19 +40,6 @@ has disease => ( ro, required, weak_ref, isa => 'Games::Pandemic::Disease' );
 has _map    => ( ro, required, weak_ref, isa => 'Games::Pandemic::Map' );
 
 
-=method $city->build_station;
-
-Create a research station in the city.
-
-=method $city->quash_station;
-
-Remove the research station that was in the city.
-
-=method my $bool = $city->has_station;
-
-Return true if the city has a research station.
-
-=cut
 
 has has_station => (
     rw,
@@ -95,12 +94,6 @@ sub DEMOLISH {
 
 # -- public methods
 
-=method my @cities = $city->neighbours;
-
-Return a list of C<Games::Pandemic::City>, which are the direct
-neighbours of C<$city>.
-
-=cut
 
 sub neighbours {
     my $self = shift;
@@ -109,16 +102,6 @@ sub neighbours {
 }
 
 
-=method my ($outbreak, $nbreal) = $city->infect( [ $nb [, $disease] ] )
-
-Infect C<$city> with C<$nb> items of C<$disease>. Return true if an
-outbreak happened following this infection, false otherwise. If an
-outbreak happened, return also the real number of items used (since a
-city can only hold up to a maximum number of disease items).
-
-C<$nb> defaults to 1, and C<$disease> to the city disease.
-
-=cut
 
 sub infect {
     my ($self, $nb, $disease) = @_;
@@ -146,11 +129,6 @@ sub infect {
 }
 
 
-=method my $nb = $city->get_infection( $disease );
-
-Return the number of C<$disease> items for the C<$city>.
-
-=cut
 
 sub get_infection {
     my ($self, $disease) = @_;
@@ -158,11 +136,6 @@ sub get_infection {
 }
 
 
-=method $city->treat( $disease, $nb );
-
-Remove C<$nb> items from C<$disease> in C<$city>.
-
-=cut
 
 sub treat {
     my ($self, $disease, $nb) = @_;
@@ -177,11 +150,17 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
 
-=for Pod::Coverage
-    DEMOLISH
+=pod
+
+=head1 NAME
+
+Games::Pandemic::City - pandemic city object
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 DESCRIPTION
 
@@ -204,3 +183,60 @@ have different attributes:
 the disease which will infect the city by default
 
 =back
+
+=head1 METHODS
+
+=head2 $city->build_station;
+
+Create a research station in the city.
+
+=head2 $city->quash_station;
+
+Remove the research station that was in the city.
+
+=head2 my $bool = $city->has_station;
+
+Return true if the city has a research station.
+
+=head2 my @cities = $city->neighbours;
+
+Return a list of C<Games::Pandemic::City>, which are the direct
+neighbours of C<$city>.
+
+=head2 my ($outbreak, $nbreal) = $city->infect( [ $nb [, $disease] ] )
+
+Infect C<$city> with C<$nb> items of C<$disease>. Return true if an
+outbreak happened following this infection, false otherwise. If an
+outbreak happened, return also the real number of items used (since a
+city can only hold up to a maximum number of disease items).
+
+C<$nb> defaults to 1, and C<$disease> to the city disease.
+
+=head2 my $nb = $city->get_infection( $disease );
+
+Return the number of C<$disease> items for the C<$city>.
+
+=head2 $city->treat( $disease, $nb );
+
+Remove C<$nb> items from C<$disease> in C<$city>.
+
+=for Pod::Coverage DEMOLISH
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
+
+

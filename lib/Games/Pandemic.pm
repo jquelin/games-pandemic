@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic;
+BEGIN {
+  $Games::Pandemic::VERSION = '1.111010';
+}
 # ABSTRACT: cooperative pandemic board game
 
 # although it's not strictly needed to load POE::Kernel manually (since
@@ -118,11 +130,6 @@ has nb_outbreaks => (
 
 
 
-=method $game->inc_outbreaks;
-
-Increment number of outbreaks, up to a maximum of 8.
-
-=cut
 
 sub inc_outbreaks {
     my $self = shift;
@@ -163,13 +170,6 @@ has nb_epidemics => (
     },
 );
 
-=method my $nb = $game->infection_rate;
-
-Return the infection rate, that is, the number of cities infected per
-turn. This rate is growing with number of epidemics, according to the
-table given by the map's C<infection_rates()> method.
-
-=cut
 
 sub infection_rate {
     my $self = shift;
@@ -185,11 +185,6 @@ has next_step => ( is=>'rw', isa=>'Str', clearer=>'clear_next_step' );
 
 # -- public methods
 
-=method Games::Pandemic->run;
-
-Create the various POE sessions, and start the POE kernel.
-
-=cut
 
 sub run {
     # create the poe sessions
@@ -204,7 +199,17 @@ no Moose;
 #__PACKAGE__->meta->make_immutable;
 
 1;
-__END__
+
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic - cooperative pandemic board game
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 SYNOPSIS
 
@@ -223,6 +228,21 @@ definitely recommend you to buy a C<pandemic> board game and play with
 friends, you'll have an exciting time - much more than with this poor
 electronic copy.
 
+=head1 METHODS
+
+=head2 $game->inc_outbreaks;
+
+Increment number of outbreaks, up to a maximum of 8.
+
+=head2 my $nb = $game->infection_rate;
+
+Return the infection rate, that is, the number of cities infected per
+turn. This rate is growing with number of epidemics, according to the
+table given by the map's C<infection_rates()> method.
+
+=head2 Games::Pandemic->run;
+
+Create the various POE sessions, and start the POE kernel.
 
 =head1 SEE ALSO
 
@@ -251,3 +271,21 @@ L<http://annocpan.org/dist/Games-Pandemic>
 L<http://cpanratings.perl.org/d/Games-Pandemic>
 
 =back
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
+

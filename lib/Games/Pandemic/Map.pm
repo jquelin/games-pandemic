@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Map;
+BEGIN {
+  $Games::Pandemic::Map::VERSION = '1.111010';
+}
 # ABSTRACT: pandemic map information
 
 use File::Spec::Functions qw{ catdir catfile };
@@ -122,11 +134,6 @@ sub _start_city_builder {
 
 # -- public methods
 
-=method my $bgpath = $map->background_path;
-
-Return the path the background image of the map.
-
-=cut
 
 sub background_path {
     my $self = shift;
@@ -134,12 +141,6 @@ sub background_path {
 }
 
 
-=method my $dir = $map->sharedir;
-
-Return the path to the private directory C<$dir> where C<$map> stores
-various files.
-
-=cut
 
 sub sharedir {
     my $self = shift;
@@ -147,13 +148,6 @@ sub sharedir {
 }
 
 
-=method my @cards = $map->cards;
-
-Return a list of C<Games::Pandemic::Card>: special event cards depending
-on the map, plus one card per city defined in the map. They will be used
-for the regular deck. Note that the cards will B<not> be shuffled.
-
-=cut
 
 sub cards {
     my $self = shift;
@@ -167,13 +161,6 @@ sub cards {
 }
 
 
-=method my @cards = $map->disease_cards;
-
-Return a list of C<Games::Pandemic::Card::City>, one per city defined in
-the map. They will be used for the infection deck. Note that the cards
-will B<not> be shuffled.
-
-=cut
 
 sub disease_cards {
     my $self = shift;
@@ -183,21 +170,12 @@ sub disease_cards {
 }
 
 
-=method my $city = $map->find_city( $name );
-
-=cut
 
 sub find_city {
     my ($self, $name) = @_;
     return $self->_find_city( sub { $_[0]->name eq $name } );
 }
 
-=method my @rates = $map->infection_rates;
-
-Return the infection rates. It's a list of numbers, which offset is the
-number of epidemics already encountered.
-
-=cut
 
 sub infection_rates { die "should be implemented in child class."; }
 
@@ -206,8 +184,64 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
-=for Pod::Coverage
-    DEMOLISH
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Map - pandemic map information
+
+=head1 VERSION
+
+version 1.111010
+
+=head1 METHODS
+
+=head2 my $bgpath = $map->background_path;
+
+Return the path the background image of the map.
+
+=head2 my $dir = $map->sharedir;
+
+Return the path to the private directory C<$dir> where C<$map> stores
+various files.
+
+=head2 my @cards = $map->cards;
+
+Return a list of C<Games::Pandemic::Card>: special event cards depending
+on the map, plus one card per city defined in the map. They will be used
+for the regular deck. Note that the cards will B<not> be shuffled.
+
+=head2 my @cards = $map->disease_cards;
+
+Return a list of C<Games::Pandemic::Card::City>, one per city defined in
+the map. They will be used for the infection deck. Note that the cards
+will B<not> be shuffled.
+
+=head2 my $city = $map->find_city( $name );
+
+=head2 my @rates = $map->infection_rates;
+
+Return the infection rates. It's a list of numbers, which offset is the
+number of epidemics already encountered.
+
+=for Pod::Coverage DEMOLISH
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
 

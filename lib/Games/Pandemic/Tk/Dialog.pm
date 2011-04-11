@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog;
+BEGIN {
+  $Games::Pandemic::Tk::Dialog::VERSION = '1.111010';
+}
 # ABSTRACT: base class for pandemic dialog windows
 
 use Moose 0.92;
@@ -160,12 +172,17 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
-=for Pod::Coverage
-    BUILD
-    DEMOLISH
 
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Tk::Dialog - base class for pandemic dialog windows
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 DESCRIPTION
 
@@ -191,4 +208,24 @@ To subclass it, declare your own attributes, create the lazy builders
 for the attributes, C<augment> the C<_build_gui()> method to create the
 bottom of the dialog window, and implement the C<_valid()> method that
 would be called when ok button is pressed.
+
+=for Pod::Coverage BUILD
+    DEMOLISH
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
 

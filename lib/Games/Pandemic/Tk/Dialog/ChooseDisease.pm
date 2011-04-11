@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::ChooseDisease;
+BEGIN {
+  $Games::Pandemic::Tk::Dialog::ChooseDisease::VERSION = '1.111010';
+}
 # ABSTRACT: pandemic dialog to select which disease to treat
 
 use Moose;
@@ -99,10 +111,17 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
-=for Pod::Coverage
-    BUILD
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Tk::Dialog::ChooseDisease - pandemic dialog to select which disease to treat
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 SYNOPSIS
 
@@ -119,3 +138,23 @@ disease to treat.
 This dialog will show the C<@diseases> of current city. When clicking
 ok, the selected disease will be treated. This takes one action, and is
 handled by L<Games::Pandemic::Controller>.
+
+=for Pod::Coverage BUILD
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
+

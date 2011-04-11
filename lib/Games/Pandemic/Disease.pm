@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Disease;
+BEGIN {
+  $Games::Pandemic::Disease::VERSION = '1.111010';
+}
 # ABSTRACT: pandemic disease object
 
 use File::Spec::Functions qw{ catfile };
@@ -64,12 +76,6 @@ sub _build_nb { $_[0]->nbmax }
 
 # -- public methods
 
-=method my $path = $disease->image($what);
-
-Return the C<$path> to an image for the disease. C<$what> can be either
-C<cube> or C<cure>.
-
-=cut
 
 sub image {
     my ($self, $what, $size) = @_;
@@ -81,8 +87,41 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
-=for Pod::Coverage
-    DEMOLISH
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Disease - pandemic disease object
+
+=head1 VERSION
+
+version 1.111010
+
+=head1 METHODS
+
+=head2 my $path = $disease->image($what);
+
+Return the C<$path> to an image for the disease. C<$what> can be either
+C<cube> or C<cure>.
+
+=for Pod::Coverage DEMOLISH
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
 

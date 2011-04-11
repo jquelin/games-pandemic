@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Role::Medic;
+BEGIN {
+  $Games::Pandemic::Role::Medic::VERSION = '1.111010';
+}
 # ABSTRACT: medic pandemic role
 
 use Moose::Role;
@@ -21,8 +33,35 @@ no Moose::Role;
 #__PACKAGE__->meta->make_immutable;
 
 1;
+
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Role::Medic - medic pandemic role
+
+=head1 VERSION
+
+version 1.111010
+
+=for Pod::Coverage color
+    role
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
 __END__
 
-=for Pod::Coverage
-    color
-    role

@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Utils;
+BEGIN {
+  $Games::Pandemic::Utils::VERSION = '1.111010';
+}
 # ABSTRACT: various utilities for pandemic
 
 use Devel::CheckOS        qw{ os_is };
@@ -25,23 +37,10 @@ Readonly our $SHAREDIR  => _find_share_dir();
 
 # -- public subs
 
-=method my $locstr = T( $string )
-
-Performs a call to C<gettext> on C<$string>, convert it from utf8 and
-return the result. Note that i18n is using C<Locale::TextDomain>
-underneath, so refer to this module for more information.
-
-=cut
 
 sub T { return decode('utf8', __($_[0])); }
 
 
-=method debug( @stuff );
-
-Output C<@stuff> on stderr if we're in a local git checkout. Do nothing
-in regular builds.
-
-=cut
 
 my $debug = -d catdir( $Bin, updir(), '.git' );
 sub debug {
@@ -78,10 +77,50 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
+
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Utils - various utilities for pandemic
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 DESCRIPTION
 
 This module provides some helper variables and subs, to be used on
 various occasions throughout the code.
+
+=head1 METHODS
+
+=head2 my $locstr = T( $string )
+
+Performs a call to C<gettext> on C<$string>, convert it from utf8 and
+return the result. Note that i18n is using C<Locale::TextDomain>
+underneath, so refer to this module for more information.
+
+=head2 debug( @stuff );
+
+Output C<@stuff> on stderr if we're in a local git checkout. Do nothing
+in regular builds.
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
 

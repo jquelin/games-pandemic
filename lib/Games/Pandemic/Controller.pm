@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Controller;
+BEGIN {
+  $Games::Pandemic::Controller::VERSION = '1.111010';
+}
 # ABSTRACT: controller for a pandemic game
 
 use List::Util      qw{ shuffle };
@@ -45,11 +57,6 @@ event action => sub {
 };
 
 
-=method event: airlift($player, $card, $selplayer, $city)
-
-Special event card: move a player in any city.
-
-=cut
 
 event airlift => sub {
     my ($player, $card, $selplayer, $city) = @_[ARG0..$#_];
@@ -82,11 +89,6 @@ event airlift => sub {
 };
 
 
-=method event: close()
-
-Player has closed current game.
-
-=cut
 
 event close => sub {
     my $game = Games::Pandemic->instance;
@@ -101,11 +103,6 @@ event close => sub {
 };
 
 
-=method event: continue()
-
-Player wishes to move game forward.
-
-=cut
 
 event continue => sub {
     my $game = Games::Pandemic->instance;
@@ -118,11 +115,6 @@ event continue => sub {
 };
 
 
-=method event: drop_cards( $player, @cards )
-
-Request from C<$player> to remove some C<@cards> from her hands.
-
-=cut
 
 event drop_cards => sub {
     my ($player, @cards) = @_[ARG0..$#_];
@@ -151,11 +143,6 @@ event drop_cards => sub {
 };
 
 
-=method event: forecast($player, $card, @cards)
-
-Special event card: rearrange infections to come.
-
-=cut
 
 event forecast => sub {
     my ($player, $card, @cards) = @_[ARG0..$#_];
@@ -191,11 +178,6 @@ event forecast => sub {
 };
 
 
-=method event: government_grant($player, $card, $city)
-
-Special event card: add a new research station.
-
-=cut
 
 event government_grant => sub {
     my ($player, $card, $city) = @_[ARG0..$#_];
@@ -228,11 +210,6 @@ event government_grant => sub {
 
 
 
-=method event: new_game()
-
-Create a new game: (re-)initialize the map, and various internal states.
-
-=cut
 
 event new_game => sub {
     my $game = Games::Pandemic->instance;
@@ -297,11 +274,6 @@ event new_game => sub {
 };
 
 
-=method event: one_quiet_night($player, $card)
-
-Special event card: prevent disease propagation during this turn.
-
-=cut
 
 event one_quiet_night => sub {
     my ($player, $card) = @_[ARG0..$#_];
@@ -331,11 +303,6 @@ event one_quiet_night => sub {
 };
 
 
-=method event: resilient_population($player, $card, $city)
-
-Special event card: remove a city from the game.
-
-=cut
 
 event resilient_population => sub {
     my ($player, $card, $city) = @_[ARG0..$#_];
@@ -1001,7 +968,72 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
+
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Controller - controller for a pandemic game
+
+=head1 VERSION
+
+version 1.111010
+
+=head1 METHODS
+
+=head2 event: airlift($player, $card, $selplayer, $city)
+
+Special event card: move a player in any city.
+
+=head2 event: close()
+
+Player has closed current game.
+
+=head2 event: continue()
+
+Player wishes to move game forward.
+
+=head2 event: drop_cards( $player, @cards )
+
+Request from C<$player> to remove some C<@cards> from her hands.
+
+=head2 event: forecast($player, $card, @cards)
+
+Special event card: rearrange infections to come.
+
+=head2 event: government_grant($player, $card, $city)
+
+Special event card: add a new research station.
+
+=head2 event: new_game()
+
+Create a new game: (re-)initialize the map, and various internal states.
+
+=head2 event: one_quiet_night($player, $card)
+
+Special event card: prevent disease propagation during this turn.
+
+=head2 event: resilient_population($player, $card, $city)
+
+Special event card: remove a city from the game.
+
+=for Pod::Coverage START
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
 __END__
 
-=for Pod::Coverage
-    START

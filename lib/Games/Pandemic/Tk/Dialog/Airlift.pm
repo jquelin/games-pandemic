@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::Airlift;
+BEGIN {
+  $Games::Pandemic::Tk::Dialog::Airlift::VERSION = '1.111010';
+}
 # ABSTRACT: dialog window to move a player with airlift
 
 use File::Spec::Functions qw{ catfile };
@@ -211,10 +223,17 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
-=for Pod::Coverage
-    BUILD
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Tk::Dialog::Airlift - dialog window to move a player with airlift
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 SYNOPSIS
 
@@ -224,7 +243,6 @@ __END__
         player => $player,      # player owning it
     );
 
-
 =head1 DESCRIPTION
 
 This dialog implements a dialog to let the user choose which player to
@@ -233,3 +251,23 @@ L<Games::Pandemic::Card::Special::Airlift> card.
 
 The card should be passed in the constructor, along with the player
 holding the card.
+
+=for Pod::Coverage BUILD
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
+

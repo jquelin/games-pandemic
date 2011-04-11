@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::DropCards;
+BEGIN {
+  $Games::Pandemic::Tk::Dialog::DropCards::VERSION = '1.111010';
+}
 # ABSTRACT: pandemic dialog to drop cards
 
 use Moose;
@@ -136,10 +148,17 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
-=for Pod::Coverage
-    BUILD
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Tk::Dialog::DropCards - pandemic dialog to drop cards
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 SYNOPSIS
 
@@ -157,4 +176,23 @@ This dialog will show current cards of C<$player> and ask which ones
 should be discarded. When clicking ok, the selected card(s) will be
 dropped. This takes no action, and is handled by
 L<Games::Pandemic::Controller>.
+
+=for Pod::Coverage BUILD
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
 

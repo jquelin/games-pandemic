@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Main;
+BEGIN {
+  $Games::Pandemic::Tk::Main::VERSION = '1.111010';
+}
 # ABSTRACT: main pandemic window
 
 use Convert::Color;
@@ -149,11 +161,6 @@ sub _build__outbreak_gradient {
 
 # -- public events
 
-=method event: action_done()
-
-Received when current player has finished an action.
-
-=cut
 
 event action_done => sub {
     my $self = $_[OBJECT];
@@ -161,12 +168,6 @@ event action_done => sub {
 };
 
 
-=method event: airlift( $player, $card )
-
-Received when C<$player> wants to play special C<$card>
-L<Games::Pandemic::Card::Special::Airlift>. Does not require an action.
-
-=cut
 
 event airlift => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
@@ -178,11 +179,6 @@ event airlift => sub {
 };
 
 
-=method event: all_cures_discovered()
-
-Received when game is won due to all cures being discovered
-
-=cut
 
 event all_cures_discovered => sub {
     # warn user
@@ -198,11 +194,6 @@ event all_cures_discovered => sub {
 };
 
 
-=method event: build_station($city)
-
-Received when C<$city> gained a research station.
-
-=cut
 
 event build_station => sub {
     my ($self, $city) = @_[OBJECT, ARG0];
@@ -211,11 +202,6 @@ event build_station => sub {
 };
 
 
-=method event: cure($disease)
-
-Received when a cure has been found for C<$disease>.
-
-=cut
 
 event cure => sub {
     my ($self, $disease) = @_[OBJECT, ARG0];
@@ -227,11 +213,6 @@ event cure => sub {
 };
 
 
-=method event: drop_card($player, $card)
-
-Received when C<$player> drops a C<$card>.
-
-=cut
 
 event drop_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
@@ -240,11 +221,6 @@ event drop_card => sub {
 };
 
 
-=method event: end_of_actions()
-
-Received when current player has finished her actions.
-
-=cut
 
 event end_of_actions => sub {
     my $self = $_[OBJECT];
@@ -252,11 +228,6 @@ event end_of_actions => sub {
 };
 
 
-=method event: end_of_cards()
-
-Received when current player has received her cards for this turn.
-
-=cut
 
 event end_of_cards => sub {
     my $self = $_[OBJECT];
@@ -264,11 +235,6 @@ event end_of_cards => sub {
 };
 
 
-=method event: end_of_propagation()
-
-Received when propagation is done
-
-=cut
 
 event end_of_propagation => sub {
     my $self = $_[OBJECT];
@@ -276,11 +242,6 @@ event end_of_propagation => sub {
 };
 
 
-=method event: epidemic($city)
-
-Received when a new epidemic strikes C<$city>.
-
-=cut
 
 event epidemic => sub {
     my ($self, $city) = @_[OBJECT, ARG0];
@@ -297,11 +258,6 @@ event epidemic => sub {
 };
 
 
-=method event: eradicate($disease)
-
-Received when $disease has been eradicated.
-
-=cut
 
 event eradicate => sub {
     my ($self, $disease) = @_[OBJECT, ARG0];
@@ -315,12 +271,6 @@ event eradicate => sub {
 };
 
 
-=method event: forecast( $player, $card )
-
-Received when C<$player> wants to play special C<$card>
-L<Games::Pandemic::Card::Special::Forecast>. Does not require an action.
-
-=cut
 
 event forecast => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
@@ -332,11 +282,6 @@ event forecast => sub {
 };
 
 
-=method event: gain_card($player, $card)
-
-Received when C<$player> got a new C<$card>.
-
-=cut
 
 event gain_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
@@ -345,11 +290,6 @@ event gain_card => sub {
 };
 
 
-=method event: game_over()
-
-Received when game is over: user cannot advance the game any more.
-
-=cut
 
 event game_over => sub {
     my $self = shift;
@@ -359,13 +299,6 @@ event game_over => sub {
 };
 
 
-=method event: government_grant( $player, $card )
-
-Received when C<$player> wants to play special C<$card>
-L<Games::Pandemic::Card::Special::GovernmentGrant>. Does not require
-an action.
-
-=cut
 
 event government_grant => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
@@ -377,12 +310,6 @@ event government_grant => sub {
 };
 
 
-=method event: infection($city, $outbreak)
-
-Received when C<$city> gets infected. C<$outbreak> is true if this
-infection lead to a disease outbreak.
-
-=cut
 
 event infection => sub {
     my ($self, $city, $outbreak) = @_[OBJECT, ARG0, ARG1];
@@ -408,12 +335,6 @@ event infection => sub {
 };
 
 
-=method event: new_game()
-
-Received when the controller started a new game. Display the new map
-(incl. cities), action & statusbar.
-
-=cut
 
 event new_game => sub {
     my $self = shift;
@@ -474,11 +395,6 @@ event new_game => sub {
 };
 
 
-=method event: new_player( $player )
-
-Received when the controller has just created a new player.
-
-=cut
 
 event new_player => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
@@ -505,11 +421,6 @@ event new_player => sub {
 };
 
 
-=method event: next_action
-
-Received when player needs to do its next action.
-
-=cut
 
 event next_action => sub {
     my $self = $_[OBJECT];
@@ -518,11 +429,6 @@ event next_action => sub {
 };
 
 
-=method event: next_player( $player )
-
-Received when C<$player> starts its turn.
-
-=cut
 
 event next_player => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
@@ -537,11 +443,6 @@ event next_player => sub {
 };
 
 
-=method event: no_more_cards()
-
-Received when game is over due to a lack of cards to deal.
-
-=cut
 
 event no_more_cards => sub {
     my $self = $_[OBJECT];
@@ -554,11 +455,6 @@ event no_more_cards => sub {
 };
 
 
-=method event: no_more_cubes( $disease )
-
-Received when game is over due to a lack of cards to deal.
-
-=cut
 
 event no_more_cubes => sub {
     my ($self, $disease) = @_[OBJECT, ARG0];
@@ -572,13 +468,6 @@ event no_more_cubes => sub {
 };
 
 
-=method event: one_quiet_night( $player, $card )
-
-Received when C<$player> wants to play special C<$card>
-L<Games::Pandemic::Card::Special::OneQuietNight>. Does not require
-an action.
-
-=cut
 
 event one_quiet_night => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
@@ -598,11 +487,6 @@ event one_quiet_night => sub {
 };
 
 
-=method event: player_move( $player, $from ,$to )
-
-Received when C<$player> has moved between C<$from> and C<$to> cities.
-
-=cut
 
 event player_move => sub {
     my ($self, $player, $from, $to) = @_[OBJECT, ARG0..$#_];
@@ -617,13 +501,6 @@ event player_move => sub {
 };
 
 
-=method event: resilient_population( $player, $card )
-
-Received when C<$player> wants to play special C<$card>
-L<Games::Pandemic::Card::Special::ResilientPopulation>. Does not require
-an action.
-
-=cut
 
 event resilient_population => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0..$#_];
@@ -635,12 +512,6 @@ event resilient_population => sub {
 };
 
 
-=method event: too_many_cards( $player )
-
-Received when C<$player> has too many cards: she must drop some before
-the game can continue.
-
-=cut
 
 event too_many_cards => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
@@ -663,11 +534,6 @@ event too_many_cards => sub {
     # FIXME: provide a way to drop cards
 };
 
-=method event: too_many_outbreaks()
-
-Received when there are too many outbreaks, and game is over.
-
-=cut
 
 event too_many_outbreaks => sub {
     my $self = shift;
@@ -680,11 +546,6 @@ event too_many_outbreaks => sub {
 };
 
 
-=method event: treatment( $city )
-
-Received when C<$city> has been treated.
-
-=cut
 
 event treatment => sub {
     my ($self, $city) = @_[OBJECT, ARG0];
@@ -1719,10 +1580,144 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
-=for Pod::Coverage
-    START
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Tk::Main - main pandemic window
+
+=head1 VERSION
+
+version 1.111010
+
+=head1 METHODS
+
+=head2 event: action_done()
+
+Received when current player has finished an action.
+
+=head2 event: airlift( $player, $card )
+
+Received when C<$player> wants to play special C<$card>
+L<Games::Pandemic::Card::Special::Airlift>. Does not require an action.
+
+=head2 event: all_cures_discovered()
+
+Received when game is won due to all cures being discovered
+
+=head2 event: build_station($city)
+
+Received when C<$city> gained a research station.
+
+=head2 event: cure($disease)
+
+Received when a cure has been found for C<$disease>.
+
+=head2 event: drop_card($player, $card)
+
+Received when C<$player> drops a C<$card>.
+
+=head2 event: end_of_actions()
+
+Received when current player has finished her actions.
+
+=head2 event: end_of_cards()
+
+Received when current player has received her cards for this turn.
+
+=head2 event: end_of_propagation()
+
+Received when propagation is done
+
+=head2 event: epidemic($city)
+
+Received when a new epidemic strikes C<$city>.
+
+=head2 event: eradicate($disease)
+
+Received when $disease has been eradicated.
+
+=head2 event: forecast( $player, $card )
+
+Received when C<$player> wants to play special C<$card>
+L<Games::Pandemic::Card::Special::Forecast>. Does not require an action.
+
+=head2 event: gain_card($player, $card)
+
+Received when C<$player> got a new C<$card>.
+
+=head2 event: game_over()
+
+Received when game is over: user cannot advance the game any more.
+
+=head2 event: government_grant( $player, $card )
+
+Received when C<$player> wants to play special C<$card>
+L<Games::Pandemic::Card::Special::GovernmentGrant>. Does not require
+an action.
+
+=head2 event: infection($city, $outbreak)
+
+Received when C<$city> gets infected. C<$outbreak> is true if this
+infection lead to a disease outbreak.
+
+=head2 event: new_game()
+
+Received when the controller started a new game. Display the new map
+(incl. cities), action & statusbar.
+
+=head2 event: new_player( $player )
+
+Received when the controller has just created a new player.
+
+=head2 event: next_action
+
+Received when player needs to do its next action.
+
+=head2 event: next_player( $player )
+
+Received when C<$player> starts its turn.
+
+=head2 event: no_more_cards()
+
+Received when game is over due to a lack of cards to deal.
+
+=head2 event: no_more_cubes( $disease )
+
+Received when game is over due to a lack of cards to deal.
+
+=head2 event: one_quiet_night( $player, $card )
+
+Received when C<$player> wants to play special C<$card>
+L<Games::Pandemic::Card::Special::OneQuietNight>. Does not require
+an action.
+
+=head2 event: player_move( $player, $from ,$to )
+
+Received when C<$player> has moved between C<$from> and C<$to> cities.
+
+=head2 event: resilient_population( $player, $card )
+
+Received when C<$player> wants to play special C<$card>
+L<Games::Pandemic::Card::Special::ResilientPopulation>. Does not require
+an action.
+
+=head2 event: too_many_cards( $player )
+
+Received when C<$player> has too many cards: she must drop some before
+the game can continue.
+
+=head2 event: too_many_outbreaks()
+
+Received when there are too many outbreaks, and game is over.
+
+=head2 event: treatment( $city )
+
+Received when C<$city> has been treated.
+
+=for Pod::Coverage START
 
 =head1 ACKNOWLEDGEMENT
 
@@ -1767,4 +1762,21 @@ commercial use
 =item * airlift icon by David Vignoni, under a LGPL license
 
 =back
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
 

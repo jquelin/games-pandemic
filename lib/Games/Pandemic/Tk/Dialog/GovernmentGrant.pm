@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::GovernmentGrant;
+BEGIN {
+  $Games::Pandemic::Tk::Dialog::GovernmentGrant::VERSION = '1.111010';
+}
 # ABSTRACT: dialog window to play a government grant
 
 use File::Spec::Functions qw{ catfile };
@@ -161,10 +173,17 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
-=for Pod::Coverage
-    BUILD
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Tk::Dialog::GovernmentGrant - dialog window to play a government grant
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 SYNOPSIS
 
@@ -174,7 +193,6 @@ __END__
         player => $player,      # player owning it
     );
 
-
 =head1 DESCRIPTION
 
 This dialog implements a dialog to let the user choose in which city to
@@ -183,3 +201,23 @@ L<Games::Pandemic::Card::Special::GovernmentGrant> card.
 
 The card should be passed in the constructor, along with the player
 holding the card.
+
+=for Pod::Coverage BUILD
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
+

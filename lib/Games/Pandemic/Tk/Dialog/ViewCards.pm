@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::ViewCards;
+BEGIN {
+  $Games::Pandemic::Tk::Dialog::ViewCards::VERSION = '1.111010';
+}
 # ABSTRACT: dialog window to show cards
 
 use Moose;
@@ -72,9 +84,34 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
+
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Tk::Dialog::ViewCards - dialog window to show cards
+
+=head1 VERSION
+
+version 1.111010
+
+=for Pod::Coverage BUILD
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
 __END__
-
-=for Pod::Coverage
-    BUILD
-
 

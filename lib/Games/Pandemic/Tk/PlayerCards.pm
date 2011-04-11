@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Tk::PlayerCards;
+BEGIN {
+  $Games::Pandemic::Tk::PlayerCards::VERSION = '1.111010';
+}
 # ABSTRACT: pandemic dialog to show player cards
 
 use List::Util qw{ max };
@@ -74,11 +86,6 @@ sub STOP {
 
 # -- public events
 
-=method event: new_player( $player )
-
-Request to add a new C<$player> to the window.
-
-=cut
 
 event new_player => sub {
     my ($self, $player) = @_[OBJECT, ARG0];
@@ -97,11 +104,6 @@ event new_player => sub {
 };
 
 
-=method event: gain_card($player, $card)
-
-Request to add a new C<$card> to C<$player>.
-
-=cut
 
 event gain_card => sub {
     my ($self, $player, $card) = @_[OBJECT, ARG0, ARG1];
@@ -131,22 +133,12 @@ event gain_card => sub {
 };
 
 
-=method event: drop_card($player, $card)
-
-Request to remove a C<$card> from C<$player>.
-
-=cut
 
 # drop_card is the same as gain_card, since we're removing all cards and
 # re-adding all those belonging to the player.
 event drop_card => \&gain_card;
 
 
-=method event: destroy()
-
-Request to destroy the window.
-
-=cut
 
 event destroy => sub {
     my $self = shift;
@@ -155,11 +147,6 @@ event destroy => sub {
 };
 
 
-=method event: toggle_visibility()
-
-Request to hide/show window depending on its previous state.
-
-=cut
 
 event toggle_visibility => sub {
     my $self = shift;
@@ -224,11 +211,17 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
-=for Pod::Coverage
-    START
-    STOP
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Tk::PlayerCards - pandemic dialog to show player cards
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 SYNOPSIS
 
@@ -239,3 +232,46 @@ __END__
 This module implements a POE session (aliased C<cards>), responsible to
 show the cards hold by the various players. It will receive some events
 from the main window when the players gain or loose some cards.
+
+=head1 METHODS
+
+=head2 event: new_player( $player )
+
+Request to add a new C<$player> to the window.
+
+=head2 event: gain_card($player, $card)
+
+Request to add a new C<$card> to C<$player>.
+
+=head2 event: drop_card($player, $card)
+
+Request to remove a C<$card> from C<$player>.
+
+=head2 event: destroy()
+
+Request to destroy the window.
+
+=head2 event: toggle_visibility()
+
+Request to hide/show window depending on its previous state.
+
+=for Pod::Coverage START
+    STOP
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
+

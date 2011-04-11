@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Card::City;
+BEGIN {
+  $Games::Pandemic::Card::City::VERSION = '1.111010';
+}
 # ABSTRACT: pandemic city card
 
 use Moose;
@@ -36,4 +48,31 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
+
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Card::City - pandemic city card
+
+=head1 VERSION
+
+version 1.111010
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
 __END__

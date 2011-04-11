@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Config;
+BEGIN {
+  $Games::Pandemic::Config::VERSION = '1.111010';
+}
 # ABSTRACT: pandemic local configuration
 
 use Games::Pandemic::Utils;
@@ -43,13 +55,6 @@ sub _build_options {
 
 # -- public methods
 
-=method my $value = $config->get( $key )
-
-Return the C<$value> associated to C<$key> in the configuration.
-Note that if there's no local configuration defined, a default will
-be provided.
-
-=cut
 
 sub get {
     my ($self, $key) = @_;
@@ -61,7 +66,17 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
+
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Config - pandemic local configuration
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 SYNOPSIS
 
@@ -76,3 +91,29 @@ value pairs.
 
 The module itself is implemented as a singleton, available with the
 C<instance()> class method.
+
+=head1 METHODS
+
+=head2 my $value = $config->get( $key )
+
+Return the C<$value> associated to C<$key> in the configuration.
+Note that if there's no local configuration defined, a default will
+be provided.
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
+

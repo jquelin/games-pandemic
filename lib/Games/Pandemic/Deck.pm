@@ -1,8 +1,20 @@
+#
+# This file is part of Games-Pandemic
+#
+# This software is Copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software, licensed under:
+#
+#   The GNU General Public License, Version 2, June 1991
+#
 use 5.010;
 use strict;
 use warnings;
 
 package Games::Pandemic::Deck;
+BEGIN {
+  $Games::Pandemic::Deck::VERSION = '1.111010';
+}
 # ABSTRACT: pandemic card deck
 
 use Moose 0.92;
@@ -55,12 +67,6 @@ has previous_nbdiscards => ( rw, isa=>'Int' );
 
 # -- public methods
 
-=method $deck->clear_pile;
-
-Store the number of cards in the pile in C<previous_nbdiscards> and
-clear the pile.
-
-=cut
 
 sub clear_pile {
     my $self = shift;
@@ -73,13 +79,46 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 
 1;
-__END__
 
-=for Pod::Coverage
-    DEMOLISH
+
+=pod
+
+=head1 NAME
+
+Games::Pandemic::Deck - pandemic card deck
+
+=head1 VERSION
+
+version 1.111010
 
 =head1 DESCRIPTION
 
 A C<Games::Pandemic::Deck> contains 2 sets of C<Games::Pandemic::Card>:
 a drawing deck and a discard pile.
+
+=head1 METHODS
+
+=head2 $deck->clear_pile;
+
+Store the number of cards in the pile in C<previous_nbdiscards> and
+clear the pile.
+
+=for Pod::Coverage DEMOLISH
+
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2009 by Jerome Quelin.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
+
+=cut
+
+
+__END__
 

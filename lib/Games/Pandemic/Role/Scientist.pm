@@ -6,6 +6,7 @@ package Games::Pandemic::Role::Scientist;
 # ABSTRACT: scientist pandemic role
 
 use Moose::Role;
+use Games::Pandemic::I18N      qw{ T };
 use Games::Pandemic::Utils;
 
 

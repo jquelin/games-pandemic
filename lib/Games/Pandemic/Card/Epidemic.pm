@@ -9,6 +9,7 @@ use File::Spec::Functions qw{ catfile };
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 
+use Games::Pandemic::I18N      qw{ T };
 use Games::Pandemic::Utils;
 
 extends 'Games::Pandemic::Card';

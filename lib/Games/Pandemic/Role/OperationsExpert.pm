@@ -6,6 +6,7 @@ package Games::Pandemic::Role::OperationsExpert;
 # ABSTRACT: operations expert pandemic role
 
 use Moose::Role;
+use Games::Pandemic::I18N      qw{ T };
 use Games::Pandemic::Utils;
 
 

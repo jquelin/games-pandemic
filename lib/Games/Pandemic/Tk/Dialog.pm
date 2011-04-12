@@ -11,6 +11,7 @@ use MooseX::SemiAffordanceAccessor;
 use Tk;
 use Tk::Sugar;
 
+use Games::Pandemic::I18N      qw{ T };
 use Games::Pandemic::Tk::Utils qw{ pandemic_icon };
 use Games::Pandemic::Utils;
 

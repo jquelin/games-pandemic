@@ -6,6 +6,7 @@ package Games::Pandemic::Role::Dispatcher;
 # ABSTRACT: dispatcher pandemic role
 
 use Moose::Role;
+use Games::Pandemic::I18N      qw{ T };
 use Games::Pandemic::Utils;
 
 

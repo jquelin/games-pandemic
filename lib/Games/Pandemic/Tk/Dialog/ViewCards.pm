@@ -13,8 +13,9 @@ use Tk::Tiler;
 
 extends 'Games::Pandemic::Tk::Dialog';
 
-use Games::Pandemic::Utils;
+use Games::Pandemic::I18N      qw{ T };
 use Games::Pandemic::Tk::Utils qw{ image };
+use Games::Pandemic::Utils;
 
 
 # -- accessors

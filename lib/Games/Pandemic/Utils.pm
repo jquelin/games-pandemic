@@ -7,12 +7,11 @@ package Games::Pandemic::Utils;
 
 use Devel::CheckOS        qw{ os_is };
 use Encode;
-use File::Basename        qw{ fileparse };
 use File::HomeDir         qw{ my_data };
+use File::ShareDir::PathClass;
 use File::Spec::Functions qw{ catdir updir };
 use FindBin               qw{ $Bin };
 use Locale::TextDomain    'Games-Pandemic';
-use Module::Util          qw{ find_installed };
 use Moose;
 use Readonly;
  
@@ -20,7 +19,7 @@ extends 'Exporter';
 our @EXPORT = qw{ $CONFIGDIR $SHAREDIR T debug };
 
 Readonly our $CONFIGDIR => _find_config_dir();
-Readonly our $SHAREDIR  => _find_share_dir();
+our $SHAREDIR = File::ShareDir::PathClass->dist_dir("Games-Pandemic");
 
 
 # -- public subs
@@ -60,18 +59,6 @@ sub debug {
 sub _find_config_dir {
     my $subdir = os_is('MicrosoftWindows' ) ? 'Perl' : '.perl';
     return catdir( my_data(), $subdir, 'Games-Pandemic' );
-}
-
-
-#
-# my $path = _find_share_dir();
-#
-# return the absolute path where all resources will be placed.
-#
-sub _find_share_dir {
-    my $path = find_installed(__PACKAGE__);
-    my ($undef, $dirname) = fileparse($path);
-    return catdir($dirname, 'share');
 }
 
 no Moose;

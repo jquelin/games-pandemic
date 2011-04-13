@@ -5,9 +5,12 @@ use warnings;
 package Games::Pandemic::I18N;
 # ABSTRACT: internationalization utilities for pandemic
 
+# should come before locale::textdomain use
+use Games::Pandemic::Utils qw{ $SHAREDIR };
+
 use Encode;
 use Exporter::Lite;
-use Locale::TextDomain 'Games-Pandemic';
+use Locale::TextDomain 'Games-Pandemic', $SHAREDIR->subdir("locale")->stringify;
 
 our @EXPORT_OK = qw{ T };
 

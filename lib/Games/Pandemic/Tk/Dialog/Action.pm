@@ -15,7 +15,7 @@ use Tk;
 
 extends 'Games::Pandemic::Tk::Dialog::Simple';
 
-use Games::Pandemic::I18N      qw{ T };
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Utils;
 
 Readonly my $K => $poe_kernel;

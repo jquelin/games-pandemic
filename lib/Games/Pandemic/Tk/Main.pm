@@ -26,7 +26,7 @@ use Tk::ToolBar;
 use Tk::Sugar;
 
 use Games::Pandemic::Config;
-use Games::Pandemic::I18N       qw{ T };
+use Games::Pandemic::I18n       qw{ T };
 use Games::Pandemic::Tk::Dialog::Action;
 use Games::Pandemic::Tk::Dialog::Airlift;
 use Games::Pandemic::Tk::Dialog::ChooseDisease;

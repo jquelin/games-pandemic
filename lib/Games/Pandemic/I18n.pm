@@ -2,7 +2,7 @@ use 5.010;
 use strict;
 use warnings;
 
-package Games::Pandemic::I18N;
+package Games::Pandemic::I18n;
 # ABSTRACT: internationalization utilities for pandemic
 
 # should come before locale::textdomain use

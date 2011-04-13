@@ -15,7 +15,7 @@ use Readonly;
 use Tk;
 use Tk::Sugar;
 
-use Games::Pandemic::I18N      qw{ T };
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Tk::Utils qw{ image pandemic_icon };
 use Games::Pandemic::Utils;
 

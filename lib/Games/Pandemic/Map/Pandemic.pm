@@ -9,7 +9,7 @@ use Geo::Mercator;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 
-use Games::Pandemic::I18N      qw{ T };
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Utils;
 
 extends 'Games::Pandemic::Map';

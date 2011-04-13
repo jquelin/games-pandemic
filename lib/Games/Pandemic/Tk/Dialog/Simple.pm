@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Tk::Dialog::Simple;
 BEGIN {
-  $Games::Pandemic::Tk::Dialog::Simple::VERSION = '1.111010';
+  $Games::Pandemic::Tk::Dialog::Simple::VERSION = '1.111030';
 }
 # ABSTRACT: generic pandemic dialog
 
@@ -24,6 +24,7 @@ use Tk::Sugar;
 
 extends 'Games::Pandemic::Tk::Dialog';
 
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Tk::Utils qw{ image };
 use Games::Pandemic::Utils;
 
@@ -77,7 +78,7 @@ Games::Pandemic::Tk::Dialog::Simple - generic pandemic dialog
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 SYNOPSIS
 

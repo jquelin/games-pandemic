@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Map;
 BEGIN {
-  $Games::Pandemic::Map::VERSION = '1.111010';
+  $Games::Pandemic::Map::VERSION = '1.111030';
 }
 # ABSTRACT: pandemic map information
 
@@ -194,7 +194,7 @@ Games::Pandemic::Map - pandemic map information
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 METHODS
 

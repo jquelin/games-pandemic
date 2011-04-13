@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Card;
 BEGIN {
-  $Games::Pandemic::Card::VERSION = '1.111010';
+  $Games::Pandemic::Card::VERSION = '1.111030';
 }
 # ABSTRACT: base class for pandemic cards
 
@@ -50,7 +50,7 @@ Games::Pandemic::Card - base class for pandemic cards
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =for Pod::Coverage DEMOLISH
 

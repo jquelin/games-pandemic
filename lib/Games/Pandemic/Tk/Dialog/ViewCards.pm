@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Tk::Dialog::ViewCards;
 BEGIN {
-  $Games::Pandemic::Tk::Dialog::ViewCards::VERSION = '1.111010';
+  $Games::Pandemic::Tk::Dialog::ViewCards::VERSION = '1.111030';
 }
 # ABSTRACT: dialog window to show cards
 
@@ -25,8 +25,9 @@ use Tk::Tiler;
 
 extends 'Games::Pandemic::Tk::Dialog';
 
-use Games::Pandemic::Utils;
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Tk::Utils qw{ image };
+use Games::Pandemic::Utils;
 
 
 # -- accessors
@@ -94,7 +95,7 @@ Games::Pandemic::Tk::Dialog::ViewCards - dialog window to show cards
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =for Pod::Coverage BUILD
 

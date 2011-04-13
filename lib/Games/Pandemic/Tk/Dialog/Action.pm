@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Tk::Dialog::Action;
 BEGIN {
-  $Games::Pandemic::Tk::Dialog::Action::VERSION = '1.111010';
+  $Games::Pandemic::Tk::Dialog::Action::VERSION = '1.111030';
 }
 # ABSTRACT: pandemic dialog to confirm an action
 
@@ -27,6 +27,7 @@ use Tk;
 
 extends 'Games::Pandemic::Tk::Dialog::Simple';
 
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Utils;
 
 Readonly my $K => $poe_kernel;
@@ -72,7 +73,7 @@ Games::Pandemic::Tk::Dialog::Action - pandemic dialog to confirm an action
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 SYNOPSIS
 

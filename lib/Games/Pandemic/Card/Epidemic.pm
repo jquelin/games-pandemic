@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Card::Epidemic;
 BEGIN {
-  $Games::Pandemic::Card::Epidemic::VERSION = '1.111010';
+  $Games::Pandemic::Card::Epidemic::VERSION = '1.111030';
 }
 # ABSTRACT: epidemic card for pandemic
 
@@ -21,6 +21,7 @@ use File::Spec::Functions qw{ catfile };
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Utils;
 
 extends 'Games::Pandemic::Card';
@@ -45,7 +46,7 @@ Games::Pandemic::Card::Epidemic - epidemic card for pandemic
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 DESCRIPTION
 

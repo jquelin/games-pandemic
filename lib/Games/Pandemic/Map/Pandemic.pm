@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Map::Pandemic;
 BEGIN {
-  $Games::Pandemic::Map::Pandemic::VERSION = '1.111010';
+  $Games::Pandemic::Map::Pandemic::VERSION = '1.111030';
 }
 # ABSTRACT: standard pandemic map from real game
 
@@ -21,6 +21,7 @@ use Geo::Mercator;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Utils;
 
 extends 'Games::Pandemic::Map';
@@ -143,7 +144,7 @@ Games::Pandemic::Map::Pandemic - standard pandemic map from real game
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 AUTHOR
 

@@ -20,7 +20,7 @@ my %module_build_args = (
     'Jerome Quelin'
   ],
   'dist_name' => 'Games-Pandemic',
-  'dist_version' => '1.111010',
+  'dist_version' => '1.111030',
   'license' => 'gpl',
   'module_name' => 'Games::Pandemic',
   'recommends' => {},
@@ -30,8 +30,9 @@ my %module_build_args = (
     'Devel::CheckOS' => '0',
     'Encode' => '0',
     'Exporter' => '0',
-    'File::Basename' => '0',
+    'Exporter::Lite' => '0',
     'File::HomeDir' => '0',
+    'File::ShareDir::PathClass' => '0',
     'File::Spec::Functions' => '0',
     'FindBin' => '0',
     'Geo::Mercator' => '0',
@@ -40,7 +41,6 @@ my %module_build_args = (
     'List::Util' => '0',
     'Locale::TextDomain' => '0',
     'Math::Gradient' => '0',
-    'Module::Util' => '0',
     'Moose' => '0.92',
     'Moose::Role' => '0',
     'MooseX::Has::Sugar' => '0',
@@ -69,7 +69,10 @@ my %module_build_args = (
   },
   'script_files' => [
     'bin/pandemic'
-  ]
+  ],
+  'share_dir' => {
+    'dist' => 'share'
+  }
 );
 
 

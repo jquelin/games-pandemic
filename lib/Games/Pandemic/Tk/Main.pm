@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Tk::Main;
 BEGIN {
-  $Games::Pandemic::Tk::Main::VERSION = '1.111010';
+  $Games::Pandemic::Tk::Main::VERSION = '1.111030';
 }
 # ABSTRACT: main pandemic window
 
@@ -38,6 +38,7 @@ use Tk::ToolBar;
 use Tk::Sugar;
 
 use Games::Pandemic::Config;
+use Games::Pandemic::I18n       qw{ T };
 use Games::Pandemic::Tk::Dialog::Action;
 use Games::Pandemic::Tk::Dialog::Airlift;
 use Games::Pandemic::Tk::Dialog::ChooseDisease;
@@ -1590,7 +1591,7 @@ Games::Pandemic::Tk::Main - main pandemic window
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 METHODS
 

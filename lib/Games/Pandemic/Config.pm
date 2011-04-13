@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Config;
 BEGIN {
-  $Games::Pandemic::Config::VERSION = '1.111010';
+  $Games::Pandemic::Config::VERSION = '1.111030';
 }
 # ABSTRACT: pandemic local configuration
 
@@ -76,7 +76,7 @@ Games::Pandemic::Config - pandemic local configuration
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 SYNOPSIS
 

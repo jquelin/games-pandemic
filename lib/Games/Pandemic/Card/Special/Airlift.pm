@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Card::Special::Airlift;
 BEGIN {
-  $Games::Pandemic::Card::Special::Airlift::VERSION = '1.111010';
+  $Games::Pandemic::Card::Special::Airlift::VERSION = '1.111030';
 }
 # ABSTRACT: airlift event card for pandemic
 
@@ -21,6 +21,7 @@ use File::Spec::Functions qw{ catfile };
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Utils;
 
 extends 'Games::Pandemic::Card::Special';
@@ -48,7 +49,7 @@ Games::Pandemic::Card::Special::Airlift - airlift event card for pandemic
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 DESCRIPTION
 

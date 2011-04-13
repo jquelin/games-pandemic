@@ -15,7 +15,7 @@ use warnings;
 
 package main;
 BEGIN {
-  $main::VERSION = '1.111010';
+  $main::VERSION = '1.111030';
 }
 # ABSTRACT: pandemic board game in perl
 
@@ -38,7 +38,7 @@ main - pandemic board game in perl
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 AUTHOR
 

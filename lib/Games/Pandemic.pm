@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic;
 BEGIN {
-  $Games::Pandemic::VERSION = '1.111010';
+  $Games::Pandemic::VERSION = '1.111030';
 }
 # ABSTRACT: cooperative pandemic board game
 
@@ -209,7 +209,7 @@ Games::Pandemic - cooperative pandemic board game
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 SYNOPSIS
 

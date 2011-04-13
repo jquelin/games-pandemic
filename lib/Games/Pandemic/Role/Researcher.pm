@@ -13,11 +13,12 @@ use warnings;
 
 package Games::Pandemic::Role::Researcher;
 BEGIN {
-  $Games::Pandemic::Role::Researcher::VERSION = '1.111010';
+  $Games::Pandemic::Role::Researcher::VERSION = '1.111030';
 }
 # ABSTRACT: researcher pandemic role
 
 use Moose::Role;
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Utils;
 
 
@@ -42,7 +43,7 @@ Games::Pandemic::Role::Researcher - researcher pandemic role
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =for Pod::Coverage color
     role

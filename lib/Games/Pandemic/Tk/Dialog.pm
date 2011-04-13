@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Tk::Dialog;
 BEGIN {
-  $Games::Pandemic::Tk::Dialog::VERSION = '1.111010';
+  $Games::Pandemic::Tk::Dialog::VERSION = '1.111030';
 }
 # ABSTRACT: base class for pandemic dialog windows
 
@@ -23,6 +23,7 @@ use MooseX::SemiAffordanceAccessor;
 use Tk;
 use Tk::Sugar;
 
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Tk::Utils qw{ pandemic_icon };
 use Games::Pandemic::Utils;
 
@@ -182,7 +183,7 @@ Games::Pandemic::Tk::Dialog - base class for pandemic dialog windows
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 DESCRIPTION
 

@@ -13,11 +13,12 @@ use warnings;
 
 package Games::Pandemic::Role::Dispatcher;
 BEGIN {
-  $Games::Pandemic::Role::Dispatcher::VERSION = '1.111010';
+  $Games::Pandemic::Role::Dispatcher::VERSION = '1.111030';
 }
 # ABSTRACT: dispatcher pandemic role
 
 use Moose::Role;
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Utils;
 
 
@@ -43,7 +44,7 @@ Games::Pandemic::Role::Dispatcher - dispatcher pandemic role
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =for Pod::Coverage color
     role

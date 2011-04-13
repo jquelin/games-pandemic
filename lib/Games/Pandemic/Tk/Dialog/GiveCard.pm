@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Tk::Dialog::GiveCard;
 BEGIN {
-  $Games::Pandemic::Tk::Dialog::GiveCard::VERSION = '1.111010';
+  $Games::Pandemic::Tk::Dialog::GiveCard::VERSION = '1.111030';
 }
 # ABSTRACT: pandemic dialog to give cards
 
@@ -26,6 +26,7 @@ use Tk::Sugar;
 
 extends 'Games::Pandemic::Tk::Dialog';
 
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Tk::Utils qw{ image };
 use Games::Pandemic::Utils;
 
@@ -167,7 +168,7 @@ Games::Pandemic::Tk::Dialog::GiveCard - pandemic dialog to give cards
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 SYNOPSIS
 

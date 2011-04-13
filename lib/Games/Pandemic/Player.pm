@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Player;
 BEGIN {
-  $Games::Pandemic::Player::VERSION = '1.111010';
+  $Games::Pandemic::Player::VERSION = '1.111030';
 }
 # ABSTRACT: pandemic game player
 
@@ -278,7 +278,7 @@ Games::Pandemic::Player - pandemic game player
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 SYNOPSIS
 

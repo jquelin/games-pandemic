@@ -13,7 +13,7 @@ use warnings;
 
 package Games::Pandemic::Tk::PlayerCards;
 BEGIN {
-  $Games::Pandemic::Tk::PlayerCards::VERSION = '1.111010';
+  $Games::Pandemic::Tk::PlayerCards::VERSION = '1.111030';
 }
 # ABSTRACT: pandemic dialog to show player cards
 
@@ -27,6 +27,7 @@ use Readonly;
 use Tk;
 use Tk::Sugar;
 
+use Games::Pandemic::I18n      qw{ T };
 use Games::Pandemic::Tk::Utils qw{ image pandemic_icon };
 use Games::Pandemic::Utils;
 
@@ -221,7 +222,7 @@ Games::Pandemic::Tk::PlayerCards - pandemic dialog to show player cards
 
 =head1 VERSION
 
-version 1.111010
+version 1.111030
 
 =head1 SYNOPSIS
 

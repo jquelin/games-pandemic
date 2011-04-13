@@ -1,5 +1,7 @@
 Revision history for Games::Pandemic.
 
+1.111030  2011-04-13 10:32:58 Europe/Paris
+
 1.111010  2011-04-11 13:48:43 Europe/Paris
  - allow too_many_cards to be undefined (Peter Oliver)
  - using tk::sugar

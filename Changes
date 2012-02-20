@@ -1,6 +1,8 @@
 Revision history for Games::Pandemic.
 
 {{$NEXT}}
+
+1.120510  2012-02-20 17:33:23 Europe/Paris
  - fix bin/pandemic podname (rt#75160)
 
 1.111030  2011-04-13 10:32:58 Europe/Paris

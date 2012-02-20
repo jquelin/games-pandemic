@@ -4,7 +4,7 @@ use 5.010;
 use strict;
 use warnings;
 
-package main;
+package pandemic;
 # ABSTRACT: pandemic board game in perl
 
 use FindBin qw{ $Bin };

@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Main;
-BEGIN {
-  $Games::Pandemic::Tk::Main::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Main::VERSION = '1.120510';
 }
 # ABSTRACT: main pandemic window
 
@@ -1591,7 +1591,7 @@ Games::Pandemic::Tk::Main - main pandemic window
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 METHODS
 

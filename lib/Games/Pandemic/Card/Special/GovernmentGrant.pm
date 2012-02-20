@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Card::Special::GovernmentGrant;
-BEGIN {
-  $Games::Pandemic::Card::Special::GovernmentGrant::VERSION = '1.111030';
+{
+  $Games::Pandemic::Card::Special::GovernmentGrant::VERSION = '1.120510';
 }
 # ABSTRACT: government grant event card for pandemic
 
@@ -49,7 +49,7 @@ Games::Pandemic::Card::Special::GovernmentGrant - government grant event card fo
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 DESCRIPTION
 

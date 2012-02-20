@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog;
-BEGIN {
-  $Games::Pandemic::Tk::Dialog::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Dialog::VERSION = '1.120510';
 }
 # ABSTRACT: base class for pandemic dialog windows
 
@@ -183,7 +183,7 @@ Games::Pandemic::Tk::Dialog - base class for pandemic dialog windows
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 DESCRIPTION
 

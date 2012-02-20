@@ -1,12 +1,17 @@
 Revision history for Games::Pandemic.
 
+1.120510  2012-02-20 17:33:23 Europe/Paris
+ - fix bin/pandemic podname (rt#75160)
+
 1.111030  2011-04-13 10:32:58 Europe/Paris
+ - i18n catalogs now located in share/locale
 
 1.111010  2011-04-11 13:48:43 Europe/Paris
  - allow too_many_cards to be undefined (Peter Oliver)
  - using tk::sugar
  - using tk::action
  - get rid of moosex::attributehelper, now core moose
+ - using dzil plugin @JQUELIN
 
 **
 

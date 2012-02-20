@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::ViewCards;
-BEGIN {
-  $Games::Pandemic::Tk::Dialog::ViewCards::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Dialog::ViewCards::VERSION = '1.120510';
 }
 # ABSTRACT: dialog window to show cards
 
@@ -95,7 +95,7 @@ Games::Pandemic::Tk::Dialog::ViewCards - dialog window to show cards
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =for Pod::Coverage BUILD
 

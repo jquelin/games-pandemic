@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::DropCards;
-BEGIN {
-  $Games::Pandemic::Tk::Dialog::DropCards::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Dialog::DropCards::VERSION = '1.120510';
 }
 # ABSTRACT: pandemic dialog to drop cards
 
@@ -159,7 +159,7 @@ Games::Pandemic::Tk::Dialog::DropCards - pandemic dialog to drop cards
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 SYNOPSIS
 

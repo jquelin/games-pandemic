@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::City;
-BEGIN {
-  $Games::Pandemic::City::VERSION = '1.111030';
+{
+  $Games::Pandemic::City::VERSION = '1.120510';
 }
 # ABSTRACT: pandemic city object
 
@@ -160,7 +160,7 @@ Games::Pandemic::City - pandemic city object
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 DESCRIPTION
 

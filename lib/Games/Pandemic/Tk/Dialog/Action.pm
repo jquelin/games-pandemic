@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::Action;
-BEGIN {
-  $Games::Pandemic::Tk::Dialog::Action::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Dialog::Action::VERSION = '1.120510';
 }
 # ABSTRACT: pandemic dialog to confirm an action
 
@@ -73,7 +73,7 @@ Games::Pandemic::Tk::Dialog::Action - pandemic dialog to confirm an action
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 SYNOPSIS
 

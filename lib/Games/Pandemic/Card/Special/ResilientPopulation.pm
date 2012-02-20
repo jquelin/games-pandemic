@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Card::Special::ResilientPopulation;
-BEGIN {
-  $Games::Pandemic::Card::Special::ResilientPopulation::VERSION = '1.111030';
+{
+  $Games::Pandemic::Card::Special::ResilientPopulation::VERSION = '1.120510';
 }
 # ABSTRACT: resilient population event card for pandemic
 
@@ -50,7 +50,7 @@ Games::Pandemic::Card::Special::ResilientPopulation - resilient population event
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 DESCRIPTION
 

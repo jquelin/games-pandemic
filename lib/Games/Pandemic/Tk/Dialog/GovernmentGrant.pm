@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::GovernmentGrant;
-BEGIN {
-  $Games::Pandemic::Tk::Dialog::GovernmentGrant::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Dialog::GovernmentGrant::VERSION = '1.120510';
 }
 # ABSTRACT: dialog window to play a government grant
 
@@ -184,7 +184,7 @@ Games::Pandemic::Tk::Dialog::GovernmentGrant - dialog window to play a governmen
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 SYNOPSIS
 

@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Utils;
-BEGIN {
-  $Games::Pandemic::Utils::VERSION = '1.111030';
+{
+  $Games::Pandemic::Utils::VERSION = '1.120510';
 }
 # ABSTRACT: various utilities for pandemic
 
@@ -68,7 +68,7 @@ Games::Pandemic::Utils - various utilities for pandemic
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 DESCRIPTION
 

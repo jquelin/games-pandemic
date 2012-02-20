@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::GiveCard;
-BEGIN {
-  $Games::Pandemic::Tk::Dialog::GiveCard::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Dialog::GiveCard::VERSION = '1.120510';
 }
 # ABSTRACT: pandemic dialog to give cards
 
@@ -168,7 +168,7 @@ Games::Pandemic::Tk::Dialog::GiveCard - pandemic dialog to give cards
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 SYNOPSIS
 

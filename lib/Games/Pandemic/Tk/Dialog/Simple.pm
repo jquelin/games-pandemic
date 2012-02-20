@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::Simple;
-BEGIN {
-  $Games::Pandemic::Tk::Dialog::Simple::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Dialog::Simple::VERSION = '1.120510';
 }
 # ABSTRACT: generic pandemic dialog
 
@@ -78,7 +78,7 @@ Games::Pandemic::Tk::Dialog::Simple - generic pandemic dialog
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 SYNOPSIS
 

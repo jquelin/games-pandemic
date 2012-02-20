@@ -13,9 +13,9 @@ use 5.010;
 use strict;
 use warnings;
 
-package main;
-BEGIN {
-  $main::VERSION = '1.111030';
+package pandemic;
+{
+  $pandemic::VERSION = '1.120510';
 }
 # ABSTRACT: pandemic board game in perl
 
@@ -34,11 +34,11 @@ exit;
 
 =head1 NAME
 
-main - pandemic board game in perl
+pandemic - pandemic board game in perl
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 AUTHOR
 

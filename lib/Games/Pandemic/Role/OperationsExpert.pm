@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Role::OperationsExpert;
-BEGIN {
-  $Games::Pandemic::Role::OperationsExpert::VERSION = '1.111030';
+{
+  $Games::Pandemic::Role::OperationsExpert::VERSION = '1.120510';
 }
 # ABSTRACT: operations expert pandemic role
 
@@ -43,7 +43,7 @@ Games::Pandemic::Role::OperationsExpert - operations expert pandemic role
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =for Pod::Coverage color
     role

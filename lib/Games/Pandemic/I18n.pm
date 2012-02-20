@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::I18n;
-BEGIN {
-  $Games::Pandemic::I18n::VERSION = '1.111030';
+{
+  $Games::Pandemic::I18n::VERSION = '1.120510';
 }
 # ABSTRACT: internationalization utilities for pandemic
 
@@ -44,7 +44,7 @@ Games::Pandemic::I18n - internationalization utilities for pandemic
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 DESCRIPTION
 

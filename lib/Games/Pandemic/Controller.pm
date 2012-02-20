@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Controller;
-BEGIN {
-  $Games::Pandemic::Controller::VERSION = '1.111030';
+{
+  $Games::Pandemic::Controller::VERSION = '1.120510';
 }
 # ABSTRACT: controller for a pandemic game
 
@@ -978,7 +978,7 @@ Games::Pandemic::Controller - controller for a pandemic game
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 METHODS
 

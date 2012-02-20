@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::ResilientPopulation;
-BEGIN {
-  $Games::Pandemic::Tk::Dialog::ResilientPopulation::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Dialog::ResilientPopulation::VERSION = '1.120510';
 }
 # ABSTRACT: dialog window to remove a city from being infected
 
@@ -191,7 +191,7 @@ Games::Pandemic::Tk::Dialog::ResilientPopulation - dialog window to remove a cit
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 SYNOPSIS
 

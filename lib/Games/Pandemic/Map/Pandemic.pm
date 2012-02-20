@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Map::Pandemic;
-BEGIN {
-  $Games::Pandemic::Map::Pandemic::VERSION = '1.111030';
+{
+  $Games::Pandemic::Map::Pandemic::VERSION = '1.120510';
 }
 # ABSTRACT: standard pandemic map from real game
 
@@ -144,7 +144,7 @@ Games::Pandemic::Map::Pandemic - standard pandemic map from real game
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 AUTHOR
 

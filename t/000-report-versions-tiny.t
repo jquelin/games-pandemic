@@ -91,6 +91,8 @@ eval { $v .= pmver('Tk::Tiler','any version') };
 eval { $v .= pmver('Tk::ToolBar','any version') };
 eval { $v .= pmver('UNIVERSAL::require','any version') };
 eval { $v .= pmver('YAML::Tiny','any version') };
+eval { $v .= pmver('strict','any version') };
+eval { $v .= pmver('warnings','any version') };
 
 
 

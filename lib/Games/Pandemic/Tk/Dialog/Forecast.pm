@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::Forecast;
-BEGIN {
-  $Games::Pandemic::Tk::Dialog::Forecast::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Dialog::Forecast::VERSION = '1.120510';
 }
 # ABSTRACT: dialog window to play a forecast
 
@@ -191,7 +191,7 @@ Games::Pandemic::Tk::Dialog::Forecast - dialog window to play a forecast
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 SYNOPSIS
 

@@ -12,8 +12,8 @@ use strict;
 use warnings;
 
 package Games::Pandemic::Tk::Dialog::Airlift;
-BEGIN {
-  $Games::Pandemic::Tk::Dialog::Airlift::VERSION = '1.111030';
+{
+  $Games::Pandemic::Tk::Dialog::Airlift::VERSION = '1.120510';
 }
 # ABSTRACT: dialog window to move a player with airlift
 
@@ -234,7 +234,7 @@ Games::Pandemic::Tk::Dialog::Airlift - dialog window to move a player with airli
 
 =head1 VERSION
 
-version 1.111030
+version 1.120510
 
 =head1 SYNOPSIS
 
